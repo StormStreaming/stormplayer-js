@@ -1,0 +1,26 @@
+{
+  "name": "storm-player-gui",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify": "^3.1.0",
+    "gulp-obfuscate": "^0.2.9",
+    "gulp-remove-logging": "^1.2.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-rev": "^9.0.0",
+    "gulp-rsync": "0.0.9",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-watch": "^5.0.1",
+    "run-sequence": "^2.2.1",
+    "ts-loader": "^8.0.18",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.2.3"
+  }
+}

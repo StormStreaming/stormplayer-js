@@ -1,0 +1,15 @@
+{
+  "compilerOptions" : {
+    "module" : "AMD",
+    "target": "ES6",
+    "removeComments" : true,
+    "outFile" : "./storm-gui.js",
+    "baseUrl" : "./src/typescript/",
+    "sourceMap" : true,
+    "alwaysStrict" : true,
+    "declaration" : false
+  },
+  "include": [
+    "./src/typescript/**/*.ts"
+  ]
+}
