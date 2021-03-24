@@ -1,0 +1,15 @@
+.sp-resolution {
+  &__button {
+    background-color: $white;
+    min-width: 44px;
+    height: 28px;
+    border-radius: $progress-bar-radius;
+
+    span {
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      color: $black;
+    }
+  }
+}

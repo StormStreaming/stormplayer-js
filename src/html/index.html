@@ -5,15 +5,44 @@
     <title>TestPlayer</title>
     <script src="https://requirejs.org/docs/release/2.3.6/comments/require.js"></script>
     <script src="scripts/storm-gui.js"></script>
+    <link rel="stylesheet" href="styles/demo.min.css">
+    <link rel="stylesheet" href="styles/storm-gui.min.css">
 </head>
 <body>
-
-
+<div class="container">
+    <h1>Storm Player</h1>
 </div>
+<div class="container">
+    <div id="player1">
+
+    </div>
+</div>
+
 <script>
 
-    const main = require(['StormPlayerGUI'], function(e){
-        console.log(new StormPlayerGUI())
+    var config = {
+        connectionType:"direct",
+        stream: {
+            serverList: [
+                { host: "yourdomain.com", application:"live", port: 443, ssl: true}
+            ],
+            sourceList: [
+                { protocol: "storm", streamName:"test", application:"live"},
+            ],
+        },
+        settings: {
+            autoStart: true,
+            enabledProtocols: ["MSE"],
+            video: {
+                containerID: "player1",
+                width: 640,
+                height: 360,
+            },
+        }
+    }
+
+    require(['StormPlayerGUI'], function(e){
+        var stormPlayerGUI = new StormPlayerGUI(config);
     });
 
 </script>

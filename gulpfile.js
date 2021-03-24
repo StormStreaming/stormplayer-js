@@ -4,6 +4,22 @@ let sourcemaps = require('gulp-sourcemaps');
 let replace = require('gulp-replace');
 let clean = require('gulp-clean');
 let watch = require("gulp-watch");
+let browserSync = require('browser-sync');
+let reload = browserSync.reload;
+let sass = require("gulp-sass");
+let rename = require("gulp-rename");
+
+/**
+ * Parses CSS files
+ */
+
+gulp.task("styles", function () {
+    return gulp
+        .src("./src/styles/**/*.scss")
+        .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
+        .pipe(rename({ suffix: ".min" }))
+        .pipe(gulp.dest("./dist/styles"));
+});
 
 /**
  * Turn TypeScript code into JavaScript files
@@ -50,16 +66,29 @@ gulp.task('clear', function(){
         .pipe(clean());
 });
 
+
 /**
- * Watches for any changes in /src/typescript and automatically compiles code into js
+ * Builds dist directory
  */
-gulp.task("watch:ts", function () {
-    return watch("./src/typescript/**/*.ts", gulp.series("typescript", "addrequire", "ts-sourcemaps"));
+gulp.task("build", gulp.series("html", "styles", "typescript", "addrequire", "ts-sourcemaps"));
+
+
+/**
+ * Runs BrowserSync, automatically compiles files and realoads browser after any change
+ */
+gulp.task("watch", function(){
+    browserSync({
+        notify: false,
+        port: 9000,
+        ui: false,
+        server: {
+            baseDir: 'dist',
+        }
+    });
+    return watch(["./src/html/**/*.html", "./src/html/**/*.ts", "./src/typescript/**/*.ts", "./src/styles/**/*.scss"], gulp.series("html", "styles", "typescript", "addrequire", "ts-sourcemaps", reload));
 });
 
 /**
- * Watches for any changes in /src/typescript and automatically compiles code into js
+ * Builds dist directory & runs watches
  */
-gulp.task("watch:html", function () {
-    return watch("./src/html/**/*.ts", gulp.series("html"));
-});
+gulp.task("serve", gulp.series("build","watch"));

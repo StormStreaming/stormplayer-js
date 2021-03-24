@@ -1,0 +1,13 @@
+.video {
+  &::cue {
+    color: $white;
+    background: $rusty-two-80;
+    font: "Montserrat", sans-serif;
+    line-height: 20px;
+    visibility: hidden;
+  }
+
+  &.sp-caption::cue {
+    visibility: visible;
+  }
+}

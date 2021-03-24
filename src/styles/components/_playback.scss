@@ -1,0 +1,31 @@
+.sp-playback {
+  cursor: pointer;
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: calc(102px / -2);
+  margin-top: calc(102px / -2);
+  width: 102px;
+  height: 102px;
+  border-radius: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+
+  @media (min-width: $laptop-min) {
+    margin-left: calc(192px / -2);
+    margin-top: calc(192px / -2);
+    width: 192px;
+    height: 192px;
+  }
+
+  svg > g {
+    box-shadow: $bs-play-icon;
+  }
+
+  &--hidden {
+    opacity: 0;
+  }
+}

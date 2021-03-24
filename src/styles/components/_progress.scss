@@ -1,0 +1,152 @@
+.sp-progress {
+  z-index: 2;
+  position: relative;
+  height: $progress-bar-height;
+  margin-bottom: 10px;
+
+  &-thumb {
+    height: $progress-range-size;
+    width: $progress-range-size;
+    border-radius: $progress-range-radius;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-left: -$progress-range-size/2;
+    margin-top: -5px;
+    z-index: 2;
+    box-shadow: $bs-progress-bar;
+    background-image: $g-progress-bar;
+    position: absolute;
+    pointer-events: none;
+    // display: none;
+  }
+
+  &-bar {
+    &__end {
+      display: block;
+      right: 6px;
+      top: -1px;
+      position: absolute;
+      z-index: -1;
+      opacity: 0.4;
+      height: 9px;
+      width: 9px;
+      cursor: pointer;
+      margin-left: 0;
+      -webkit-box-shadow: 0px 0px 0px 5px rgba($melon, 1);
+      -moz-box-shadow: 0px 0px 0px 5px rgba($melon, 1);
+      box-shadow: 0px 0px 0px 5px rgba($melon, 1);
+      border-radius: 100%;
+    }
+  }
+
+  &:after {
+    content: "";
+    background-image: linear-gradient(
+      91deg,
+      rgba(255, 170, 90, 0.4) 4%,
+      rgba(255, 120, 90, 0.4) 102%
+    );
+    border-radius: $progress-bar-radius;
+    width: calc(100% - #{$progress-range-size} - 2px);
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    position: absolute;
+    height: $progress-bar-height;
+    z-index: -1;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    visibility: hidden;
+  }
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 8.4px;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 1.3px;
+  -webkit-appearance: none;
+  transition: all 0.4s ease;
+}
+
+progress {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: $progress-bar-radius;
+  width: 100%;
+  height: $progress-bar-height;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  background: transparent;
+  border: none;
+}
+
+progress::-webkit-progress-bar {
+  background: transparent;
+}
+
+progress::-moz-progress-bar {
+  background: transparent;
+  box-shadow: $bs-progress-bar;
+  background-image: $g-progress-bar;
+  border-radius: $progress-bar-radius;
+  border: none;
+  appearance: none;
+}
+
+progress::-webkit-progress-value {
+  box-shadow: $bs-progress-bar;
+  background-image: $g-progress-bar;
+  border-radius: $progress-bar-radius;
+}
+
+progress::-moz-range-progress {
+  box-shadow: $bs-progress-bar;
+  background-image: $g-progress-bar;
+  border-radius: $progress-bar-radius;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  height: $progress-range-size;
+  width: $progress-range-size;
+  border-radius: $progress-range-radius;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-left: -5px;
+  box-shadow: $bs-progress-bar;
+  background-image: $g-progress-bar;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: $progress-range-size;
+  width: $progress-range-size;
+  border-radius: $progress-range-radius;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-left: 0;
+  box-shadow: $bs-progress-bar;
+  background-image: $g-progress-bar;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 14px;
+  width: 14px;
+  border-radius: 50px;
+  border: 1px solid var(--youtube-red);
+  background: var(--youtube-red);
+  cursor: pointer;
+  margin-top: 5px;
+}

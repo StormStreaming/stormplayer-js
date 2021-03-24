@@ -1,0 +1,28 @@
+.sp-seek {
+  position: absolute;
+  top: 0;
+  width: calc(100% - 10px);
+  // width: 100%;
+  cursor: pointer;
+  margin: 0;
+
+  &:hover + &__tooltip {
+    display: block;
+  }
+
+  &__tooltip {
+    display: none;
+    padding: 12px 24px 20px;
+    border-radius: 6px;
+    background-color: $rusty-two-80;
+    position: absolute;
+    top: -62px;
+    content: attr(data-title);
+    color: $white;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    transform: translateX(-60%);
+  }
+}

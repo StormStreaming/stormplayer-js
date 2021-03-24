@@ -1,0 +1,12 @@
+.sp-loader {
+  position: absolute;
+  display: flex;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  z-index: 9;
+
+  &--hidden {
+    display: none;
+  }
+}

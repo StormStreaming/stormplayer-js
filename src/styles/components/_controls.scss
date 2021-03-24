@@ -1,0 +1,133 @@
+.sp-controls {
+  right: 0;
+  left: 0;
+  padding: 60px 10px 10px;
+  position: absolute;
+  bottom: 0;
+  transition: all 0.2s ease;
+  border-bottom-right-radius: $video-radius;
+  border-bottom-left-radius: $video-radius;
+  overflow: hidden;
+
+  &--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  button {
+    display: flex;
+    cursor: pointer;
+    position: relative;
+    margin-right: 21px;
+    font-size: 12px;
+    padding: 3px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    &:last-child {
+      margin-right: 3px;
+    }
+  }
+
+  button * {
+    pointer-events: none;
+  }
+
+  &__shadow {
+    opacity: 0.8;
+    background-image: $g-shadow-bottom;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  &__bottom {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      svg {
+        width: 28px;
+        height: 28px;
+        fill: #fff;
+        stroke: #fff;
+        cursor: pointer;
+
+        path {
+          transition: $t-basic;
+        }
+      }
+
+      &.sp-active {
+        & svg path {
+          fill: $pastel;
+          stroke: $pastel;
+        }
+
+        & svg g {
+          fill: $pastel;
+        }
+      }
+
+      &:hover svg path {
+        fill: $pastel;
+        stroke: $pastel;
+      }
+
+      &:hover svg g {
+        fill: $pastel;
+      }
+    }
+  }
+
+  &__left,
+  &__right {
+    display: flex;
+    align-items: center;
+    color: #fff;
+  }
+
+  // control buttons
+
+  &__subtitles {
+  }
+
+  &__fullscreen {
+  }
+
+  &__cinematic {
+    svg {
+      width: 37px;
+      height: 28px;
+    }
+  }
+
+  &__button {
+    span {
+      font-family: Montserrat;
+      border-radius: $progress-bar-radius;
+      background-color: $white;
+      min-width: 44px;
+      min-height: 28px;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      color: $black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: $t-basic;
+    }
+
+    &:hover span,
+    &.sp-active span {
+      background-color: $pastel;
+    }
+  }
+}

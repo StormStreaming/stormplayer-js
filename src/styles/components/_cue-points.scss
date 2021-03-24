@@ -1,0 +1,34 @@
+.sp-cue-points {
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  // pointer-events: none;
+  display: flex;
+
+  &__item {
+    position: absolute;
+    top: -30px;
+    margin-left: -16px;
+    cursor: pointer;
+
+    &:before {
+      content: attr(data-title);
+      font-size: 11px;
+      position: absolute;
+      display: none;
+      left: 50%;
+      top: -20px;
+      transform: translateX(-50%);
+      background-color: $black-60;
+      color: $white;
+      font-weight: bold;
+      padding: 4px 6px;
+      word-break: keep-all;
+      white-space: pre;
+    }
+
+    &:hover:before {
+      display: inline-block;
+    }
+  }
+}

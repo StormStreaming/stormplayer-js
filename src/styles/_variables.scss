@@ -1,0 +1,48 @@
+// colors
+$white: #fff;
+$black: #000;
+$pastel: #ff915a;
+$melon: #ff785a;
+$pale-orange: #ffaa5a;
+$rusty-orange: #d85812;
+$dark: #2f384a;
+$dark-two: #0e111d;
+$pinkish-red: #df0f33;
+$pinkish-grey: #c3c3c3;
+
+// colors alpha channel
+$rusty-orange-25: rgba($rusty-orange, 0.25);
+$rusty-two-80: rgba($dark-two, 0.8);
+$black-60: rgba($black, 0.6);
+
+// box-shadows
+$bs-play-icon: 0 7px 15px 0 rgba($pastel, 0.28);
+$bs-progress-bar: 0 4px 11px 0 $rusty-orange-25;
+
+// gradients
+$g-shadow: linear-gradient(to bottom, rgba(47, 56, 74, 0), #2f384a);
+$g-shadow-bottom: linear-gradient(to bottom, rgba($black, 0), $black);
+$g-progress-bar: linear-gradient(to right, $pastel 4%, $melon 102%);
+
+// transitions
+$t-peek: all 0.1s ease-in-out;
+$t-basic: all 0.2s ease-in-out;
+
+// progress bar
+$progress-bar-height: 8px;
+$progress-bar-radius: 4px;
+$progress-range-size: 18px;
+$progress-range-radius: 16px;
+
+//
+$video-radius: 20px;
+
+// media breakpoints
+$mobile-min: 500px;
+$tablet-min: 750px;
+$laptop-min: 1000px;
+$desktop-min: 1200px;
+$desktop-md-min: 1300px;
+$desktop-lg-min: 1400px;
+$desktop-xl-min: 1600px;
+$desktop-xxl-min: 1700px;
