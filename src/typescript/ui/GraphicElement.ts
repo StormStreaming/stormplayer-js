@@ -1,6 +1,6 @@
 import {StormPlayerGUI} from "../StormPlayerGUI";
 
-export class GraphicalElement {
+export class GraphicElement {
 
         protected stormPlayerGUI: StormPlayerGUI;
 

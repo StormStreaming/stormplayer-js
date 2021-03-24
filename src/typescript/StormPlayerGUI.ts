@@ -21,6 +21,9 @@ export class StormPlayerGUI extends Dispatcher
         this.mainElement = new MainElement(this);
         document.getElementById(config.settings.video.containerID).appendChild(this.mainElement.getHtmlElement());
 
+        this.mainElement.getHeaderElement().setTitle("World of Warcraft: Battle for Azeroth");
+        this.mainElement.getHeaderElement().setSubtitle("Cinematic trailer");
+
     }
 
     public getMainElement() : MainElement{

@@ -1,7 +1,7 @@
-import {GraphicalElement} from "./GraphicalElement";
+import {GraphicElement} from "./GraphicElement";
 import {StormPlayerGUI} from "../StormPlayerGUI";
 
-export class VideoElement extends GraphicalElement {
+export class VideoElement extends GraphicElement {
 
     private videoHtmlElement: HTMLVideoElement;
 
@@ -16,7 +16,7 @@ export class VideoElement extends GraphicalElement {
 
         this.videoHtmlElement = document.createElement("video");
         this.videoHtmlElement.className = "sp-video";
-        this.videoHtmlElement.controls = true;
+        this.videoHtmlElement.controls = false;
 
         const source = document.createElement("source");
         source.setAttribute('src', "sample/cinematic-1080.mp4");

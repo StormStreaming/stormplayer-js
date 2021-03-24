@@ -1,11 +1,13 @@
-import {GraphicalElement} from "./GraphicalElement";
+import {GraphicElement} from "./GraphicElement";
 import {StormPlayerGUI} from "../StormPlayerGUI";
 import {VideoElement} from "./VideoElement";
 import {LoaderElement} from "./LoaderElement";
 import {ErrorElement} from "./ErrorElement";
 import {PlaybackElement} from "./PlaybackElement";
+import {HeaderElement} from "./HeaderElement";
+import {ControlElement} from "./ControlElement";
 
-export class MainElement extends GraphicalElement {
+export class MainElement extends GraphicElement {
 
     /*
     Main GUI elements
@@ -14,11 +16,13 @@ export class MainElement extends GraphicalElement {
     private loaderElement: LoaderElement;
     private errorElement : ErrorElement;
     private playbackElement : PlaybackElement;
+    private headerElement : HeaderElement;
+    private controlElement: ControlElement;
 
     /*
     All MainElement objects will be added to this wrapper
      */
-    private spContainer: GraphicalElement;
+    private spContainer: GraphicElement;
 
     constructor(stormPlayerGUI: StormPlayerGUI) {
         super(stormPlayerGUI, 'sp-container__wrapper');
@@ -30,7 +34,7 @@ export class MainElement extends GraphicalElement {
         /*
         Creating wrapper
          */
-        this.spContainer = new GraphicalElement(this.stormPlayerGUI, "sp-container");
+        this.spContainer = new GraphicElement(this.stormPlayerGUI, "sp-container");
         this.htmlElement.appendChild(this.spContainer.getHtmlElement());
 
         /*
@@ -48,6 +52,16 @@ export class MainElement extends GraphicalElement {
         this.playbackElement = new PlaybackElement(this.stormPlayerGUI);
         this.spContainer.getHtmlElement().appendChild(this.playbackElement.getHtmlElement());
 
+        this.headerElement = new HeaderElement(this.stormPlayerGUI);
+        this.spContainer.getHtmlElement().appendChild(this.headerElement.getHtmlElement());
+
+        this.controlElement = new ControlElement(this.stormPlayerGUI);
+        this.spContainer.getHtmlElement().appendChild(this.controlElement.getHtmlElement());
+
+    }
+
+    public getHeaderElement() : HeaderElement{
+        return this.headerElement;
     }
 
 }

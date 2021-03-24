@@ -1,7 +1,7 @@
-import {GraphicalElement} from "./GraphicalElement";
+import {GraphicElement} from "./GraphicElement";
 import {StormPlayerGUI} from "../StormPlayerGUI";
 
-export class PlaybackElement extends GraphicalElement {
+export class PlaybackElement extends GraphicElement {
 
     constructor(stormPlayerGUI: StormPlayerGUI) {
 

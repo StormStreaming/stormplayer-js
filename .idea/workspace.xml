@@ -2,21 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/typescript/events/Dispatcher.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/events/EventType.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/GraphicalElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/LoaderElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/VideoElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/CuepointsElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/ProgressElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/SeektooltipElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/StormPlayerGUI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/StormPlayerGUI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/config/sample/TestNestedClass.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/GraphicalElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/GraphicElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/LoaderElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/LoaderElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/VideoElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/VideoElement.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,6 +33,7 @@
       <list>
         <option value="HTML File" />
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -61,7 +61,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/styles" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/typescript/ui" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.TypeScript" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
@@ -69,6 +69,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui" />
       <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\styles" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -103,8 +104,16 @@
       <updated>1616457410117</updated>
       <workItem from="1616457411172" duration="18460000" />
       <workItem from="1616576296902" duration="709000" />
-      <workItem from="1616586870892" duration="10684000" />
+      <workItem from="1616586870892" duration="15615000" />
     </task>
+    <task id="LOCAL-00001" summary="Work in progress">
+      <created>1616598564140</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1616598564140</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,6 +129,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Work in progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="Work in progress" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1404" y="573" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1616574631271">
