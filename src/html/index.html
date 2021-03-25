@@ -35,10 +35,18 @@
             enabledProtocols: ["MSE"],
             video: {
                 containerID: "player1",
-                width: 640,
-                height: 360,
+                width: 1024,
+                height: 576,
             },
-        }
+            /*audio: {
+                startVolume: 80,
+                maxVolume: 70
+            }*/
+        },
+        gui: {
+            title: "Test title",
+            subtitle: "Test subtitle"
+        },
     }
 
     require(['StormPlayerGUI'], function(e){

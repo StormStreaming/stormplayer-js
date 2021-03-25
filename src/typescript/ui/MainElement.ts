@@ -28,6 +28,15 @@ export class MainElement extends GraphicElement {
         super(stormPlayerGUI, 'sp-container__wrapper');
     }
 
+    public setSize(width : number, height : number){
+        this.htmlElement.style.maxWidth = width+'px';
+        this.spContainer.getHtmlElement().style.height = height+'px';
+    }
+
+    public getHeaderElement() : HeaderElement{
+        return this.headerElement;
+    }
+
     protected draw() : void{
         super.draw();
 
@@ -60,8 +69,6 @@ export class MainElement extends GraphicElement {
 
     }
 
-    public getHeaderElement() : HeaderElement{
-        return this.headerElement;
-    }
+
 
 }

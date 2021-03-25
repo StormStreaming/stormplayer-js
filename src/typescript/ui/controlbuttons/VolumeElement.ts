@@ -21,13 +21,18 @@ export class VolumeElement extends GraphicElement {
 
         super(stormPlayerGUI, 'sp-volume');
 
+        if(stormPlayerGUI.getConfig().settings.audio && stormPlayerGUI.getConfig().settings.audio.startVolume)
+            this.setVolume(stormPlayerGUI.getConfig().settings.audio.startVolume);
     }
 
-    public setVolume(volumeValue) : void{
-        let px = ((volumeValue*100)*70)/100;
+    public setVolume(percent) : void{
+        if(this.stormPlayerGUI.getConfig().settings.audio && this.stormPlayerGUI.getConfig().settings.audio.maxVolume && percent > this.stormPlayerGUI.getConfig().settings.audio.maxVolume)
+            percent = this.stormPlayerGUI.getConfig().settings.audio.maxVolume;
+
+        let px = (percent*70)/100;
         this.volumeProgressElement.style.transform = `translateX(${px}px)`;
 
-        this.stormPlayerGUI.dispatch(EventType.VOLUME_CHANGED, {volume: volumeValue});
+        this.stormPlayerGUI.dispatch(EventType.VOLUME_CHANGED, {volume: percent});
     }
 
     protected draw() : void{
@@ -87,7 +92,7 @@ export class VolumeElement extends GraphicElement {
 
         //Volume bar
         this.volumeInputElement.addEventListener("input",function(){
-            that.setVolume(parseFloat(this.value));
+            that.setVolume(parseFloat(this.value)*100);
         });
 
     }
