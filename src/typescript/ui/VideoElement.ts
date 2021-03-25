@@ -48,5 +48,11 @@ export class VideoElement extends GraphicElement {
             that.stormPlayerGUI.dispatch(EventType.VIDEO_PLAYING);
         });
 
+        this.htmlElement.addEventListener("click", function(){
+            if(that.stormPlayerGUI.getStormPlayerLibrary().isPlaying())
+                that.stormPlayerGUI.dispatch(EventType.PAUSE_CLICKED);
+            else
+                that.stormPlayerGUI.dispatch(EventType.PLAY_CLICKED);
+        });
     }
 }
