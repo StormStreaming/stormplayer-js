@@ -2,20 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/CuepointsElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/ProgressElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/SeektooltipElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/CinematicElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ControlButtonsElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ResolutionElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/SubtitlesElement.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/StormPlayerGUI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/StormPlayerGUI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/GraphicalElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/GraphicElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/LoaderElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/LoaderElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/VideoElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/VideoElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ProgressElement.ts" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,7 +57,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/typescript/ui" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/typescript/ui/controlbuttons" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.TypeScript" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
@@ -69,10 +65,12 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui\controlbuttons" />
       <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui" />
       <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\styles" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui\controlbuttons" />
       <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\dist" />
       <recent name="$PROJECT_DIR$/src/html" />
       <recent name="$PROJECT_DIR$/src/typescript/config" />
@@ -104,7 +102,7 @@
       <updated>1616457410117</updated>
       <workItem from="1616457411172" duration="18460000" />
       <workItem from="1616576296902" duration="709000" />
-      <workItem from="1616586870892" duration="15615000" />
+      <workItem from="1616586870892" duration="23075000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>
@@ -113,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616598564140</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Work in progress">
+      <created>1616604241550</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1616604241550</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

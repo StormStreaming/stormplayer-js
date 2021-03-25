@@ -1,11 +1,13 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayerGUI} from "../StormPlayerGUI";
 import {ProgressbarElement} from "./ProgressbarElement";
+import {ControlButtonsElement} from "./controlbuttons/ControlButtonsElement";
 
 export class ControlElement extends GraphicElement {
 
     private shadowElement: GraphicElement;
     private progressbarElement : ProgressbarElement;
+    private controlButtonsElement : ControlButtonsElement;
 
     constructor(stormPlayerGUI: StormPlayerGUI) {
 
@@ -21,6 +23,10 @@ export class ControlElement extends GraphicElement {
 
         this.progressbarElement = new ProgressbarElement(this.stormPlayerGUI);
         this.htmlElement.appendChild(this.progressbarElement.getHtmlElement());
+
+        this.controlButtonsElement = new ControlButtonsElement(this.stormPlayerGUI);
+        this.htmlElement.appendChild(this.controlButtonsElement.getHtmlElement());
+
 
     }
 
