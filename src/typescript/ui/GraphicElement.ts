@@ -13,6 +13,7 @@ export class GraphicElement {
                 this.tagName = tagName;
                 this.stormPlayerGUI = stormPlayerGUI;
                 this.draw();
+                this.attachListeners();
         }
 
         public getHtmlElement() : HTMLElement{
@@ -38,5 +39,8 @@ export class GraphicElement {
                 this.htmlElement.innerHTML = ``;
         }
 
+        protected attachListeners() : void{
+
+        }
 
 }

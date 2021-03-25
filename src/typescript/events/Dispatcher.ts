@@ -42,12 +42,11 @@ export class Dispatcher {
         });
     }
 
-    dispatch(event: any, details: any) : boolean {
+    dispatch(event: any, details: any = null) : boolean {
         // Check if this event not exists
-        if (this.events[event] === undefined) {
-            console.error(`This event: ${event} does not exist`);
+        if (this.events[event] === undefined)
             return false;
-        }
+
 
         this.events[event].listeners.forEach((listener: any) => {
             listener(details);

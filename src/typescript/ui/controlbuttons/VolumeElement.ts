@@ -1,12 +1,13 @@
 import {GraphicElement} from "../GraphicElement";
 import {StormPlayerGUI} from "../../StormPlayerGUI";
+import {EventType} from "../../events/EventType";
 
 export class VolumeElement extends GraphicElement {
 
     /*
-    Mute button
+    Volume button
      */
-    private muteButtonElement : HTMLButtonElement;
+    private volumeButtonElement : HTMLButtonElement;
 
     /*
     Volume control
@@ -22,12 +23,19 @@ export class VolumeElement extends GraphicElement {
 
     }
 
+    public setVolume(volumeValue) : void{
+        let px = ((volumeValue*100)*70)/100;
+        this.volumeProgressElement.style.transform = `translateX(${px}px)`;
+
+        this.stormPlayerGUI.dispatch(EventType.VOLUME_CHANGED, {volume: volumeValue});
+    }
+
     protected draw() : void{
         super.draw();
 
-        this.muteButtonElement = document.createElement("button");
-        this.muteButtonElement.className = 'sp-volume__button';
-        this.muteButtonElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="34" height="27" viewBox="0 0 34 27">
+        this.volumeButtonElement = document.createElement("button");
+        this.volumeButtonElement.className = 'sp-volume__button';
+        this.volumeButtonElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="34" height="27" viewBox="0 0 34 27">
                     <g fill="none" fill-rule="evenodd">
                       <g fill="#FFF" fill-rule="nonzero">
                         <g>
@@ -38,8 +46,8 @@ export class VolumeElement extends GraphicElement {
                       </g>
                     </g>
                   </svg>`;
-        this.muteButtonElement.setAttribute('data-title', "Mute");
-        this.htmlElement.append(this.muteButtonElement);
+        this.volumeButtonElement.setAttribute('data-title', "Volume");
+        this.htmlElement.append(this.volumeButtonElement);
 
         this.volumeControlWrapperElement = document.createElement("div");
         this.volumeControlWrapperElement.className = 'sp-volume__wrapper sp-hidden';
@@ -63,6 +71,24 @@ export class VolumeElement extends GraphicElement {
         this.volumeProgressElement.className = 'sp-volume__thumb';
         this.volumeProgressElement.style.transform = 'translateX(24px)';
         this.volumeProgressWrapperElement.appendChild(this.volumeProgressElement);
+
+    }
+
+    protected attachListeners(): void {
+        let that = this;
+
+        /*
+        Show / hide volume bar
+         */
+        this.volumeButtonElement.addEventListener('click', function(){
+            that.volumeButtonElement.classList.toggle("sp-active");
+            that.volumeControlWrapperElement.classList.toggle('sp-hidden');
+        });
+
+        //Volume bar
+        this.volumeInputElement.addEventListener("input",function(){
+            that.setVolume(parseFloat(this.value));
+        });
 
     }
 

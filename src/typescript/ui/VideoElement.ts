@@ -1,5 +1,6 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayerGUI} from "../StormPlayerGUI";
+import {EventType} from "../events/EventType";
 
 export class VideoElement extends GraphicElement {
 
@@ -23,6 +24,27 @@ export class VideoElement extends GraphicElement {
         this.videoHtmlElement.appendChild(source);
 
         this.htmlElement.appendChild(this.videoHtmlElement);
+
+    }
+
+    protected attachListeners(): void {
+        let that = this;
+
+        this.stormPlayerGUI.addListener(EventType.PLAY_CLICKED, function(){
+            that.videoHtmlElement.play();
+        });
+
+        this.stormPlayerGUI.addListener(EventType.PAUSE_CLICKED, function(){
+            that.videoHtmlElement.pause();
+        });
+
+        this.videoHtmlElement.addEventListener('pause', function() {
+            that.stormPlayerGUI.dispatch(EventType.VIDEO_PAUSED);
+        });
+
+        this.videoHtmlElement.addEventListener('play', function() {
+            that.stormPlayerGUI.dispatch(EventType.VIDEO_PLAYING);
+        });
 
     }
 }

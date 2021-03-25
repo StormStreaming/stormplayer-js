@@ -14,7 +14,7 @@ export class SubtitlesElement extends GraphicElement {
 
         this.htmlElement.innerHTML = '<span>CC</span>';
 
-
+        this.htmlElement.setAttribute('data-title', "Subtitles");
     }
 
 }

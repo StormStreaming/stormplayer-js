@@ -1,5 +1,6 @@
 import {GraphicElement} from "../GraphicElement";
 import {StormPlayerGUI} from "../../StormPlayerGUI";
+import {EventType} from "../../events/EventType";
 
 export class PlayElement extends GraphicElement {
 
@@ -16,7 +17,7 @@ export class PlayElement extends GraphicElement {
 
         this.playButtonElement = document.createElement("button");
         this.playButtonElement.className = 'sp-play__button';
-        this.playButtonElement.innerHTML = `<svg class="sp-playback-icons" width="22" height="30" viewBox="0 0 22 30">
+        this.playButtonElement.innerHTML = `<svg class="sp-play-icon" width="22" height="30" viewBox="0 0 22 30">
                     <g fill="none" fill-rule="evenodd">
                       <g fill="#FFF">
                         <g>
@@ -27,7 +28,7 @@ export class PlayElement extends GraphicElement {
                       </g>
                     </g>
                   </svg>
-                  <svg class="sp-playback-icons sp-hidden" viewBox="0 0 24 24">
+                  <svg class="sp-pause-icon sp-hidden" viewBox="0 0 24 24">
                     <path d="M14.016 5.016h3.984v13.969h-3.984v-13.969zM6 18.984v-13.969h3.984v13.969h-3.984z"></path>
                   </svg>`;
         this.playButtonElement.setAttribute('data-title', "Play");
@@ -35,4 +36,29 @@ export class PlayElement extends GraphicElement {
 
     }
 
+    protected attachListeners() : void {
+        let that = this;
+        let playIcon = this.playButtonElement.querySelector(".sp-play-icon");
+        let pauseIcon = this.playButtonElement.querySelector(".sp-pause-icon");
+
+        this.stormPlayerGUI.addListener(EventType.VIDEO_PLAYING, function(){
+            that.playButtonElement.setAttribute('data-title', 'Pause');
+            playIcon.classList.add("sp-hidden");
+            pauseIcon.classList.remove("sp-hidden");
+        });
+
+        this.stormPlayerGUI.addListener(EventType.VIDEO_PAUSED, function(){
+            that.playButtonElement.setAttribute('data-title', 'Play');
+            playIcon.classList.remove("sp-hidden");
+            pauseIcon.classList.add("sp-hidden");
+        });
+
+        this.playButtonElement.addEventListener("click", function(e){
+            if(!playIcon.classList.contains('sp-hidden'))
+                that.stormPlayerGUI.dispatch(EventType.PLAY_CLICKED);
+            else
+                that.stormPlayerGUI.dispatch(EventType.PAUSE_CLICKED);
+        });
+
+    }
 }

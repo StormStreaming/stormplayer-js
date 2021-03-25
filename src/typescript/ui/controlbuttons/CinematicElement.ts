@@ -24,7 +24,7 @@ export class CinematicElement extends GraphicElement {
                   </g>
                 </svg>`;
 
-
+        this.htmlElement.setAttribute('data-title', "Cinematic");
     }
 
 }

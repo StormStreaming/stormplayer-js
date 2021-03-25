@@ -2,16 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/CinematicElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ControlButtonsElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ResolutionElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/SubtitlesElement.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ProgressElement.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/events/Dispatcher.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/events/Dispatcher.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/events/EventType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/events/EventType.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/GraphicElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/GraphicElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/VideoElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/VideoElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/CinematicElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/CinematicElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/SubtitlesElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/SubtitlesElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -102,7 +103,7 @@
       <updated>1616457410117</updated>
       <workItem from="1616457411172" duration="18460000" />
       <workItem from="1616576296902" duration="709000" />
-      <workItem from="1616586870892" duration="23075000" />
+      <workItem from="1616586870892" duration="28026000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>
@@ -118,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616604241550</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Work in progress">
+      <created>1616678199153</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1616678199153</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

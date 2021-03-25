@@ -1,5 +1,6 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayerGUI} from "../StormPlayerGUI";
+import {EventType} from "../events/EventType";
 
 export class PlaybackElement extends GraphicElement {
 
@@ -39,5 +40,21 @@ export class PlaybackElement extends GraphicElement {
           </svg>`;
 
     }
+
+    protected attachListeners() : void{
+        let that = this;
+        this.htmlElement.addEventListener('click', function() {
+            that.stormPlayerGUI.dispatch(EventType.PLAY_CLICKED);
+        });
+
+        this.stormPlayerGUI.addListener(EventType.VIDEO_PLAYING, function(){
+            that.hide();
+        });
+
+        this.stormPlayerGUI.addListener(EventType.VIDEO_PAUSED, function(){
+            that.show();
+        });
+    }
+
 
 }
