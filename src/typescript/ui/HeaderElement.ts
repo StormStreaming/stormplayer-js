@@ -14,6 +14,14 @@ export class HeaderElement extends GraphicElement {
 
     }
 
+    public show(): void {
+        this.htmlElement.classList.remove("sp-controls--hidden");
+    }
+
+    public hide(): void {
+        this.htmlElement.classList.add("sp-controls--hidden");
+    }
+
     protected draw() : void{
         super.draw();
 
