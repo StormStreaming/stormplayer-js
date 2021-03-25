@@ -1,5 +1,7 @@
 import {Dispatcher} from "./events/Dispatcher";
 import {MainElement} from "./ui/MainElement";
+import {EventType} from "./events/EventType";
+import {StormPlayerLibrary} from "./StormPlayerLibrary";
 
 export class StormPlayerGUI extends Dispatcher
 {
@@ -11,9 +13,19 @@ export class StormPlayerGUI extends Dispatcher
      */
     private mainElement: MainElement;
 
+    /*
+    StormPlayer library
+     */
+    private stormPlayerLibrary : StormPlayerLibrary;
+
     constructor(config: any) {
         super();
         this.config = config;
+
+        /*
+        Initializing StormPlayer library
+         */
+        this.stormPlayerLibrary = new StormPlayerLibrary(this);
 
         /*
         Initializing main HTML element of player
@@ -27,6 +39,7 @@ export class StormPlayerGUI extends Dispatcher
         this.setSize(config.settings.video && config.settings.video.width ? config.settings.video.width : 640, config.settings.video && config.settings.video.height ? config.settings.video.height : 480);
         this.setTitle(config.gui && config.gui.title ? config.gui.title : "");
         this.setSubtitle(config.gui && config.gui.subtitle ? config.gui.subtitle : "");
+
 
     }
 
@@ -45,4 +58,9 @@ export class StormPlayerGUI extends Dispatcher
     public getConfig() : any{
         return this.config;
     }
+
+    public getStormPlayerLibrary() : StormPlayerLibrary{
+        return this.stormPlayerLibrary;
+    }
+
 }

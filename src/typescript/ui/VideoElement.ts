@@ -25,6 +25,8 @@ export class VideoElement extends GraphicElement {
 
         this.htmlElement.appendChild(this.videoHtmlElement);
 
+        this.stormPlayerGUI.getStormPlayerLibrary().setVideoHtmlElement(this.videoHtmlElement);
+
     }
 
     protected attachListeners(): void {

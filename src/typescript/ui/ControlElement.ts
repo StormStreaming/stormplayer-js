@@ -2,6 +2,7 @@ import {GraphicElement} from "./GraphicElement";
 import {StormPlayerGUI} from "../StormPlayerGUI";
 import {ProgressbarElement} from "./ProgressbarElement";
 import {ControlButtonsElement} from "./controlbuttons/ControlButtonsElement";
+import {EventType} from "../events/EventType";
 
 export class ControlElement extends GraphicElement {
 
@@ -13,6 +14,14 @@ export class ControlElement extends GraphicElement {
 
         super(stormPlayerGUI, 'sp-controls');
 
+    }
+
+    public show(): void {
+        this.htmlElement.classList.remove("sp-controls--hidden");
+    }
+
+    public hide(): void {
+        this.htmlElement.classList.add("sp-controls--hidden");
     }
 
     protected draw() : void{
@@ -27,7 +36,15 @@ export class ControlElement extends GraphicElement {
         this.controlButtonsElement = new ControlButtonsElement(this.stormPlayerGUI);
         this.htmlElement.appendChild(this.controlButtonsElement.getHtmlElement());
 
+        let that = this;
 
+        this.stormPlayerGUI.addListener(EventType.GUI_SHOW, function(){
+            that.show();
+        });
+
+        this.stormPlayerGUI.addListener(EventType.GUI_HIDE, function(){
+            that.hide();
+        });
     }
 
 }

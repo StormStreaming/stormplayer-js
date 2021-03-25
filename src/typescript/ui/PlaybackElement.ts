@@ -8,6 +8,15 @@ export class PlaybackElement extends GraphicElement {
 
         super(stormPlayerGUI, 'sp-playback');
 
+        if(stormPlayerGUI.getConfig().gui && stormPlayerGUI.getConfig().gui.bigPlaybackButton === false)
+            this.hide();
+
+    }
+
+    public show(): void {
+        if(this.stormPlayerGUI.getConfig().gui && this.stormPlayerGUI.getConfig().gui.bigPlaybackButton === false)
+            return;
+        super.show();
     }
 
     protected draw() : void{

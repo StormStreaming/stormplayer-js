@@ -2,11 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/typescript/StormPlayerLibrary.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/_container.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_container.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/storm-gui.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/storm-gui.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/StormPlayerGUI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/StormPlayerGUI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/events/EventType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/events/EventType.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/VideoElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/VideoElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/CinematicElement.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ControlButtonsElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ControlButtonsElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -98,7 +108,7 @@
       <updated>1616457410117</updated>
       <workItem from="1616457411172" duration="18460000" />
       <workItem from="1616576296902" duration="709000" />
-      <workItem from="1616586870892" duration="30969000" />
+      <workItem from="1616586870892" duration="38697000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>
@@ -128,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616683670879</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Work in progress">
+      <created>1616693945069</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1616693945069</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

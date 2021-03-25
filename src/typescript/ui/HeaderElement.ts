@@ -1,5 +1,6 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayerGUI} from "../StormPlayerGUI";
+import {EventType} from "../events/EventType";
 
 export class HeaderElement extends GraphicElement {
 
@@ -49,6 +50,17 @@ export class HeaderElement extends GraphicElement {
 
     public setSubtitle(subtitle : string): void{
         this.wrapperElement.getHtmlElement().querySelector("p").innerHTML = subtitle;
+    }
+
+    protected attachListeners(): void {
+        let that = this;
+        this.stormPlayerGUI.addListener(EventType.GUI_SHOW, function(){
+            that.show();
+        });
+
+        this.stormPlayerGUI.addListener(EventType.GUI_HIDE, function(){
+            that.hide();
+        });
     }
 
 }

@@ -1,5 +1,6 @@
 import {GraphicElement} from "../GraphicElement";
 import {StormPlayerGUI} from "../../StormPlayerGUI";
+import {EventType} from "../../events/EventType";
 
 export class FullscreenElement extends GraphicElement {
 
@@ -25,4 +26,19 @@ export class FullscreenElement extends GraphicElement {
         this.htmlElement.setAttribute('data-title', "Fullscreen");
     }
 
+    protected attachListeners() : void {
+        let that = this;
+
+        this.htmlElement.addEventListener("click", function(e) {
+            let enterFullscreen = !that.htmlElement.classList.contains('sp-active');
+            that.htmlElement.classList.toggle('sp-active');
+            if (enterFullscreen)
+                that.stormPlayerGUI.dispatch(EventType.FULLSCREEN_ENTER);
+            else
+                that.stormPlayerGUI.dispatch(EventType.FULLSCREEN_EXIT);
+
+
+        });
+
+    }
 }

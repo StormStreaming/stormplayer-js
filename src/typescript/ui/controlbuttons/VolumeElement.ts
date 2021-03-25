@@ -90,7 +90,17 @@ export class VolumeElement extends GraphicElement {
             that.volumeControlWrapperElement.classList.toggle('sp-hidden');
         });
 
-        //Volume bar
+        /*
+        Hiding volume bar when GUI_HIDE event is dispatched
+         */
+        this.stormPlayerGUI.addListener(EventType.GUI_HIDE, function(){
+            that.volumeButtonElement.classList.remove("sp-active");
+            that.volumeControlWrapperElement.classList.add('sp-hidden');
+        });
+
+        /*
+        Volume bar control event
+         */
         this.volumeInputElement.addEventListener("input",function(){
             that.setVolume(parseFloat(this.value)*100);
         });

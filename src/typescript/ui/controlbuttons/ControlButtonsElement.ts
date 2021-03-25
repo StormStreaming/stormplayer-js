@@ -4,7 +4,6 @@ import {PlayElement} from "./PlayElement";
 import {VolumeElement} from "./VolumeElement";
 import {ResolutionElement} from "./ResolutionElement";
 import {SubtitlesElement} from "./SubtitlesElement";
-import {CinematicElement} from "./CinematicElement";
 import {FullscreenElement} from "./FullscreenElement";
 
 export class ControlButtonsElement extends GraphicElement {
@@ -18,7 +17,6 @@ export class ControlButtonsElement extends GraphicElement {
     private resolutionElement : ResolutionElement;
 
     private subtitlesElement : SubtitlesElement;
-    private cinematicElement : CinematicElement;
     private fullscreenElement : FullscreenElement;
 
     /*
@@ -59,9 +57,6 @@ export class ControlButtonsElement extends GraphicElement {
 
         this.subtitlesElement = new SubtitlesElement(this.stormPlayerGUI);
         this.rightWrapper.getHtmlElement().appendChild(this.subtitlesElement.getHtmlElement());
-
-        this.cinematicElement = new CinematicElement(this.stormPlayerGUI);
-        this.rightWrapper.getHtmlElement().appendChild(this.cinematicElement.getHtmlElement());
 
         this.fullscreenElement = new FullscreenElement(this.stormPlayerGUI);
         this.rightWrapper.getHtmlElement().appendChild(this.fullscreenElement.getHtmlElement());
