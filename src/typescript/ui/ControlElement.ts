@@ -1,5 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
-import {StormPlayerGUI} from "../StormPlayerGUI";
+import {StormPlayer} from "../StormPlayer";
 import {ProgressbarElement} from "./ProgressbarElement";
 import {ControlButtonsElement} from "./controlbuttons/ControlButtonsElement";
 import {EventType} from "../events/EventType";
@@ -10,9 +10,9 @@ export class ControlElement extends GraphicElement {
     private progressbarElement : ProgressbarElement;
     private controlButtonsElement : ControlButtonsElement;
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-controls');
+        super(stormPlayer, 'sp-controls');
 
     }
 
@@ -27,22 +27,22 @@ export class ControlElement extends GraphicElement {
     protected draw() : void{
         super.draw();
 
-        this.shadowElement = new GraphicElement(this.stormPlayerGUI, "sp-controls__shadow");
+        this.shadowElement = new GraphicElement(this.stormPlayer, "sp-controls__shadow");
         this.htmlElement.appendChild(this.shadowElement.getHtmlElement());
 
-        this.progressbarElement = new ProgressbarElement(this.stormPlayerGUI);
+        this.progressbarElement = new ProgressbarElement(this.stormPlayer);
         this.htmlElement.appendChild(this.progressbarElement.getHtmlElement());
 
-        this.controlButtonsElement = new ControlButtonsElement(this.stormPlayerGUI);
+        this.controlButtonsElement = new ControlButtonsElement(this.stormPlayer);
         this.htmlElement.appendChild(this.controlButtonsElement.getHtmlElement());
 
         let that = this;
 
-        this.stormPlayerGUI.addListener(EventType.GUI_SHOW, function(){
+        this.stormPlayer.addListener(EventType.GUI_SHOW, function(){
             that.show();
         });
 
-        this.stormPlayerGUI.addListener(EventType.GUI_HIDE, function(){
+        this.stormPlayer.addListener(EventType.GUI_HIDE, function(){
             that.hide();
         });
     }

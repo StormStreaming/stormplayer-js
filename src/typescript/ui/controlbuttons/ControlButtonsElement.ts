@@ -1,5 +1,5 @@
 import {GraphicElement} from "../GraphicElement";
-import {StormPlayerGUI} from "../../StormPlayerGUI";
+import {StormPlayer} from "../../StormPlayer";
 import {PlayElement} from "./PlayElement";
 import {VolumeElement} from "./VolumeElement";
 import {ResolutionElement} from "./ResolutionElement";
@@ -25,9 +25,9 @@ export class ControlButtonsElement extends GraphicElement {
     private leftWrapper : GraphicElement;
     private rightWrapper : GraphicElement;
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-controls__bottom');
+        super(stormPlayer, 'sp-controls__bottom');
 
     }
 
@@ -37,28 +37,28 @@ export class ControlButtonsElement extends GraphicElement {
         /*
         Creating wrapper
          */
-        this.leftWrapper = new GraphicElement(this.stormPlayerGUI, "sp-controls__left");
+        this.leftWrapper = new GraphicElement(this.stormPlayer, "sp-controls__left");
         this.htmlElement.appendChild(this.leftWrapper.getHtmlElement());
 
-        this.rightWrapper = new GraphicElement(this.stormPlayerGUI, "sp-controls__right");
+        this.rightWrapper = new GraphicElement(this.stormPlayer, "sp-controls__right");
         this.htmlElement.appendChild(this.rightWrapper.getHtmlElement());
 
         /*
         Creating control buttons
          */
-        this.playElement = new PlayElement(this.stormPlayerGUI);
+        this.playElement = new PlayElement(this.stormPlayer);
         this.leftWrapper.getHtmlElement().appendChild(this.playElement.getHtmlElement());
 
-        this.volumeElement = new VolumeElement(this.stormPlayerGUI);
+        this.volumeElement = new VolumeElement(this.stormPlayer);
         this.leftWrapper.getHtmlElement().appendChild(this.volumeElement.getHtmlElement());
 
-        this.resolutionElement = new ResolutionElement(this.stormPlayerGUI);
+        this.resolutionElement = new ResolutionElement(this.stormPlayer);
         this.leftWrapper.getHtmlElement().appendChild(this.resolutionElement.getHtmlElement());
 
-        this.subtitlesElement = new SubtitlesElement(this.stormPlayerGUI);
+        this.subtitlesElement = new SubtitlesElement(this.stormPlayer);
         this.rightWrapper.getHtmlElement().appendChild(this.subtitlesElement.getHtmlElement());
 
-        this.fullscreenElement = new FullscreenElement(this.stormPlayerGUI);
+        this.fullscreenElement = new FullscreenElement(this.stormPlayer);
         this.rightWrapper.getHtmlElement().appendChild(this.fullscreenElement.getHtmlElement());
     }
 

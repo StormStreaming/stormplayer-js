@@ -1,12 +1,19 @@
 import {GraphicElement} from "./GraphicElement";
-import {StormPlayerGUI} from "../StormPlayerGUI";
+import {StormPlayer} from "../StormPlayer";
+import {EventType} from "../events/EventType";
 
 export class ErrorElement extends GraphicElement {
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-error');
+        super(stormPlayer, 'sp-error');
 
+    }
+
+    public showErrorMessage(message : string){
+        this.htmlElement.querySelector('span').innerHTML = message;
+        this.show();
+        this.stormPlayer.dispatch(EventType.ERROR_DISPLAY);
     }
 
     protected draw() : void{
@@ -36,9 +43,37 @@ export class ErrorElement extends GraphicElement {
     }
 
 
-    public showErrorMessage(message : string){
-        this.htmlElement.querySelector('span').innerHTML = message;
-        this.show();
+    protected attachListeners(): void {
+        let that = this;
+
+        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("playerDisconnected", function (e) {
+                that.showErrorMessage("Disconnected from stream server");
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("onAllServersFailed", function (e) {
+                that.showErrorMessage("Failed to connect to the stream server");
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("compatibilityError", function (e) {
+                that.showErrorMessage("Your device is not compatible with the available video source");
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("noSLLError", function (e) {
+                that.showErrorMessage("This connection requires an SSL layer");
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoError", function (e) {
+                that.showErrorMessage("Error while playing stream. Please refresh and try again.");
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoNotFound", function (e) {
+                that.showErrorMessage("Stream with given name was not found");
+            });
+
+        });
     }
+
 
 }

@@ -1,11 +1,11 @@
 import {GraphicElement} from "../GraphicElement";
-import {StormPlayerGUI} from "../../StormPlayerGUI";
+import {StormPlayer} from "../../StormPlayer";
 
 export class SubtitlesElement extends GraphicElement {
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-controls__button', 'button');
+        super(stormPlayer, 'sp-controls__button', 'button');
 
     }
 

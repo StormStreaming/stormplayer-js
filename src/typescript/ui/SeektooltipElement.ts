@@ -1,11 +1,11 @@
 import {GraphicElement} from "./GraphicElement";
-import {StormPlayerGUI} from "../StormPlayerGUI";
+import {StormPlayer} from "../StormPlayer";
 
 export class SeektooltipElement extends GraphicElement {
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, "sp-seek__tooltip");
+        super(stormPlayer, "sp-seek__tooltip");
 
     }
 

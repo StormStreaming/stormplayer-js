@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Storm Player GUI</title>
+    <title>Storm Player</title>
     <script src="https://requirejs.org/docs/release/2.3.6/comments/require.js"></script>
-    <script src="scripts/storm-gui.js"></script>
+    <script src="https://testbench.web-anatomy.com/StormLibrary/dist/storm.min.js"></script>
+
+    <script src="scripts/storm-player.js"></script>
     <link rel="stylesheet" href="styles/demo.min.css">
-    <link rel="stylesheet" href="styles/storm-gui.min.css">
+    <link rel="stylesheet" href="styles/storm-player.min.css">
 </head>
 <body>
 <div class="container">
-    <h1>Storm Player GUI</h1>
+    <h1>Storm Player</h1>
 </div>
 <div class="container">
     <div id="player1">
@@ -21,37 +23,44 @@
 <script>
 
     var config = {
+        role : "player",
         connectionType:"direct",
         stream: {
             serverList: [
-                { host: "yourdomain.com", application:"live", port: 443, ssl: true}
+                { host: "stormdev.web-anatomy.com", application:"live", port: 443, ssl: true}
             ],
             sourceList: [
-                { protocol: "storm", streamName:"test", application:"live"},
+                { protocol: "RTMP", streamName:"test", host:"stormdev.web-anatomy.com", application:"live"},
+
             ],
+            security: {
+                type: "token",
+                token: "3f7af6d8a2df9307902f62ff16f1678466",
+                expires: 1551231231
+            }
         },
         settings: {
-            autoStart: true,
+            autoStart: false,
+            restartOnError: true,
             enabledProtocols: ["MSE"],
+
             video: {
-                containerID: "player1",
-                width: 1024,
-                height: 576,
+                scalingMode: "letterbox",   // "letterbox", "crop", "fill", "resize"
             },
-            /*audio: {
-                startVolume: 80,
-                maxVolume: 70
-            }*/
-        },
-        gui: {
+
+
+        }
+    }
+
+    require(['StormPlayer'], function(e){
+        var stormPlayer = new StormPlayer({
+            containerID: "player1",
+            width: 1000,
+            height: 500,
             title: "Test title",
             subtitle: "Test subtitle",
             //bigPlaybackButton: false,
-        },
-    }
-
-    require(['StormPlayerGUI'], function(e){
-        var stormPlayerGUI = new StormPlayerGUI(config);
+        }, config);
     });
 
 </script>

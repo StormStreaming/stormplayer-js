@@ -1,5 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
-import {StormPlayerGUI} from "../StormPlayerGUI";
+import {StormPlayer} from "../StormPlayer";
 import {EventType} from "../events/EventType";
 
 export class HeaderElement extends GraphicElement {
@@ -8,9 +8,9 @@ export class HeaderElement extends GraphicElement {
     private wrapperElement: GraphicElement;
     private liveIconElement: GraphicElement;
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-header');
+        super(stormPlayer, 'sp-header');
 
     }
 
@@ -25,15 +25,15 @@ export class HeaderElement extends GraphicElement {
     protected draw() : void{
         super.draw();
 
-        this.shadowElement = new GraphicElement(this.stormPlayerGUI, "sp-header__shadow");
+        this.shadowElement = new GraphicElement(this.stormPlayer, "sp-header__shadow");
         this.htmlElement.appendChild(this.shadowElement.getHtmlElement());
 
-        this.wrapperElement = new GraphicElement(this.stormPlayerGUI, "sp-header__wrapper");
+        this.wrapperElement = new GraphicElement(this.stormPlayer, "sp-header__wrapper");
         this.htmlElement.appendChild(this.wrapperElement.getHtmlElement());
 
         this.wrapperElement.getHtmlElement().innerHTML = '<h2 class="sp-header__text sp-header__title"></h2><p class="sp-header__text sp-header__sub-title"></p>';
 
-        this.liveIconElement = new GraphicElement(this.stormPlayerGUI, "sp-live-icon");
+        this.liveIconElement = new GraphicElement(this.stormPlayer, "sp-live-icon");
         this.htmlElement.appendChild(this.liveIconElement.getHtmlElement());
 
         this.liveIconElement.getHtmlElement().innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -62,11 +62,11 @@ export class HeaderElement extends GraphicElement {
 
     protected attachListeners(): void {
         let that = this;
-        this.stormPlayerGUI.addListener(EventType.GUI_SHOW, function(){
+        this.stormPlayer.addListener(EventType.GUI_SHOW, function(){
             that.show();
         });
 
-        this.stormPlayerGUI.addListener(EventType.GUI_HIDE, function(){
+        this.stormPlayer.addListener(EventType.GUI_HIDE, function(){
             that.hide();
         });
     }

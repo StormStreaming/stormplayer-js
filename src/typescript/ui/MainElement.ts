@@ -1,5 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
-import {StormPlayerGUI} from "../StormPlayerGUI";
+import {StormPlayer} from "../StormPlayer";
 import {VideoElement} from "./VideoElement";
 import {LoaderElement} from "./LoaderElement";
 import {ErrorElement} from "./ErrorElement";
@@ -31,8 +31,8 @@ export class MainElement extends GraphicElement {
     private hideGUITimeoutSeconds : number = 3;
     private hideGUITimeout : ReturnType<typeof setTimeout>;
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
-        super(stormPlayerGUI, 'sp-container__wrapper');
+    constructor(stormPlayer: StormPlayer) {
+        super(stormPlayer, 'sp-container__wrapper');
     }
 
     public setSize(width : number, height : number){
@@ -50,28 +50,28 @@ export class MainElement extends GraphicElement {
         /*
         Creating wrapper
          */
-        this.spContainer = new GraphicElement(this.stormPlayerGUI, "sp-container");
+        this.spContainer = new GraphicElement(this.stormPlayer, "sp-container");
         this.htmlElement.appendChild(this.spContainer.getHtmlElement());
 
         /*
         Adding elements to a wrapper
          */
-        this.videoElement = new VideoElement(this.stormPlayerGUI);
+        this.videoElement = new VideoElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.videoElement.getHtmlElement());
 
-        this.loaderElement = new LoaderElement(this.stormPlayerGUI);
+        this.loaderElement = new LoaderElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.loaderElement.getHtmlElement());
 
-        this.errorElement = new ErrorElement(this.stormPlayerGUI);
+        this.errorElement = new ErrorElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.errorElement.getHtmlElement());
 
-        this.playbackElement = new PlaybackElement(this.stormPlayerGUI);
+        this.playbackElement = new PlaybackElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.playbackElement.getHtmlElement());
 
-        this.headerElement = new HeaderElement(this.stormPlayerGUI);
+        this.headerElement = new HeaderElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.headerElement.getHtmlElement());
 
-        this.controlElement = new ControlElement(this.stormPlayerGUI);
+        this.controlElement = new ControlElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.controlElement.getHtmlElement());
 
     }
@@ -84,28 +84,28 @@ export class MainElement extends GraphicElement {
         this.htmlElement.addEventListener("mouseenter", function(){
             if(that.hideGUITimeout)
                 clearTimeout(that.hideGUITimeout);
-            that.stormPlayerGUI.dispatch(EventType.GUI_SHOW);
+            that.stormPlayer.dispatch(EventType.GUI_SHOW);
         });
 
         this.htmlElement.addEventListener("mouseleave", function(){
             if(that.hideGUITimeout)
                 clearTimeout(that.hideGUITimeout);
-            if(that.stormPlayerGUI.getStormPlayerLibrary().isPlaying())
-                that.stormPlayerGUI.dispatch(EventType.GUI_HIDE);
+            if(that.stormPlayer.getLibraryManager().getLibrary().isPlaying())
+                that.stormPlayer.dispatch(EventType.GUI_HIDE);
         });
 
         this.htmlElement.addEventListener("mousemove", function(){
             if(that.hideGUITimeout)
                 clearTimeout(that.hideGUITimeout);
-            that.stormPlayerGUI.dispatch(EventType.GUI_SHOW);
+            that.stormPlayer.dispatch(EventType.GUI_SHOW);
 
             that.hideGUITimeout = setTimeout(function(){
-                if(that.stormPlayerGUI.getStormPlayerLibrary().isPlaying())
-                    that.stormPlayerGUI.dispatch(EventType.GUI_HIDE);
+                if(that.stormPlayer.getLibraryManager().getLibrary().isPlaying())
+                    that.stormPlayer.dispatch(EventType.GUI_HIDE);
             },that.hideGUITimeoutSeconds*1000);
         });
 
-        this.stormPlayerGUI.addListener(EventType.FULLSCREEN_ENTER, function(){
+        this.stormPlayer.addListener(EventType.FULLSCREEN_ENTER, function(){
             spContainerElement.classList.add('sp-fullscreen');
 
             const docElmWithBrowsersFullScreenFunctions = spContainerElement as HTMLElement & {
@@ -126,7 +126,7 @@ export class MainElement extends GraphicElement {
 
         });
 
-        this.stormPlayerGUI.addListener(EventType.FULLSCREEN_EXIT, function(){
+        this.stormPlayer.addListener(EventType.FULLSCREEN_EXIT, function(){
             spContainerElement.classList.remove('sp-fullscreen');
 
             const docWithBrowsersExitFunctions = document as Document & {
@@ -144,6 +144,33 @@ export class MainElement extends GraphicElement {
                 docWithBrowsersExitFunctions.msExitFullscreen();
             }
         });
+
+
+        document.addEventListener('fullscreenchange', function(){
+
+            // @ts-ignore: Unreachable code error
+            if(document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXIT);
+
+        }, false);
+
+        document.addEventListener('mozfullscreenchange', function(){
+            // @ts-ignore: Unreachable code error
+            if(document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXIT);
+        }, false);
+
+        document.addEventListener('MSFullscreenChange', function(){
+            // @ts-ignore: Unreachable code error
+            if(document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXIT);
+        }, false);
+
+        document.addEventListener('webkitfullscreenchange', function(){
+            // @ts-ignore: Unreachable code error
+            if(document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXIT);
+        }, false);
 
     }
 

@@ -1,5 +1,5 @@
 import {GraphicElement} from "../GraphicElement";
-import {StormPlayerGUI} from "../../StormPlayerGUI";
+import {StormPlayer} from "../../StormPlayer";
 import {EventType} from "../../events/EventType";
 
 export class VolumeElement extends GraphicElement {
@@ -17,22 +17,22 @@ export class VolumeElement extends GraphicElement {
     private volumeProgressWrapperElement : HTMLElement;
     private volumeProgressElement : HTMLElement;
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-volume');
+        super(stormPlayer, 'sp-volume');
 
-        if(stormPlayerGUI.getConfig().settings.audio && stormPlayerGUI.getConfig().settings.audio.startVolume)
-            this.setVolume(stormPlayerGUI.getConfig().settings.audio.startVolume);
+        if(stormPlayer.getLibraryManager().getConfig().settings.audio && stormPlayer.getLibraryManager().getConfig().settings.audio.startVolume)
+            this.setVolume(stormPlayer.getLibraryManager().getConfig().settings.audio.startVolume);
     }
 
     public setVolume(percent) : void{
-        if(this.stormPlayerGUI.getConfig().settings.audio && this.stormPlayerGUI.getConfig().settings.audio.maxVolume && percent > this.stormPlayerGUI.getConfig().settings.audio.maxVolume)
-            percent = this.stormPlayerGUI.getConfig().settings.audio.maxVolume;
+        if(this.stormPlayer.getLibraryManager().getConfig().settings.audio && this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume && percent > this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume)
+            percent = this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume;
 
         let px = (percent*70)/100;
         this.volumeProgressElement.style.transform = `translateX(${px}px)`;
 
-        this.stormPlayerGUI.dispatch(EventType.VOLUME_CHANGED, {volume: percent});
+        this.stormPlayer.dispatch(EventType.VOLUME_CHANGED, {volume: percent});
     }
 
     protected draw() : void{
@@ -93,7 +93,7 @@ export class VolumeElement extends GraphicElement {
         /*
         Hiding volume bar when GUI_HIDE event is dispatched
          */
-        this.stormPlayerGUI.addListener(EventType.GUI_HIDE, function(){
+        this.stormPlayer.addListener(EventType.GUI_HIDE, function(){
             that.volumeButtonElement.classList.remove("sp-active");
             that.volumeControlWrapperElement.classList.add('sp-hidden');
         });

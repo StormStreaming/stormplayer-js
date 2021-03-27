@@ -1,37 +1,26 @@
 import {GraphicElement} from "./GraphicElement";
-import {StormPlayerGUI} from "../StormPlayerGUI";
+import {StormPlayer} from "../StormPlayer";
 import {EventType} from "../events/EventType";
 
 export class VideoElement extends GraphicElement {
 
-    private videoHtmlElement: HTMLVideoElement;
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-container__box');
+        super(stormPlayer, 'sp-container__box');
 
     }
 
     protected draw() : void{
         super.draw();
 
-        this.videoHtmlElement = document.createElement("video");
-        this.videoHtmlElement.className = "sp-video";
-        this.videoHtmlElement.controls = false;
-
-        const source = document.createElement("source");
-        source.setAttribute('src', "sample/cinematic-1080.mp4");
-        this.videoHtmlElement.appendChild(source);
-
-        this.htmlElement.appendChild(this.videoHtmlElement);
-
-        this.stormPlayerGUI.getStormPlayerLibrary().setVideoHtmlElement(this.videoHtmlElement);
+        this.htmlElement.setAttribute("id", this.stormPlayer.getInstanceID());
 
     }
 
     protected attachListeners(): void {
         let that = this;
-
+/*
         this.stormPlayerGUI.addListener(EventType.PLAY_CLICKED, function(){
             that.videoHtmlElement.play();
         });
@@ -47,12 +36,12 @@ export class VideoElement extends GraphicElement {
         this.videoHtmlElement.addEventListener('play', function() {
             that.stormPlayerGUI.dispatch(EventType.VIDEO_PLAYING);
         });
-
+*/
         this.htmlElement.addEventListener("click", function(){
-            if(that.stormPlayerGUI.getStormPlayerLibrary().isPlaying())
-                that.stormPlayerGUI.dispatch(EventType.PAUSE_CLICKED);
+            if(that.stormPlayer.getLibraryManager().getLibrary().isPlaying())
+                that.stormPlayer.dispatch(EventType.PAUSE_CLICKED);
             else
-                that.stormPlayerGUI.dispatch(EventType.PLAY_CLICKED);
+                that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
         });
     }
 }

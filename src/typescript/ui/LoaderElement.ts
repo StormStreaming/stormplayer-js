@@ -1,13 +1,14 @@
 import {GraphicElement} from "./GraphicElement";
-import {StormPlayerGUI} from "../StormPlayerGUI";
+import {StormPlayer} from "../StormPlayer";
+import {EventType} from "../events/EventType";
 
 export class LoaderElement extends GraphicElement {
 
 
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-loader');
+        super(stormPlayer, 'sp-loader');
 
     }
 
@@ -29,4 +30,37 @@ export class LoaderElement extends GraphicElement {
         this.hide();
     }
 
+
+    protected attachListeners(): void {
+        let that = this;
+
+        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function(){
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("playerStart", function(){
+                that.show();
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoConnecting", function(){
+                that.show();
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoLoading", function(){
+                that.show();
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoPlay", function(){
+                that.hide();
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoPause", function(){
+                that.hide();
+            });
+
+            that.stormPlayer.addListener(EventType.ERROR_DISPLAY, function(){
+                that.hide();
+            });
+
+        });
+
+    }
 }

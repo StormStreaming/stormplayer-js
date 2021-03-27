@@ -3,7 +3,7 @@
     "module" : "AMD",
     "target": "ES6",
     "removeComments" : true,
-    "outFile" : "./storm-gui.js",
+    "outFile" : "./storm-player.js",
     "baseUrl" : "./src/typescript/",
     "sourceMap" : true,
     "alwaysStrict" : true,

@@ -1,20 +1,20 @@
 import {GraphicElement} from "./GraphicElement";
-import {StormPlayerGUI} from "../StormPlayerGUI";
+import {StormPlayer} from "../StormPlayer";
 import {EventType} from "../events/EventType";
 
 export class PlaybackElement extends GraphicElement {
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-playback');
+        super(stormPlayer, 'sp-playback');
 
-        if(stormPlayerGUI.getConfig().gui && stormPlayerGUI.getConfig().gui.bigPlaybackButton === false)
+        if(this.stormPlayer.getGuiConfig().bigPlaybackButton === false)
             this.hide();
 
     }
 
     public show(): void {
-        if(this.stormPlayerGUI.getConfig().gui && this.stormPlayerGUI.getConfig().gui.bigPlaybackButton === false)
+        if(this.stormPlayer.getGuiConfig().bigPlaybackButton === false)
             return;
         super.show();
     }
@@ -48,20 +48,38 @@ export class PlaybackElement extends GraphicElement {
             </g>
           </svg>`;
 
+        this.hide();
+
     }
 
     protected attachListeners() : void{
         let that = this;
         this.htmlElement.addEventListener('click', function() {
-            that.stormPlayerGUI.dispatch(EventType.PLAY_CLICKED);
+            that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
         });
 
-        this.stormPlayerGUI.addListener(EventType.VIDEO_PLAYING, function(){
-            that.hide();
-        });
+        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
 
-        this.stormPlayerGUI.addListener(EventType.VIDEO_PAUSED, function(){
-            that.show();
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("playerReady", function () {
+                that.show();
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("interactionRequired", function (e) {
+                that.show();
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoConnecting", function(){
+                that.hide();
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoPlay", function () {
+                that.hide();
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoPause", function () {
+                that.show();
+            });
+
         });
     }
 

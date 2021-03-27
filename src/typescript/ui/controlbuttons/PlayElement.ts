@@ -1,14 +1,14 @@
 import {GraphicElement} from "../GraphicElement";
-import {StormPlayerGUI} from "../../StormPlayerGUI";
+import {StormPlayer} from "../../StormPlayer";
 import {EventType} from "../../events/EventType";
 
 export class PlayElement extends GraphicElement {
 
     private playButtonElement : HTMLButtonElement;
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-play');
+        super(stormPlayer, 'sp-play');
 
     }
 
@@ -41,23 +41,31 @@ export class PlayElement extends GraphicElement {
         let playIcon = this.playButtonElement.querySelector(".sp-play-icon");
         let pauseIcon = this.playButtonElement.querySelector(".sp-pause-icon");
 
-        this.stormPlayerGUI.addListener(EventType.VIDEO_PLAYING, function(){
-            that.playButtonElement.setAttribute('data-title', 'Pause');
-            playIcon.classList.add("sp-hidden");
-            pauseIcon.classList.remove("sp-hidden");
-        });
+        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoPlay", function () {
+                that.playButtonElement.setAttribute('data-title', 'Pause');
+                playIcon.classList.add("sp-hidden");
+                pauseIcon.classList.remove("sp-hidden");
+            });
 
-        this.stormPlayerGUI.addListener(EventType.VIDEO_PAUSED, function(){
-            that.playButtonElement.setAttribute('data-title', 'Play');
-            playIcon.classList.remove("sp-hidden");
-            pauseIcon.classList.add("sp-hidden");
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoConnecting", function () {
+                that.playButtonElement.setAttribute('data-title', 'Pause');
+                playIcon.classList.add("sp-hidden");
+                pauseIcon.classList.remove("sp-hidden");
+            });
+
+            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoPause", function () {
+                that.playButtonElement.setAttribute('data-title', 'Play');
+                playIcon.classList.remove("sp-hidden");
+                pauseIcon.classList.add("sp-hidden");
+            });
         });
 
         this.playButtonElement.addEventListener("click", function(e){
             if(!playIcon.classList.contains('sp-hidden'))
-                that.stormPlayerGUI.dispatch(EventType.PLAY_CLICKED);
+                that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
             else
-                that.stormPlayerGUI.dispatch(EventType.PAUSE_CLICKED);
+                that.stormPlayer.dispatch(EventType.PAUSE_CLICKED);
         });
 
     }

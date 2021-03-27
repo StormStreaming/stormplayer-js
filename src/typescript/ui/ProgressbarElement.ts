@@ -1,5 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
-import {StormPlayerGUI} from "../StormPlayerGUI";
+import {StormPlayer} from "../StormPlayer";
 import {CuepointsElement} from "./CuepointsElement";
 import {SeektooltipElement} from "./SeektooltipElement";
 
@@ -12,19 +12,19 @@ export class ProgressbarElement extends GraphicElement {
     private seektooltipElement : SeektooltipElement;
     private thumbElement : GraphicElement;
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, "sp-progress");
+        super(stormPlayer, "sp-progress");
 
     }
 
     protected draw() : void{
         super.draw();
 
-        this.cuepointsElement = new CuepointsElement(this.stormPlayerGUI);
+        this.cuepointsElement = new CuepointsElement(this.stormPlayer);
         this.htmlElement.appendChild(this.cuepointsElement.getHtmlElement());
 
-        this.thumbElement = new GraphicElement(this.stormPlayerGUI, "sp-progress-thumb");
+        this.thumbElement = new GraphicElement(this.stormPlayer, "sp-progress-thumb");
         this.thumbElement.getHtmlElement().style.transform = "translateX(255.576px)";
         this.htmlElement.appendChild(this.thumbElement.getHtmlElement());
 
@@ -35,7 +35,7 @@ export class ProgressbarElement extends GraphicElement {
         this.progressElement.setAttribute("max", "270");
         this.htmlElement.appendChild(this.progressElement);
 
-        this.progressEndElement = new GraphicElement(this.stormPlayerGUI, "sp-progress-bar__end", "span");
+        this.progressEndElement = new GraphicElement(this.stormPlayer, "sp-progress-bar__end", "span");
         this.htmlElement.appendChild(this.progressEndElement.getHtmlElement());
 
         this.seekElement = document.createElement('input');
@@ -48,7 +48,7 @@ export class ProgressbarElement extends GraphicElement {
         this.seekElement.setAttribute("data-seek", "83");
         this.htmlElement.appendChild(this.seekElement);
 
-        this.seektooltipElement = new SeektooltipElement(this.stormPlayerGUI);
+        this.seektooltipElement = new SeektooltipElement(this.stormPlayer);
         this.htmlElement.appendChild(this.seektooltipElement.getHtmlElement());
 
 

@@ -1,13 +1,13 @@
 import {GraphicElement} from "../GraphicElement";
-import {StormPlayerGUI} from "../../StormPlayerGUI";
+import {StormPlayer} from "../../StormPlayer";
 
 export class ResolutionElement extends GraphicElement {
 
     private resolutionButtonElement : HTMLButtonElement;
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-resolution');
+        super(stormPlayer, 'sp-resolution');
 
     }
 

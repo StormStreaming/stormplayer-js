@@ -1,17 +1,17 @@
-import {StormPlayerGUI} from "../StormPlayerGUI";
+import {StormPlayer} from "../StormPlayer";
 
 export class GraphicElement {
 
-        protected stormPlayerGUI: StormPlayerGUI;
+        protected stormPlayer: StormPlayer;
 
         protected htmlElement: HTMLElement;
         protected tagName: string;
         protected className: string;
 
-        constructor(stormPlayerGUI: StormPlayerGUI, className : string = "", tagName: string = 'div') {
+        constructor(stormPlayer: StormPlayer, className : string = "", tagName: string = 'div') {
                 this.className = className;
                 this.tagName = tagName;
-                this.stormPlayerGUI = stormPlayerGUI;
+                this.stormPlayer = stormPlayer;
                 this.draw();
                 this.attachListeners();
         }

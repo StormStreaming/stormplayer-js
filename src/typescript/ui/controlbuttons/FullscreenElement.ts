@@ -1,12 +1,12 @@
 import {GraphicElement} from "../GraphicElement";
-import {StormPlayerGUI} from "../../StormPlayerGUI";
+import {StormPlayer} from "../../StormPlayer";
 import {EventType} from "../../events/EventType";
 
 export class FullscreenElement extends GraphicElement {
 
-    constructor(stormPlayerGUI: StormPlayerGUI) {
+    constructor(stormPlayer: StormPlayer) {
 
-        super(stormPlayerGUI, 'sp-controls__fullscreen', 'button');
+        super(stormPlayer, 'sp-controls__fullscreen', 'button');
 
     }
 
@@ -30,14 +30,21 @@ export class FullscreenElement extends GraphicElement {
         let that = this;
 
         this.htmlElement.addEventListener("click", function(e) {
-            let enterFullscreen = !that.htmlElement.classList.contains('sp-active');
-            that.htmlElement.classList.toggle('sp-active');
+            // @ts-ignore: Unreachable code error
+            let enterFullscreen = document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false;
+
             if (enterFullscreen)
-                that.stormPlayerGUI.dispatch(EventType.FULLSCREEN_ENTER);
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_ENTER);
             else
-                that.stormPlayerGUI.dispatch(EventType.FULLSCREEN_EXIT);
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXIT);
+        });
 
+        this.stormPlayer.addListener(EventType.FULLSCREEN_ENTER, function(){
+            that.htmlElement.classList.add('sp-active');
+        });
 
+        this.stormPlayer.addListener(EventType.FULLSCREEN_EXIT, function(){
+            that.htmlElement.classList.remove('sp-active');
         });
 
     }
