@@ -19,31 +19,8 @@ body {
   }
 }
 
-// tooltip buttons
-button:before {
-  content: attr(data-title);
-  position: absolute;
-  display: none;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -50px;
-  background-color: $black-60;
-  color: $white;
-  font-weight: bold;
-  padding: 4px 6px;
-  word-break: keep-all;
-  white-space: pre;
-}
-
-button:hover:before {
-  display: inline-block;
-}
 
 // TODO: temporary display none
-.time {
-  display: none;
-}
-
 h1 {
   margin-bottom: 20px;
 }

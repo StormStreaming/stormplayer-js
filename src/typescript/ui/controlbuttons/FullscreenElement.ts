@@ -23,7 +23,6 @@ export class FullscreenElement extends GraphicElement {
                   </g>
                 </svg>`;
 
-        this.htmlElement.setAttribute('data-title', "Fullscreen");
     }
 
     protected attachListeners() : void {

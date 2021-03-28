@@ -48,27 +48,27 @@ export class ErrorElement extends GraphicElement {
 
         this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("playerDisconnected", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("playerDisconnected", function (e) {
                 that.showErrorMessage("Disconnected from stream server");
             });
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("onAllServersFailed", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("onAllServersFailed", function (e) {
                 that.showErrorMessage("Failed to connect to the stream server");
             });
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("compatibilityError", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("compatibilityError", function (e) {
                 that.showErrorMessage("Your device is not compatible with the available video source");
             });
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("noSLLError", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("noSLLError", function (e) {
                 that.showErrorMessage("This connection requires an SSL layer");
             });
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoError", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("videoError", function (e) {
                 that.showErrorMessage("Error while playing stream. Please refresh and try again.");
             });
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoNotFound", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("videoNotFound", function (e) {
                 that.showErrorMessage("Stream with given name was not found");
             });
 

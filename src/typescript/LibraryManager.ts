@@ -41,8 +41,6 @@ export class LibraryManager
 
         this.library.initialize();
 
-        document.querySelector('#'+this.stormPlayer.getInstanceID()+' video').classList.add('sp-video');
-
         this.stormPlayer.dispatch(EventType.LIBRARY_INITIALIZED);
     }
 
@@ -53,15 +51,40 @@ export class LibraryManager
             that.initializeLibrary();
         });
 
-        this.stormPlayer.addListener(EventType.PLAY_CLICKED, function(){
-            that.getLibrary().play();
+        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
+
+            that.getLibrary().addEventListener("videoObjectCreation", function () {
+                document.querySelector('#' + that.stormPlayer.getInstanceID() + ' video').classList.add('sp-video');
+            });
+
         });
 
-        this.stormPlayer.addListener(EventType.PAUSE_CLICKED, function(){
-            that.getLibrary().pause();
-        });
+        this.stormPlayer.addListener(EventType.LIBRARY_INITIALIZED, function(){
 
-        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function(){
+            that.stormPlayer.addListener(EventType.PLAY_CLICKED, function(){
+                that.getLibrary().play();
+            });
+
+            that.stormPlayer.addListener(EventType.PAUSE_CLICKED, function(){
+                that.getLibrary().pause();
+            });
+
+            that.stormPlayer.addListener(EventType.MUTE_CLICKED, function(){
+                that.getLibrary().mute();
+            });
+
+            that.stormPlayer.addListener(EventType.UNMUTE_CLICKED, function(){
+                that.getLibrary().unmute();
+            });
+
+            that.stormPlayer.addListener(EventType.TOGGLE_CLICKED, function(){
+                that.getLibrary().togglePlay();
+            });
+
+            that.stormPlayer.addListener(EventType.VOLUME_CHANGED, function(e){
+                that.getLibrary().setVolume(e.volume);
+            });
+
             that.stormPlayer.addListener(EventType.FULLSCREEN_ENTER, function(){
                 that.getLibrary().setSize(window.screen.width, window.screen.height);
             });

@@ -54,10 +54,12 @@ export class HeaderElement extends GraphicElement {
 
     public setTitle(title : string): void{
         this.wrapperElement.getHtmlElement().querySelector("h2").innerHTML = title;
+        this.stormPlayer.dispatch(EventType.TITLE_SETTED, title);
     }
 
     public setSubtitle(subtitle : string): void{
         this.wrapperElement.getHtmlElement().querySelector("p").innerHTML = subtitle;
+        this.stormPlayer.dispatch(EventType.SUBTITLE_SETTED, subtitle);
     }
 
     protected attachListeners(): void {

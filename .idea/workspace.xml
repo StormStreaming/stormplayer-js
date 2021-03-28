@@ -2,38 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/typescript/LibraryManager.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/typescript/StormPlayer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/StormPlayerGUI.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/StormPlayer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/UnmuteElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/_container.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_container.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/storm-gui.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/storm-player.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/StormPlayerGUI.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/StormPlayerLibrary.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/_volume.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_volume.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/demo.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/demo.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/LibraryManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/LibraryManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/StormPlayer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/StormPlayer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/events/EventType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/events/EventType.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/CuepointsElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/CuepointsElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/GraphicElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/GraphicElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/LoaderElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/LoaderElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/SeektooltipElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/SeektooltipElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/VideoElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/VideoElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ControlButtonsElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ControlButtonsElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ResolutionElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ResolutionElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/SubtitlesElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/SubtitlesElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +111,7 @@
       <workItem from="1616457411172" duration="18460000" />
       <workItem from="1616576296902" duration="709000" />
       <workItem from="1616586870892" duration="49681000" />
-      <workItem from="1616779297350" duration="7641000" />
+      <workItem from="1616779297350" duration="21330000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>
@@ -190,7 +176,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616714448892</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Work in progress">
+      <created>1616805115390</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1616805115390</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

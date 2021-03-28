@@ -16,7 +16,7 @@ export class ControlButtonsElement extends GraphicElement {
     private volumeElement : VolumeElement;
     private resolutionElement : ResolutionElement;
 
-    private subtitlesElement : SubtitlesElement;
+    //private subtitlesElement : SubtitlesElement;
     private fullscreenElement : FullscreenElement;
 
     /*
@@ -55,8 +55,8 @@ export class ControlButtonsElement extends GraphicElement {
         this.resolutionElement = new ResolutionElement(this.stormPlayer);
         this.leftWrapper.getHtmlElement().appendChild(this.resolutionElement.getHtmlElement());
 
-        this.subtitlesElement = new SubtitlesElement(this.stormPlayer);
-        this.rightWrapper.getHtmlElement().appendChild(this.subtitlesElement.getHtmlElement());
+        //this.subtitlesElement = new SubtitlesElement(this.stormPlayer);
+        //this.rightWrapper.getHtmlElement().appendChild(this.subtitlesElement.getHtmlElement());
 
         this.fullscreenElement = new FullscreenElement(this.stormPlayer);
         this.rightWrapper.getHtmlElement().appendChild(this.fullscreenElement.getHtmlElement());

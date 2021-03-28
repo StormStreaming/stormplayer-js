@@ -7,6 +7,7 @@ import {PlaybackElement} from "./PlaybackElement";
 import {HeaderElement} from "./HeaderElement";
 import {ControlElement} from "./ControlElement";
 import {EventType} from "../events/EventType";
+import {UnmuteElement} from "./UnmuteElement";
 
 export class MainElement extends GraphicElement {
 
@@ -19,6 +20,7 @@ export class MainElement extends GraphicElement {
     private playbackElement : PlaybackElement;
     private headerElement : HeaderElement;
     private controlElement : ControlElement;
+    private unmuteElement : UnmuteElement;
 
     /*
     All MainElement objects will be added to this wrapper
@@ -71,6 +73,9 @@ export class MainElement extends GraphicElement {
         this.headerElement = new HeaderElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.headerElement.getHtmlElement());
 
+        this.unmuteElement = new UnmuteElement(this.stormPlayer);
+        this.spContainer.getHtmlElement().appendChild(this.unmuteElement.getHtmlElement());
+
         this.controlElement = new ControlElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.controlElement.getHtmlElement());
 
@@ -81,6 +86,17 @@ export class MainElement extends GraphicElement {
         let that = this;
         let spContainerElement = this.spContainer.getHtmlElement();
 
+        this.stormPlayer.addListener(EventType.LIBRARY_INITIALIZED, function() {
+            that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
+                if (!that.hideGUITimeout) {
+                    that.hideGUITimeout = setTimeout(function () {
+                        if (that.stormPlayer.getLibrary().isPlaying())
+                            that.stormPlayer.dispatch(EventType.GUI_HIDE);
+                    }, that.hideGUITimeoutSeconds * 1000);
+                }
+            });
+        });
+
         this.htmlElement.addEventListener("mouseenter", function(){
             if(that.hideGUITimeout)
                 clearTimeout(that.hideGUITimeout);
@@ -90,7 +106,7 @@ export class MainElement extends GraphicElement {
         this.htmlElement.addEventListener("mouseleave", function(){
             if(that.hideGUITimeout)
                 clearTimeout(that.hideGUITimeout);
-            if(that.stormPlayer.getLibraryManager().getLibrary().isPlaying())
+            if(that.stormPlayer.getLibrary().isPlaying())
                 that.stormPlayer.dispatch(EventType.GUI_HIDE);
         });
 
@@ -100,7 +116,7 @@ export class MainElement extends GraphicElement {
             that.stormPlayer.dispatch(EventType.GUI_SHOW);
 
             that.hideGUITimeout = setTimeout(function(){
-                if(that.stormPlayer.getLibraryManager().getLibrary().isPlaying())
+                if(that.stormPlayer.getLibrary().isPlaying())
                     that.stormPlayer.dispatch(EventType.GUI_HIDE);
             },that.hideGUITimeoutSeconds*1000);
         });

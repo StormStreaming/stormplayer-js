@@ -60,23 +60,23 @@ export class PlaybackElement extends GraphicElement {
 
         this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("playerReady", function () {
+            that.stormPlayer.getLibrary().addEventListener("playerReady", function () {
                 that.show();
             });
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("interactionRequired", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("interactionRequired", function (e) {
                 that.show();
             });
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoConnecting", function(){
+            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function(){
                 that.hide();
             });
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoPlay", function () {
+            that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
                 that.hide();
             });
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoPause", function () {
+            that.stormPlayer.getLibrary().addEventListener("videoPause", function () {
                 that.show();
             });
 

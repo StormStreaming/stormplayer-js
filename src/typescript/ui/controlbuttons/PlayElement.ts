@@ -31,41 +31,52 @@ export class PlayElement extends GraphicElement {
                   <svg class="sp-pause-icon sp-hidden" viewBox="0 0 24 24">
                     <path d="M14.016 5.016h3.984v13.969h-3.984v-13.969zM6 18.984v-13.969h3.984v13.969h-3.984z"></path>
                   </svg>`;
-        this.playButtonElement.setAttribute('data-title', "Play");
         this.htmlElement.append(this.playButtonElement);
 
     }
 
+    public showPlay() : void{
+        this.playButtonElement.querySelector(".sp-play-icon").classList.remove("sp-hidden");
+        this.playButtonElement.querySelector(".sp-pause-icon").classList.add("sp-hidden");
+    }
+
+    public showPause() : void{
+        this.playButtonElement.querySelector(".sp-play-icon").classList.add("sp-hidden");
+        this.playButtonElement.querySelector(".sp-pause-icon").classList.remove("sp-hidden");
+    }
+
     protected attachListeners() : void {
         let that = this;
-        let playIcon = this.playButtonElement.querySelector(".sp-play-icon");
-        let pauseIcon = this.playButtonElement.querySelector(".sp-pause-icon");
 
         this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoPlay", function () {
-                that.playButtonElement.setAttribute('data-title', 'Pause');
-                playIcon.classList.add("sp-hidden");
-                pauseIcon.classList.remove("sp-hidden");
+
+            that.stormPlayer.getLibrary().addEventListener("interactionRequired", function (e) {
+                that.showPlay();
             });
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoConnecting", function () {
-                that.playButtonElement.setAttribute('data-title', 'Pause');
-                playIcon.classList.add("sp-hidden");
-                pauseIcon.classList.remove("sp-hidden");
+            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function(){
+                that.showPause();
             });
 
-            that.stormPlayer.getLibraryManager().getLibrary().addEventListener("videoPause", function () {
-                that.playButtonElement.setAttribute('data-title', 'Play');
-                playIcon.classList.remove("sp-hidden");
-                pauseIcon.classList.add("sp-hidden");
+            that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
+                that.showPause();
+            });
+
+            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function () {
+                that.showPause();
+            });
+
+            that.stormPlayer.getLibrary().addEventListener("videoPause", function () {
+                that.showPlay();
             });
         });
 
         this.playButtonElement.addEventListener("click", function(e){
-            if(!playIcon.classList.contains('sp-hidden'))
+            if(!that.playButtonElement.querySelector(".sp-play-icon").classList.contains('sp-hidden'))
                 that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
             else
                 that.stormPlayer.dispatch(EventType.PAUSE_CLICKED);
+
         });
 
     }

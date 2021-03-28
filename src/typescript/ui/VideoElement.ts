@@ -20,28 +20,10 @@ export class VideoElement extends GraphicElement {
 
     protected attachListeners(): void {
         let that = this;
-/*
-        this.stormPlayerGUI.addListener(EventType.PLAY_CLICKED, function(){
-            that.videoHtmlElement.play();
+
+        that.htmlElement.addEventListener("click", function () {
+            that.stormPlayer.dispatch(EventType.TOGGLE_CLICKED);
         });
 
-        this.stormPlayerGUI.addListener(EventType.PAUSE_CLICKED, function(){
-            that.videoHtmlElement.pause();
-        });
-
-        this.videoHtmlElement.addEventListener('pause', function() {
-            that.stormPlayerGUI.dispatch(EventType.VIDEO_PAUSED);
-        });
-
-        this.videoHtmlElement.addEventListener('play', function() {
-            that.stormPlayerGUI.dispatch(EventType.VIDEO_PLAYING);
-        });
-*/
-        this.htmlElement.addEventListener("click", function(){
-            if(that.stormPlayer.getLibraryManager().getLibrary().isPlaying())
-                that.stormPlayer.dispatch(EventType.PAUSE_CLICKED);
-            else
-                that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
-        });
     }
 }

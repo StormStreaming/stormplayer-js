@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Storm Player</title>
     <script src="https://requirejs.org/docs/release/2.3.6/comments/require.js"></script>
-    <script src="https://testbench.web-anatomy.com/StormLibrary/dist/storm.min.js"></script>
+    <script src="https://testbench.web-anatomy.com/StormLibrary/dist/storm-0.9.min.js"></script>
 
     <script src="scripts/storm-player.js"></script>
     <link rel="stylesheet" href="styles/demo.min.css">
@@ -22,7 +22,7 @@
 
 <script>
 
-    var config = {
+    var stormLibraryConfig = {
         role : "player",
         connectionType:"direct",
         stream: {
@@ -40,7 +40,7 @@
             }
         },
         settings: {
-            autoStart: false,
+            autoStart: true,
             restartOnError: true,
             enabledProtocols: ["MSE"],
 
@@ -57,10 +57,15 @@
             containerID: "player1",
             width: 1000,
             height: 500,
-            title: "Test title",
-            subtitle: "Test subtitle",
+            title: "asd",
+            //subtitle: "Test subtitle",
             //bigPlaybackButton: false,
-        }, config);
+        }, stormLibraryConfig);
+
+        window.test = function(t){
+            stormPlayer.setTitle(t);
+            stormPlayer.setSubtitle(t);
+        }
     });
 
 </script>

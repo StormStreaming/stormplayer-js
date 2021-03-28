@@ -53,6 +53,11 @@ export class StormPlayer extends Dispatcher
 
     }
 
+    // @ts-ignore: Unreachable code error
+    public getLibrary() : StormLibrary{
+        return this.libraryManager.getLibrary();
+    }
+
     public getInstanceID() : string{
         return this.instanceID;
     }
@@ -62,10 +67,12 @@ export class StormPlayer extends Dispatcher
     }
 
     public setTitle(title : string) : void{
+        this.guiConfig.title = title;
         this.mainElement.getHeaderElement().setTitle(title);
     }
 
     public setSubtitle(subtitle : string) : void{
+        this.guiConfig.subtitle = subtitle;
         this.mainElement.getHeaderElement().setSubtitle(subtitle);
     }
 
@@ -75,6 +82,12 @@ export class StormPlayer extends Dispatcher
 
     public getLibraryManager() : LibraryManager{
         return this.libraryManager;
+    }
+
+    public isTouchDevice() : boolean{
+        return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
     }
 
 }
