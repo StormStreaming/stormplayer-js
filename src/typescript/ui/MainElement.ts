@@ -30,11 +30,12 @@ export class MainElement extends GraphicElement {
     /*
     Hide GUI timer
      */
-    private hideGUITimeoutSeconds : number = 3;
+    private hideGUITimeoutSeconds : number;
     private hideGUITimeout : ReturnType<typeof setTimeout>;
 
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, 'sp-container__wrapper');
+        this.hideGUITimeoutSeconds = stormPlayer.getGuiConfig().getGuiHideSeconds();
     }
 
     public setSize(width : number, height : number){

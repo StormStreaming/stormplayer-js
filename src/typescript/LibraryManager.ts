@@ -19,8 +19,8 @@ export class LibraryManager
         Override config variables
         */
         this.config.settings.video.containerID = stormPlayer.getInstanceID();
-        this.config.settings.video.width = stormPlayer.getGuiConfig().width;
-        this.config.settings.video.height = stormPlayer.getGuiConfig().height;
+        this.config.settings.video.width = stormPlayer.getGuiConfig().getWitdth();
+        this.config.settings.video.height = stormPlayer.getGuiConfig().getHeight();
 
         this.attachListeners();
     }
@@ -42,6 +42,9 @@ export class LibraryManager
         this.library.initialize();
 
         this.stormPlayer.dispatch(EventType.LIBRARY_INITIALIZED);
+
+
+        console.log(this.library.getAllSources());
     }
 
     private attachListeners() : void{

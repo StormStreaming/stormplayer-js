@@ -2,6 +2,7 @@ import {Dispatcher} from "./events/Dispatcher";
 import {MainElement} from "./ui/MainElement";
 import {EventType} from "./events/EventType";
 import {LibraryManager} from "./LibraryManager";
+import {GUIConfig} from "./GUIConfig";
 
 export class StormPlayer extends Dispatcher
 {
@@ -14,7 +15,7 @@ export class StormPlayer extends Dispatcher
     /*
     Configuration
      */
-    private guiConfig : any;
+    private guiConfig : GUIConfig;
 
     /*
     Main HTML element of GUI
@@ -29,7 +30,7 @@ export class StormPlayer extends Dispatcher
     constructor(guiConfig : any, stormLibraryConfig : any) {
         super();
 
-        this.guiConfig = guiConfig;
+        this.guiConfig = new GUIConfig(guiConfig);
 
         /*
         Initializing StormPlayer library manager
@@ -40,15 +41,15 @@ export class StormPlayer extends Dispatcher
         Initializing main HTML element of player
          */
         this.mainElement = new MainElement(this);
-        document.getElementById(this.guiConfig.containerID).appendChild(this.mainElement.getHtmlElement());
+        document.getElementById(this.guiConfig.getContainerID()).appendChild(this.mainElement.getHtmlElement());
         this.dispatch(EventType.GUI_INITIALIZED);
 
         /*
         Init config settings
          */
         this.setSize(guiConfig.width, guiConfig.height);
-        this.setTitle(this.guiConfig.title ? this.guiConfig.title : "");
-        this.setSubtitle(this.guiConfig.subtitle ? this.guiConfig.subtitle : "");
+        this.setTitle(this.guiConfig.getTitle());
+        this.setSubtitle(this.guiConfig.getSubtitle());
 
 
     }
@@ -67,16 +68,16 @@ export class StormPlayer extends Dispatcher
     }
 
     public setTitle(title : string) : void{
-        this.guiConfig.title = title;
+        this.guiConfig.setTitle(title);
         this.mainElement.getHeaderElement().setTitle(title);
     }
 
     public setSubtitle(subtitle : string) : void{
-        this.guiConfig.subtitle = subtitle;
+        this.guiConfig.setSubtitle(subtitle);
         this.mainElement.getHeaderElement().setSubtitle(subtitle);
     }
 
-    public getGuiConfig() : any{
+    public getGuiConfig() : GUIConfig{
         return this.guiConfig;
     }
 
