@@ -43,8 +43,6 @@ export class LibraryManager
 
         this.stormPlayer.dispatch(EventType.LIBRARY_INITIALIZED);
 
-
-        console.log(this.library.getAllSources());
     }
 
     private attachListeners() : void{

@@ -7,7 +7,7 @@
   transition: all 0.2s ease;
   border-bottom-right-radius: $video-radius;
   border-bottom-left-radius: $video-radius;
-  overflow: hidden;
+ // overflow: hidden;
 
   &--hidden {
     opacity: 0;

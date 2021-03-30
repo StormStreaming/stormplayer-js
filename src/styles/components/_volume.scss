@@ -66,6 +66,54 @@
     left: -200%;
     border-radius: $progress-range-radius;
   }
+
+  input[type="range"]:focus::-webkit-slider-runnable-track {
+    background: transparent;
+  }
+
+  input[type="range"].sp-volume__input {
+    height: 7px;
+    background-color: transparent;
+    overflow: hidden;
+    border-radius: 100px;
+    margin-left: -15px;
+    opacity: 0;
+  }
+
+  input[type="range"].sp-volume__input::-webkit-slider-value {
+    background: transparent;
+  }
+
+  input[type="range"].sp-volume__input::-webkit-slider-thumb {
+    margin-left: 0;
+    height: 14px;
+    width: 14px;
+    background: transparent;
+    // box-shadow: -100vw 0 0 100vw $white;
+    box-sizing: border-box;
+    border-radius: 100%;
+  }
+
+  input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: transparent;
+    border-radius: 1.3px;
+    opacity: 0;
+  }
+
+  input[type="range"]:focus::-moz-range-track {
+    outline: none;
+    opacity: 0;
+  }
+
+  input[type="range"].sp-volume__input::-moz-range-thumb {
+    border: 1px solid $white;
+    background: $white;
+    opacity: 0;
+  }
+
 }
 
 .sp-unmute{
@@ -82,51 +130,4 @@
   &__afterheader{
     top:150px;
   }
-}
-
-input[type="range"]:focus::-webkit-slider-runnable-track {
-  background: transparent;
-}
-
-input[type="range"].sp-volume__input {
-  height: 7px;
-  background-color: transparent;
-  overflow: hidden;
-  border-radius: 100px;
-  margin-left: -15px;
-  opacity: 0;
-}
-
-input[type="range"].sp-volume__input::-webkit-slider-value {
-  background: transparent;
-}
-
-input[type="range"].sp-volume__input::-webkit-slider-thumb {
-  margin-left: 0;
-  height: 14px;
-  width: 14px;
-  background: transparent;
-  // box-shadow: -100vw 0 0 100vw $white;
-  box-sizing: border-box;
-  border-radius: 100%;
-}
-
-input[type="range"]::-moz-range-track {
-  width: 100%;
-  height: 8.4px;
-  cursor: pointer;
-  background: transparent;
-  border-radius: 1.3px;
-  opacity: 0;
-}
-
-input[type="range"]:focus::-moz-range-track {
-  outline: none;
-  opacity: 0;
-}
-
-input[type="range"].sp-volume__input::-moz-range-thumb {
-  border: 1px solid $white;
-  background: $white;
-  opacity: 0;
 }

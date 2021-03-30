@@ -31,7 +31,7 @@
             ],
             sourceList: [
                 { protocol: "RTMP", streamName:"test_lq", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "360p"}},
-                { protocol: "RTMP", streamName:"test_sd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "720p"}},
+                { protocol: "RTMP", streamName:"test_sd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "720p"}, default: true},
                 { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "1080p"}},
             ],
             security: {
@@ -48,7 +48,16 @@
             video: {
                 scalingMode: "letterbox",   // "letterbox", "crop", "fill", "resize"
             },
-        }
+            debug: {
+                console: {
+                    enabled: true,
+                    logTypes: ["INFO","ERROR", "TRACE", "WARNING", "SUCCESS"],
+                    monoColor: false
+                },
+            }
+        },
+
+
     }
 
     require(['StormPlayer'], function(e){
@@ -67,7 +76,7 @@
             unmuteText: 'UNMUTE SOUND',
             playerDisconnectedText: 'Disconnected from stream server',
             serversFailedText: 'Failed to connect to the stream server',
-            compatybilityErrorText: 'Your device is not compatible with the available video source',
+            compatibilityErrorText: 'Your device is not compatible with the available video source',
             noSSLErrorText: 'This connection requires an SSL layer',
             videoErrorText: 'Error while playing stream. Please refresh and try again.',
             videoNotFoundText: 'Stream with given name was not found'

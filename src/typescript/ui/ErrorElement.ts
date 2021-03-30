@@ -57,7 +57,7 @@ export class ErrorElement extends GraphicElement {
             });
 
             that.stormPlayer.getLibrary().addEventListener("compatibilityError", function (e) {
-                that.showErrorMessage(that.stormPlayer.getGuiConfig().getCompatybilityErrorText());
+                that.showErrorMessage(that.stormPlayer.getGuiConfig().getCompatibilityErrorText());
             });
 
             that.stormPlayer.getLibrary().addEventListener("noSLLError", function (e) {

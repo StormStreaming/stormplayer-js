@@ -21,6 +21,7 @@ export class MainElement extends GraphicElement {
     private headerElement : HeaderElement;
     private controlElement : ControlElement;
     private unmuteElement : UnmuteElement;
+    //private qualityMenuElement : QualityMenuElement;
 
     /*
     All MainElement objects will be added to this wrapper
@@ -79,6 +80,9 @@ export class MainElement extends GraphicElement {
 
         this.controlElement = new ControlElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.controlElement.getHtmlElement());
+
+       // this.qualityMenuElement = new QualityMenuElement(this.stormPlayer);
+       // this.spContainer.getHtmlElement().appendChild(this.qualityMenuElement.getHtmlElement());
 
     }
 

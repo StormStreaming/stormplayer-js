@@ -13,7 +13,7 @@ export class StormPlayer extends Dispatcher
     private instanceID : string = "StormPlayer-"+Math.random().toString(36).substr(2, 9);
 
     /*
-    Configuration
+    Player GUI configuration
      */
     private guiConfig : GUIConfig;
 

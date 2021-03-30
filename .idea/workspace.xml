@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="Work in progress">
-      <change afterPath="$PROJECT_DIR$/src/typescript/GUIConfig.ts" afterDir="false" />
+    <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityMenuElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/_controls.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_controls.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/_menu.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_menu.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/_progress.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_progress.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/_volume.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_volume.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/GUIConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/GUIConfig.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/LibraryManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/LibraryManager.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/StormPlayer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/StormPlayer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/events/EventType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/events/EventType.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/UnmuteElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/UnmuteElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ControlButtonsElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ControlButtonsElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/ResolutionElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityElement.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,17 +70,17 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui\controlbuttons" />
-      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui" />
-      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\styles" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PROJECTS\StormStream\StormPlayer\src\typescript\ui\controlbuttons" />
       <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui\controlbuttons" />
       <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\dist" />
       <recent name="$PROJECT_DIR$/src/html" />
       <recent name="$PROJECT_DIR$/src/typescript/config" />
-      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui\controlbuttons" />
+      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui" />
+      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\styles" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -103,7 +109,7 @@
       <workItem from="1616457411172" duration="18460000" />
       <workItem from="1616576296902" duration="709000" />
       <workItem from="1616586870892" duration="49681000" />
-      <workItem from="1616779297350" duration="29969000" />
+      <workItem from="1616779297350" duration="41507000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>
@@ -182,7 +188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616963098418</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Work in progress">
+      <created>1617057300644</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1617057300644</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

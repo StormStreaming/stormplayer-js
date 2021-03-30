@@ -2,7 +2,7 @@ import {GraphicElement} from "../GraphicElement";
 import {StormPlayer} from "../../StormPlayer";
 import {PlayElement} from "./PlayElement";
 import {VolumeElement} from "./VolumeElement";
-import {ResolutionElement} from "./ResolutionElement";
+import {QualityElement} from "./QualityElement";
 import {SubtitlesElement} from "./SubtitlesElement";
 import {FullscreenElement} from "./FullscreenElement";
 
@@ -14,7 +14,7 @@ export class ControlButtonsElement extends GraphicElement {
      */
     private playElement : PlayElement;
     private volumeElement : VolumeElement;
-    private resolutionElement : ResolutionElement;
+    private qualityElement : QualityElement;
 
     //private subtitlesElement : SubtitlesElement;
     private fullscreenElement : FullscreenElement;
@@ -52,8 +52,8 @@ export class ControlButtonsElement extends GraphicElement {
         this.volumeElement = new VolumeElement(this.stormPlayer);
         this.leftWrapper.getHtmlElement().appendChild(this.volumeElement.getHtmlElement());
 
-        this.resolutionElement = new ResolutionElement(this.stormPlayer);
-        this.leftWrapper.getHtmlElement().appendChild(this.resolutionElement.getHtmlElement());
+        this.qualityElement = new QualityElement(this.stormPlayer);
+        this.leftWrapper.getHtmlElement().appendChild(this.qualityElement.getHtmlElement());
 
         //this.subtitlesElement = new SubtitlesElement(this.stormPlayer);
         //this.rightWrapper.getHtmlElement().appendChild(this.subtitlesElement.getHtmlElement());

@@ -58,95 +58,95 @@
   input[type="range"]::-webkit-slider-thumb {
     visibility: hidden;
   }
-}
 
-input[type="range"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  height: 8.4px;
-  background: transparent;
-  cursor: pointer;
-}
+  input[type="range"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 8.4px;
+    background: transparent;
+    cursor: pointer;
+  }
 
-input[type="range"]:focus {
-  outline: none;
-}
+  input[type="range"]:focus {
+    outline: none;
+  }
 
-input[type="range"]::-webkit-slider-runnable-track {
-  width: 100%;
-  cursor: pointer;
-  border-radius: 1.3px;
-  -webkit-appearance: none;
-  transition: all 0.4s ease;
-}
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    cursor: pointer;
+    border-radius: 1.3px;
+    -webkit-appearance: none;
+    transition: all 0.4s ease;
+  }
 
-progress {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border-radius: $progress-bar-radius;
-  width: 100%;
-  height: $progress-bar-height;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  background: transparent;
-  border: none;
-}
+  progress {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: $progress-bar-radius;
+    width: 100%;
+    height: $progress-bar-height;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    background: transparent;
+    border: none;
+  }
 
-progress::-webkit-progress-bar {
-  background: transparent;
-}
+  progress::-webkit-progress-bar {
+    background: transparent;
+  }
 
-progress::-moz-progress-bar {
-  background: transparent;
-  box-shadow: $bs-progress-bar;
-  background-image: $g-progress-bar;
-  border-radius: $progress-bar-radius;
-  border: none;
-  appearance: none;
-}
+  progress::-moz-progress-bar {
+    background: transparent;
+    box-shadow: $bs-progress-bar;
+    background-image: $g-progress-bar;
+    border-radius: $progress-bar-radius;
+    border: none;
+    appearance: none;
+  }
 
-progress::-webkit-progress-value {
-  box-shadow: $bs-progress-bar;
-  background-image: $g-progress-bar;
-  border-radius: $progress-bar-radius;
-}
+  progress::-webkit-progress-value {
+    box-shadow: $bs-progress-bar;
+    background-image: $g-progress-bar;
+    border-radius: $progress-bar-radius;
+  }
 
-progress::-moz-range-progress {
-  box-shadow: $bs-progress-bar;
-  background-image: $g-progress-bar;
-  border-radius: $progress-bar-radius;
-}
+  progress::-moz-range-progress {
+    box-shadow: $bs-progress-bar;
+    background-image: $g-progress-bar;
+    border-radius: $progress-bar-radius;
+  }
 
-input[type="range"]::-webkit-slider-thumb {
-  height: $progress-range-size;
-  width: $progress-range-size;
-  border-radius: $progress-range-radius;
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-left: -5px;
-  box-shadow: $bs-progress-bar;
-  background-image: $g-progress-bar;
-}
+  input[type="range"]::-webkit-slider-thumb {
+    height: $progress-range-size;
+    width: $progress-range-size;
+    border-radius: $progress-range-radius;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-left: -5px;
+    box-shadow: $bs-progress-bar;
+    background-image: $g-progress-bar;
+  }
 
-input[type="range"]::-moz-range-thumb {
-  height: $progress-range-size;
-  width: $progress-range-size;
-  border-radius: $progress-range-radius;
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-left: 0;
-  box-shadow: $bs-progress-bar;
-  background-image: $g-progress-bar;
-}
+  input[type="range"]::-moz-range-thumb {
+    height: $progress-range-size;
+    width: $progress-range-size;
+    border-radius: $progress-range-radius;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-left: 0;
+    box-shadow: $bs-progress-bar;
+    background-image: $g-progress-bar;
+  }
 
-input[type="range"]::-moz-range-thumb {
-  height: 14px;
-  width: 14px;
-  border-radius: 50px;
-  border: 1px solid var(--youtube-red);
-  background: var(--youtube-red);
-  cursor: pointer;
-  margin-top: 5px;
+  input[type="range"]::-moz-range-thumb {
+    height: 14px;
+    width: 14px;
+    border-radius: 50px;
+    border: 1px solid var(--youtube-red);
+    background: var(--youtube-red);
+    cursor: pointer;
+    margin-top: 5px;
+  }
 }

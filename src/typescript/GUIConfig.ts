@@ -12,7 +12,7 @@ export class GUIConfig
     private unmuteText : string = 'UNMUTE SOUND';
     private playerDisconnectedText : string = 'Disconnected from stream server.';
     private serversFailedText : string = 'Failed to connect to the stream server.';
-    private compatybilityErrorText : string = 'Your device is not compatible with the available video source.';
+    private compatibilityErrorText : string = 'Your device is not compatible with the available video source.';
     private noSSLErrorText : string = 'This connection requires an SSL layer.';
     private videoErrorText : string = 'Disconnected from stream server.';
     private videoNotFoundText : string = 'Stream with given name was not found.';
@@ -52,8 +52,8 @@ export class GUIConfig
         if(guiConfig.serversFailedText)
             this.serversFailedText = guiConfig.serversFailedText;
 
-        if(guiConfig.compatybilityErrorText)
-            this.compatybilityErrorText = guiConfig.compatybilityErrorText;
+        if(guiConfig.compatibilityErrorText)
+            this.compatibilityErrorText = guiConfig.compatibilityErrorText;
 
         if(guiConfig.noSSLErrorText)
             this.noSSLErrorText = guiConfig.noSSLErrorText;
@@ -145,12 +145,12 @@ export class GUIConfig
         this.serversFailedText = value;
     }
 
-    public getCompatybilityErrorText(): string {
-        return this.compatybilityErrorText;
+    public getCompatibilityErrorText(): string {
+        return this.compatibilityErrorText;
     }
 
-    public setCompatybilityErrorText(value: string) {
-        this.compatybilityErrorText = value;
+    public setCompatibilityErrorText(value: string) {
+        this.compatibilityErrorText = value;
     }
 
     public getNoSSLErrorText(): string {
