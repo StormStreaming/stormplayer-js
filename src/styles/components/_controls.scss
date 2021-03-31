@@ -18,7 +18,7 @@
     display: flex;
     cursor: pointer;
     position: relative;
-    margin-right: 21px;
+    margin-right: 10px;
     font-size: 12px;
     padding: 3px;
     border: none;
@@ -26,7 +26,7 @@
     background-color: transparent;
 
     &:last-child {
-      margin-right: 3px;
+      //margin-right: 3px;
     }
   }
 
@@ -94,11 +94,17 @@
   }
 
   // control buttons
+  .sp-play{
+    button{
+      margin-right:3px;
+    }
+  }
 
   &__subtitles {
   }
 
   &__fullscreen {
+    margin-right: 3px !important;
   }
 
   &__cinematic {
@@ -113,7 +119,7 @@
       font-family: Montserrat;
       border-radius: $progress-bar-radius;
       background-color: $white;
-      min-width: 44px;
+      padding:0 6px;
       min-height: 28px;
       font-size: 14px;
       font-weight: bold;

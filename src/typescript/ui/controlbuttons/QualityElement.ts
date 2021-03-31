@@ -21,9 +21,7 @@ export class QualityElement extends GraphicElement {
         else
             this.show();
 
-        /*
-        wyswietlenie aktualnie granego labela
-         */
+        this.qualityButtonElement.innerHTML = `<span>${this.stormPlayer.getLibrary().getCurrentQuality()}</span>`;
 
 
     }
@@ -33,7 +31,6 @@ export class QualityElement extends GraphicElement {
 
         this.qualityButtonElement = document.createElement("button");
         this.qualityButtonElement.className = 'sp-controls__button';
-        this.qualityButtonElement.innerHTML = '<span>HD</span>';
 
         this.htmlElement.append(this.qualityButtonElement);
 

@@ -6,6 +6,7 @@ export class QualityMenuElement extends GraphicElement {
 
 
     private spMenuBoxElement : GraphicElement;
+    private listItems : Array<HTMLElement> = [];
 
     constructor(stormPlayer: StormPlayer) {
 
@@ -14,12 +15,21 @@ export class QualityMenuElement extends GraphicElement {
     }
 
     public setCurrentItem() : void{
+        let currentLabel = this.stormPlayer.getLibrary().getCurrentQuality();
+
+        for(let i=0;i<this.listItems.length;i++){
+            if(this.listItems[i].getAttribute("data-label") == currentLabel)
+                this.listItems[i].classList.add('sp-menu__list-item__active');
+            else
+                this.listItems[i].classList.remove('sp-menu__list-item__active');
+        }
 
     }
 
     public refreshList() : void{
 
         this.spMenuBoxElement.getHtmlElement().querySelector("ul").innerHTML = '';
+        this.listItems = [];
 
         let that = this;
         let list = this.stormPlayer.getLibrary().getAllSources();
@@ -42,6 +52,7 @@ export class QualityMenuElement extends GraphicElement {
                                 </g>
                             </g>
                         </svg>`;
+            this.listItems.push(menuPosition);
             this.spMenuBoxElement.getHtmlElement().querySelector("ul").appendChild(menuPosition);
             menuPosition.addEventListener("click",function(){
                 that.stormPlayer.getLibrary().setQuality(this.getAttribute("data-label"));
@@ -89,6 +100,10 @@ export class QualityMenuElement extends GraphicElement {
             that.getHtmlElement().classList.add("sp-menu--hidden");
         });
 
+        document.addEventListener("click", function(e){
+            if(!(e.target as HTMLElement).classList.contains("sp-controls__button"))
+                that.getHtmlElement().classList.add("sp-menu--hidden");
+        });
     }
 
 

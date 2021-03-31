@@ -21,7 +21,6 @@ export class MainElement extends GraphicElement {
     private headerElement : HeaderElement;
     private controlElement : ControlElement;
     private unmuteElement : UnmuteElement;
-    //private qualityMenuElement : QualityMenuElement;
 
     /*
     All MainElement objects will be added to this wrapper
@@ -81,15 +80,16 @@ export class MainElement extends GraphicElement {
         this.controlElement = new ControlElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.controlElement.getHtmlElement());
 
-       // this.qualityMenuElement = new QualityMenuElement(this.stormPlayer);
-       // this.spContainer.getHtmlElement().appendChild(this.qualityMenuElement.getHtmlElement());
-
     }
 
 
     protected attachListeners(): void {
         let that = this;
         let spContainerElement = this.spContainer.getHtmlElement();
+
+        /*
+        Hide GUI events
+         */
 
         this.stormPlayer.addListener(EventType.LIBRARY_INITIALIZED, function() {
             that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
@@ -125,6 +125,22 @@ export class MainElement extends GraphicElement {
                     that.stormPlayer.dispatch(EventType.GUI_HIDE);
             },that.hideGUITimeoutSeconds*1000);
         });
+
+        /*
+        Turn off cursor after hiding GUI
+         */
+
+        this.stormPlayer.addListener(EventType.GUI_SHOW, function(){
+            that.spContainer.getHtmlElement().classList.remove('sp-container__disablecursor');
+        });
+
+        this.stormPlayer.addListener(EventType.GUI_HIDE, function(){
+            that.spContainer.getHtmlElement().classList.add('sp-container__disablecursor');
+        });
+
+        /*
+        Fullscreen events
+         */
 
         this.stormPlayer.addListener(EventType.FULLSCREEN_ENTER, function(){
             spContainerElement.classList.add('sp-fullscreen');

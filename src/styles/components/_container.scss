@@ -11,6 +11,10 @@
   justify-content: center;
   overflow:hidden;
 
+  &__disablecursor{
+    cursor: none;
+  }
+
   &.sp-theater-mode {
     width: 100%;
     height: calc((9 / 16) * 100vw);
