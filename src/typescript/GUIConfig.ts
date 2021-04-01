@@ -6,6 +6,7 @@ export class GUIConfig
     private height : number;
 
     private bigPlaybackButton : boolean = true;
+    private timeline : boolean = true;
     private guiHideSeconds : number = 3;
     private title : string = null;
     private subtitle : string = null;
@@ -33,7 +34,10 @@ export class GUIConfig
         this.width = guiConfig.width;
         this.height = guiConfig.height;
 
-        if(guiConfig.bigPlaybackButton)
+        if(typeof guiConfig.timeline != "undefined")
+            this.timeline = guiConfig.timeline;
+
+        if(typeof guiConfig.bigPlaybackButton != "undefined")
             this.bigPlaybackButton = guiConfig.bigPlaybackButton;
 
         if(guiConfig.guiHideSeconds)
@@ -72,6 +76,14 @@ export class GUIConfig
         if(guiConfig.liveText)
             this.liveText = guiConfig.liveText;
 
+    }
+
+    public setTimeline(value : boolean) : void{
+        this.timeline = value;
+    }
+
+    public getTimeline() : boolean{
+        return this.timeline;
     }
 
     public setLiveText(value : string) : void{

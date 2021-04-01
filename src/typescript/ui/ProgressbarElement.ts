@@ -80,7 +80,7 @@ export class ProgressbarElement extends GraphicElement {
 
     public refreshBar() : void{
 
-        if(this.cacheTime < 1000*5)
+        if(!this.stormPlayer.getGuiConfig().getTimeline() || this.cacheTime < 1000*5)
             this.hide();
         else {
             this.show();
@@ -187,6 +187,8 @@ export class ProgressbarElement extends GraphicElement {
 
         this.seekTooltipElement = new GraphicElement(this.stormPlayer, 'sp-seek__tooltip');
         this.htmlElement.appendChild(this.seekTooltipElement.getHtmlElement());
+
+        this.hide();
 
 
     }
