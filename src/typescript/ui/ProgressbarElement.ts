@@ -123,6 +123,12 @@ export class ProgressbarElement extends GraphicElement {
 
     public setTooltipPosition(x : number) : void{
 
+        if(x < 0)
+            x = 0;
+
+        if(x > this.seekElement.clientWidth)
+            x = this.seekElement.clientWidth;
+
         this.seekTooltipElement.getHtmlElement().style.left = `${x+5}px`;
 
         let maxPos = this.seekElement.clientWidth;
