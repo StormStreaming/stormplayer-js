@@ -49,7 +49,7 @@ export class HeaderElement extends GraphicElement {
               </g>
             </svg>
 
-            <span class="sp-live-icon__text" id="sp-live-icon-text">LIVE</span>`;
+            <span class="sp-live-icon__text" id="sp-live-icon-text">${this.stormPlayer.getGuiConfig().getLiveText()}</span>`;
     }
 
     public setTitle(title : string): void{

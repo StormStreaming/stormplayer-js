@@ -16,6 +16,8 @@ export class GUIConfig
     private noSSLErrorText : string = 'This connection requires an SSL layer.';
     private videoErrorText : string = 'Disconnected from stream server.';
     private videoNotFoundText : string = 'Stream with given name was not found.';
+    private videoStopText : string = 'The stream has ended.';
+    private liveText : string = "LIVE";
 
     constructor(guiConfig : any) {
         if(!guiConfig.containerID)
@@ -63,6 +65,29 @@ export class GUIConfig
 
         if(guiConfig.videoNotFoundText)
             this.videoNotFoundText = guiConfig.videoNotFoundText;
+
+        if(guiConfig.videoStopText)
+            this.videoStopText = guiConfig.videoStopText;
+
+        if(guiConfig.liveText)
+            this.liveText = guiConfig.liveText;
+
+    }
+
+    public setLiveText(value : string) : void{
+        this.liveText = value;
+    }
+
+    public getLiveText() : string{
+        return this.liveText;
+    }
+
+    public setVideoStopText(value : string) : void{
+        this.videoStopText = value;
+    }
+
+    public getVideoStopText() : string{
+        return this.videoStopText;
     }
 
     public isBigPlaybackButton(): boolean {

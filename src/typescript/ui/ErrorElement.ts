@@ -72,6 +72,10 @@ export class ErrorElement extends GraphicElement {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getVideoNotFoundText());
             });
 
+            that.stormPlayer.getLibrary().addEventListener("videoStop", function (e) {
+                that.showErrorMessage(that.stormPlayer.getGuiConfig().getVideoStopText());
+            });
+
         });
     }
 

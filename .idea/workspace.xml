@@ -4,11 +4,16 @@
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/_variables.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/components/_container.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_container.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/components/_controls.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_controls.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityMenuElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityMenuElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/_progress.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_progress.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/_seek.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_seek.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/GUIConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/GUIConfig.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/SeektooltipElement.ts" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +106,7 @@
       <workItem from="1616457411172" duration="18460000" />
       <workItem from="1616576296902" duration="709000" />
       <workItem from="1616586870892" duration="49681000" />
-      <workItem from="1616779297350" duration="47700000" />
+      <workItem from="1616779297350" duration="66411000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>
@@ -194,7 +199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617125211717</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Work in progress">
+      <created>1617230311295</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1617230311295</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
