@@ -125,11 +125,8 @@ export class ProgressbarElement extends GraphicElement {
 
         if(x < 0)
             x = 0;
-
-        if(x > this.seekElement.clientWidth)
+        else if(x > this.seekElement.clientWidth)
             x = this.seekElement.clientWidth;
-
-        this.seekTooltipElement.getHtmlElement().style.left = `${x+5}px`;
 
         let maxPos = this.seekElement.clientWidth;
         let percentPosition = (x*100)/maxPos;
@@ -137,6 +134,15 @@ export class ProgressbarElement extends GraphicElement {
         let tooltipText = percentTimeSeconds > 0 ? "-"+this.secondsToNicetime(percentTimeSeconds) : this.stormPlayer.getGuiConfig().getLiveText();
 
         this.seekTooltipElement.getHtmlElement().innerHTML = tooltipText;
+
+
+        if(x < 27)
+            x = 27;
+        else if(x > maxPos-25)
+            x = maxPos-25;
+
+
+        this.seekTooltipElement.getHtmlElement().style.left = `${x+5}px`;
 
     }
 
