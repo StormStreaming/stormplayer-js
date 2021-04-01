@@ -12,7 +12,7 @@ export class ProgressbarElement extends GraphicElement {
     private progressElement : HTMLProgressElement;
     private progressEndElement : GraphicElement;
     private seekElement : HTMLInputElement;
-    private seektooltipElement : GraphicElement;
+    private seekTooltipElement : GraphicElement;
     private thumbElement : GraphicElement;
 
     /*
@@ -59,7 +59,7 @@ export class ProgressbarElement extends GraphicElement {
 
     }
 
-    public repositionThumb(percent : number) : void{
+    public setThumbPosition(percent : number) : void{
         let maxThumbPos = this.seekElement.clientWidth;
         maxThumbPos -= 15; //offset right
         let thumbPos = (maxThumbPos*percent)/100;
@@ -121,6 +121,19 @@ export class ProgressbarElement extends GraphicElement {
 
     }
 
+    public setTooltipPosition(x : number) : void{
+
+        this.seekTooltipElement.getHtmlElement().style.left = `${x+5}px`;
+
+        let maxPos = this.seekElement.clientWidth;
+        let percentPosition = (x*100)/maxPos;
+        let percentTimeSeconds = this.percentToTime(percentPosition)/1000;
+        let tooltipText = percentTimeSeconds > 0 ? "-"+this.secondsToNicetime(percentTimeSeconds) : this.stormPlayer.getGuiConfig().getLiveText();
+
+        this.seekTooltipElement.getHtmlElement().innerHTML = tooltipText;
+
+    }
+
     public secondsToNicetime(seconds : number) : string{
         const h = Math.floor(seconds / 3600);
         const m = Math.floor((seconds % 3600) / 60);
@@ -160,8 +173,8 @@ export class ProgressbarElement extends GraphicElement {
         this.seekElement.setAttribute("max", "100");
         this.htmlElement.appendChild(this.seekElement);
 
-        this.seektooltipElement = new GraphicElement(this.stormPlayer, 'sp-seek__tooltip');
-        this.htmlElement.appendChild(this.seektooltipElement.getHtmlElement());
+        this.seekTooltipElement = new GraphicElement(this.stormPlayer, 'sp-seek__tooltip');
+        this.htmlElement.appendChild(this.seekTooltipElement.getHtmlElement());
 
 
     }
@@ -171,42 +184,19 @@ export class ProgressbarElement extends GraphicElement {
         let that = this;
 
         this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
-
             that.stormPlayer.getLibrary().addEventListener("videoProgress", function (e) {
                 that.parseServerData(e);
             });
-
         });
 
         this.seekElement.addEventListener('input', function(e){
-
-            that.repositionThumb(parseFloat(this.value));
-
+            that.setThumbPosition(parseFloat(this.value));
         });
 
         this.seekElement.addEventListener('mousemove', function(e){
             let rect = that.seekElement.getBoundingClientRect();
             let xPosition = e.clientX - rect.left;
-
-            /*
-            Tooltip position
-             */
-            that.seektooltipElement.getHtmlElement().style.left = `${xPosition+5}px`;
-
-            /*
-            xPosition to percent position
-             */
-            let maxPos = this.clientWidth;
-            let percentPosition = (xPosition*100)/maxPos;
-            let percentTimeSeconds = that.percentToTime(percentPosition)/1000;
-
-            /*
-            Tooltip text
-             */
-            let tooltipText = percentTimeSeconds > 0 ? "-"+that.secondsToNicetime(percentTimeSeconds) : that.stormPlayer.getGuiConfig().getLiveText();
-
-            that.seektooltipElement.getHtmlElement().innerHTML = tooltipText;
-
+            that.setTooltipPosition(xPosition);
         });
 
         this.seekElement.addEventListener('mousedown', function(e){
@@ -216,7 +206,6 @@ export class ProgressbarElement extends GraphicElement {
         this.seekElement.addEventListener('mouseup', function(e){
             that.stopThumbUpdate = false;
             that.seekTo(parseFloat(this.value));
-
         });
     }
 
