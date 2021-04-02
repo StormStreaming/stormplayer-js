@@ -4,6 +4,8 @@ import {EventType} from "../events/EventType";
 
 export class PlaybackElement extends GraphicElement {
 
+    private dontShowPlayback : boolean = false;
+
     constructor(stormPlayer: StormPlayer) {
 
         super(stormPlayer, 'sp-playback');
@@ -14,7 +16,7 @@ export class PlaybackElement extends GraphicElement {
     }
 
     public show(): void {
-        if(this.stormPlayer.getGuiConfig().isBigPlaybackButton() === false)
+        if(this.stormPlayer.getGuiConfig().isBigPlaybackButton() === false || this.dontShowPlayback)
             return;
         super.show();
     }
@@ -56,6 +58,14 @@ export class PlaybackElement extends GraphicElement {
         let that = this;
         this.htmlElement.addEventListener('click', function() {
             that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
+        });
+
+        this.stormPlayer.addListener(EventType.SEEK_START, function(){
+            that.dontShowPlayback = true;
+        });
+
+        this.stormPlayer.addListener(EventType.SEEK_END, function(){
+            that.dontShowPlayback = false;
         });
 
         this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {

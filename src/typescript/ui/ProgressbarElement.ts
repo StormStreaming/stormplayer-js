@@ -6,32 +6,36 @@ import {EventType} from "../events/EventType";
 export class ProgressbarElement extends GraphicElement {
 
     /*
-    Elements
+    HTML elements
      */
-    private cuepointsElement : CuepointsElement;
-    private progressElement : HTMLProgressElement;
-    private progressEndElement : GraphicElement;
-    private seekElement : HTMLInputElement;
-    private seekTooltipElement : GraphicElement;
-    private thumbElement : GraphicElement;
+    private cuepointsElement: CuepointsElement;
+    private progressElement: HTMLProgressElement;
+    private progressEndElement: GraphicElement;
+    private seekElement: HTMLInputElement;
+    private seekTooltipElement: GraphicElement;
+    private thumbElement: GraphicElement;
 
     /*
-    From server
+    Server data
      */
-    private duration : number;
-    private sourceTime : number;
-    private sourceStartTime : number;
-    private cacheTime : number;
-    private streamStartTime : number;
+    private duration: number;
+    private sourceTime: number;
+    private sourceStartTime: number;
+    private cacheTime: number;
+    private streamStartTime: number;
 
     /*
-    Calculated
+    Calculated data
      */
-    private progressBarStartTime : number;
-    private progressBarEndTime : number;
-    private progressBarCurrTime : number;
+    private progressBarStartTime: number;
+    private progressBarEndTime: number;
+    private progressBarCurrTime: number;
 
-    private stopThumbUpdate : boolean = false;
+    /*
+    Auxiliary variables
+     */
+    private lastSeekUpdateTime : number;
+    private stopRefreshBar: boolean = false;
 
     constructor(stormPlayer: StormPlayer) {
 
@@ -42,111 +46,135 @@ export class ProgressbarElement extends GraphicElement {
     /*
     Gets seconds time elapsed by percent
      */
-    public percentToTime(percent : number) : number{
+    public percentToTime(percent: number): number {
 
-        if(percent < 0)
+        if (percent < 0)
             percent = 0;
 
-        if(percent > 100)
+        if (percent > 100)
             percent = 100;
 
-        percent = 100-percent;
+        percent = 100 - percent;
 
-        let endTime = this.progressBarEndTime-this.progressBarStartTime;
-        let percentTime = ((endTime*percent)/100);
+        let endTime = this.progressBarEndTime - this.progressBarStartTime;
+        let percentTime = ((endTime * percent) / 100);
 
         return percentTime;
 
     }
 
-    public setThumbPosition(percent : number) : void{
+    /*
+    Sets thumb & bar position while mouse seeking
+     */
+    public setPosition(percent: number): void {
         let maxThumbPos = this.seekElement.clientWidth;
         maxThumbPos -= 15; //offset right
-        let thumbPos = (maxThumbPos*percent)/100;
+        let thumbPos = (maxThumbPos * percent) / 100;
         thumbPos += 5; //offset left
         this.thumbElement.getHtmlElement().style.transform = `translateX(${thumbPos}px)`;
+
+        this.progressElement.setAttribute("min", "0");
+        this.progressElement.setAttribute("max", "100");
+        this.progressElement.setAttribute("value", percent.toString());
     }
 
-    public seekTo(percent : number) : void{
+    /*
+    Library seek
+    */
+    public seekTo(percent: number): void {
+
+        let percentTime = this.percentToTime(percent);
+        let seekTime = this.progressBarEndTime - percentTime;
 
         /*
-        Library seek
+        Prevent too frequent update
          */
-        let percentTime = this.percentToTime(percent);
-        let seekTime = this.progressBarEndTime-percentTime;
+        if(this.lastSeekUpdateTime == seekTime)
+            return;
+        this.lastSeekUpdateTime = seekTime;
 
-        console.log("Seek to: "+seekTime);
+        console.log("Seek to: " + seekTime);
     }
 
-    public refreshBar() : void{
+    /*
+    Refreshes the bar based on new server data
+     */
+    public refreshBar(): void {
+        if (this.stopRefreshBar)
+            return;
 
-        if(!this.stormPlayer.getGuiConfig().getTimeline() || this.cacheTime < 1000*5)
+        if (!this.stormPlayer.getGuiConfig().getTimeline() || this.cacheTime < 1000 * 5)
             this.hide();
         else {
             this.show();
+
             this.progressElement.setAttribute("min", "0");
             this.progressElement.setAttribute("max", (this.progressBarEndTime - this.progressBarStartTime).toString());
             this.progressElement.setAttribute("value", (this.progressBarCurrTime - this.progressBarStartTime).toString());
 
-            if (!this.stopThumbUpdate) {
-                let maxThumbPos = this.seekElement.clientWidth;
-                maxThumbPos -= 15; //offset right
-                let thumbPos = (maxThumbPos * this.progressBarCurrTime) / this.progressBarEndTime;
-                thumbPos += 5; //offset left
-                this.thumbElement.getHtmlElement().style.transform = `translateX(${thumbPos}px)`;
-                this.thumbElement.show();
-            }
+            let maxThumbPos = this.seekElement.clientWidth;
+            maxThumbPos -= 15; //offset right
+            let thumbPos = (maxThumbPos * this.progressBarCurrTime) / this.progressBarEndTime;
+            thumbPos += 5; //offset left
+            this.thumbElement.getHtmlElement().style.transform = `translateX(${thumbPos}px)`;
+            this.thumbElement.show();
+            this.cuepointsElement.refreshCuepointsPosition();
         }
     }
 
-    public parseServerData(data) : void{
+    /*
+    Parses server data
+     */
+    public parseServerData(data): void {
 
         this.duration = data.duration;
         this.sourceTime = data.sourceTime;
         this.sourceStartTime = data.sourceStartTime;
         this.streamStartTime = data.streamStartTime;
         //that.cacheTime = e.cacheTime;
-        this.cacheTime = 1000*60*30; //30min
+        this.cacheTime = 1000 * 60 * 5; //5min
         //this.cacheTime = 1000*4; //4 sec
 
-        this.progressBarStartTime = this.sourceStartTime+this.sourceTime-this.cacheTime;
-        this.progressBarEndTime = this.sourceStartTime+this.sourceTime;
-        this.progressBarCurrTime = this.streamStartTime+this.duration;
+        this.progressBarStartTime = this.sourceStartTime + this.sourceTime - this.cacheTime;
+        this.progressBarEndTime = this.sourceStartTime + this.sourceTime;
+        this.progressBarCurrTime = this.streamStartTime + this.duration;
 
         //workaround
-        if(this.progressBarCurrTime > this.progressBarEndTime)
+        if (this.progressBarCurrTime > this.progressBarEndTime)
             this.progressBarCurrTime = this.progressBarEndTime;
 
         this.refreshBar();
 
     }
 
-    public setTooltipPosition(x : number) : void{
+    /*
+    Sets tooltip position based on mouse X
+     */
+    public updateTooltip(mouseX: number): void {
 
-        if(x < 0)
-            x = 0;
-        else if(x > this.seekElement.clientWidth)
-            x = this.seekElement.clientWidth;
+        if (mouseX < 0)
+            mouseX = 0;
+        else if (mouseX > this.seekElement.clientWidth)
+            mouseX = this.seekElement.clientWidth;
 
         let maxPos = this.seekElement.clientWidth;
-        let percentPosition = (x*100)/maxPos;
-        let percentTimeSeconds = this.percentToTime(percentPosition)/1000;
-        let tooltipText = percentTimeSeconds > 0 ? "-"+this.secondsToNicetime(percentTimeSeconds) : this.stormPlayer.getGuiConfig().getLiveText();
+        let percentPosition = (mouseX * 100) / maxPos;
+        let percentTimeSeconds = this.percentToTime(percentPosition) / 1000;
+        let tooltipText = percentTimeSeconds > 0 ? "-" + this.secondsToNicetime(percentTimeSeconds) : this.stormPlayer.getGuiConfig().getLiveText();
 
         this.seekTooltipElement.getHtmlElement().innerHTML = tooltipText;
 
 
-        if(x < 27)
-            x = 27;
-        else if(x > maxPos-25)
-            x = maxPos-25;
+        if (mouseX < 34)
+            mouseX = 34;
+        else if (mouseX > maxPos - 25)
+            mouseX = maxPos - 25;
 
-
-        this.seekTooltipElement.getHtmlElement().style.left = `${x+5}px`;
+        this.seekTooltipElement.getHtmlElement().style.left = `${mouseX + 5}px`;
 
     }
 
-    public secondsToNicetime(seconds : number) : string{
+    public secondsToNicetime(seconds: number): string {
         const h = Math.floor(seconds / 3600);
         const m = Math.floor((seconds % 3600) / 60);
         const s = Math.round(seconds % 60);
@@ -157,10 +185,10 @@ export class ProgressbarElement extends GraphicElement {
         ].filter(Boolean).join(':');
     }
 
-    protected draw() : void{
+    protected draw(): void {
         super.draw();
 
-        this.cuepointsElement = new CuepointsElement(this.stormPlayer);
+        this.cuepointsElement = new CuepointsElement(this.stormPlayer, this);
         this.htmlElement.appendChild(this.cuepointsElement.getHtmlElement());
 
         this.thumbElement = new GraphicElement(this.stormPlayer, "sp-progress-thumb");
@@ -193,33 +221,53 @@ export class ProgressbarElement extends GraphicElement {
 
     }
 
+    public getProgressBarStartTime() : number{
+        return this.progressBarStartTime;
+    }
+
+    public getProgressBarEndTime() : number{
+        return this.progressBarEndTime;
+    }
+
+    public getProgressBarCurrTime() : number{
+        return this.progressBarCurrTime;
+    }
+
     protected attachListeners(): void {
 
         let that = this;
 
-        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
+        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function () {
             that.stormPlayer.getLibrary().addEventListener("videoProgress", function (e) {
                 that.parseServerData(e);
             });
         });
 
-        this.seekElement.addEventListener('input', function(e){
-            that.setThumbPosition(parseFloat(this.value));
+        this.seekElement.addEventListener('input', function (e) {
+            that.setPosition(parseFloat(this.value));
         });
 
-        this.seekElement.addEventListener('mousemove', function(e){
+        this.seekElement.addEventListener('mousemove', function (e) {
             let rect = that.seekElement.getBoundingClientRect();
             let xPosition = e.clientX - rect.left;
-            that.setTooltipPosition(xPosition);
+            that.updateTooltip(xPosition);
         });
 
-        this.seekElement.addEventListener('mousedown', function(e){
-            that.stopThumbUpdate = true;
+        this.seekElement.addEventListener('mousedown', function (e) {
+            that.stopRefreshBar = true;
+
+            that.stormPlayer.dispatch(EventType.SEEK_START);
+            that.stormPlayer.dispatch(EventType.PAUSE_CLICKED);
+
         });
 
-        this.seekElement.addEventListener('mouseup', function(e){
-            that.stopThumbUpdate = false;
+        this.seekElement.addEventListener('mouseup', function (e) {
+            that.stopRefreshBar = false;
             that.seekTo(parseFloat(this.value));
+
+            that.stormPlayer.dispatch(EventType.SEEK_END);
+            that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
+
         });
     }
 

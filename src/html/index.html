@@ -18,6 +18,11 @@
     <div id="player1">
 
     </div>
+
+    <div class="cuepoint-btn">
+        <input type="button" onclick="addCuePointNow('test');" value="Add 'test' cuepoint NOW!"/>
+    </div>
+
 </div>
 
 <script>
@@ -77,9 +82,8 @@
             unmuteText: 'UNMUTE SOUND',*/
         }, stormLibraryConfig);
 
-        window.test = function(t){
-            stormPlayer.setTitle(t);
-            stormPlayer.setSubtitle(t);
+        window.addCuePointNow = function(title){
+            stormPlayer.addCuepoint(title, stormPlayer.getLibrary().getAbsoluteStreamTime());
         }
     });
 

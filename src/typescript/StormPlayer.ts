@@ -27,7 +27,7 @@ export class StormPlayer extends Dispatcher
      */
     private libraryManager : LibraryManager;
 
-    constructor(guiConfig : any, stormLibraryConfig : any) {
+    constructor(guiConfig : any, stormLibraryConfig : any, cuepoints : Array<any>) {
         super();
 
         this.guiConfig = new GUIConfig(guiConfig);
@@ -51,8 +51,26 @@ export class StormPlayer extends Dispatcher
         this.setTitle(this.guiConfig.getTitle());
         this.setSubtitle(this.guiConfig.getSubtitle());
 
+        /*
+        Add cuepoints
+         */
+        let that = this;
+        this.addListener(EventType.LIBRARY_INITIALIZED, function(){
+            for(let i=0;i<cuepoints.length;i++){
+                that.addCuepoint(cuepoints[i].title, cuepoints[i].time);
+            }
+        });
 
     }
+
+    public addCuepoint(title : string, time : number) : void{
+        this.dispatch(EventType.CUEPOINT_ADD, {title: title, time : time});
+    }
+
+    public removeCuepoint(time : number) : void{
+        this.dispatch(EventType.CUEPOINT_REMOVE, {time : time});
+    }
+
 
     // @ts-ignore: Unreachable code error
     public getLibrary() : StormLibrary{
