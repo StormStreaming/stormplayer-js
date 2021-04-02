@@ -39,11 +39,11 @@ export class CuepointsElement extends GraphicElement {
             let cuepointPercentPosition = this.timeToPercent(this.list[i].getTime());
             let xPosition = (cuepointPercentPosition*this.htmlElement.clientWidth)/100;
 
-            if(xPosition < 0)
-                this.removeCuePoint(this.list[i].getTime());
-
             this.list[i].getHtmlElement().style.left = `${xPosition}px`;
             this.list[i].show();
+
+            if(xPosition < 0)
+                this.removeCuePoint(this.list[i].getTime());
         }
     }
 

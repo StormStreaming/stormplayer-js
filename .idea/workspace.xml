@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/typescript/ui/CuepointElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/_container.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_container.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/demo.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/demo.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/StormPlayer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/StormPlayer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/events/EventType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/events/EventType.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/CuepointsElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/CuepointsElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +95,7 @@
       <workItem from="1616457411172" duration="18460000" />
       <workItem from="1616576296902" duration="709000" />
       <workItem from="1616586870892" duration="49681000" />
-      <workItem from="1616779297350" duration="82415000" />
+      <workItem from="1616779297350" duration="83085000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>
@@ -239,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617318417063</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Work in progress">
+      <created>1617394684757</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1617394684757</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
