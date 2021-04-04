@@ -86,11 +86,11 @@ export class LibraryManager
                 that.getLibrary().setVolume(e.volume);
             });
 
-            that.stormPlayer.addListener(EventType.FULLSCREEN_ENTER, function(){
+            that.stormPlayer.addListener(EventType.FULLSCREEN_ENTERED, function(){
                 that.getLibrary().setSize(window.screen.width, window.screen.height);
             });
 
-            that.stormPlayer.addListener(EventType.FULLSCREEN_EXIT, function(){
+            that.stormPlayer.addListener(EventType.FULLSCREEN_EXITED, function(){
                 that.getLibrary().setSize(that.getConfig().settings.video.width, that.getConfig().settings.video.height);
             });
 

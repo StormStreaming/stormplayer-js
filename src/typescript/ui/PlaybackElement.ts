@@ -60,11 +60,11 @@ export class PlaybackElement extends GraphicElement {
             that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
         });
 
-        this.stormPlayer.addListener(EventType.SEEK_START, function(){
+        this.stormPlayer.addListener(EventType.SEEK_STARTED, function(){
             that.dontShowPlayback = true;
         });
 
-        this.stormPlayer.addListener(EventType.SEEK_END, function(){
+        this.stormPlayer.addListener(EventType.SEEK_ENDED, function(){
             that.dontShowPlayback = false;
         });
 

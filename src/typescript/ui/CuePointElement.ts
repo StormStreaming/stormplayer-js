@@ -1,7 +1,7 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
 
-export class CuepointElement extends GraphicElement {
+export class CuePointElement extends GraphicElement {
 
     private time : number;
     private title : string;

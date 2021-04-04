@@ -38,11 +38,11 @@ export class ControlElement extends GraphicElement {
 
         let that = this;
 
-        this.stormPlayer.addListener(EventType.GUI_SHOW, function(){
+        this.stormPlayer.addListener(EventType.GUI_SHOWN, function(){
             that.show();
         });
 
-        this.stormPlayer.addListener(EventType.GUI_HIDE, function(){
+        this.stormPlayer.addListener(EventType.GUI_HIDED, function(){
             that.hide();
         });
     }

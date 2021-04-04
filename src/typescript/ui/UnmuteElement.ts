@@ -24,12 +24,12 @@ export class UnmuteElement extends GraphicElement {
     protected attachListeners(): void {
         let that = this;
 
-        this.stormPlayer.addListener(EventType.GUI_SHOW, function(){
+        this.stormPlayer.addListener(EventType.GUI_SHOWN, function(){
             if(that.stormPlayer.getGuiConfig().getTitle() || that.stormPlayer.getGuiConfig().getSubtitle())
                 that.getHtmlElement().classList.add('sp-unmute__afterheader');
         });
 
-        this.stormPlayer.addListener(EventType.GUI_HIDE, function(){
+        this.stormPlayer.addListener(EventType.GUI_HIDED, function(){
             that.getHtmlElement().classList.remove('sp-unmute__afterheader');
         });
 

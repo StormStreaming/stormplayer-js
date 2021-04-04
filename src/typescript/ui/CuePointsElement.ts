@@ -1,13 +1,13 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
-import {CuepointElement} from "./CuepointElement";
+import {CuePointElement} from "./CuePointElement";
 import {ProgressbarElement} from "./ProgressbarElement";
 import {EventType} from "../events/EventType";
 
-export class CuepointsElement extends GraphicElement {
+export class CuePointsElement extends GraphicElement {
 
     private progressbarElement : ProgressbarElement;
-    private list : Array<CuepointElement> = new Array<CuepointElement>();
+    private list : Array<CuePointElement> = new Array<CuePointElement>();
 
     constructor(stormPlayer: StormPlayer, progressbarElement: ProgressbarElement) {
         super(stormPlayer, "sp-cue-points");
@@ -15,9 +15,9 @@ export class CuepointsElement extends GraphicElement {
     }
 
     public addCuePoint(title : string, time : number) : void {
-        let cuepoint : CuepointElement = new CuepointElement(this.stormPlayer, title, time);
-        this.list.push(cuepoint);
-        this.htmlElement.appendChild(cuepoint.getHtmlElement());
+        let cuePoint : CuePointElement = new CuePointElement(this.stormPlayer, title, time);
+        this.list.push(cuePoint);
+        this.htmlElement.appendChild(cuePoint.getHtmlElement());
     }
 
     public removeCuePoint(time : number) : void{
@@ -33,11 +33,10 @@ export class CuepointsElement extends GraphicElement {
         }
     }
 
-    public refreshCuepointsPosition() : void{
+    public refreshCuePointsPosition() : void{
         for(let i=0;i<this.list.length;i++){
-            //console.log(this.htmlElement.clientWidth);
-            let cuepointPercentPosition = this.timeToPercent(this.list[i].getTime());
-            let xPosition = (cuepointPercentPosition*this.htmlElement.clientWidth)/100;
+            let cuePointPercentPosition = this.timeToPercent(this.list[i].getTime());
+            let xPosition = (cuePointPercentPosition*this.htmlElement.clientWidth)/100;
 
             this.list[i].getHtmlElement().style.left = `${xPosition}px`;
             this.list[i].show();
@@ -60,11 +59,11 @@ export class CuepointsElement extends GraphicElement {
     protected attachListeners() : void {
         let that = this;
 
-        this.stormPlayer.addListener(EventType.CUEPOINT_ADD, function(e){
+        this.stormPlayer.addListener(EventType.CUEPOINT_ADDED, function(e){
             that.addCuePoint(e.title, e.time);
         });
 
-        this.stormPlayer.addListener(EventType.CUEPOINT_REMOVE, function(e){
+        this.stormPlayer.addListener(EventType.CUEPOINT_REMOVED, function(e){
             that.removeCuePoint(e.time);
         });
 

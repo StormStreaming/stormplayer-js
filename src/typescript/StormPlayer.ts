@@ -57,18 +57,18 @@ export class StormPlayer extends Dispatcher
         let that = this;
         this.addListener(EventType.LIBRARY_INITIALIZED, function(){
             for(let i=0;i<cuepoints.length;i++){
-                that.addCuepoint(cuepoints[i].title, cuepoints[i].time);
+                that.addCuePoint(cuepoints[i].title, cuepoints[i].time);
             }
         });
 
     }
 
-    public addCuepoint(title : string, time : number) : void{
-        this.dispatch(EventType.CUEPOINT_ADD, {title: title, time : time});
+    public addCuePoint(title : string, time : number) : void{
+        this.dispatch(EventType.CUEPOINT_ADDED, {title: title, time : time});
     }
 
-    public removeCuepoint(time : number) : void{
-        this.dispatch(EventType.CUEPOINT_REMOVE, {time : time});
+    public removeCuePoint(time : number) : void{
+        this.dispatch(EventType.CUEPOINT_REMOVED, {time : time});
     }
 
 

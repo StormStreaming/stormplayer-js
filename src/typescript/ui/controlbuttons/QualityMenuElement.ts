@@ -96,7 +96,7 @@ export class QualityMenuElement extends GraphicElement {
             that.getHtmlElement().classList.toggle("sp-menu--hidden");
         });
 
-        this.stormPlayer.addListener(EventType.GUI_HIDE, function(){
+        this.stormPlayer.addListener(EventType.GUI_HIDED, function(){
             that.getHtmlElement().classList.add("sp-menu--hidden");
         });
 

@@ -56,7 +56,7 @@ export class LoaderElement extends GraphicElement {
                 that.hide();
             });
 
-            that.stormPlayer.addListener(EventType.ERROR_DISPLAY, function(){
+            that.stormPlayer.addListener(EventType.ERROR_SHOWN, function(){
                 that.hide();
             });
 

@@ -33,16 +33,16 @@ export class FullscreenElement extends GraphicElement {
             let enterFullscreen = document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false;
 
             if (enterFullscreen)
-                that.stormPlayer.dispatch(EventType.FULLSCREEN_ENTER);
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_ENTERED);
             else
-                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXIT);
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXITED);
         });
 
-        this.stormPlayer.addListener(EventType.FULLSCREEN_ENTER, function(){
+        this.stormPlayer.addListener(EventType.FULLSCREEN_ENTERED, function(){
             that.htmlElement.classList.add('sp-active');
         });
 
-        this.stormPlayer.addListener(EventType.FULLSCREEN_EXIT, function(){
+        this.stormPlayer.addListener(EventType.FULLSCREEN_EXITED, function(){
             that.htmlElement.classList.remove('sp-active');
         });
 

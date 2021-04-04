@@ -1,6 +1,6 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
-import {CuepointsElement} from "./CuepointsElement";
+import {CuePointsElement} from "./CuePointsElement";
 import {EventType} from "../events/EventType";
 
 export class ProgressbarElement extends GraphicElement {
@@ -8,7 +8,7 @@ export class ProgressbarElement extends GraphicElement {
     /*
     HTML elements
      */
-    private cuepointsElement: CuepointsElement;
+    private cuePointsElement: CuePointsElement;
     private progressElement: HTMLProgressElement;
     private progressEndElement: GraphicElement;
     private seekElement: HTMLInputElement;
@@ -118,7 +118,7 @@ export class ProgressbarElement extends GraphicElement {
             thumbPos += 5; //offset left
             this.thumbElement.getHtmlElement().style.transform = `translateX(${thumbPos}px)`;
             this.thumbElement.show();
-            this.cuepointsElement.refreshCuepointsPosition();
+            this.cuePointsElement.refreshCuePointsPosition();
         }
     }
 
@@ -188,8 +188,8 @@ export class ProgressbarElement extends GraphicElement {
     protected draw(): void {
         super.draw();
 
-        this.cuepointsElement = new CuepointsElement(this.stormPlayer, this);
-        this.htmlElement.appendChild(this.cuepointsElement.getHtmlElement());
+        this.cuePointsElement = new CuePointsElement(this.stormPlayer, this);
+        this.htmlElement.appendChild(this.cuePointsElement.getHtmlElement());
 
         this.thumbElement = new GraphicElement(this.stormPlayer, "sp-progress-thumb");
         this.htmlElement.appendChild(this.thumbElement.getHtmlElement());
@@ -256,7 +256,7 @@ export class ProgressbarElement extends GraphicElement {
         this.seekElement.addEventListener('mousedown', function (e) {
             that.stopRefreshBar = true;
 
-            that.stormPlayer.dispatch(EventType.SEEK_START);
+            that.stormPlayer.dispatch(EventType.SEEK_STARTED);
             that.stormPlayer.dispatch(EventType.PAUSE_CLICKED);
 
         });
@@ -265,7 +265,7 @@ export class ProgressbarElement extends GraphicElement {
             that.stopRefreshBar = false;
             that.seekTo(parseFloat(this.value));
 
-            that.stormPlayer.dispatch(EventType.SEEK_END);
+            that.stormPlayer.dispatch(EventType.SEEK_ENDED);
             that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
 
         });

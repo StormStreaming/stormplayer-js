@@ -13,7 +13,7 @@ export class ErrorElement extends GraphicElement {
     public showErrorMessage(message : string){
         this.htmlElement.querySelector('span').innerHTML = message;
         this.show();
-        this.stormPlayer.dispatch(EventType.ERROR_DISPLAY);
+        this.stormPlayer.dispatch(EventType.ERROR_SHOWN);
     }
 
     protected draw() : void{

@@ -139,7 +139,7 @@ export class VolumeElement extends GraphicElement {
             });
         }
 
-        this.stormPlayer.addListener(EventType.GUI_HIDE, function(){
+        this.stormPlayer.addListener(EventType.GUI_HIDED, function(){
             that.volumeButtonElement.classList.remove("sp-active");
             that.volumeControlWrapperElement.classList.add('sp-hidden');
         });

@@ -96,7 +96,7 @@ export class MainElement extends GraphicElement {
                 if (!that.hideGUITimeout) {
                     that.hideGUITimeout = setTimeout(function () {
                         if (that.stormPlayer.getLibrary().isPlaying())
-                            that.stormPlayer.dispatch(EventType.GUI_HIDE);
+                            that.stormPlayer.dispatch(EventType.GUI_HIDED);
                     }, that.hideGUITimeoutSeconds * 1000);
                 }
             });
@@ -105,24 +105,24 @@ export class MainElement extends GraphicElement {
         this.htmlElement.addEventListener("mouseenter", function(){
             if(that.hideGUITimeout)
                 clearTimeout(that.hideGUITimeout);
-            that.stormPlayer.dispatch(EventType.GUI_SHOW);
+            that.stormPlayer.dispatch(EventType.GUI_SHOWN);
         });
 
         this.htmlElement.addEventListener("mouseleave", function(){
             if(that.hideGUITimeout)
                 clearTimeout(that.hideGUITimeout);
             if(that.stormPlayer.getLibrary().isPlaying())
-                that.stormPlayer.dispatch(EventType.GUI_HIDE);
+                that.stormPlayer.dispatch(EventType.GUI_HIDED);
         });
 
         this.htmlElement.addEventListener("mousemove", function(){
             if(that.hideGUITimeout)
                 clearTimeout(that.hideGUITimeout);
-            that.stormPlayer.dispatch(EventType.GUI_SHOW);
+            that.stormPlayer.dispatch(EventType.GUI_SHOWN);
 
             that.hideGUITimeout = setTimeout(function(){
                 if(that.stormPlayer.getLibrary().isPlaying())
-                    that.stormPlayer.dispatch(EventType.GUI_HIDE);
+                    that.stormPlayer.dispatch(EventType.GUI_HIDED);
             },that.hideGUITimeoutSeconds*1000);
         });
 
@@ -130,11 +130,11 @@ export class MainElement extends GraphicElement {
         Turn off cursor after hiding GUI
          */
 
-        this.stormPlayer.addListener(EventType.GUI_SHOW, function(){
+        this.stormPlayer.addListener(EventType.GUI_SHOWN, function(){
             that.spContainer.getHtmlElement().classList.remove('sp-container__disablecursor');
         });
 
-        this.stormPlayer.addListener(EventType.GUI_HIDE, function(){
+        this.stormPlayer.addListener(EventType.GUI_HIDED, function(){
             that.spContainer.getHtmlElement().classList.add('sp-container__disablecursor');
         });
 
@@ -142,7 +142,7 @@ export class MainElement extends GraphicElement {
         Fullscreen events
          */
 
-        this.stormPlayer.addListener(EventType.FULLSCREEN_ENTER, function(){
+        this.stormPlayer.addListener(EventType.FULLSCREEN_ENTERED, function(){
             spContainerElement.classList.add('sp-fullscreen');
 
             const docElmWithBrowsersFullScreenFunctions = spContainerElement as HTMLElement & {
@@ -163,7 +163,7 @@ export class MainElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addListener(EventType.FULLSCREEN_EXIT, function(){
+        this.stormPlayer.addListener(EventType.FULLSCREEN_EXITED, function(){
             spContainerElement.classList.remove('sp-fullscreen');
 
             const docWithBrowsersExitFunctions = document as Document & {
@@ -187,26 +187,26 @@ export class MainElement extends GraphicElement {
 
             // @ts-ignore: Unreachable code error
             if(document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXIT);
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXITED);
 
         }, false);
 
         document.addEventListener('mozfullscreenchange', function(){
             // @ts-ignore: Unreachable code error
             if(document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXIT);
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXITED);
         }, false);
 
         document.addEventListener('MSFullscreenChange', function(){
             // @ts-ignore: Unreachable code error
             if(document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXIT);
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXITED);
         }, false);
 
         document.addEventListener('webkitfullscreenchange', function(){
             // @ts-ignore: Unreachable code error
             if(document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXIT);
+                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXITED);
         }, false);
 
     }

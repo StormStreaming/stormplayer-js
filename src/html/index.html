@@ -83,7 +83,11 @@
         }, stormLibraryConfig);
 
         window.addCuePointNow = function(title){
-            stormPlayer.addCuepoint(title, stormPlayer.getLibrary().getAbsoluteStreamTime());
+            var currentStreamTime = stormPlayer.getLibrary().getAbsoluteStreamTime();
+            if(currentStreamTime > 0)
+                stormPlayer.addCuePoint(title, stormPlayer.getLibrary().getAbsoluteStreamTime());
+            else
+                alert('Stream does not play');
         }
     });
 
