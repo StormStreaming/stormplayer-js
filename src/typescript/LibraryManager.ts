@@ -91,6 +91,7 @@ export class LibraryManager
             });
 
             that.stormPlayer.addListener(EventType.SEEK_SETTED, function(e){
+                console.log("Seek to: "+e.seekToTime);
                 that.getLibrary().seek(e.seekToTime);
             });
 

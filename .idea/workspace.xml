@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/GUIConfig.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/GUIConfig.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/LibraryManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/LibraryManager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/events/EventType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/events/EventType.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityMenuElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityMenuElement.ts" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +98,7 @@
       <workItem from="1616576296902" duration="709000" />
       <workItem from="1616586870892" duration="49681000" />
       <workItem from="1616779297350" duration="90789000" />
-      <workItem from="1617709984233" duration="3677000" />
+      <workItem from="1617709984233" duration="3773000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>
@@ -266,7 +261,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617567162070</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Work in progress">
+      <created>1617722655817</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1617722655817</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

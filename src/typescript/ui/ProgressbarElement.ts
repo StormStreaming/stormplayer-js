@@ -85,6 +85,7 @@ export class ProgressbarElement extends GraphicElement {
 
         let percentTime = this.percentToTime(percent);
         let seekTime = this.progressBarEndTime - percentTime;
+        seekTime = Math.round(seekTime);
 
         /*
         Prevent too frequent update
@@ -132,7 +133,7 @@ export class ProgressbarElement extends GraphicElement {
         this.sourceStartTime = data.sourceStartTime;
         this.streamStartTime = data.streamStartTime;
         this.cacheTime = data.cacheTime;
-console.log(data);
+
         this.progressBarStartTime = this.sourceStartTime + this.sourceTime - this.cacheTime;
         this.progressBarEndTime = this.sourceStartTime + this.sourceTime;
         this.progressBarCurrTime = this.streamStartTime + this.duration;
