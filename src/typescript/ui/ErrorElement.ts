@@ -76,6 +76,12 @@ export class ErrorElement extends GraphicElement {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getVideoStopText());
             });
 
+            that.stormPlayer.getLibrary().addEventListener("incompatiblePlayerProtocol", function (e) {
+                that.showErrorMessage(that.stormPlayer.getGuiConfig().getIncompatiblePlayerProtocolText());
+            });
+
+
+
         });
     }
 

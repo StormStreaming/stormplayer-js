@@ -55,7 +55,7 @@ export class QualityMenuElement extends GraphicElement {
             this.listItems.push(menuPosition);
             this.spMenuBoxElement.getHtmlElement().querySelector("ul").appendChild(menuPosition);
             menuPosition.addEventListener("click",function(){
-                that.stormPlayer.getLibrary().setQuality(this.getAttribute("data-label"));
+                that.stormPlayer.dispatch(EventType.QUALITY_CHANGED, {label: this.getAttribute("data-label")})
                 that.getHtmlElement().classList.add("sp-menu--hidden");
             });
         }

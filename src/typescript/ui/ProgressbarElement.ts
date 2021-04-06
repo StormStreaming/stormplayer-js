@@ -93,7 +93,7 @@ export class ProgressbarElement extends GraphicElement {
             return;
         this.lastSeekUpdateTime = seekTime;
 
-        console.log("Seek to: " + seekTime);
+        this.stormPlayer.dispatch(EventType.SEEK_SETTED, {seekToTime: seekTime})
     }
 
     /*
@@ -131,10 +131,8 @@ export class ProgressbarElement extends GraphicElement {
         this.sourceTime = data.sourceTime;
         this.sourceStartTime = data.sourceStartTime;
         this.streamStartTime = data.streamStartTime;
-        //that.cacheTime = e.cacheTime;
-        this.cacheTime = 1000 * 60 * 5; //5min
-        //this.cacheTime = 1000*4; //4 sec
-
+        this.cacheTime = data.cacheTime;
+console.log(data);
         this.progressBarStartTime = this.sourceStartTime + this.sourceTime - this.cacheTime;
         this.progressBarEndTime = this.sourceStartTime + this.sourceTime;
         this.progressBarCurrTime = this.streamStartTime + this.duration;

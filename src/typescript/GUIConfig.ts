@@ -10,7 +10,6 @@ export class GUIConfig
     private guiHideSeconds : number = 3;
     private title : string = null;
     private subtitle : string = null;
-    private unmuteText : string = 'UNMUTE SOUND';
     private playerDisconnectedText : string = 'Disconnected from stream server.';
     private serversFailedText : string = 'Failed to connect to the stream server.';
     private compatibilityErrorText : string = 'Your device is not compatible with the available video source.';
@@ -18,7 +17,9 @@ export class GUIConfig
     private videoErrorText : string = 'Disconnected from stream server.';
     private videoNotFoundText : string = 'Stream with given name was not found.';
     private videoStopText : string = 'The stream has ended.';
+    private incompatiblePlayerProtocolText : string = 'This player version is not compatible with the provided streaming server.';
     private liveText : string = "LIVE";
+    private unmuteText : string = 'UNMUTE SOUND';
 
     constructor(guiConfig : any) {
         if(!guiConfig.containerID)
@@ -76,6 +77,14 @@ export class GUIConfig
         if(guiConfig.liveText)
             this.liveText = guiConfig.liveText;
 
+    }
+
+    public setIncompatiblePlayerProtocolText(value : string) : void{
+        this.incompatiblePlayerProtocolText = value;
+    }
+
+    public getIncompatiblePlayerProtocolText() : string{
+        return this.incompatiblePlayerProtocolText;
     }
 
     public setTimeline(value : boolean) : void{

@@ -86,6 +86,14 @@ export class LibraryManager
                 that.getLibrary().setVolume(e.volume);
             });
 
+            that.stormPlayer.addListener(EventType.QUALITY_CHANGED, function(e){
+                that.getLibrary().setQuality(e.label);
+            });
+
+            that.stormPlayer.addListener(EventType.SEEK_SETTED, function(e){
+                that.getLibrary().seek(e.seekToTime);
+            });
+
             that.stormPlayer.addListener(EventType.FULLSCREEN_ENTERED, function(){
                 that.getLibrary().setSize(window.screen.width, window.screen.height);
             });
