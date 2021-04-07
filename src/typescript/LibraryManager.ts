@@ -55,7 +55,7 @@ export class LibraryManager
         this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
 
             that.getLibrary().addEventListener("videoObjectCreation", function () {
-                document.querySelector('#' + that.stormPlayer.getInstanceID() + ' video').classList.add('sp-video');
+               // document.querySelector('#' + that.stormPlayer.getInstanceID() + ' video').classList.add('sp-video');
             });
 
         });

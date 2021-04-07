@@ -18,10 +18,10 @@ export class ProgressbarElement extends GraphicElement {
     /*
     Server data
      */
-    private duration: number;
-    private sourceTime: number;
+    private streamDuration: number;
+    private sourceDuration: number;
     private sourceStartTime: number;
-    private cacheTime: number;
+    private dvrCacheSize: number;
     private streamStartTime: number;
 
     /*
@@ -56,8 +56,8 @@ export class ProgressbarElement extends GraphicElement {
 
         percent = 100 - percent;
 
-        let endTime = this.progressBarEndTime - this.progressBarStartTime;
-        let percentTime = ((endTime * percent) / 100);
+        let endTime = this.dvrCacheSize;
+        let percentTime = Math.round((endTime * percent) / 100);
 
         return percentTime;
 
@@ -85,13 +85,23 @@ export class ProgressbarElement extends GraphicElement {
 
         let percentTime = this.percentToTime(percent);
         let seekTime = this.progressBarEndTime - percentTime;
-        seekTime = Math.round(seekTime);
+
+        let seekDate:Date = new Date(seekTime);
+
+        let seekHours = seekDate.getHours();
+        let seekMinutes = "0" + seekDate.getMinutes();
+        let seekSeconds = "0" + seekDate.getSeconds();
+
+        let formattedSeekTime = seekHours + ':' + seekMinutes.substr(-2) + ':' + seekSeconds.substr(-2);
+
+        console.log("percent: "+percent+"%, equals: "+formattedSeekTime+", seekUnixTime: "+seekTime);
 
         /*
         Prevent too frequent update
          */
         if(this.lastSeekUpdateTime == seekTime)
-            return;
+          return;
+
         this.lastSeekUpdateTime = seekTime;
 
         this.stormPlayer.dispatch(EventType.SEEK_SETTED, {seekToTime: seekTime})
@@ -104,7 +114,7 @@ export class ProgressbarElement extends GraphicElement {
         if (this.stopRefreshBar)
             return;
 
-        if (!this.stormPlayer.getGuiConfig().getTimeline() || this.cacheTime < 1000 * 5)
+        if (!this.stormPlayer.getGuiConfig().getTimeline() || this.dvrCacheSize < 1000 * 5)
             this.hide();
         else {
             this.show();
@@ -128,19 +138,46 @@ export class ProgressbarElement extends GraphicElement {
      */
     public parseServerData(data): void {
 
-        this.duration = data.duration;
-        this.sourceTime = data.sourceTime;
-        this.sourceStartTime = data.sourceStartTime;
-        this.streamStartTime = data.streamStartTime;
-        this.cacheTime = data.cacheTime;
+        this.streamDuration = data.streamDuration;              // how long does our stream works
+        this.sourceDuration = data.sourceDuration;              // how long is the source broadcasting
+        this.sourceStartTime = data.sourceStartTime;            // when the source was started
+        this.streamStartTime = data.streamStartTime;            // when our stream was started
+        this.dvrCacheSize = data.dvrCacheSize;                  // how many ms does the DVR Cache hold at this point
 
-        this.progressBarStartTime = this.sourceStartTime + this.sourceTime - this.cacheTime;
-        this.progressBarEndTime = this.sourceStartTime + this.sourceTime;
-        this.progressBarCurrTime = this.streamStartTime + this.duration;
+        this.progressBarStartTime = this.sourceStartTime + this.sourceDuration - this.dvrCacheSize;
+        this.progressBarEndTime = this.sourceStartTime + this.sourceDuration;
+        this.progressBarCurrTime = this.streamStartTime + this.streamDuration;
 
         //workaround
         if (this.progressBarCurrTime > this.progressBarEndTime)
             this.progressBarCurrTime = this.progressBarEndTime;
+
+        //easy to read dates
+
+        let startDVR:number = this.progressBarStartTime;
+        let endDVR:number = this.progressBarEndTime;
+
+        let startDVRDate:Date = new Date(startDVR);
+        let endDVRDate:Date = new Date(endDVR);
+        let dvrSize:Date = new Date(this.dvrCacheSize);
+
+        let startHours = startDVRDate.getHours();
+        let startMinutes = "0" + startDVRDate.getMinutes();
+        let startSeconds = "0" + startDVRDate.getSeconds();
+
+        let endHours = endDVRDate.getHours();
+        let endMinutes = "0" + endDVRDate.getMinutes();
+        let endSeconds = "0" + endDVRDate.getSeconds();
+
+        let dvrMinutes = "0" + dvrSize.getMinutes();
+        let dvrSeconds = "0" + dvrSize.getSeconds();
+
+        let formattedStartTime = startHours + ':' + startMinutes.substr(-2) + ':' + startSeconds.substr(-2);
+        let formattedEndTime = endHours + ':' + endMinutes.substr(-2) + ':' + endSeconds.substr(-2);
+        let formattedSize = dvrMinutes.substr(-2) + ':' + dvrSeconds.substr(-2);
+
+        console.log(formattedStartTime+ " / "+formattedEndTime+" (total seconds in storage: "+formattedSize+")");
+
 
         this.refreshBar();
 
@@ -256,7 +293,7 @@ export class ProgressbarElement extends GraphicElement {
             that.stopRefreshBar = true;
 
             that.stormPlayer.dispatch(EventType.SEEK_STARTED);
-            that.stormPlayer.dispatch(EventType.PAUSE_CLICKED);
+           // that.stormPlayer.dispatch(EventType.PAUSE_CLICKED);
 
         });
 
@@ -265,7 +302,7 @@ export class ProgressbarElement extends GraphicElement {
             that.seekTo(parseFloat(this.value));
 
             that.stormPlayer.dispatch(EventType.SEEK_ENDED);
-            that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
+            //that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
 
         });
     }
