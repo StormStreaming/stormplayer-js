@@ -22,6 +22,7 @@ export class VideoElement extends GraphicElement {
         let that = this;
 
         that.htmlElement.addEventListener("click", function () {
+            console.log("kliknięcie w VideoElement")
             that.stormPlayer.dispatch(EventType.TOGGLE_CLICKED);
         });
 

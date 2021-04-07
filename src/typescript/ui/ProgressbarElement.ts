@@ -156,10 +156,12 @@ export class ProgressbarElement extends GraphicElement {
 
         let startDVR:number = this.progressBarStartTime;
         let endDVR:number = this.progressBarEndTime;
+        let currTimePos:number = this.progressBarCurrTime;
 
         let startDVRDate:Date = new Date(startDVR);
         let endDVRDate:Date = new Date(endDVR);
         let dvrSize:Date = new Date(this.dvrCacheSize);
+        let currTimePosDate:Date = new Date(currTimePos);
 
         let startHours = startDVRDate.getHours();
         let startMinutes = "0" + startDVRDate.getMinutes();
@@ -172,11 +174,16 @@ export class ProgressbarElement extends GraphicElement {
         let dvrMinutes = "0" + dvrSize.getMinutes();
         let dvrSeconds = "0" + dvrSize.getSeconds();
 
+        let currHours = currTimePosDate.getHours();
+        let currMinutes = "0" + currTimePosDate.getMinutes();
+        let currSeconds = "0" + currTimePosDate.getSeconds();
+
         let formattedStartTime = startHours + ':' + startMinutes.substr(-2) + ':' + startSeconds.substr(-2);
         let formattedEndTime = endHours + ':' + endMinutes.substr(-2) + ':' + endSeconds.substr(-2);
         let formattedSize = dvrMinutes.substr(-2) + ':' + dvrSeconds.substr(-2);
+        let formattedCurrTime = currHours + ':' + currMinutes.substr(-2) + ':' + currSeconds.substr(-2);
 
-        console.log(formattedStartTime+ " / "+formattedEndTime+" (total seconds in storage: "+formattedSize+")");
+        console.log(formattedStartTime+ " / "+formattedEndTime+" (total seconds in storage: "+formattedSize+") now position: "+formattedCurrTime);
 
 
         this.refreshBar();
