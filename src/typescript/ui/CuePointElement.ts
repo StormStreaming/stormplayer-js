@@ -1,5 +1,6 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
+import {EventType} from "../events/EventType";
 
 export class CuePointElement extends GraphicElement {
 
@@ -13,6 +14,9 @@ export class CuePointElement extends GraphicElement {
         this.title = title;
 
         this.htmlElement.setAttribute("data-title", this.title);
+        this.htmlElement.addEventListener('mousedown', function (e) {
+            stormPlayer.getLibrary().seek(time);
+        });
 
         this.hide();
     }
@@ -52,5 +56,6 @@ export class CuePointElement extends GraphicElement {
                     </svg>`;
 
     }
+
 
 }

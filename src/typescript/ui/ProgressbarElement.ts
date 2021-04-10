@@ -119,16 +119,21 @@ export class ProgressbarElement extends GraphicElement {
         else {
             this.show();
 
+
+
             this.progressElement.setAttribute("min", "0");
             this.progressElement.setAttribute("max", (this.progressBarEndTime - this.progressBarStartTime).toString());
             this.progressElement.setAttribute("value", (this.progressBarCurrTime - this.progressBarStartTime).toString());
 
+
             let maxThumbPos = this.seekElement.clientWidth;
             maxThumbPos -= 15; //offset right
-            let thumbPos = (maxThumbPos * this.progressBarCurrTime) / this.progressBarEndTime;
+
+            let thumbPos = maxThumbPos * (this.progressBarCurrTime - this.progressBarStartTime) / (this.progressBarEndTime - this.progressBarStartTime);
             thumbPos += 5; //offset left
             this.thumbElement.getHtmlElement().style.transform = `translateX(${thumbPos}px)`;
             this.thumbElement.show();
+
             this.cuePointsElement.refreshCuePointsPosition();
         }
     }
