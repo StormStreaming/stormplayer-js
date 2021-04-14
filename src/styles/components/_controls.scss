@@ -75,14 +75,6 @@
           display: none;
         }
 
-        //& svg path {
-        //  fill: $pastel;
-        //
-        //}
-        //
-        //& svg g {
-        //  fill: $pastel;
-        //}
       }
 
       &:hover svg path, &:hover svg polygon {
@@ -144,7 +136,7 @@
       font-family: Montserrat;
       border-radius: $progress-bar-radius;
       background-color: $white;
-      padding:0 6px;
+      padding:0 22px;
       height: 22px;
       font-size: 14px;
       font-weight: bold;
