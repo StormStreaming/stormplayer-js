@@ -87,7 +87,11 @@
 
       &:hover svg path {
         fill: $pastel;
+      }
+      &:hover svg .path-mute {
+
         stroke: $pastel;
+
       }
 
       &:hover svg g {
