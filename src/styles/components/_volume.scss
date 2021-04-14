@@ -1,6 +1,7 @@
 .sp-volume {
   display: flex;
   align-items: center;
+  width: 45px;
 
   input {
     width: 100px;
@@ -36,9 +37,9 @@
   }
 
   &__button {
+    margin-left: 17px;
     svg {
-      width: 34px;
-      height: 27px;
+      width: 28px;
     }
   }
 

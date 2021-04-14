@@ -40,7 +40,7 @@ export class QualityMenuElement extends GraphicElement {
             menuPosition.setAttribute("data-label",list[i].streamInfo.label)
             menuPosition.classList.add('sp-menu__list-item');
             menuPosition.innerHTML = `<span>${list[i].streamInfo.label}</span>
-                        <svg width="24" height="24" viewBox="0 0 24 24">
+                        <svg width="18" height="18" viewBox="0 0 24 24">
                             <g fill="none" fill-rule="evenodd">
                                 <g>
                                     <g>

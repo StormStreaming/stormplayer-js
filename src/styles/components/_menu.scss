@@ -16,14 +16,30 @@
 
   &__quality {
     transform: translate(-50%, -100%);
-    min-width: 200px;
-    left:120px;
-    margin-top:-130px;
+    min-width: 165px;
+    left: 130px;
+    margin-top:-110px;
+
+    &:after {
+
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: block;
+      width: 2px;
+      height: 6px;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid rgba(0, 0, 0, 0.7);
+
+    }
 
   }
 
   &__box {
-    padding: 15px 9px 14px 11px;
+    padding: 15px 0 14px;
     width: 100%;
   }
 
@@ -41,7 +57,7 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      padding: 15px 0;
+      padding: 10px 0 11px;
       cursor: pointer;
 
       &:hover {
@@ -63,7 +79,7 @@
 
       span {
         transition: $t-basic;
-        margin-left: 9px;
+        margin-left: 13px;
         pointer-events: none;
       }
 
@@ -77,7 +93,7 @@
         position: absolute;
         height: 1px;
         width: 100%;
-        background-color: $pinkish-grey;
+        background-color: rgba($white, .2);
         bottom: 0;
       }
 
@@ -96,6 +112,7 @@
 
         svg {
           display: flex;
+          margin-right: 12px;
         }
       }
     }

@@ -1,8 +1,14 @@
 .sp-resolution {
+
+  button {
+
+    height: 22px;
+
+  }
+
   &__button {
     background-color: $white;
     min-width: 44px;
-    height: 28px;
     border-radius: $progress-bar-radius;
 
     span {

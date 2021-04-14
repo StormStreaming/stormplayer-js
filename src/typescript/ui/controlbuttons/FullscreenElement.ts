@@ -13,7 +13,8 @@ export class FullscreenElement extends GraphicElement {
     protected draw() : void{
         super.draw();
 
-        this.htmlElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
+        this.htmlElement.innerHTML = `
+                <svg class="fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
                   <g fill="none" fill-rule="evenodd">
                     <g fill="#FFF" fill-rule="nonzero">
                       <path
@@ -21,7 +22,12 @@ export class FullscreenElement extends GraphicElement {
                         transform="translate(-1358 -956) translate(1358 956)" />
                     </g>
                   </g>
-                </svg>`;
+                </svg>
+                
+                <svg class="close-fullscreen-icon" xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
+                <path d="M17.321,25.471V18.849a1.528,1.528,0,0,1,1.528-1.528h6.622a1.528,1.528,0,1,1,0,3.056H20.377v5.094a1.528,1.528,0,1,1-3.056,0Zm-10.7,0V20.377H1.529a1.528,1.528,0,1,1,0-3.056H8.151A1.528,1.528,0,0,1,9.68,18.849v6.622a1.528,1.528,0,1,1-3.056,0ZM18.849,9.68a1.528,1.528,0,0,1-1.528-1.528V1.529a1.528,1.528,0,1,1,3.056,0V6.623h5.094a1.528,1.528,0,1,1,0,3.056Zm-17.32,0a1.528,1.528,0,1,1,0-3.056H6.623V1.529a1.528,1.528,0,1,1,3.056,0V8.151A1.528,1.528,0,0,1,8.151,9.68Z" fill="#fff"/>
+                </svg>
+        `;
 
     }
 

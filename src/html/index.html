@@ -32,10 +32,17 @@
         connectionType:"direct",
         stream: {
             serverList: [
-                { host: "serpent.web-anatomy.com", application:"live", port: 443, ssl: true}
+                { host: "stormdev.web-anatomy.com", application:"live", port: 443, ssl: true}
             ],
             sourceList: [
-                { protocol: "RTMP", streamName:"test", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "720p"}, default: true},
+                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "2160p60 (4k)"}, default: true},
+                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "1440p60 (HD)"}, default: true},
+                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "1080p60 (HD)"}, default: true},
+                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "720p60"}, default: true},
+                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "480p"}, default: true},
+                { protocol: "RTMP", streamName:"test_lq", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "360p"}, default: true},
+                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "240p"}, default: true},
+                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "144p"}, default: true},
             ],
             security: {
                 type: "token",

@@ -1,7 +1,7 @@
 .sp-controls {
   right: 0;
   left: 0;
-  padding: 30px 10px 10px;
+  padding: 30px 13px 15px;
   position: absolute;
   bottom: 0;
   transition: all 0.2s ease;
@@ -18,12 +18,11 @@
     display: flex;
     cursor: pointer;
     position: relative;
-    margin-right: 10px;
     font-size: 12px;
-    padding: 3px;
     border: none;
     outline: none;
     background-color: transparent;
+    margin-left: 17px;
 
     &:last-child {
       //margin-right: 3px;
@@ -55,11 +54,12 @@
 
     button {
       svg {
-        width: 28px;
-        height: 28px;
-        fill: #fff;
-        stroke: #fff;
+        height: 22px;
+        fill: #fff !important;
         cursor: pointer;
+        g {
+          fill: #fff !important;
+        }
 
         path {
           transition: $t-basic;
@@ -67,14 +67,22 @@
       }
 
       &.sp-active {
-        & svg path {
-          fill: $pastel;
-          stroke: $pastel;
+
+        .close-fullscreen-icon {
+          display: block;
+        }
+        .fullscreen-icon {
+          display: none;
         }
 
-        & svg g {
-          fill: $pastel;
-        }
+        //& svg path {
+        //  fill: $pastel;
+        //
+        //}
+        //
+        //& svg g {
+        //  fill: $pastel;
+        //}
       }
 
       &:hover svg path {
@@ -97,8 +105,14 @@
 
   // control buttons
   .sp-play{
+    margin-left: 8px;
     button{
-      margin-right:3px;
+
+      margin-left: 0;
+
+      svg {
+        width: 17px;
+      }
     }
   }
 
@@ -106,7 +120,15 @@
   }
 
   &__fullscreen {
-    margin-right: 3px !important;
+    margin-right: 8px !important;
+      svg {
+        width: 22px;
+    }
+
+    .close-fullscreen-icon {
+      display: none;
+    }
+
   }
 
   &__cinematic {
@@ -116,13 +138,14 @@
     }
   }
 
-  &__button {
+    &__button {
+
     span {
       font-family: Montserrat;
       border-radius: $progress-bar-radius;
       background-color: $white;
       padding:0 6px;
-      min-height: 28px;
+      height: 22px;
       font-size: 14px;
       font-weight: bold;
       text-align: center;
