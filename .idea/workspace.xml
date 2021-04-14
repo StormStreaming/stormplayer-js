@@ -3,21 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/_variables.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/components/_controls.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_controls.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/_fullscreen.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_fullscreen.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/_menu.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_menu.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/_playback.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_playback.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/_progress.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_progress.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/_resolution.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_resolution.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/_volume.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_volume.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/storm-player.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/storm-player.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityMenuElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityMenuElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -102,6 +88,7 @@
       <workItem from="1618345202722" duration="9756000" />
       <workItem from="1618398453966" duration="9712000" />
       <workItem from="1618417710094" duration="4794000" />
+      <workItem from="1618432881145" duration="3565000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>

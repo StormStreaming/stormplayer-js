@@ -61,7 +61,7 @@
           fill: #fff !important;
         }
 
-        path {
+        path, polygon {
           transition: $t-basic;
         }
       }
@@ -85,14 +85,10 @@
         //}
       }
 
-      &:hover svg path {
+      &:hover svg path, &:hover svg polygon {
         fill: $pastel;
       }
-      &:hover svg .path-mute {
 
-        stroke: $pastel;
-
-      }
 
       &:hover svg g {
         fill: $pastel;
