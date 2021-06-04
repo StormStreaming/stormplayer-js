@@ -3,16 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/_controls.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_controls.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/components/_playback.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_playback.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
-    <execution />
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -52,7 +56,7 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.TypeScript" />
-    <property name="ts.external.directory.path" value="C:\Projects\StormPlayer\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -69,7 +73,19 @@
       <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\styles" />
     </key>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -89,6 +105,12 @@
       <workItem from="1618398453966" duration="9712000" />
       <workItem from="1618417710094" duration="4794000" />
       <workItem from="1618432881145" duration="3565000" />
+      <workItem from="1618930599017" duration="129000" />
+      <workItem from="1619368543616" duration="2040000" />
+      <workItem from="1619447994258" duration="14000" />
+      <workItem from="1620769272674" duration="3454000" />
+      <workItem from="1620857218987" duration="48000" />
+      <workItem from="1622814617706" duration="1591000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>
@@ -262,19 +284,20 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Work in progress" />
