@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Storm Player</title>
     <script src="https://requirejs.org/docs/release/2.3.6/comments/require.js"></script>
-    <script src="https://testbench.web-anatomy.com/StormLibrary/dist/storm-0.10.min.js"></script>
+    <script src="https://testbench.web-anatomy.com/StormLibrary/dist/storm-0.12.min.js"></script>
 
     <script src="scripts/storm-player.js"></script>
     <link rel="stylesheet" href="styles/demo.min.css">
@@ -36,12 +36,12 @@
             ],
             sourceList: [
                 { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "720p60"}, default: true},
-                { protocol: "RTMP", streamName:"test_sd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "480p"}, default: true},
-                { protocol: "RTMP", streamName:"test_lq", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "360p"}, default: true},
+                { protocol: "RTMP", streamName:"test_sd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "480p"}, default: false},
+                { protocol: "RTMP", streamName:"test_lq", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "360p"}, default: false},
             ],
         },
         settings: {
-            autoStart: true,
+            autoStart: false,
             restartOnError: true,
             enabledProtocols: ["MSE"],
             video: {
