@@ -55,7 +55,7 @@ export class StormPlayer extends Dispatcher
         Add cuepoints
          */
         let that = this;
-        this.addListener(EventType.LIBRARY_INITIALIZED, function(){
+        this.addEventListener(EventType.LIBRARY_INITIALIZED, function(){
             for(let i=0;i<cuepoints.length;i++){
                 that.addCuePoint(cuepoints[i].title, cuepoints[i].time);
             }

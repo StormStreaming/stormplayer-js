@@ -46,7 +46,7 @@ export class ErrorElement extends GraphicElement {
     protected attachListeners(): void {
         let that = this;
 
-        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
+        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function() {
 
             that.stormPlayer.getLibrary().addEventListener("playerDisconnected", function (e) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getPlayerDisconnectedText());

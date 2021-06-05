@@ -44,11 +44,11 @@ export class FullscreenElement extends GraphicElement {
                 that.stormPlayer.dispatch(EventType.FULLSCREEN_EXITED);
         });
 
-        this.stormPlayer.addListener(EventType.FULLSCREEN_ENTERED, function(){
+        this.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function(){
             that.htmlElement.classList.add('sp-active');
         });
 
-        this.stormPlayer.addListener(EventType.FULLSCREEN_EXITED, function(){
+        this.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function(){
             that.htmlElement.classList.remove('sp-active');
         });
 

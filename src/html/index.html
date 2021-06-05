@@ -27,7 +27,7 @@
 
 <script>
 
-    var stormLibraryConfig = {
+    const stormLibraryConfig = {
         role : "player",
         connectionType:"direct",
         stream: {
@@ -35,26 +35,15 @@
                 { host: "stormdev.web-anatomy.com", application:"live", port: 443, ssl: true}
             ],
             sourceList: [
-                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "2160p60 (4k)"}, default: true},
-                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "1440p60 (HD)"}, default: true},
-                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "1080p60 (HD)"}, default: true},
                 { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "720p60"}, default: true},
-                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "480p"}, default: true},
+                { protocol: "RTMP", streamName:"test_sd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "480p"}, default: true},
                 { protocol: "RTMP", streamName:"test_lq", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "360p"}, default: true},
-                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "240p"}, default: true},
-                { protocol: "RTMP", streamName:"test_hd", host:"stormdev.web-anatomy.com", application:"live", streamInfo: {label: "144p"}, default: true},
             ],
-            security: {
-                type: "token",
-                token: "3f7af6d8a2df9307902f62ff16f1678466",
-                expires: 1551231231
-            }
         },
         settings: {
             autoStart: true,
             restartOnError: true,
             enabledProtocols: ["MSE"],
-
             video: {
                 scalingMode: "letterbox",   // "letterbox", "crop", "fill", "resize"
             },
@@ -66,25 +55,16 @@
                 },
             }
         },
-
-
-    }
+    };
 
     require(['StormPlayer'], function(e){
         var stormPlayer = new StormPlayer({
             containerID: "player1",
             width: 1000,
             height: 500,
-
-            /*
-            Optional
-             */
-            //bigPlaybackButton: false,
-            //guiHideSeconds: 3,
-            /*
             title: "asd",
             subtitle: "Test subtitle",
-            unmuteText: 'UNMUTE SOUND',*/
+            unmuteText: 'UNMUTE SOUND'
         }, stormLibraryConfig);
 
         window.addCuePointNow = function(title){

@@ -45,7 +45,7 @@ export class QualityElement extends GraphicElement {
             that.stormPlayer.dispatch(EventType.QUALITY_CLICKED);
         });
 
-        this.stormPlayer.addListener(EventType.LIBRARY_INITIALIZED, function() {
+        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function() {
 
             that.refreshButton();
 

@@ -34,7 +34,7 @@ export class LoaderElement extends GraphicElement {
     protected attachListeners(): void {
         let that = this;
 
-        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function(){
+        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function(){
 
             that.stormPlayer.getLibrary().addEventListener("playerStart", function(){
                 that.show();
@@ -56,7 +56,7 @@ export class LoaderElement extends GraphicElement {
                 that.hide();
             });
 
-            that.stormPlayer.addListener(EventType.ERROR_SHOWN, function(){
+            that.stormPlayer.addEventListener(EventType.ERROR_SHOWN, function(){
                 that.hide();
             });
 

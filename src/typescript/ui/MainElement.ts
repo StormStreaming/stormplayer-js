@@ -91,7 +91,7 @@ export class MainElement extends GraphicElement {
         Hide GUI events
          */
 
-        this.stormPlayer.addListener(EventType.LIBRARY_INITIALIZED, function() {
+        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function() {
             that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
                 if (!that.hideGUITimeout) {
                     that.hideGUITimeout = setTimeout(function () {
@@ -130,11 +130,11 @@ export class MainElement extends GraphicElement {
         Turn off cursor after hiding GUI
          */
 
-        this.stormPlayer.addListener(EventType.GUI_SHOWN, function(){
+        this.stormPlayer.addEventListener(EventType.GUI_SHOWN, function(){
             that.spContainer.getHtmlElement().classList.remove('sp-container__disablecursor');
         });
 
-        this.stormPlayer.addListener(EventType.GUI_HIDED, function(){
+        this.stormPlayer.addEventListener(EventType.GUI_HIDED, function(){
             that.spContainer.getHtmlElement().classList.add('sp-container__disablecursor');
         });
 
@@ -142,7 +142,7 @@ export class MainElement extends GraphicElement {
         Fullscreen events
          */
 
-        this.stormPlayer.addListener(EventType.FULLSCREEN_ENTERED, function(){
+        this.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function(){
             spContainerElement.classList.add('sp-fullscreen');
 
             const docElmWithBrowsersFullScreenFunctions = spContainerElement as HTMLElement & {
@@ -163,7 +163,7 @@ export class MainElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addListener(EventType.FULLSCREEN_EXITED, function(){
+        this.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function(){
             spContainerElement.classList.remove('sp-fullscreen');
 
             const docWithBrowsersExitFunctions = document as Document & {

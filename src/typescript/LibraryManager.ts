@@ -48,11 +48,11 @@ export class LibraryManager
     private attachListeners() : void{
         let that = this;
 
-        this.stormPlayer.addListener(EventType.GUI_INITIALIZED, function(){
+        this.stormPlayer.addEventListener(EventType.GUI_INITIALIZED, function(){
             that.initializeLibrary();
         });
 
-        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
+        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function() {
 
             that.getLibrary().addEventListener("videoObjectCreation", function () {
                // document.querySelector('#' + that.stormPlayer.getInstanceID() + ' video').classList.add('sp-video');
@@ -60,46 +60,46 @@ export class LibraryManager
 
         });
 
-        this.stormPlayer.addListener(EventType.LIBRARY_INITIALIZED, function(){
+        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function(){
 
-            that.stormPlayer.addListener(EventType.PLAY_CLICKED, function(){
+            that.stormPlayer.addEventListener(EventType.PLAY_CLICKED, function(){
                 that.getLibrary().play();
             });
 
-            that.stormPlayer.addListener(EventType.PAUSE_CLICKED, function(){
+            that.stormPlayer.addEventListener(EventType.PAUSE_CLICKED, function(){
                 that.getLibrary().pause();
             });
 
-            that.stormPlayer.addListener(EventType.MUTE_CLICKED, function(){
+            that.stormPlayer.addEventListener(EventType.MUTE_CLICKED, function(){
                 that.getLibrary().mute();
             });
 
-            that.stormPlayer.addListener(EventType.UNMUTE_CLICKED, function(){
+            that.stormPlayer.addEventListener(EventType.UNMUTE_CLICKED, function(){
                 that.getLibrary().unmute();
             });
 
-            that.stormPlayer.addListener(EventType.TOGGLE_CLICKED, function(){
+            that.stormPlayer.addEventListener(EventType.TOGGLE_CLICKED, function(){
                 that.getLibrary().togglePlay();
             });
 
-            that.stormPlayer.addListener(EventType.VOLUME_CHANGED, function(e){
+            that.stormPlayer.addEventListener(EventType.VOLUME_CHANGED, function(e){
                 that.getLibrary().setVolume(e.volume);
             });
 
-            that.stormPlayer.addListener(EventType.QUALITY_CHANGED, function(e){
+            that.stormPlayer.addEventListener(EventType.QUALITY_CHANGED, function(e){
                 that.getLibrary().setQuality(e.label);
             });
 
-            that.stormPlayer.addListener(EventType.SEEK_SETTED, function(e){
+            that.stormPlayer.addEventListener(EventType.SEEK_SETTED, function(e){
                 console.log("Seek to: "+e.seekToTime);
                 that.getLibrary().seek(e.seekToTime);
             });
 
-            that.stormPlayer.addListener(EventType.FULLSCREEN_ENTERED, function(){
+            that.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function(){
                 that.getLibrary().setSize(window.screen.width, window.screen.height);
             });
 
-            that.stormPlayer.addListener(EventType.FULLSCREEN_EXITED, function(){
+            that.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function(){
                 that.getLibrary().setSize(that.getConfig().settings.video.width, that.getConfig().settings.video.height);
             });
 

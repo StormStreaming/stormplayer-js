@@ -76,7 +76,7 @@ export class QualityMenuElement extends GraphicElement {
     protected attachListeners(): void {
         let that = this;
 
-        this.stormPlayer.addListener(EventType.LIBRARY_INITIALIZED, function() {
+        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function() {
             that.refreshList();
 
             that.stormPlayer.getLibrary().addEventListener("newStreamSourceAdded", function () {
@@ -92,11 +92,11 @@ export class QualityMenuElement extends GraphicElement {
             });
         });
 
-        this.stormPlayer.addListener(EventType.QUALITY_CLICKED, function(){
+        this.stormPlayer.addEventListener(EventType.QUALITY_CLICKED, function(){
             that.getHtmlElement().classList.toggle("sp-menu--hidden");
         });
 
-        this.stormPlayer.addListener(EventType.GUI_HIDED, function(){
+        this.stormPlayer.addEventListener(EventType.GUI_HIDED, function(){
             that.getHtmlElement().classList.add("sp-menu--hidden");
         });
 

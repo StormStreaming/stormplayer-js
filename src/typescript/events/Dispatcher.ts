@@ -6,7 +6,7 @@ export class Dispatcher {
         this.events = {};
     }
 
-    addListener(event: any, callback: any) : boolean {
+    addEventListener(event: any, callback: any) : boolean {
         // Check if the callback is not a function
         if (typeof callback !== 'function') {
             console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
@@ -30,7 +30,7 @@ export class Dispatcher {
     }
 
 
-    removeListener(event: any, callback: any) : boolean {
+    removeEventListener(event: any, callback: any) : boolean {
         // Check if this event not exists
         if (this.events[event] === undefined) {
             console.error(`This event: ${event} does not exist`);

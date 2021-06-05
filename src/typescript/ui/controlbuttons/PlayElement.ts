@@ -48,7 +48,7 @@ export class PlayElement extends GraphicElement {
     protected attachListeners() : void {
         let that = this;
 
-        this.stormPlayer.addListener(EventType.LIBRARY_CREATED, function() {
+        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function() {
 
             that.stormPlayer.getLibrary().addEventListener("interactionRequired", function (e) {
                 that.showPlay();

@@ -1,34 +1,34 @@
 export enum EventType {
 
-    GUI_INITIALIZED = "GUI_INITIALIZED",
-    LIBRARY_CREATED = "LIBRARY_CREATED",
-    LIBRARY_INITIALIZED = "LIBRARY_INITIALIZED",
+    GUI_INITIALIZED = "interfaceReady",
+    LIBRARY_CREATED = "libraryCreated",
+    LIBRARY_INITIALIZED = "libraryInitialized",
 
-    PLAY_CLICKED = "PLAY_CLICKED",
-    PAUSE_CLICKED = "PAUSE_CLICKED",
-    TOGGLE_CLICKED = "TOGGLE_CLICKED",
-    MUTE_CLICKED = "MUTE_CLICKED",
-    UNMUTE_CLICKED = "UNMUTE_CLICKED",
-    QUALITY_CLICKED = "QUALITY_CLICKED",
+    PLAY_CLICKED = "playClick",
+    PAUSE_CLICKED = "pauseClick",
+    TOGGLE_CLICKED = "videoClick",
+    MUTE_CLICKED = "muteClick",
+    UNMUTE_CLICKED = "unmuteClick",
+    QUALITY_CLICKED = "qualityBtnClick",
 
-    QUALITY_CHANGED = "QUALITY_CHANGED",
-    VOLUME_CHANGED = "VOLUME_CHANGED",
+    QUALITY_CHANGED = "qualityChange",
+    VOLUME_CHANGED = "volumeChange",
 
-    FULLSCREEN_ENTERED = "FULLSCREEN_ENTERED",
-    FULLSCREEN_EXITED = "FULLSCREEN_EXITED",
+    FULLSCREEN_ENTERED = "fullscreenEnter",
+    FULLSCREEN_EXITED = "fullscreenExit",
 
-    ERROR_SHOWN = "ERROR_SHOWN",
-    GUI_SHOWN = "GUI_SHOWN",
-    GUI_HIDED = "GUI_HIDED",
+    ERROR_SHOWN = "errorMessage",
+    GUI_SHOWN = "guiShow",
+    GUI_HIDED = "guiHide",
 
-    TITLE_SETTED = "TITLE_SETTED",
-    SUBTITLE_SETTED = "SUBTITLE_SETTED",
+    TITLE_SETTED = "titleAdd",
+    SUBTITLE_SETTED = "subtitleAdd",
 
-    SEEK_STARTED = "SEEK_STARTED",
-    SEEK_ENDED = "SEEK_ENDED",
-    SEEK_SETTED = "SEEK_SETTED",
+    SEEK_STARTED = "seekStart",
+    SEEK_ENDED = "seekEnd",
+    SEEK_SETTED = "seekTo",
 
-    CUEPOINT_ADDED = "CUEPOINT_ADDED",
-    CUEPOINT_REMOVED = "CUEPOINT_REMOVED",
+    CUEPOINT_ADDED = "cuePointAdd",
+    CUEPOINT_REMOVED = "cuePointRemove",
 
 }

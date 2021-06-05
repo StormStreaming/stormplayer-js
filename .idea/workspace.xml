@@ -3,7 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/components/_controls.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/components/_controls.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/LibraryManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/LibraryManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/StormPlayer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/StormPlayer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/events/Dispatcher.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/events/Dispatcher.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/events/EventType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/events/EventType.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/CuePointsElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/CuePointsElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/LoaderElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/LoaderElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/UnmuteElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/UnmuteElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityMenuElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityMenuElement.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +69,7 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.TypeScript" />
-    <property name="ts.external.directory.path" value="C:\Projects\StormPlayer\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -89,6 +106,17 @@
       <workItem from="1618398453966" duration="9712000" />
       <workItem from="1618417710094" duration="4794000" />
       <workItem from="1618432881145" duration="3565000" />
+      <workItem from="1618579625533" duration="253000" />
+      <workItem from="1618917334250" duration="5000" />
+      <workItem from="1618930712670" duration="231000" />
+      <workItem from="1619362736467" duration="476000" />
+      <workItem from="1620473616739" duration="765000" />
+      <workItem from="1620603558078" duration="3753000" />
+      <workItem from="1620838453901" duration="407000" />
+      <workItem from="1620902186742" duration="3251000" />
+      <workItem from="1621058419625" duration="2031000" />
+      <workItem from="1622670845863" duration="607000" />
+      <workItem from="1622678160635" duration="22000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>
@@ -279,36 +307,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Work in progress" />
     <option name="LAST_COMMIT_MESSAGE" value="Work in progress" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="1404" y="573" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1616574631271">
-      <screen x="0" y="25" width="3008" height="1595" />
-    </state>
-    <state x="1404" y="573" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1200.0.1200.1920/3008.0.1200.1920/4208.0.1792.1120/0.25.3008.1595@0.25.3008.1595" timestamp="1616574631271" />
-    <state width="1461" height="407" key="GridCell.Tab.0.bottom" timestamp="1616576211630">
-      <screen x="0" y="25" width="3008" height="1595" />
-    </state>
-    <state width="1461" height="407" key="GridCell.Tab.0.bottom/-1200.0.1200.1920/3008.0.1200.1920/4208.0.1792.1120/0.25.3008.1595@0.25.3008.1595" timestamp="1616576211630" />
-    <state width="1750" height="473" key="GridCell.Tab.0.bottom/0.25.1792.1045@0.25.1792.1045" timestamp="1616485415876" />
-    <state width="1461" height="407" key="GridCell.Tab.0.center" timestamp="1616576211630">
-      <screen x="0" y="25" width="3008" height="1595" />
-    </state>
-    <state width="1461" height="407" key="GridCell.Tab.0.center/-1200.0.1200.1920/3008.0.1200.1920/4208.0.1792.1120/0.25.3008.1595@0.25.3008.1595" timestamp="1616576211630" />
-    <state width="1750" height="473" key="GridCell.Tab.0.center/0.25.1792.1045@0.25.1792.1045" timestamp="1616485415876" />
-    <state width="1461" height="407" key="GridCell.Tab.0.left" timestamp="1616576211629">
-      <screen x="0" y="25" width="3008" height="1595" />
-    </state>
-    <state width="1461" height="407" key="GridCell.Tab.0.left/-1200.0.1200.1920/3008.0.1200.1920/4208.0.1792.1120/0.25.3008.1595@0.25.3008.1595" timestamp="1616576211629" />
-    <state width="1750" height="473" key="GridCell.Tab.0.left/0.25.1792.1045@0.25.1792.1045" timestamp="1616485415876" />
-    <state width="1461" height="407" key="GridCell.Tab.0.right" timestamp="1616576211630">
-      <screen x="0" y="25" width="3008" height="1595" />
-    </state>
-    <state width="1461" height="407" key="GridCell.Tab.0.right/-1200.0.1200.1920/3008.0.1200.1920/4208.0.1792.1120/0.25.3008.1595@0.25.3008.1595" timestamp="1616576211630" />
-    <state width="1750" height="473" key="GridCell.Tab.0.right/0.25.1792.1045@0.25.1792.1045" timestamp="1616485415876" />
-    <state x="942" y="379" width="1125" height="1033" key="search.everywhere.popup" timestamp="1616532049631">
-      <screen x="0" y="25" width="3008" height="1596" />
-    </state>
-    <state x="942" y="379" width="1125" height="1033" key="search.everywhere.popup/-1200.0.1200.1920/3008.0.1200.1920/4208.0.1792.1120/0.25.3008.1596@0.25.3008.1596" timestamp="1616532049631" />
-    <state x="561" y="257" width="670" height="676" key="search.everywhere.popup/0.25.1792.1045@0.25.1792.1045" timestamp="1616458294904" />
   </component>
 </project>

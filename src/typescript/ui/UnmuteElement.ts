@@ -24,12 +24,12 @@ export class UnmuteElement extends GraphicElement {
     protected attachListeners(): void {
         let that = this;
 
-        this.stormPlayer.addListener(EventType.GUI_SHOWN, function(){
+        this.stormPlayer.addEventListener(EventType.GUI_SHOWN, function(){
             if(that.stormPlayer.getGuiConfig().getTitle() || that.stormPlayer.getGuiConfig().getSubtitle())
                 that.getHtmlElement().classList.add('sp-unmute__afterheader');
         });
 
-        this.stormPlayer.addListener(EventType.GUI_HIDED, function(){
+        this.stormPlayer.addEventListener(EventType.GUI_HIDED, function(){
             that.getHtmlElement().classList.remove('sp-unmute__afterheader');
         });
 
@@ -37,7 +37,7 @@ export class UnmuteElement extends GraphicElement {
             that.stormPlayer.dispatch(EventType.UNMUTE_CLICKED);
         });
 
-        this.stormPlayer.addListener(EventType.LIBRARY_INITIALIZED, function() {
+        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function() {
             that.stormPlayer.getLibrary().addEventListener("volumeChange", function(event){
                 if(event.isMuted && event.type == 'browser')
                     that.show();
@@ -47,14 +47,14 @@ export class UnmuteElement extends GraphicElement {
             });
         });
 
-        this.stormPlayer.addListener(EventType.TITLE_SETTED,function(){
+        this.stormPlayer.addEventListener(EventType.TITLE_SETTED,function(){
             if((that.stormPlayer.getGuiConfig().getTitle() && that.stormPlayer.getGuiConfig().getTitle() != "") || (that.stormPlayer.getGuiConfig().getSubtitle() && that.stormPlayer.getGuiConfig().getSubtitle() != ""))
                 that.getHtmlElement().classList.add('sp-unmute__afterheader');
             else
                 that.getHtmlElement().classList.remove('sp-unmute__afterheader');
         });
 
-        this.stormPlayer.addListener(EventType.SUBTITLE_SETTED,function(){
+        this.stormPlayer.addEventListener(EventType.SUBTITLE_SETTED,function(){
             if((that.stormPlayer.getGuiConfig().getTitle() && that.stormPlayer.getGuiConfig().getTitle() != "") || (that.stormPlayer.getGuiConfig().getSubtitle() && that.stormPlayer.getGuiConfig().getSubtitle() != ""))
                 that.getHtmlElement().classList.add('sp-unmute__afterheader');
             else
