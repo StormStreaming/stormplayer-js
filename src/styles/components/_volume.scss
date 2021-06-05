@@ -118,17 +118,25 @@
 }
 
 .sp-unmute{
+  display: flex;
+  align-items: center;
   padding:10px;
   background-color: white;
   color:black;
   font-family: Montserrat;
   position:absolute;
   top: 30px;
-  left: 30px;
+  left: 21px;
   cursor:pointer;
-  font-size:14px;
+  font-size:12px;
 
   &__afterheader{
     top:150px;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    padding-right: 5px;
   }
 }
