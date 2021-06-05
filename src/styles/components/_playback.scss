@@ -15,10 +15,20 @@
   opacity: 1;
 
   @media (min-width: $laptop-min) {
-    margin-left: calc(142px / -2);
-    margin-top: calc(130px / -2);
-    width: 142px;
-    height: 142px;
+    margin-left: calc(43px / -2);
+    margin-top: calc(53px / -2);
+    width: 43px;
+    height: 53px;
+  }
+
+  svg {
+
+    #path {
+
+      transition: all .15s;
+
+    }
+
   }
 
   svg > g {
@@ -29,7 +39,7 @@
     opacity: 0;
   }
 
-  &:hover svg polygon:last-child {
+  &:hover svg #path {
     fill: $pastel;
   }
 }
