@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/StormPlayer.iml" filepath="$PROJECT_DIR$/.idea/StormPlayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../StormPlayer/.idea/StormPlayer.iml" filepath="$PROJECT_DIR$/../StormPlayer/.idea/StormPlayer.iml" />
     </modules>
   </component>
 </project>

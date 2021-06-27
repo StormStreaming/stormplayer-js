@@ -6,6 +6,7 @@ export class LibraryManager
 
     private stormPlayer : StormPlayer;
     private config : any;
+    // @ts-ignore
     private library : StormLibrary;
 
     constructor(config : any, stormPlayer : StormPlayer) {
@@ -27,6 +28,7 @@ export class LibraryManager
         return this.config;
     }
 
+    // @ts-ignore
     public getLibrary() : StormLibrary{
         return this.library;
     }

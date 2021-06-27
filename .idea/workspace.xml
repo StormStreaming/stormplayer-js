@@ -2,26 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e987e048-0ac8-496e-8f64-4dcc0018f7cb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.npmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/typescript/LibraryManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/LibraryManager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/StormPlayer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/StormPlayer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/events/Dispatcher.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/events/Dispatcher.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/events/EventType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/events/EventType.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ControlElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/CuePointsElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/CuePointsElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ErrorElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/HeaderElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/LoaderElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/LoaderElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/MainElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/PlaybackElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/ProgressbarElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/UnmuteElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/UnmuteElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/FullscreenElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/PlayElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityMenuElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/QualityMenuElement.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/typescript/ui/controlbuttons/VolumeElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +34,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/typescript/StormPlayer.ts" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/package-lock.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/gulpfile.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/tsconfig.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/typescript/LibraryManager.ts" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="JsBowerSettings">
     <node-interpreter value="project" />
     <bower-package value="/usr/local/lib/node_modules/bower" />
@@ -61,10 +68,13 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.17.1" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.17.1" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -73,17 +83,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/dist" />
+      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui\controlbuttons" />
+      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui" />
+      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\styles" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\PROJECTS\StormStream\StormPlayer\src\typescript\ui\controlbuttons" />
       <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui\controlbuttons" />
       <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\dist" />
       <recent name="$PROJECT_DIR$/src/html" />
       <recent name="$PROJECT_DIR$/src/typescript/config" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui\controlbuttons" />
-      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\typescript\ui" />
-      <recent name="D:\PROJECTS\StormStream\StormPlayerGUI\src\styles" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -117,6 +129,13 @@
       <workItem from="1621058419625" duration="2031000" />
       <workItem from="1622670845863" duration="607000" />
       <workItem from="1622678160635" duration="22000" />
+      <workItem from="1622899573522" duration="1816000" />
+      <workItem from="1624461031823" duration="1107000" />
+      <workItem from="1624652637501" duration="531000" />
+      <workItem from="1624664858780" duration="436000" />
+      <workItem from="1624705145748" duration="11548000" />
+      <workItem from="1624736854089" duration="9659000" />
+      <workItem from="1624802309464" duration="2396000" />
     </task>
     <task id="LOCAL-00001" summary="Work in progress">
       <created>1616598564140</created>
