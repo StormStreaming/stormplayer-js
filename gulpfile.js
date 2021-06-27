@@ -78,7 +78,7 @@ gulp.task('clear', function(){
 /**
  * Builds dist directory
  */
-gulp.task("build", gulp.series("html", "styles", "typescript", "addrequire", "ts-sourcemaps"));
+gulp.task("build", gulp.series("html", "styles", "typescript", "addrequire", "ts-sourcemaps",'grabLibrary'));
 
 
 /**
@@ -93,7 +93,7 @@ gulp.task("watch", function(){
             baseDir: 'dist',
         }
     });
-    return watch(["./src/html/**/*.html", "./src/html/**/*.ts", "./src/typescript/**/*.ts", "./src/styles/**/*.scss"], gulp.series("html", "styles", "typescript", "addrequire", "ts-sourcemaps", reload));
+    return watch(["./src/html/**/*.html", "./src/html/**/*.ts", "./src/typescript/**/*.ts", "./src/styles/**/*.scss"], gulp.series("html", "styles", "typescript", "addrequire", "ts-sourcemaps",'grabLibrary', reload));
 });
 
 /**
