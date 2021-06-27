@@ -48,39 +48,37 @@ export class ErrorElement extends GraphicElement {
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function() {
 
-            that.stormPlayer.getLibrary().addEventListener("playerDisconnected", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("playerDisconnected", function (e:any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getPlayerDisconnectedText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("onAllServersFailed", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("onAllServersFailed", function (e:any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getServersFailedText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("compatibilityError", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("compatibilityError", function (e:any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getCompatibilityErrorText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("noSLLError", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("noSLLError", function (e:any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getNoSSLErrorText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoError", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("videoError", function (e:any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getVideoErrorText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoNotFound", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("videoNotFound", function (e:any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getVideoNotFoundText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoStop", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("videoStop", function (e:any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getVideoStopText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("incompatiblePlayerProtocol", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("incompatiblePlayerProtocol", function (e:any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getIncompatiblePlayerProtocolText());
             });
-
-
 
         });
     }

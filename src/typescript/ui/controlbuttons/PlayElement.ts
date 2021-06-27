@@ -50,7 +50,7 @@ export class PlayElement extends GraphicElement {
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function() {
 
-            that.stormPlayer.getLibrary().addEventListener("interactionRequired", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("interactionRequired", function (e:any) {
                 that.showPlay();
             });
 

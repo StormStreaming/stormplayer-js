@@ -36,7 +36,7 @@ export class VolumeElement extends GraphicElement {
         this.volumeButtonElement.querySelector(".sp-unmute-icon").classList.remove("sp-hidden");
     }
 
-    public setVolume(percent) : void{
+    public setVolume(percent:any) : void{
         if(this.stormPlayer.getLibraryManager().getConfig().settings.audio && this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume && percent > this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume)
             percent = this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume;
 
@@ -154,7 +154,7 @@ export class VolumeElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function() {
-            that.stormPlayer.getLibrary().addEventListener("volumeChange", function(event){
+            that.stormPlayer.getLibrary().addEventListener("volumeChange", function(event:any){
 
                 that.setVolume(event.volume);
                 if(event.isMuted)

@@ -62,7 +62,7 @@ export class PlaybackElement extends GraphicElement {
                 that.show();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("interactionRequired", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("interactionRequired", function (e:any) {
                 that.show();
             });
 

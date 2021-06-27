@@ -6,8 +6,6 @@ export class LibraryManager
 
     private stormPlayer : StormPlayer;
     private config : any;
-
-    // @ts-ignore: Unreachable code error
     private library : StormLibrary;
 
     constructor(config : any, stormPlayer : StormPlayer) {
@@ -29,18 +27,16 @@ export class LibraryManager
         return this.config;
     }
 
-    // @ts-ignore: Unreachable code error
     public getLibrary() : StormLibrary{
         return this.library;
     }
 
     public initializeLibrary() : void{
-        // @ts-ignore: Unreachable code error
+
+        // @ts-ignore
         this.library = new StormLibrary(this.config);
         this.stormPlayer.dispatch(EventType.LIBRARY_CREATED);
-
         this.library.initialize();
-
         this.stormPlayer.dispatch(EventType.LIBRARY_INITIALIZED);
 
     }
@@ -55,7 +51,7 @@ export class LibraryManager
         this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function() {
 
             that.getLibrary().addEventListener("videoObjectCreation", function () {
-               // document.querySelector('#' + that.stormPlayer.getInstanceID() + ' video').classList.add('sp-video');
+               document.querySelector('#' + that.stormPlayer.getInstanceID() + ' video').classList.add('sp-video');
             });
 
         });
@@ -82,16 +78,15 @@ export class LibraryManager
                 that.getLibrary().togglePlay();
             });
 
-            that.stormPlayer.addEventListener(EventType.VOLUME_CHANGED, function(e){
+            that.stormPlayer.addEventListener(EventType.VOLUME_CHANGED, function(e:any){
                 that.getLibrary().setVolume(e.volume);
             });
 
-            that.stormPlayer.addEventListener(EventType.QUALITY_CHANGED, function(e){
+            that.stormPlayer.addEventListener(EventType.QUALITY_CHANGED, function(e:any){
                 that.getLibrary().setQuality(e.label);
             });
 
-            that.stormPlayer.addEventListener(EventType.SEEK_SETTED, function(e){
-                console.log("Seek to: "+e.seekToTime);
+            that.stormPlayer.addEventListener(EventType.SEEK_SETTED, function(e:any){
                 that.getLibrary().seek(e.seekToTime);
             });
 

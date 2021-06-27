@@ -94,7 +94,7 @@ export class ProgressbarElement extends GraphicElement {
 
         let formattedSeekTime = seekHours + ':' + seekMinutes.substr(-2) + ':' + seekSeconds.substr(-2);
 
-        console.log("percent: "+percent+"%, equals: "+formattedSeekTime+", seekUnixTime: "+seekTime);
+        //console.log("percent: "+percent+"%, equals: "+formattedSeekTime+", seekUnixTime: "+seekTime);
 
         /*
         Prevent too frequent update
@@ -141,7 +141,7 @@ export class ProgressbarElement extends GraphicElement {
     /*
     Parses server data
      */
-    public parseServerData(data): void {
+    public parseServerData(data:any): void {
 
         this.streamDuration = data.streamDuration;              // how long does our stream works
         this.sourceDuration = data.sourceDuration;              // how long is the source broadcasting
@@ -188,8 +188,7 @@ export class ProgressbarElement extends GraphicElement {
         let formattedSize = dvrMinutes.substr(-2) + ':' + dvrSeconds.substr(-2);
         let formattedCurrTime = currHours + ':' + currMinutes.substr(-2) + ':' + currSeconds.substr(-2);
 
-        console.log(formattedStartTime+ " / "+formattedEndTime+" (total seconds in storage: "+formattedSize+") now position: "+formattedCurrTime);
-
+        //console.log(formattedStartTime+ " / "+formattedEndTime+" (total seconds in storage: "+formattedSize+") now position: "+formattedCurrTime);
 
         this.refreshBar();
 
@@ -286,7 +285,7 @@ export class ProgressbarElement extends GraphicElement {
         let that = this;
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
-            that.stormPlayer.getLibrary().addEventListener("videoProgress", function (e) {
+            that.stormPlayer.getLibrary().addEventListener("videoProgress", function (e:any) {
                 that.parseServerData(e);
             });
         });

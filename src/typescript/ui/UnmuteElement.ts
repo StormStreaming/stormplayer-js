@@ -52,7 +52,7 @@ export class UnmuteElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function() {
-            that.stormPlayer.getLibrary().addEventListener("volumeChange", function(event){
+            that.stormPlayer.getLibrary().addEventListener("volumeChange", function(event:any){
                 if(event.isMuted && event.type == 'browser')
                     that.show();
                 else

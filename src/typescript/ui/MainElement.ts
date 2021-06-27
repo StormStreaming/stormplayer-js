@@ -41,6 +41,7 @@ export class MainElement extends GraphicElement {
     public setSize(width : number, height : number){
         this.htmlElement.style.maxWidth = width+'px';
         this.spContainer.getHtmlElement().style.height = height+'px';
+        this.stormPlayer.getLibrary().setSize(width, height);
     }
 
     public getHeaderElement() : HeaderElement{

@@ -4,10 +4,14 @@
     "target": "ES6",
     "removeComments" : true,
     "outFile" : "./storm-player.js",
+   // "outDir" : "./build",
     "baseUrl" : "./src/typescript/",
     "sourceMap" : true,
     "alwaysStrict" : true,
-    "declaration" : false
+    "declaration" : false,
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
   },
   "include": [
     "./src/typescript/**/*.ts"
