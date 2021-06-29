@@ -4,6 +4,22 @@ A fully customizable GUI project for StormLibrary. It can act as ready-to use We
 
 To get started checkout examples and documentation at https://www.stormstreaming.com/docs/javascript-getting-started
 
+## Installation
+
+If you wish just to check the player out, feel free to grab all *.js and *css files from /dist directory and can embed them into your website right away. 
+In order to modify the player, you must install Node Runtime.  
+
+### Project compilation
+
+Start with downloading all dependencies.
+> `npm install`
+
+Now you can build the project with:
+> `gulp build`
+
+For development, you can use:
+> `gulp serve`
+
 Browser compatibility
 ---------------------
 * Edge 12+
@@ -13,6 +29,10 @@ Browser compatibility
 * Opera 15+
 
 For legacy browsers, HLS mode is used instead.
+
+## Requirements
+
+- Node v14
 
 ## Resources
 
