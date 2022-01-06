@@ -1,22 +1,41 @@
 import {StormPlayer} from "./StormPlayer";
 import {EventType} from "./events/EventType";
+import {StormLibraryConfig, StormLibrary} from "@stormstreaming/stormlibrary";
 
-export class LibraryManager
-{
+/**
+ * Class responsible for managing StormLibrary instance
+ */
+export class LibraryManager {
 
-    private stormPlayer : StormPlayer;
-    private config : any;
-    // @ts-ignore
-    private library : StormLibrary;
+    /**
+     * Reference to the player
+     * @private
+     */
+    private stormPlayer: StormPlayer;
 
-    constructor(config : any, stormPlayer : StormPlayer) {
+    /**
+     * A configuration object for the library
+     * @private
+     */
+    private config: StormLibraryConfig;
+
+    /**
+     * The StormLibrary Instance
+     * @private
+     */
+    private library: StormLibrary;
+
+    /**
+     * Constructor for the LibraryManager
+     *
+     * @param config a config for the library
+     * @param stormPlayer a reference to the main player class
+     */
+    constructor(config: StormLibraryConfig, stormPlayer: StormPlayer) {
         this.stormPlayer = stormPlayer;
 
         this.config = config;
 
-        /*
-        Override config variables
-        */
         this.config.settings.video.containerID = stormPlayer.getInstanceID();
         this.config.settings.video.width = stormPlayer.getGuiConfig().getWitdth();
         this.config.settings.video.height = stormPlayer.getGuiConfig().getHeight();
@@ -24,84 +43,104 @@ export class LibraryManager
         this.attachListeners();
     }
 
-    public getConfig() : any{
+    /**
+     * Returns library config
+     */
+    public getConfig(): StormLibraryConfig {
         return this.config;
     }
 
-    // @ts-ignore
-    public getLibrary() : StormLibrary{
+    /**
+     * Returns library instance
+     */
+    public getLibrary(): StormLibrary {
         return this.library;
     }
 
-    public initializeLibrary() : void{
-
-        // @ts-ignore
+    /**
+     * Initializes the library
+     */
+    public initializeLibrary(): void {
         this.library = new StormLibrary(this.config);
         this.stormPlayer.dispatch(EventType.LIBRARY_CREATED);
         this.library.initialize();
         this.stormPlayer.dispatch(EventType.LIBRARY_INITIALIZED);
-
     }
 
-    private attachListeners() : void{
-        let that = this;
+    /**
+     * Attaches basic events to both the player & the library
+     * @private
+     */
+    private attachListeners(): void {
 
-        this.stormPlayer.addEventListener(EventType.GUI_INITIALIZED, function(){
+        const that:LibraryManager = this;
+
+        // when gui is ready, let's create an instance of the library
+        this.stormPlayer.addEventListener(EventType.GUI_INITIALIZED, function () {
             that.initializeLibrary();
         });
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function() {
-
+        // when library is created
+        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
             that.getLibrary().addEventListener("videoObjectCreation", function () {
-               document.querySelector('#' + that.stormPlayer.getInstanceID() + ' video').classList.add('sp-video');
+                document
+                    .querySelector("#" + that.stormPlayer.getInstanceID() + " video")
+                    .classList.add("sp-video");
             });
-
         });
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function(){
+        // library is now ready to register events
+        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
 
-            that.stormPlayer.addEventListener(EventType.PLAY_CLICKED, function(){
+            // when play is clicked
+            that.stormPlayer.addEventListener(EventType.PLAY_CLICKED, function () {
                 that.getLibrary().play();
             });
 
-            that.stormPlayer.addEventListener(EventType.PAUSE_CLICKED, function(){
+            // when pause is cliked
+            that.stormPlayer.addEventListener(EventType.PAUSE_CLICKED, function () {
                 that.getLibrary().pause();
             });
 
-            that.stormPlayer.addEventListener(EventType.MUTE_CLICKED, function(){
+            // when mute is clicked
+            that.stormPlayer.addEventListener(EventType.MUTE_CLICKED, function () {
                 that.getLibrary().mute();
             });
 
-            that.stormPlayer.addEventListener(EventType.UNMUTE_CLICKED, function(){
+            // when mute is clicked again/or unmute button is clicked
+            that.stormPlayer.addEventListener(EventType.UNMUTE_CLICKED, function () {
                 that.getLibrary().unmute();
             });
 
-            that.stormPlayer.addEventListener(EventType.TOGGLE_CLICKED, function(){
+            // when toggle play button is clicked (works as pause/play)
+            that.stormPlayer.addEventListener(EventType.TOGGLE_CLICKED, function () {
                 that.getLibrary().togglePlay();
             });
 
-            that.stormPlayer.addEventListener(EventType.VOLUME_CHANGED, function(e:any){
+            // when volume is changed
+            that.stormPlayer.addEventListener(EventType.VOLUME_CHANGED, function (e: any) {
                 that.getLibrary().setVolume(e.volume);
             });
 
-            that.stormPlayer.addEventListener(EventType.QUALITY_CHANGED, function(e:any){
+            // when video quality is changed
+            that.stormPlayer.addEventListener(EventType.QUALITY_CHANGED, function (e: any) {
                 that.getLibrary().setQuality(e.label);
             });
 
-            that.stormPlayer.addEventListener(EventType.SEEK_SETTED, function(e:any){
+            // when user clicks on progress bar or uses thumb to seek
+            that.stormPlayer.addEventListener(EventType.SEEK_SETTED, function (e: any) {
                 that.getLibrary().seek(e.seekToTime);
             });
 
-            that.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function(){
+            // when user enters full-screen mode
+            that.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function () {
                 that.getLibrary().setSize(window.screen.width, window.screen.height);
             });
 
-            that.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function(){
+            // when user escapes full-screen mode
+            that.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function () {
                 that.getLibrary().setSize(that.getConfig().settings.video.width, that.getConfig().settings.video.height);
             });
-
         });
-
     }
-
 }

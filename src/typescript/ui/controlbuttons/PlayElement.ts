@@ -2,21 +2,34 @@ import {GraphicElement} from "../GraphicElement";
 import {StormPlayer} from "../../StormPlayer";
 import {EventType} from "../../events/EventType";
 
+/**
+ * Class represents play button
+ */
 export class PlayElement extends GraphicElement {
 
-    private playButtonElement : HTMLButtonElement;
+    /**
+     * PlayButton element
+     * @private
+     */
+    private playButtonElement: HTMLButtonElement;
 
+    /**
+     * Reference to the player main class
+     * @param stormPlayer
+     */
     constructor(stormPlayer: StormPlayer) {
-
-        super(stormPlayer, 'sp-play');
-
+        super(stormPlayer, "sp-play");
     }
 
-    protected draw() : void{
+    /**
+     * Draws graphics
+     * @protected
+     */
+    protected override draw(): void {
         super.draw();
 
         this.playButtonElement = document.createElement("button");
-        this.playButtonElement.className = 'sp-play__button';
+        this.playButtonElement.className = "sp-play__button";
         this.playButtonElement.innerHTML = `<svg class="sp-play-icon" width="17" height="22" viewBox="0 2 21 26">
                     <g fill="none" fill-rule="evenodd">
                       <g fill="#000">
@@ -31,30 +44,48 @@ export class PlayElement extends GraphicElement {
                   <svg class="sp-pause-icon sp-hidden" width="17" height="22" viewBox="6 4 12 16">
                     <path d="M14.016 5.016h3.984v13.969h-3.984v-13.969zM6 18.984v-13.969h3.984v13.969h-3.984z"></path>
                   </svg>`;
-        this.htmlElement.append(this.playButtonElement);
 
+        this.htmlElement.append(this.playButtonElement);
     }
 
-    public showPlay() : void{
+    /**
+     * Shows "play" (state) on the button
+     */
+    public showPlay(): void {
+        if (!this.playButtonElement) {
+            return;
+        }
+
         this.playButtonElement.querySelector(".sp-play-icon").classList.remove("sp-hidden");
         this.playButtonElement.querySelector(".sp-pause-icon").classList.add("sp-hidden");
     }
 
-    public showPause() : void{
+    /**
+     * Shows "pause" (state) on the button
+     */
+    public showPause(): void {
+        if (!this.playButtonElement) {
+            return;
+        }
+
         this.playButtonElement.querySelector(".sp-play-icon").classList.add("sp-hidden");
         this.playButtonElement.querySelector(".sp-pause-icon").classList.remove("sp-hidden");
     }
 
-    protected attachListeners() : void {
-        let that = this;
+    /**
+     * Attaches listeners to the button
+     * @protected
+     */
+    protected override attachListeners(): void {
+        const that = this;
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function() {
+        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
 
-            that.stormPlayer.getLibrary().addEventListener("interactionRequired", function (e:any) {
+            that.stormPlayer.getLibrary().addEventListener("interactionRequired", function (e: any) {
                 that.showPlay();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function(){
+            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function () {
                 that.showPause();
             });
 
@@ -69,15 +100,18 @@ export class PlayElement extends GraphicElement {
             that.stormPlayer.getLibrary().addEventListener("videoPause", function () {
                 that.showPlay();
             });
+
         });
 
-        this.playButtonElement.addEventListener("click", function(e){
-            if(!that.playButtonElement.querySelector(".sp-play-icon").classList.contains('sp-hidden'))
+        this.playButtonElement.addEventListener("click", function (e) {
+
+            if (!that.playButtonElement)
+                return;
+
+            if (!that.playButtonElement.querySelector(".sp-play-icon").classList.contains("sp-hidden"))
                 that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
             else
                 that.stormPlayer.dispatch(EventType.PAUSE_CLICKED);
-
         });
-
     }
 }

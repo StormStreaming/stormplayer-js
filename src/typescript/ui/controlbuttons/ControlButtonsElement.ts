@@ -3,49 +3,72 @@ import {StormPlayer} from "../../StormPlayer";
 import {PlayElement} from "./PlayElement";
 import {VolumeElement} from "./VolumeElement";
 import {QualityElement} from "./QualityElement";
-import {SubtitlesElement} from "./SubtitlesElement";
-import {FullscreenElement} from "./FullscreenElement";
+import {FullscreenElement} from "./FullScreenElement";
 
+/**
+ * Class represents a single controller for all buttons located at the bottom of the player
+ */
 export class ControlButtonsElement extends GraphicElement {
 
-
-    /*
-    Control buttons
+    /**
+     * Play button
+     * @private
      */
-    private playElement : PlayElement;
-    private volumeElement : VolumeElement;
-    private qualityElement : QualityElement;
+    private playElement: PlayElement;
 
-    //private subtitlesElement : SubtitlesElement;
-    private fullscreenElement : FullscreenElement;
-
-    /*
-    Buttons wrapper
+    /**
+     * Volume button
+     * @private
      */
-    private leftWrapper : GraphicElement;
-    private rightWrapper : GraphicElement;
+    private volumeElement: VolumeElement;
 
+    /**
+     * Quality switch button
+     * @private
+     */
+    private qualityElement: QualityElement;
+
+    /**
+     * Fullscreen button
+     * @private
+     */
+    private fullscreenElement: FullscreenElement;
+
+    /**
+     * Left buttons wrapper
+     * @private
+     */
+    private leftWrapper: GraphicElement;
+
+    /**
+     * Right buttons wrapper
+     * @private
+     */
+    private rightWrapper: GraphicElement;
+
+    /**
+     * Constructor
+     * @param stormPlayer reference to the main class of the player
+     */
     constructor(stormPlayer: StormPlayer) {
-
-        super(stormPlayer, 'sp-controls__bottom');
-
+        super(stormPlayer, "sp-controls__bottom");
     }
 
-    protected draw() : void{
+  /**
+   * Creates all sub-elements and adds them to the page
+   * @protected
+   */
+  protected override draw(): void {
         super.draw();
 
-        /*
-        Creating wrapper
-         */
+        // creating wrappers
         this.leftWrapper = new GraphicElement(this.stormPlayer, "sp-controls__left");
         this.htmlElement.appendChild(this.leftWrapper.getHtmlElement());
 
         this.rightWrapper = new GraphicElement(this.stormPlayer, "sp-controls__right");
         this.htmlElement.appendChild(this.rightWrapper.getHtmlElement());
 
-        /*
-        Creating control buttons
-         */
+        // creating buttons
         this.playElement = new PlayElement(this.stormPlayer);
         this.leftWrapper.getHtmlElement().appendChild(this.playElement.getHtmlElement());
 
@@ -55,11 +78,7 @@ export class ControlButtonsElement extends GraphicElement {
         this.qualityElement = new QualityElement(this.stormPlayer);
         this.leftWrapper.getHtmlElement().appendChild(this.qualityElement.getHtmlElement());
 
-        //this.subtitlesElement = new SubtitlesElement(this.stormPlayer);
-        //this.rightWrapper.getHtmlElement().appendChild(this.subtitlesElement.getHtmlElement());
-
         this.fullscreenElement = new FullscreenElement(this.stormPlayer);
         this.rightWrapper.getHtmlElement().appendChild(this.fullscreenElement.getHtmlElement());
     }
-
 }

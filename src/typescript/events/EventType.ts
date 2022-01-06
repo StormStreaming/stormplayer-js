@@ -1,3 +1,6 @@
+/**
+ * Enums for events
+ */
 export enum EventType {
 
     GUI_INITIALIZED = "interfaceReady",

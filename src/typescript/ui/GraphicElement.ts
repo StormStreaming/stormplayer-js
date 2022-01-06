@@ -1,46 +1,93 @@
 import {StormPlayer} from "../StormPlayer";
 
+/**
+ * Abstract graphic element
+ */
 export class GraphicElement {
 
-        protected stormPlayer: StormPlayer;
+    /**
+     * Reference to the main player class
+     * @protected
+     */
+    protected stormPlayer: StormPlayer;
 
-        protected htmlElement: HTMLElement;
-        protected tagName: string;
-        protected className: string;
+    /**
+     * HTML element
+     * @protected
+     */
+    protected htmlElement: HTMLElement;
 
-        constructor(stormPlayer: StormPlayer, className : string = "", tagName: string = 'div') {
-                this.className = className;
-                this.tagName = tagName;
-                this.stormPlayer = stormPlayer;
-                this.draw();
-                this.attachListeners();
-        }
+    /**
+     * Tag name of this element
+     * @protected
+     */
+    protected tagName: string;
 
-        public getHtmlElement() : HTMLElement{
-                return this.htmlElement;
-        }
+    /**
+     * Class name of this element
+     * @protected
+     */
+    protected className: string;
 
-        public remove() : void{
-                this.htmlElement.remove();
-        }
+    /**
+     * Constructor
+     * @param stormPlayer reference to the main player class
+     * @param className className for this element
+     * @param tagName tagName for this element
+     */
+    constructor(stormPlayer: StormPlayer, className: string = "", tagName: string = 'div') {
+        this.className = className;
+        this.tagName = tagName;
+        this.stormPlayer = stormPlayer;
+        this.draw();
+        this.attachListeners();
+    }
 
-        public hide() : void{
-                this.htmlElement.classList.add("sp-hidden");
-        }
+    /**
+     * Returns HTML element
+     */
+    public getHtmlElement(): HTMLElement {
+        return this.htmlElement;
+    }
 
-        public show() : void{
-                this.htmlElement.classList.remove("sp-hidden");
-        }
+    /**
+     * Removes element
+     */
+    public remove(): void {
+        this.htmlElement.remove();
+    }
 
-        protected draw() : void{
-                this.htmlElement = document.createElement(this.tagName);
-                if(this.className != '')
-                        this.htmlElement.className = this.className;
-                this.htmlElement.innerHTML = ``;
-        }
+    /**
+     * Hides element
+     */
+    public hide(): void {
+        this.htmlElement.classList.add("sp-hidden");
+    }
 
-        protected attachListeners() : void{
+    /**
+     * Makes element visible again
+     */
+    public show(): void {
+        this.htmlElement.classList.remove("sp-hidden");
+    }
 
-        }
+    /**
+     * Draw graphics for the element
+     * @protected
+     */
+    protected draw(): void {
+        this.htmlElement = document.createElement(this.tagName);
+        if (this.className != '')
+            this.htmlElement.className = this.className;
+        this.htmlElement.innerHTML = ``;
+    }
+
+    /**
+     * Attaches listeners to the button
+     * @protected
+     */
+    protected attachListeners(): void {
+        // for extension
+    }
 
 }

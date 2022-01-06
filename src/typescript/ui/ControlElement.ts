@@ -1,33 +1,64 @@
-import {GraphicElement} from "./GraphicElement";
-import {StormPlayer} from "../StormPlayer";
-import {ProgressbarElement} from "./ProgressbarElement";
-import {ControlButtonsElement} from "./controlbuttons/ControlButtonsElement";
-import {EventType} from "../events/EventType";
+import { GraphicElement } from "./GraphicElement";
+import { StormPlayer } from "../StormPlayer";
+import { ProgressbarElement } from "./ProgressbarElement";
+import { ControlButtonsElement } from "./controlbuttons/ControlButtonsElement";
+import { EventType } from "../events/EventType";
 
+/**
+ * Class represents main control element
+ */
 export class ControlElement extends GraphicElement {
 
+    /**
+     * Shadow element
+     * @private
+     */
     private shadowElement: GraphicElement;
-    private progressbarElement : ProgressbarElement;
-    private controlButtonsElement : ControlButtonsElement;
 
+    /**
+     * Progress bar
+     * @private
+     */
+    private progressbarElement: ProgressbarElement;
+
+    /**
+     * Control buttons
+     * @private
+     */
+    private controlButtonsElement: ControlButtonsElement;
+
+    /**
+     * Constructor
+     * @param stormPlayer reference to the main class
+     */
     constructor(stormPlayer: StormPlayer) {
-
-        super(stormPlayer, 'sp-controls');
-
+        super(stormPlayer, "sp-controls");
     }
 
-    public show(): void {
+    /**
+     * Makes the element visible
+     */
+    public override show(): void {
         this.htmlElement.classList.remove("sp-controls--hidden");
     }
 
-    public hide(): void {
+    /**
+     * Makes the element invisible
+     */
+    public override hide(): void {
         this.htmlElement.classList.add("sp-controls--hidden");
     }
 
-    protected draw() : void{
+    /**
+     * Draw graphics for the element
+     * @protected
+     */
+    protected override draw(): void {
+
         super.draw();
 
         this.shadowElement = new GraphicElement(this.stormPlayer, "sp-controls__shadow");
+
         this.htmlElement.appendChild(this.shadowElement.getHtmlElement());
 
         this.progressbarElement = new ProgressbarElement(this.stormPlayer);
@@ -36,15 +67,15 @@ export class ControlElement extends GraphicElement {
         this.controlButtonsElement = new ControlButtonsElement(this.stormPlayer);
         this.htmlElement.appendChild(this.controlButtonsElement.getHtmlElement());
 
-        let that = this;
+        let that:ControlElement = this;
 
-        this.stormPlayer.addEventListener(EventType.GUI_SHOWN, function(){
+        this.stormPlayer .addEventListener(EventType.GUI_SHOWN, function () {
             that.show();
         });
 
-        this.stormPlayer.addEventListener(EventType.GUI_HIDED, function(){
+        this.stormPlayer.addEventListener(EventType.GUI_HIDED, function () {
             that.hide();
         });
-    }
 
+    }
 }

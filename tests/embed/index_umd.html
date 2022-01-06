@@ -1,0 +1,52 @@
+<!-- prettier-ignore -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>StormPlayer - Preview Page</title>
+        <meta charset="UTF-8">
+        <style>
+            body {padding:10px;}
+        </style>
+        <script src="../../dist/umd/index.js"></script>
+    </head>
+    <body>
+        <div id="player1"></div>
+        <script>
+            const libraryConfig = {
+                role: "player",
+                connectionType: "direct",
+                stream: {
+                    serverList: [
+                        {host: "localhost", port: 80, ssl: false},
+                    ],
+                    sourceList: [
+                        {protocol: "storm", streamName: "test", application: "live"},
+                    ],
+                },
+                settings: {
+                    autoStart: true,
+                    restartOnError: true,
+                    enabledProtocols: ["MSE", "HLS"],
+                    video: {
+                        scalingMode: "fill", // "letterbox", "crop", "fill", "resize"
+                        containerID: "videoContainer",
+                        width: 640,
+                        height: 360,
+                    }
+                },
+            };
+
+            const playerConfig = {
+                containerID: "player1",
+                width: 640,
+                height: 360,
+                title: "Test title",
+                subtitle: "Subtitle",
+                unmuteText: "Unmute"
+            }
+
+            const storm = stormPlayer.create(playerConfig, libraryConfig);
+
+        </script>
+    </body>
+</html>

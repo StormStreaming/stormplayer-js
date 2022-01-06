@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 body {
   font-family: 'Montserrat', sans-serif;
@@ -14,24 +14,23 @@ body {
   justify-content: center;
   align-items: center;
 
-  & h1{
-    margin-top:30px;
+  & h1 {
+    margin-top: 30px;
   }
 }
 
-.cuepoint-btn{
-  margin-top:30px;
+.cuepoint-btn {
+  margin-top: 30px;
 
-  input{
-    padding:15px;
+  input {
+    padding: 15px;
   }
 }
 
-#player1{
+#player1 {
   box-shadow: 0 25px 60px 15px rgba(0, 0, 0, 0.4);
-  border-radius:10px;
+  border-radius: 10px;
 }
-
 
 // TODO: temporary display none
 h1 {

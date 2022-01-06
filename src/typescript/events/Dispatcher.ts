@@ -1,12 +1,20 @@
+/**
+ * This class implements basics mechanics for event dispatcher
+ */
 export class Dispatcher {
 
-    private events: any;
+    /**
+     * Events registered with this object
+     * @private
+     */
+    private events: any = {}
 
-    constructor() {
-        this.events = {};
-    }
-
-    addEventListener(event: any, callback: any) : boolean {
+    /**
+     * Registers new event listener with the player
+     * @param event event name
+     * @param callback a callback function
+     */
+    public addEventListener(event: string | number, callback: any): boolean {
         // Check if the callback is not a function
         if (typeof callback !== 'function') {
             console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
@@ -29,8 +37,12 @@ export class Dispatcher {
         return true;
     }
 
-
-    removeEventListener(event: any, callback: any) : boolean {
+    /**
+     * Removes event from the player
+     * @param event event name
+     * @param callback callback function previously registered (can be null for inline function)
+     */
+    public removeEventListener(event: string | number, callback: any = null): boolean {
         // Check if this event not exists
         if (this.events[event] === undefined) {
             console.error(`This event: ${event} does not exist`);
@@ -42,11 +54,15 @@ export class Dispatcher {
         });
     }
 
-    dispatch(event: any, details: any = null) : boolean {
+    /**
+     * Dispatches event from the object
+     * @param event event name
+     * @param details
+     */
+    public dispatch(event: any, details: any = null): boolean {
         // Check if this event not exists
         if (this.events[event] === undefined)
             return false;
-
 
         this.events[event].listeners.forEach((listener: any) => {
             listener(details);

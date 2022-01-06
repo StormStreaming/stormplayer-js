@@ -3,49 +3,75 @@ import {StormPlayer} from "../../StormPlayer";
 import {EventType} from "../../events/EventType";
 import {QualityMenuElement} from "./QualityMenuElement";
 
+/**
+ * Class represents quality switch button
+ */
 export class QualityElement extends GraphicElement {
 
-    private qualityMenuElement : QualityMenuElement;
-    private qualityButtonElement : HTMLButtonElement;
+    /**
+     * List of the quality change
+     * @private
+     */
+    private qualityMenuElement: QualityMenuElement;
 
+    /**
+     * Quality change button
+     * @private
+     */
+    private qualityButtonElement: HTMLButtonElement;
+
+    /**
+     * Constructor
+     * @param stormPlayer reference to the main player class
+     */
     constructor(stormPlayer: StormPlayer) {
-
-        super(stormPlayer, 'sp-resolution sp-hidden');
-
+        super(stormPlayer, "sp-resolution sp-hidden");
     }
 
-    protected refreshButton() : void{
+    /**
+     * Refresh button state
+     * @protected
+     */
+    protected refreshButton(): void {
+        if (!this.qualityButtonElement)
+            return;
 
-        if(this.stormPlayer.getLibrary().getAllSources().length == 1)
+        if (this.stormPlayer.getLibrary().getAllSources().length == 1)
             this.hide();
         else
             this.show();
 
         this.qualityButtonElement.innerHTML = `<span>${this.stormPlayer.getLibrary().getCurrentQuality()}</span>`;
-
-
     }
 
-    protected draw() : void{
+    /**
+     * Draw graphics for the element
+     * @protected
+     */
+    protected override draw(): void {
         super.draw();
 
         this.qualityButtonElement = document.createElement("button");
-        this.qualityButtonElement.className = 'sp-controls__button';
+        this.qualityButtonElement.className = "sp-controls__button";
 
         this.htmlElement.append(this.qualityButtonElement);
 
         this.qualityMenuElement = new QualityMenuElement(this.stormPlayer);
         this.htmlElement.appendChild(this.qualityMenuElement.getHtmlElement());
-
     }
 
-    protected attachListeners(): void {
+    /**
+     * Attaches listeners to the button
+     * @protected
+     */
+    protected override attachListeners(): void {
+
         let that = this;
-        this.qualityButtonElement.addEventListener("click", function(){
+        this.qualityButtonElement.addEventListener("click", function () {
             that.stormPlayer.dispatch(EventType.QUALITY_CLICKED);
         });
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function() {
+        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
 
             that.refreshButton();
 
@@ -53,15 +79,14 @@ export class QualityElement extends GraphicElement {
                 that.refreshButton();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function(){
+            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function () {
                 that.refreshButton();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoPlay", function(){
+            that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
                 that.refreshButton();
             });
 
         });
-
     }
 }
