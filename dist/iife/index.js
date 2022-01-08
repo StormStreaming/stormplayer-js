@@ -2264,6 +2264,46 @@ var stormPlayer = (function () {
         this.stormPlayer.getLibrary().setSize(width, height);
       }
       /**
+       * Sets width for the player
+       * @param width player width in pixels
+       */
+
+    }, {
+      key: "setWidth",
+      value: function setWidth(width) {
+        this.htmlElement.style.maxWidth = width + "px";
+        this.stormPlayer.getLibrary().setWidth(width);
+      }
+      /**
+       * Sets height for the player
+       * @param height player height in pixels
+       */
+
+    }, {
+      key: "setHeight",
+      value: function setHeight(height) {
+        this.spContainer.getHtmlElement().style.height = height + "px";
+        this.stormPlayer.getLibrary().setHeight(height);
+      }
+      /**
+       * Returns plauer width;
+       */
+
+    }, {
+      key: "getWidth",
+      value: function getWidth() {
+        return this.stormPlayer.getLibrary().getWidth();
+      }
+      /**
+       * Returns plauer height;
+       */
+
+    }, {
+      key: "getHeight",
+      value: function getHeight() {
+        return this.stormPlayer.getLibrary().getHeight();
+      }
+      /**
        * Returns header element (top row with title/subtitle)
        */
 
@@ -3158,6 +3198,44 @@ var stormPlayer = (function () {
       key: "setSize",
       value: function setSize(width, height) {
         this.mainElement.setSize(width, height);
+      }
+      /**
+       * Changes player width
+       * @param width new player width in pixels
+       */
+
+    }, {
+      key: "setWidth",
+      value: function setWidth(width) {
+        this.mainElement.setWidth(width);
+      }
+      /**
+       * Changes player height
+       * @param height new player height in pixels
+       */
+
+    }, {
+      key: "setHeight",
+      value: function setHeight(height) {
+        this.mainElement.setHeight(height);
+      }
+      /**
+       * Returns plauer width;
+       */
+
+    }, {
+      key: "getWidth",
+      value: function getWidth() {
+        return this.mainElement.getWidth();
+      }
+      /**
+       * Returns plauer height;
+       */
+
+    }, {
+      key: "getHeight",
+      value: function getHeight() {
+        return this.mainElement.getHeight();
       }
       /**
        * Sets a title visible in the upper-right corner of the player

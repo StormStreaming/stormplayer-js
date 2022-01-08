@@ -122,6 +122,36 @@ export class StormPlayer extends Dispatcher {
     }
 
     /**
+     * Changes player width
+     * @param width new player width in pixels
+     */
+    public setWidth(width: number): void {
+        this.mainElement.setWidth(width);
+    }
+
+    /**
+     * Changes player height
+     * @param height new player height in pixels
+     */
+    public setHeight(height: number): void {
+        this.mainElement.setHeight(height);
+    }
+
+    /**
+     * Returns plauer width;
+     */
+    public getWidth():number {
+        return this.mainElement.getWidth();
+    }
+
+    /**
+     * Returns plauer height;
+     */
+    public getHeight():number {
+        return this.mainElement.getHeight();
+    }
+
+    /**
      * Sets a title visible in the upper-right corner of the player
      * @param title new title
      */

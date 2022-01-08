@@ -1,5 +1,14 @@
 # Change Log
 
+## 2.1.0
+
+New methods were added to the player:
+- setWidth(newValue:number):void
+- setHeight(newValue:number):void
+- getWidth():number
+- getHeight():number
+
+
 ## 2.0.0
 
 StormPlayer in this version was rebuilt from scratch for more straightforward implementation with modern websites. List of changes:

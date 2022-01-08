@@ -17,6 +17,10 @@ export declare class StormPlayer extends Dispatcher {
     getInstanceID(): string;
     getMainElement(): MainElement;
     setSize(width: number, height: number): void;
+    setWidth(width: number): void;
+    setHeight(height: number): void;
+    getWidth(): number;
+    getHeight(): number;
     setTitle(title: string): void;
     setSubtitle(subtitle: string): void;
     getGuiConfig(): StormGUIConfigImpl;

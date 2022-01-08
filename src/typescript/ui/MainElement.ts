@@ -95,6 +95,38 @@ export class MainElement extends GraphicElement {
     }
 
     /**
+     * Sets width for the player
+     * @param width player width in pixels
+     */
+    public setWidth(width: number) {
+        this.htmlElement.style.maxWidth = width + "px";
+        this.stormPlayer.getLibrary().setWidth(width);
+    }
+
+    /**
+     * Sets height for the player
+     * @param height player height in pixels
+     */
+    public setHeight(height: number) {
+        this.spContainer.getHtmlElement().style.height = height + "px";
+        this.stormPlayer.getLibrary().setHeight(height);
+    }
+
+    /**
+     * Returns plauer width;
+     */
+    public getWidth():number {
+        return this.stormPlayer.getLibrary().getWidth();
+    }
+
+    /**
+     * Returns plauer height;
+     */
+    public getHeight():number {
+        return this.stormPlayer.getLibrary().getHeight();
+    }
+
+    /**
      * Returns header element (top row with title/subtitle)
      */
     public getHeaderElement(): HeaderElement {

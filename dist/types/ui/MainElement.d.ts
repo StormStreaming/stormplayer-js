@@ -14,6 +14,10 @@ export declare class MainElement extends GraphicElement {
     private hideGUITimeout;
     constructor(stormPlayer: StormPlayer);
     setSize(width: number, height: number): void;
+    setWidth(width: number): void;
+    setHeight(height: number): void;
+    getWidth(): number;
+    getHeight(): number;
     getHeaderElement(): HeaderElement;
     protected draw(): void;
     protected attachListeners(): void;

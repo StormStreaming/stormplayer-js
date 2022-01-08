@@ -1,8 +1,7 @@
 # [Storm JavaScript Player](http://stormstreaming.com/)
 
 Storm Player is a fully customizable GUI wrapper project for Storm Library, which can act as ready-to use Web Video Player or work as a template for creating your own, customizable players.
-It is a part of **Storm Streaming
-Suite** and requires **Storm Streaming Server** instance or **Cloud** subscription to work.
+It is a part of **Storm Streaming Suite** and requires **Storm Streaming Server** instance or **Cloud** subscription to work.
 
 If you wish to test the player, check its API, look code snippets please visit our demo page: https://www.stormstreaming.com/demo
 
@@ -529,6 +528,10 @@ storm.removeEventListener("guiHide");
 | getInstanceID() | Instance ID number | number | The method returns instance ID of the player. | 
 | getLibrary() | StormLibrary Object | number | The method returns main StormLibrary object used by the player. |
 | setSize(width:number, height:number) | - | void | This method allows to resize the player. | 
+| setWidth(width:number) | - | void | This method allows to change player width. | 
+| setHeight(height:number) | - | void | This method allows to change player height. | 
+| getWidth() | Player width | number | Returns player width |
+| getHeight() | Player height | number | Returns player height |
 | setTitle(title:string) | - | void | The method allows to specify the title displayed in the upper-right corner of the player. |
 | setSubtitle(subtitle:string) | - | void | The method allows to specify the subtitle displayed in the upper-right corner of the player (below the title). |
 | getGuiConfig() | Object containing player settings | Object | This method returns an object containing all player preferences (related to its GUI). | 

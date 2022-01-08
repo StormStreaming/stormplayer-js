@@ -10,6 +10,14 @@
   "files": [
     "*"
   ],
+  "keywords": [
+    "stormstreaming",
+    "web",
+    "video",
+    "player",
+    "low-latency",
+    "live-streaming"
+  ],
   "license": "SEE LICENCE IN LICENCE.txt",
   "repository": "https://github.com/StormStreaming/stormplayer-js",
   "scripts": {
