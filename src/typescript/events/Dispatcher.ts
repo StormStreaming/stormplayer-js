@@ -43,7 +43,11 @@ export class Dispatcher {
      * @param callback callback function previously registered (can be null for inline function)
      */
     public removeEventListener(event: string | number, callback: any = null): boolean {
-        // Check if this event not exists
+
+        if(callback == null){
+            this.events[event].listeners = null
+        }
+
         if (this.events[event] === undefined) {
             console.error(`This event: ${event} does not exist`);
             return false;
@@ -52,6 +56,7 @@ export class Dispatcher {
         this.events[event].listeners = this.events[event].listeners.filter((listener: any) => {
             return listener.toString() !== callback.toString();
         });
+
     }
 
     /**

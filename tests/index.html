@@ -7,16 +7,10 @@
         <style>
             body {padding:10px;}
         </style>
+        <script src="../dist/iife/index.js"></script>
     </head>
+    <div id="player1"></div>
     <body>
-        <storm-player
-                containerID="player1"
-                width="640"
-                height="360"
-                title="Your streaming video title"
-                subtitle="Subtitle for your video"
-                unmuteText="UNMUTE SOUND"
-        />
         <script>
             const libraryConfig = {
                 role: "player",
@@ -41,9 +35,18 @@
                 },
             };
 
-            document.querySelector('[containerID="player1"]').setAttribute("config", JSON.stringify(libraryConfig));
+            const playerConfig = {
+                containerID: "player1",
+                width: 640,
+                height: 360,
+                title: "Test title",
+                subtitle: "Subtitle",
+                unmuteText: "Unmute"
+            }
+
+            const storm = stormPlayer(playerConfig, libraryConfig, true);
+            storm.initialize();
 
         </script>
-        <script src="../../dist/umd/index.js"></script>
     </body>
 </html>

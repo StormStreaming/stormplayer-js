@@ -5,4 +5,4 @@ import { StormLibraryConfig } from "@stormstreaming/stormlibrary";
 export type { StormPlayerConfig } from "./types/StormPlayerConfig";
 export type { StormLibraryConfig } from "@stormstreaming/stormlibrary";
 export { StormPlayer } from "./StormPlayer";
-export declare function create(playerConfig: StormPlayerConfig, libraryConfig: StormLibraryConfig): StormPlayer;
+export declare function create(playerConfig: StormPlayerConfig, libraryConfig: StormLibraryConfig, wait?: boolean): StormPlayer;

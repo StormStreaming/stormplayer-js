@@ -27,7 +27,7 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "code-check": "yarn typecheck && yarn tests && yarn lint",
-    "dev": "cross-env NODE_ENV=development rollup -c -w",
+    "dev": "cross-env NODE_ENV=development BABEL_ENV=iifeBundled rollup -c -w",
     "build:types": "yarn run tsc --project tsconfig.json && yarn tscpaths -p tsconfig.json -s ./src -o ./dist/types",
     "compile:iifeBundled": "yarn build:types && cross-env NODE_ENV=production BABEL_ENV=iifeBundled rollup -c rollup.config.js",
     "compile:umdBundled": "yarn build:types && cross-env NODE_ENV=production BABEL_ENV=umdBundled rollup -c rollup.config.js",

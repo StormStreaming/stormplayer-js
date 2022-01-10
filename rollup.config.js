@@ -68,7 +68,7 @@ const config = {
         serve({
             open: true,
             verbose: true,
-            contentBase: ["", "public"],
+            contentBase: ["", "tests"],
             host: "localhost",
             port: 8080,
         }),

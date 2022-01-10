@@ -5,6 +5,7 @@ import {LibraryManager} from "./LibraryManager";
 import {StormLibrary} from "@stormstreaming/stormlibrary";
 import {StormGUIConfigImpl} from "./StormGUIConfigImpl";
 import {StormPlayerConfig} from "./types/StormPlayerConfig";
+import {StormLibraryConfig} from "@stormstreaming/stormlibrary/dist/types/interfaces/StormLibraryConfig";
 
 /**
  * Main class for the player
@@ -27,19 +28,37 @@ export class StormPlayer extends Dispatcher {
      * Player GUI configuration
      * @private
      */
-    private readonly guiConfig: StormGUIConfigImpl;
+    private guiConfig: StormGUIConfigImpl;
 
     /**
      * Main HTML element of the GUI
      * @private
      */
-    private readonly mainElement: MainElement;
+    private mainElement: MainElement;
 
     /**
      * This object manages StormLibrary
      * @private
      */
-    private readonly libraryManager: LibraryManager;
+    private libraryManager: LibraryManager;
+
+    /**
+     * Original GUI config
+     * @private
+     */
+    private origGUIConfig:StormPlayerConfig;
+
+    /**
+     * Original Library config
+     * @private
+     */
+    private origLibraryConfig:StormLibraryConfig;
+
+    /**
+     * Whenever player was started or not
+     * @private
+     */
+    private started:boolean = false;
 
     /**
      * Constructor for the player
@@ -48,30 +67,41 @@ export class StormPlayer extends Dispatcher {
      * @param stormLibraryConfig
      * @param cuepoints
      */
-    constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: any) {
+    constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: any, wait:boolean = false) {
         super();
+
+        this.origGUIConfig = guiConfig;
+        this.origLibraryConfig = stormLibraryConfig;
 
         this.instanceID = "StormPlayer-"+ StormPlayer.NEXT_PLAYER_ID;
         StormPlayer.NEXT_PLAYER_ID++;
 
-        this.guiConfig = new StormGUIConfigImpl(guiConfig);
-        this.libraryManager = new LibraryManager(stormLibraryConfig, this);
+        if(!wait == true)
+            this.initialize();
+
+    }
+
+    /**
+     * Initializes the player (will be called by constructor onstartup)
+     */
+    public initialize(){
+
+        if(this.started)
+            return;
+
+        this.started = true;
+
+        this.guiConfig = new StormGUIConfigImpl(this.origGUIConfig);
+        this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
         this.mainElement = new MainElement(this);
 
         document.getElementById(this.guiConfig.getContainerID()).appendChild(this.mainElement.getHtmlElement());
 
         this.dispatch(EventType.GUI_INITIALIZED);
-        this.setSize(guiConfig.width, guiConfig.height);
+        this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
         this.setTitle(this.guiConfig.getTitle());
         this.setSubtitle(this.guiConfig.getSubtitle());
 
-        let self:StormPlayer = this;
-
-        //this.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
-          //  for (let i = 0; i < cuepoints.length; i++) {
-            //    self.addCuePoint(cuepoints[i].title, cuepoints[i].time);
-           // }
-        //});
     }
 
     /**

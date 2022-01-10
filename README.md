@@ -75,7 +75,7 @@ For development, you can use:
                 reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
                 enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
                 video: {
-                    scalingMode: "fill"                       // possible values "fill", "letterbox", "crop" and "letterbox"
+                    scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
                 },
                 debug: {
                     console: {                                // console output
@@ -169,7 +169,7 @@ For development, you can use:
                 reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
                 enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
                 video: {
-                    scalingMode: "fill"                       // possible values "fill", "letterbox", "crop" and "letterbox"
+                    scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
                 },
                 debug: {
                     console: {                                // console output
@@ -255,7 +255,7 @@ const libraryConfig = {
         reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
         enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
         video: {
-            scalingMode: "fill"                       // possible values "fill", "letterbox", "crop" and "letterbox"
+            scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
         },
         debug: {
             console: {                                // console output
@@ -345,7 +345,7 @@ storm.addEventListener("playClick", function(event){
                 reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
                 enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
                 video: {
-                    scalingMode: "fill"                       // possible values "fill", "letterbox", "crop" and "letterbox"
+                    scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
                 },
                 debug: {
                     console: {                                // console output
@@ -443,11 +443,11 @@ It is also possible to use a custom HTML element. The embed code looks as follow
         },
         settings: {
             autoStart: true,                              // if true, video will start playing automatically, but will be muted too
-            restartOnError: false,                         // if something bad happens, player will try to restart
+            restartOnError: false,                        // if something bad happens, player will try to restart
             reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
             enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
             video: {
-                scalingMode: "fill"                       // possible values "fill", "letterbox", "crop" and "letterbox"
+                scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
             },
             debug: {
                 console: {                                // console output
@@ -525,6 +525,7 @@ storm.removeEventListener("guiHide");
 
 | Method | Returns | Return type | Description | 
 | :---: | :---: | :---: | :---: | 
+| initialize() | - | void | Starts the player. This method will be called automatically by the constructor unless *wait* parameter in the constructor has been set to *false*.  | 
 | getInstanceID() | Instance ID number | number | The method returns instance ID of the player. | 
 | getLibrary() | StormLibrary Object | number | The method returns main StormLibrary object used by the player. |
 | setSize(width:number, height:number) | - | void | This method allows to resize the player. | 

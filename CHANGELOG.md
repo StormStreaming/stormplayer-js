@@ -2,11 +2,20 @@
 
 ## 2.1.0
 
+Constructor change:
+- Additional and optional parameter **wait*** has been added (*false* by default). If set to *true* player will not start automatically, but wait for *initialize()* method. 
+
+Change in *removeEventListener* method:
+- callback parameter is now optional. If not provided, all events of that kind will be removed at once. This change was introduced so events with inline functions can now be erased.
+
 New methods were added to the player:
+- initialize();
 - setWidth(newValue:number):void
 - setHeight(newValue:number):void
 - getWidth():number
 - getHeight():number
+
+*Minor changes to the rollup config were also made!*
 
 
 ## 2.0.0

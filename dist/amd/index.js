@@ -159,7 +159,10 @@ define(['exports'], (function (exports) { 'use strict';
       value: function removeEventListener(event) {
         var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
-        // Check if this event not exists
+        if (callback == null) {
+          this.events[event].listeners = null;
+        }
+
         if (this.events[event] === undefined) {
           console.error("This event: ".concat(event, " does not exist"));
           return false;
@@ -3097,6 +3100,11 @@ define(['exports'], (function (exports) { 'use strict';
      */
 
     /**
+     * Whenever player was started or not
+     * @private
+     */
+
+    /**
      * Constructor for the player
      *
      * @param guiConfig
@@ -3106,41 +3114,47 @@ define(['exports'], (function (exports) { 'use strict';
     function StormPlayer(guiConfig, stormLibraryConfig) {
       var _this;
 
+      var wait = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
       _classCallCheck$1(this, StormPlayer);
 
       _this = _super.call(this);
+
+      _defineProperty(_assertThisInitialized$1(_this), "started", false);
+
+      _this.origGUIConfig = guiConfig;
+      _this.origLibraryConfig = stormLibraryConfig;
       _this.instanceID = "StormPlayer-" + StormPlayer.NEXT_PLAYER_ID;
       StormPlayer.NEXT_PLAYER_ID++;
-      _this.guiConfig = new StormGUIConfigImpl(guiConfig);
-      _this.libraryManager = new LibraryManager(stormLibraryConfig, _assertThisInitialized$1(_this));
-      _this.mainElement = new MainElement(_assertThisInitialized$1(_this));
-      document.getElementById(_this.guiConfig.getContainerID()).appendChild(_this.mainElement.getHtmlElement());
-
-      _this.dispatch(EventType.GUI_INITIALIZED);
-
-      _this.setSize(guiConfig.width, guiConfig.height);
-
-      _this.setTitle(_this.guiConfig.getTitle());
-
-      _this.setSubtitle(_this.guiConfig.getSubtitle());
-
-      _assertThisInitialized$1(_this); //this.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
-      //  for (let i = 0; i < cuepoints.length; i++) {
-      //    self.addCuePoint(cuepoints[i].title, cuepoints[i].time);
-      // }
-      //});
-
-
+      if (!wait == true) _this.initialize();
       return _this;
     }
     /**
-     * Adds a new cuePoint to the timeline
-     * @param title title for this cuepoint
-     * @param time time in unixtime format for where to attach this cuePoint
+     * Initializes the player (will be called by constructor onstartup)
      */
 
 
     _createClass$1(StormPlayer, [{
+      key: "initialize",
+      value: function initialize() {
+        if (this.started) return;
+        this.started = true;
+        this.guiConfig = new StormGUIConfigImpl(this.origGUIConfig);
+        this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
+        this.mainElement = new MainElement(this);
+        document.getElementById(this.guiConfig.getContainerID()).appendChild(this.mainElement.getHtmlElement());
+        this.dispatch(EventType.GUI_INITIALIZED);
+        this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
+        this.setTitle(this.guiConfig.getTitle());
+        this.setSubtitle(this.guiConfig.getSubtitle());
+      }
+      /**
+       * Adds a new cuePoint to the timeline
+       * @param title title for this cuepoint
+       * @param time time in unixtime format for where to attach this cuePoint
+       */
+
+    }, {
       key: "addCuePoint",
       value: function addCuePoint(title, time) {
         this.dispatch(EventType.CUEPOINT_ADDED, {
@@ -3575,7 +3589,8 @@ define(['exports'], (function (exports) { 'use strict';
   }( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
 
   function create(playerConfig, libraryConfig) {
-    return new StormPlayer(playerConfig, libraryConfig);
+    var wait = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    return new StormPlayer(playerConfig, libraryConfig, wait);
   }
   customElements.define("storm-player", StormPlayerElement);
 

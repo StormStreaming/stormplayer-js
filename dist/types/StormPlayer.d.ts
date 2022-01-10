@@ -7,10 +7,14 @@ import { StormPlayerConfig } from "./types/StormPlayerConfig";
 export declare class StormPlayer extends Dispatcher {
     private static NEXT_PLAYER_ID;
     private instanceID;
-    private readonly guiConfig;
-    private readonly mainElement;
-    private readonly libraryManager;
-    constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: any);
+    private guiConfig;
+    private mainElement;
+    private libraryManager;
+    private origGUIConfig;
+    private origLibraryConfig;
+    private started;
+    constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: any, wait?: boolean);
+    initialize(): void;
     addCuePoint(title: string, time: number): void;
     removeCuePoint(time: number): void;
     getLibrary(): StormLibrary;

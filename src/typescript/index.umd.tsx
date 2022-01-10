@@ -9,8 +9,8 @@ export type {StormLibraryConfig } from "@stormstreaming/stormlibrary";
 
 export { StormPlayer } from "./StormPlayer";
 
-export function create(playerConfig:StormPlayerConfig, libraryConfig:StormLibraryConfig):StormPlayer{
-    return new StormPlayer(playerConfig, libraryConfig);
+export function create(playerConfig:StormPlayerConfig, libraryConfig:StormLibraryConfig, wait:boolean):StormPlayer{
+    return new StormPlayer(playerConfig, libraryConfig, wait);
 }
 
 customElements.define("storm-player", StormPlayerCustomElement);
