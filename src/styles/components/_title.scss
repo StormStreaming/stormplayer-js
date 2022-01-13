@@ -4,16 +4,17 @@
   right: 0;
   left: 0;
   transition: all 0.2s ease;
-  padding: 22px 28px;
+  padding: 15px 15px 0 15px;
+  //padding: 22px 28px;
   pointer-events: none;
   display: flex;
   justify-content: space-between;
   border-radius: $video-radius;
   overflow: hidden;
 
-  @media (min-width: $laptop-min) {
-    padding: 14px 15px;
-  }
+  //@media (min-width: $laptop-min) {
+  //  padding: 14px 15px;
+  //}
 
   &__shadow {
     opacity: 0.8;
@@ -32,8 +33,7 @@
   }
 
   &__text {
-    font-family: Montserrat;
-    font-weight: bold;
+    font-family: 'Montserrat-Bold', sans-serif;
     color: $white;
   }
 
@@ -47,6 +47,7 @@
   }
 
   &__sub-title {
+
     font-size: 16px;
 
     @media (min-width: $laptop-min) {

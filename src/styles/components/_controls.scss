@@ -1,7 +1,7 @@
 .sp-controls {
   right: 0;
   left: 0;
-  padding: 30px 7px 15px;
+  padding: 30px 15px 15px;
   position: absolute;
   bottom: 0;
   transition: all 0.2s ease;
@@ -112,7 +112,6 @@
   }
 
   &__fullscreen {
-    margin-right: 8px !important;
       svg {
         width: 22px;
     }
@@ -133,7 +132,6 @@
     &__button {
 
     span {
-      font-family: Montserrat;
       border-radius: $progress-bar-radius;
       background-color: $white;
       padding:0 10px;

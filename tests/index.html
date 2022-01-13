@@ -17,9 +17,12 @@
                 connectionType: "direct",
                 stream: {
                     serverList: [
-                        {host: "localhost", port: 80, ssl: false},
+                        {host: "stormprod.web-anatomy.com", port: 443, ssl: true},
                     ],
                     sourceList: [
+                        {protocol: "storm", streamName: "test", application: "live",streamInfo:{label:"360p"}},
+                        {protocol: "storm", streamName: "test", application: "live",streamInfo:{label:"720p"}},
+                        {protocol: "storm", streamName: "test", application: "live",streamInfo:{label:"1080p"}},
                         {protocol: "storm", streamName: "test", application: "live"},
                     ],
                 },

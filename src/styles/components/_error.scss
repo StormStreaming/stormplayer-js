@@ -9,7 +9,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Montserrat';
 
   svg {
     width: 60px;
@@ -19,7 +18,7 @@
   span {
     color: $white;
     font-size: 18px;
-    font-weight: bold;
+    font-family: 'Montserrat-Bold', sans-serif;
     text-align: center;
   }
 }
