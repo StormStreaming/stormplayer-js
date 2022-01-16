@@ -173,6 +173,7 @@ export class MainElement extends GraphicElement {
         let that = this;
         let spContainerElement = this.spContainer.getHtmlElement();
 
+
         this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
             that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
                     if (!that.hideGUITimeout) {
@@ -239,6 +240,9 @@ export class MainElement extends GraphicElement {
                 /* IE/Edge */
                 docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();
             }
+
+            //let newWidth = document.querySelector('.box').clientWidth;
+            //console.log(newWidth)
 
         });
 

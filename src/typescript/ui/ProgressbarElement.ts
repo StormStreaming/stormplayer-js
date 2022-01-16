@@ -401,15 +401,12 @@ export class ProgressbarElement extends GraphicElement {
         this.seekElement.addEventListener("mousedown", function (e) {
             that.stopRefreshBar = true;
             that.stormPlayer.dispatch(EventType.SEEK_STARTED);
-            that.stormPlayer.dispatch(EventType.PAUSE_CLICKED);
         });
 
         this.seekElement.addEventListener("mouseup", function (e) {
             that.stopRefreshBar = false;
             that.seekTo(parseFloat(this.value));
-
             that.stormPlayer.dispatch(EventType.SEEK_ENDED);
-            that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
         });
     }
 }

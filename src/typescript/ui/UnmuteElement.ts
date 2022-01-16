@@ -23,7 +23,7 @@ export class UnmuteElement extends GraphicElement {
     protected override draw(): void {
         super.draw();
         this.htmlElement.innerHTML = `
-            <svg class="sp-unmute-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="10px" y="10px" viewBox="0 -2 28 21" xml:space="preserve">
+            <svg width="23" height="18" class="sp-unmute-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="10px" y="10px" viewBox="0 -2 28 21" xml:space="preserve">
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <g id="PLAYER-@go-back" transform="translate(-255.000000, -966.000000)" fill="#000">
                         <g id="Group-4" transform="translate(255.000000, 966.000000)">
@@ -93,5 +93,9 @@ export class UnmuteElement extends GraphicElement {
             else
                 that.getHtmlElement().classList.remove("sp-unmute__afterheader");
         });
+
+
+
+
     }
 }

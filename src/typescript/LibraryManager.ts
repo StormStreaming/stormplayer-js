@@ -26,6 +26,30 @@ export class LibraryManager {
     private library: StormLibrary;
 
     /**
+     * Timeout for checking resolution;
+     * @private
+     */
+    private resolutionTimeout:number;
+
+    /**
+     * Whenever we are in FS mode or not
+     * @private
+     */
+    private isFullScreenMode:boolean = false;
+
+    /**
+     * Current player width
+     * @private
+     */
+    private currWidth:number = 0;
+
+    /**
+     * Current player height
+     * @private
+     */
+    private currHeight:number = 0;
+
+    /**
      * Constructor for the LibraryManager
      *
      * @param config a config for the library
@@ -39,6 +63,9 @@ export class LibraryManager {
         this.config.settings.video.containerID = stormPlayer.getInstanceID();
         this.config.settings.video.width = stormPlayer.getGuiConfig().getWitdth();
         this.config.settings.video.height = stormPlayer.getGuiConfig().getHeight();
+
+        this.currWidth = stormPlayer.getGuiConfig().getWitdth();
+        this.currHeight = stormPlayer.getGuiConfig().getWitdth();
 
         this.attachListeners();
     }
@@ -134,13 +161,47 @@ export class LibraryManager {
 
             // when user enters full-screen mode
             that.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function () {
-                that.getLibrary().setSize(window.screen.width, window.screen.height);
+                that.isFullScreenMode = true;
+                if(that.resolutionTimeout != null)
+                    clearInterval(that.resolutionTimeout);
+
+                // @ts-ignore
+                that.resolutionTimeout = setInterval(function(){
+                    that.checkResolution();
+                },100);
+
             });
 
             // when user escapes full-screen mode
             that.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function () {
+                that.isFullScreenMode = false;
                 that.getLibrary().setSize(that.getConfig().settings.video.width, that.getConfig().settings.video.height);
             });
         });
     }
+
+    public checkResolution():void{
+
+        if(this.isFullScreenMode) {
+
+            let newWidth = window.screen.width;
+            let newHeight = window.screen.height;
+
+            if(this.currWidth == newWidth && this.currHeight == newHeight){
+
+                if(this.resolutionTimeout != null)
+                    clearInterval(this.resolutionTimeout);
+
+                this.getLibrary().setSize(window.screen.width, window.screen.height);
+
+            } else {
+
+                this.currWidth = newWidth;
+                this.currHeight = newHeight;
+
+            }
+
+        }
+    }
+
 }

@@ -40,19 +40,12 @@
   &__title {
     font-size: 22px;
     margin-bottom: 3px;
-
-    @media (min-width: $laptop-min) {
-      font-size: 40px;
-    }
   }
 
   &__sub-title {
 
     font-size: 16px;
-
-    @media (min-width: $laptop-min) {
-      font-size: 20px;
-    }
+    
   }
 
   &__hidden {

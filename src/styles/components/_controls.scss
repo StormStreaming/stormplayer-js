@@ -1,7 +1,7 @@
 .sp-controls {
   right: 0;
   left: 0;
-  padding: 30px 15px 15px;
+  padding: 30px 7px 15px;
   position: absolute;
   bottom: 0;
   transition: all 0.2s ease;
@@ -100,7 +100,7 @@
 
     button{
 
-      margin-left: 0;
+      margin-left: 8px;
 
       svg {
 
@@ -123,6 +123,8 @@
     .close-fullscreen-icon {
       display: none;
     }
+
+    margin-right:8px !important;
 
   }
 
