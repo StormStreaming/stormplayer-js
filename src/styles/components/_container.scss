@@ -51,4 +51,11 @@
   &--no-cursor {
     cursor: none;
   }
+
+  svg, g {
+
+    box-sizing: unset !important;
+
+  }
+
 }
