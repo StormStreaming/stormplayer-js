@@ -5,7 +5,7 @@ import {LibraryManager} from "./LibraryManager";
 import {StormLibrary} from "@stormstreaming/stormlibrary";
 import {StormGUIConfigImpl} from "./StormGUIConfigImpl";
 import {StormPlayerConfig} from "./types/StormPlayerConfig";
-import {StormLibraryConfig} from "@stormstreaming/stormlibrary/dist/types/interfaces/StormLibraryConfig";
+import {StormLibraryConfig} from "@stormstreaming/stormlibrary";
 
 /**
  * Main class for the player

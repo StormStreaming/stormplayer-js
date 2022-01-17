@@ -33,16 +33,23 @@ export class QualityElement extends GraphicElement {
      * @protected
      */
     protected refreshButton(): void {
-        if (!this.qualityButtonElement)
-            return;
 
-        if (this.stormPlayer.getLibrary().getAllSources().length == 1)
-            this.hide();
-        else
-            this.show();
+        try {
+            if (!this.qualityButtonElement)
+                return;
 
-        this.qualityButtonElement.innerHTML = `<span>${this.stormPlayer.getLibrary().getCurrentQuality()}</span>`;
+            if (this.stormPlayer.getLibrary().getAllSources().length == 1)
+                this.hide();
+            else
+                this.show();
+
+            this.qualityButtonElement.innerHTML = `<span>${this.stormPlayer.getLibrary().getCurrentQuality()}</span>`;
+
+        } catch(error:any) {
+            //nothing
+        }
     }
+
 
     /**
      * Draw graphics for the element
@@ -73,7 +80,9 @@ export class QualityElement extends GraphicElement {
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
 
-            that.refreshButton();
+            that.stormPlayer.getLibrary().addEventListener("playerReady", function(){
+                that.refreshButton();
+            });
 
             that.stormPlayer.getLibrary().addEventListener("newStreamSourceAdded", function () {
                 that.refreshButton();
@@ -88,5 +97,13 @@ export class QualityElement extends GraphicElement {
             });
 
         });
+
+        this.stormPlayer.addEventListener(EventType.QUALITY_CHANGED, function(event:any){
+            setTimeout(function(){
+                that.refreshButton();
+            },100)
+        })
+
+
     }
 }

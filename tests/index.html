@@ -4,6 +4,7 @@
     <head>
         <title>StormPlayer - Preview Page</title>
         <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
         <style>
             body {padding:10px;}
         </style>
@@ -17,13 +18,12 @@
                 connectionType: "direct",
                 stream: {
                     serverList: [
-                        {host: "stormprod.web-anatomy.com", port: 443, ssl: true},
+                        {host: "localhost", port: 80, ssl: false},
                     ],
                     sourceList: [
-                        {protocol: "storm", streamName: "test", application: "live",streamInfo:{label:"360p"}},
-                        {protocol: "storm", streamName: "test", application: "live",streamInfo:{label:"720p"}},
-                        {protocol: "storm", streamName: "test", application: "live",streamInfo:{label:"1080p"}},
-                        {protocol: "storm", streamName: "test", application: "live"},
+                        {protocol: "storm", streamName: "test", application: "live", streamInfo: {label:"lq"}},
+                        {protocol: "storm", streamName: "test", application: "live", streamInfo: {label:"sd"}},
+                        {protocol: "storm", streamName: "test", application: "live", streamInfo: {label:"hd"}},
                     ],
                 },
                 settings: {

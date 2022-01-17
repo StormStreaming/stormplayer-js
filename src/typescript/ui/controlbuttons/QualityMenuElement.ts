@@ -31,13 +31,18 @@ export class QualityMenuElement extends GraphicElement {
      * Sets select item as current
      */
     public setCurrentItem(): void {
-        let currentLabel = this.stormPlayer.getLibrary().getCurrentQuality();
 
-        for (let i = 0; i < this.listItems.length; i++) {
-            if (this.listItems[i].getAttribute("data-label") == currentLabel)
-                this.listItems[i].classList.add("sp-menu__list-item__active");
-            else
-                this.listItems[i].classList.remove("sp-menu__list-item__active");
+        try {
+            let currentLabel = this.stormPlayer.getLibrary().getCurrentQuality();
+
+            for (let i = 0; i < this.listItems.length; i++) {
+                if (this.listItems[i].getAttribute("data-label") == currentLabel)
+                    this.listItems[i].classList.add("sp-menu__list-item__active");
+                else
+                    this.listItems[i].classList.remove("sp-menu__list-item__active");
+            }
+        } catch(error:any){
+            //
         }
     }
 
@@ -111,7 +116,13 @@ export class QualityMenuElement extends GraphicElement {
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
 
-            that.refreshList();
+            if(that.stormPlayer.getLibrary().isInitialized()){
+                that.refreshList();
+            }
+
+            that.stormPlayer.getLibrary().addEventListener("playerReady", function(){
+                that.refreshList();
+            });
 
             that.stormPlayer.getLibrary().addEventListener("newStreamSourceAdded", function () {
                 that.refreshList();
@@ -127,9 +138,14 @@ export class QualityMenuElement extends GraphicElement {
 
         });
 
-
         this.stormPlayer.addEventListener(EventType.QUALITY_CLICKED, function () {
             that.getHtmlElement().classList.toggle("sp-menu--hidden");
+        });
+
+        this.stormPlayer.addEventListener(EventType.QUALITY_CHANGED, function () {
+            setTimeout(function(){
+                that.refreshList();
+            },100)
         });
 
         this.stormPlayer.addEventListener(EventType.GUI_HIDED, function () {
@@ -137,8 +153,10 @@ export class QualityMenuElement extends GraphicElement {
         });
 
         document.addEventListener("click", function (e) {
-            if (!(e.target as HTMLElement).classList.contains("sp-controls__button"))
-              that.getHtmlElement().classList.add("sp-menu--hidden");
+            if (!(e.target as HTMLElement).classList.contains("sp-controls__button")) {
+                that.getHtmlElement().classList.add("sp-menu--hidden");
+            }
+
         });
     }
 }

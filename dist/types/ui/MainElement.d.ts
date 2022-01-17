@@ -12,6 +12,11 @@ export declare class MainElement extends GraphicElement {
     private spContainer;
     private hideGUITimeoutSeconds;
     private hideGUITimeout;
+    private fsInterval;
+    private playerWidth;
+    private playerHeight;
+    private oldPlayerWidth;
+    private oldPlayerHeight;
     constructor(stormPlayer: StormPlayer);
     setSize(width: number, height: number): void;
     setWidth(width: number): void;
@@ -21,4 +26,6 @@ export declare class MainElement extends GraphicElement {
     getHeaderElement(): HeaderElement;
     protected draw(): void;
     protected attachListeners(): void;
+    private updateResolution;
+    private isMobile;
 }
