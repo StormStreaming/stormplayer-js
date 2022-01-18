@@ -21,9 +21,7 @@
                         {host: "localhost", port: 80, ssl: false},
                     ],
                     sourceList: [
-                        {protocol: "storm", streamName: "test", application: "live", streamInfo: {label:"lq"}},
-                        {protocol: "storm", streamName: "test", application: "live", streamInfo: {label:"sd"}},
-                        {protocol: "storm", streamName: "test", application: "live", streamInfo: {label:"hd"}},
+                        {protocol: "storm", streamName: "test", application: "live", streamInfo: {label:"lq"}}
                     ],
                 },
                 settings: {
@@ -31,6 +29,7 @@
                     restartOnError: true,
                     enabledProtocols: ["MSE", "HLS"],
                     video: {
+                        scalingMode:"letterbox",
                         containerID: "videoContainer",
                         width: 640,
                         height: 360,

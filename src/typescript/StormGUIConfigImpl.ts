@@ -275,7 +275,7 @@ export class StormGUIConfigImpl {
     /**
      * Returns the initial player width
      */
-    public getWitdth(): number {
+    public getWidth(): number {
         return this.width;
     }
 

@@ -32,7 +32,7 @@ export declare class StormGUIConfigImpl {
     setGuiHideSeconds(value: number): void;
     getGuiHideSeconds(): number;
     setContainerID(value: string): void;
-    getWitdth(): number;
+    getWidth(): number;
     setWidth(value: number): void;
     getHeight(): number;
     setHeight(value: number): void;

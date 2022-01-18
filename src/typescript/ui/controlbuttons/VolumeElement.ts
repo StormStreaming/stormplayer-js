@@ -49,6 +49,7 @@ export class VolumeElement extends GraphicElement {
      */
     private hideTimeout: ReturnType<typeof setTimeout>;
 
+
     /**
      * Constructor
      * @param stormPlayer reference to the main player class

@@ -61,11 +61,11 @@ export class LibraryManager {
         this.config = config;
 
         this.config.settings.video.containerID = stormPlayer.getInstanceID();
-        this.config.settings.video.width = stormPlayer.getGuiConfig().getWitdth();
+        this.config.settings.video.width = stormPlayer.getGuiConfig().getWidth();
         this.config.settings.video.height = stormPlayer.getGuiConfig().getHeight();
 
-        this.currWidth = stormPlayer.getGuiConfig().getWitdth();
-        this.currHeight = stormPlayer.getGuiConfig().getWitdth();
+        this.currWidth = stormPlayer.getGuiConfig().getWidth();
+        this.currHeight = stormPlayer.getGuiConfig().getHeight();
 
         this.attachListeners();
     }
@@ -172,11 +172,6 @@ export class LibraryManager {
 
             });
 
-            // when user escapes full-screen mode
-            that.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function () {
-                that.isFullScreenMode = false;
-                that.getLibrary().setSize(that.getConfig().settings.video.width, that.getConfig().settings.video.height);
-            });
         });
     }
 

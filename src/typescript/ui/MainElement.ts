@@ -111,7 +111,7 @@ export class MainElement extends GraphicElement {
 
         if(!this.stormPlayer.getLibrary().isInitialized()){
             this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerWidth(width);
-            this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerWidth(height);
+            this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerHeight(height);
         } else {
             this.stormPlayer.getLibrary().setSize(width, height);
         }
@@ -259,30 +259,35 @@ export class MainElement extends GraphicElement {
 
             spContainerElement.classList.add("sp-fullscreen");
 
+            that.oldPlayerWidth = that.playerWidth;
+            that.oldPlayerHeight = that.playerHeight;
+
             if (!that.isMobile()) {
 
-                const docElmWithBrowsersFullScreenFunctions = spContainerElement as HTMLElement & {
-                    mozRequestFullScreen(): Promise<void>;
-                    webkitRequestFullscreen(): Promise<void>;
-                    msRequestFullscreen(): Promise<void>;
-                };
+                try {
+                    const docElmWithBrowsersFullScreenFunctions = spContainerElement as HTMLElement & {
+                        mozRequestFullScreen(): Promise<void>;
+                        webkitRequestFullscreen(): Promise<void>;
+                        msRequestFullscreen(): Promise<void>;
+                    };
 
-                if (docElmWithBrowsersFullScreenFunctions.requestFullscreen) {
-                    docElmWithBrowsersFullScreenFunctions.requestFullscreen();
-                } else if (docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen) {
-                    docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen();
-                } else if (docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen) {
-                    /* Chrome, Safari and Opera */
-                    docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen();
-                } else if (docElmWithBrowsersFullScreenFunctions.msRequestFullscreen) {
-                    /* IE/Edge */
-                    docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();
+                    if (docElmWithBrowsersFullScreenFunctions.requestFullscreen) {
+                        docElmWithBrowsersFullScreenFunctions.requestFullscreen();
+                    } else if (docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen) {
+                        docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen();
+                    } else if (docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen) {
+                        /* Chrome, Safari and Opera */
+                        docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen();
+                    } else if (docElmWithBrowsersFullScreenFunctions.msRequestFullscreen) {
+                        /* IE/Edge */
+                        docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();
+                    }
+                } catch(error:any){
+                    // nothing
                 }
 
             } else {
 
-                that.oldPlayerWidth = that.playerWidth;
-                that.oldPlayerHeight = that.playerHeight;
 
                 that.htmlElement.classList.add("fs-mode");
                 document.body.classList.add("fs-body-fix");
@@ -304,24 +309,31 @@ export class MainElement extends GraphicElement {
 
             if (!that.isMobile()) {
 
-                const docWithBrowsersExitFunctions = document as Document & {
-                    mozCancelFullScreen(): Promise<void>;
-                    webkitExitFullscreen(): Promise<void>;
-                    msExitFullscreen(): Promise<void>;
-                };
+                that.setSize(that.oldPlayerWidth, that.oldPlayerHeight);
 
-                if (docWithBrowsersExitFunctions.exitFullscreen) {
-                    docWithBrowsersExitFunctions.exitFullscreen();
-                } else if (docWithBrowsersExitFunctions.mozCancelFullScreen) {
-                    /* Firefox */
-                    docWithBrowsersExitFunctions.mozCancelFullScreen();
-                } else if (docWithBrowsersExitFunctions.webkitExitFullscreen) {
-                    /* Chrome, Safari and Opera */
-                    docWithBrowsersExitFunctions.webkitExitFullscreen();
-                } else if (docWithBrowsersExitFunctions.msExitFullscreen) {
-                    /* IE/Edge */
-                    docWithBrowsersExitFunctions.msExitFullscreen();
+                try {
+                    const docWithBrowsersExitFunctions = document as Document & {
+                        mozCancelFullScreen(): Promise<void>;
+                        webkitExitFullscreen(): Promise<void>;
+                        msExitFullscreen(): Promise<void>;
+                    };
+
+                    if (docWithBrowsersExitFunctions.exitFullscreen) {
+                        docWithBrowsersExitFunctions.exitFullscreen();
+                    } else if (docWithBrowsersExitFunctions.mozCancelFullScreen) {
+                        /* Firefox */
+                        docWithBrowsersExitFunctions.mozCancelFullScreen();
+                    } else if (docWithBrowsersExitFunctions.webkitExitFullscreen) {
+                        /* Chrome, Safari and Opera */
+                        docWithBrowsersExitFunctions.webkitExitFullscreen();
+                    } else if (docWithBrowsersExitFunctions.msExitFullscreen) {
+                        /* IE/Edge */
+                        docWithBrowsersExitFunctions.msExitFullscreen();
+                    }
+                } catch(error:any){
+                    // nothing
                 }
+
 
             } else {
 

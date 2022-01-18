@@ -8,6 +8,8 @@ import {EventType} from "../events/EventType";
  */
 export class UnmuteElement extends GraphicElement {
 
+    private wasUnmuted:boolean = false;
+
     /**
      * Constructor
      * @param stormPlayer reference to the main player class
@@ -71,9 +73,10 @@ export class UnmuteElement extends GraphicElement {
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
             that.stormPlayer.getLibrary().addEventListener("volumeChange", function (event: any) {
-                if (event.isMuted && event.type == "browser")
+                if (event.isMuted && that.wasUnmuted == false) {
                     that.show();
-                else
+                    that.wasUnmuted = true;
+                } else
                     that.hide();
             });
         });
