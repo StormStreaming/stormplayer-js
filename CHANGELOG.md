@@ -15,6 +15,10 @@ New methods were added to the player:
 - getWidth():number
 - getHeight():number
 
+Bug fixes:
+- Volume will now be saved and restored using a cookie,
+- Improved FullScreen mode for mobile devices,
+
 *Minor changes to the rollup config were also made!*
 
 

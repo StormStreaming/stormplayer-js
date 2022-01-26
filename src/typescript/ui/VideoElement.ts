@@ -1,6 +1,7 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
 import {EventType} from "../events/EventType";
+import {UserCapabilities} from "@app/typescript/utilities/UserCapabilities";
 
 /**
  * Class represents video object
@@ -30,8 +31,14 @@ export class VideoElement extends GraphicElement {
      */
     protected override attachListeners(): void {
         let that:VideoElement = this;
-        that.htmlElement.addEventListener("click", function () {
-            that.stormPlayer.dispatch(EventType.TOGGLE_CLICKED);
-        });
+
+        /**
+         * Only for desktop, since it makes mobile version hard to use
+         */
+        if(!UserCapabilities.isMobile()) {
+            that.htmlElement.addEventListener("click", function () {
+                that.stormPlayer.dispatch(EventType.TOGGLE_CLICKED);
+            });
+        }
     }
 }

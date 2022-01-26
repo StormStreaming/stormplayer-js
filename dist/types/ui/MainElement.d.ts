@@ -27,5 +27,4 @@ export declare class MainElement extends GraphicElement {
     protected draw(): void;
     protected attachListeners(): void;
     private updateResolution;
-    private isMobile;
 }

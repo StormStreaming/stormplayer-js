@@ -93,6 +93,21 @@ export class VolumeElement extends GraphicElement {
     }
 
     /**
+     * Updates GUI for new volume
+     * @param percent
+     * @private
+     */
+    private updateVolume(percent:number):void {
+
+        if (this.stormPlayer.getLibraryManager().getConfig().settings.audio && this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume && percent > this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume)
+            percent = this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume;
+
+        let px = (percent * 70) / 100;
+        this.volumeProgressElement.style.transform = `translateX(${px}px)`;
+
+    }
+
+    /**
      * Resets hide timeout
      */
     public resetHideTimeout(): void {
@@ -208,14 +223,17 @@ export class VolumeElement extends GraphicElement {
         });
 
         this.volumeButtonElement.addEventListener("click", function (e) {
-            if (that.volumeButtonElement.querySelector(".sp-mute-icon").classList.contains("sp-hidden"))
+            if (that.volumeButtonElement.querySelector(".sp-mute-icon").classList.contains("sp-hidden")) {
                 that.stormPlayer.dispatch(EventType.UNMUTE_CLICKED);
-            else
+            } else {
                 that.stormPlayer.dispatch(EventType.MUTE_CLICKED);
+            }
         });
+
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
             that.stormPlayer.getLibrary().addEventListener("volumeChange", function (event: any){
+                that.updateVolume(event.volume);
                 if (event.isMuted)
                     that.showUnMute();
                 else

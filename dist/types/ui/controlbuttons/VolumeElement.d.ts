@@ -12,6 +12,7 @@ export declare class VolumeElement extends GraphicElement {
     showMute(): void;
     showUnMute(): void;
     setVolume(percent: any): void;
+    private updateVolume;
     resetHideTimeout(): void;
     protected draw(): void;
     protected attachListeners(): void;
