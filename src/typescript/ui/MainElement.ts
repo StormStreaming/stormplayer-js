@@ -223,30 +223,60 @@ export class MainElement extends GraphicElement {
             }
         );
 
-        this.htmlElement.addEventListener("mouseenter", function () {
-            if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
-            that.stormPlayer.dispatch(EventType.GUI_SHOWN);
-        });
+        if (UserCapabilities.isMobile()) {
+            this.htmlElement.addEventListener("touchstart", function () {
+                if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
+                that.stormPlayer.dispatch(EventType.GUI_SHOWN);
 
-        this.htmlElement.addEventListener("mouseleave", function () {
-            if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
-            if (that.stormPlayer.getLibrary().isPlaying())
-                that.stormPlayer.dispatch(EventType.GUI_HIDED);
-        });
+                that.hideGUITimeout = setTimeout(function () {
+                    if (that.stormPlayer.getLibrary().isPlaying())
+                        (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
+                }, that.hideGUITimeoutSeconds * 1000);
 
-        this.htmlElement.addEventListener("mousemove", function () {
+            });
 
-            if (that.hideGUITimeout)
-                clearTimeout(that.hideGUITimeout);
+            this.htmlElement.addEventListener("touchmove", function () {
 
-            that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+                if (that.hideGUITimeout)
+                    clearTimeout(that.hideGUITimeout);
 
-            that.hideGUITimeout = setTimeout(function () {
+                that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+
+                that.hideGUITimeout = setTimeout(function () {
+                    if (that.stormPlayer.getLibrary().isPlaying())
+                        (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
+                }, that.hideGUITimeoutSeconds * 1000);
+
+            });
+
+        } else {
+            this.htmlElement.addEventListener("mouseenter", function () {
+                if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
+                that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+            });
+
+            this.htmlElement.addEventListener("mousemove", function () {
+
+                if (that.hideGUITimeout)
+                    clearTimeout(that.hideGUITimeout);
+
+                that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+
+                that.hideGUITimeout = setTimeout(function () {
+                    if (that.stormPlayer.getLibrary().isPlaying())
+                        (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
+                }, that.hideGUITimeoutSeconds * 1000);
+
+            });
+
+            this.htmlElement.addEventListener("mouseleave", function () {
+                if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
                 if (that.stormPlayer.getLibrary().isPlaying())
-                    (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
-            }, that.hideGUITimeoutSeconds * 1000);
+                    that.stormPlayer.dispatch(EventType.GUI_HIDED);
+            });
+        }
 
-        });
+
 
         this.stormPlayer.addEventListener(EventType.GUI_SHOWN, function () {
             that.spContainer.getHtmlElement().classList.remove("sp-container__disablecursor");

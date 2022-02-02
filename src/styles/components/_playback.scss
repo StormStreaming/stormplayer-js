@@ -4,8 +4,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-left: calc(102px / -2);
-  margin-top: calc(102px / -2);
+  transform: translate(-50%, -50%);
   width: 102px;
   height: 102px;
   border-radius: 80px;
@@ -15,31 +14,33 @@
   opacity: 1;
 
   @media (min-width: $laptop-min) {
-    margin-left: calc(43px / -2);
-    margin-top: calc(53px / -2);
     width: 43px;
     height: 53px;
   }
 
-  svg {
+  .sp-play-icon {
 
-    #path {
+    path {
 
+      d: path("M 13.51 7.681 l 9.252 13.57 c 0.945 1.386 0.587 3.276 -0.799 4.221 c -0.504 0.344 -1.1 0.528 -1.711 0.528 H 1.748 C 0.07 26 -1.29 24.64 -1.29 22.962 c 0 -0.61 0.184 -1.207 0.528 -1.711 L 8.49 7.68 c 0.945 -1.386 2.835 -1.743 4.221 -0.798 c 0.314 0.214 0.585 0.485 0.8 0.798 Z");
+      transform: rotate(90deg) scale(3.6) translateY(27%) translateX(35%);
+      fill: $white;
+      box-shadow: $bs-play-icon;
       transition: all .15s;
+
+      &:hover {
+
+        fill: $pastel;
+
+      }
 
     }
 
-  }
-
-  svg > g {
-    box-shadow: $bs-play-icon;
   }
 
   &--hidden {
     opacity: 0;
   }
 
-  &:hover svg #path {
-    fill: $pastel;
-  }
+
 }

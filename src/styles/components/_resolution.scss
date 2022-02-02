@@ -1,21 +1,12 @@
 .sp-resolution {
 
+  position: relative;
+  margin-left: 17px;
+
   button {
 
-    height: 22px;
+    margin-left: unset;
 
   }
 
-  &__button {
-    background-color: $white;
-    min-width: 44px;
-    border-radius: $progress-bar-radius;
-
-    span {
-      font-size: 14px;
-      font-family: 'Montserrat-Bold', sans-serif;
-      text-align: center;
-      color: $black;
-    }
-  }
 }

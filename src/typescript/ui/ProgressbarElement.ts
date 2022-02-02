@@ -100,6 +100,12 @@ export class ProgressbarElement extends GraphicElement {
     private lastSeekUpdateTime: number;
 
     /**
+     * Where user seeked last time?
+     * @private
+     */
+    private newPosition: number;
+
+    /**
      * Whenever progress bar should be refreshed or not
      * @private
      */
@@ -402,8 +408,15 @@ export class ProgressbarElement extends GraphicElement {
 
             this.seekElement.addEventListener("touchmove", function (e) {
                 let rect = that.seekElement.getBoundingClientRect();
-                let xPosition = e.touches[0].clientX - rect.left;
-                that.updateTooltip(xPosition);
+                let xPosition = Math.floor(e.touches[0].clientX - rect.left);
+
+                console.log(e.touches[0].clientX - rect.left)
+
+                if(that.newPosition != xPosition) {
+                    that.newPosition = xPosition;
+                    that.updateTooltip(xPosition);
+                }
+
             });
 
             this.seekElement.addEventListener("touchend", function (e) {
