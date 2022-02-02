@@ -2,6 +2,7 @@ import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
 import {CuePointsElement} from "./CuePointsElement";
 import {EventType} from "../events/EventType";
+import {UserCapabilities} from "@app/typescript/utilities/UserCapabilities";
 
 /**
  * Class represents the progress bar
@@ -392,21 +393,41 @@ export class ProgressbarElement extends GraphicElement {
             that.setPosition(parseFloat(this.value));
         });
 
-        this.seekElement.addEventListener("mousemove", function (e) {
-            let rect = that.seekElement.getBoundingClientRect();
-            let xPosition = e.clientX - rect.left;
-            that.updateTooltip(xPosition);
-        });
+        if (UserCapabilities.isMobile()) {
+            this.seekElement.addEventListener("touchstart", function (e) {
+                that.stopRefreshBar = false;
+                that.seekTo(parseFloat(this.value));
+                that.stormPlayer.dispatch(EventType.SEEK_ENDED);
+            });
 
-        this.seekElement.addEventListener("mousedown", function (e) {
-            that.stopRefreshBar = true;
-            that.stormPlayer.dispatch(EventType.SEEK_STARTED);
-        });
+            this.seekElement.addEventListener("touchmove", function (e) {
+                let rect = that.seekElement.getBoundingClientRect();
+                let xPosition = e.touches[0].clientX - rect.left;
+                that.updateTooltip(xPosition);
+            });
 
-        this.seekElement.addEventListener("mouseup", function (e) {
-            that.stopRefreshBar = false;
-            that.seekTo(parseFloat(this.value));
-            that.stormPlayer.dispatch(EventType.SEEK_ENDED);
-        });
+            this.seekElement.addEventListener("touchend", function (e) {
+                that.stopRefreshBar = true;
+                that.stormPlayer.dispatch(EventType.SEEK_STARTED);
+            });
+        } else {
+            this.seekElement.addEventListener("mouseup", function (e) {
+                that.stopRefreshBar = false;
+                that.seekTo(parseFloat(this.value));
+                that.stormPlayer.dispatch(EventType.SEEK_ENDED);
+            });
+
+            this.seekElement.addEventListener("mousemove", function (e) {
+                let rect = that.seekElement.getBoundingClientRect();
+                let xPosition = e.clientX - rect.left;
+                that.updateTooltip(xPosition);
+            });
+
+            this.seekElement.addEventListener("mousedown", function (e) {
+                that.stopRefreshBar = true;
+                that.stormPlayer.dispatch(EventType.SEEK_STARTED);
+            });
+        }
+
     }
 }

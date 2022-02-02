@@ -8,6 +8,10 @@
   justify-content: center;
   //overflow:hidden;
 
+  input, button {
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
   &__disablecursor{
     cursor: none;
   }
