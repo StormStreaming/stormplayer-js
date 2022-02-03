@@ -337,6 +337,10 @@ export class MainElement extends GraphicElement {
                     that.updateResolution();
                 },100)
 
+                setTimeout(function(){
+                    that.setSize(window.innerWidth, window.innerHeight)
+                },1000)
+
             }
 
         });

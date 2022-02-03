@@ -24,6 +24,13 @@
     right:0;
     top:0;
     z-index: 1000;
+
+    .sp-container {
+        .sp-video {
+            border-radius: 0 !important;
+        }
+    }
+
   }
 
 }

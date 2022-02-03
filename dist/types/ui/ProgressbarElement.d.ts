@@ -16,6 +16,7 @@ export declare class ProgressbarElement extends GraphicElement {
     private progressBarEndTime;
     private progressBarCurrTime;
     private lastSeekUpdateTime;
+    private newPosition;
     private stopRefreshBar;
     constructor(stormPlayer: StormPlayer);
     percentToTime(percent: number): number;

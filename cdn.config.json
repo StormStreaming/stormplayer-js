@@ -1,0 +1,7 @@
+{
+  "host": "stormstreaming.com",
+  "username": "storm",
+  "remoteDir": "/home/cdn/www/public/stormplayer",
+  "privateKey": "/Volumes/Dysk 5 Inne/Configurations/Keys/dev1.web-anatomy.com/root_private.ppk",
+  "passphrase": "enter1"
+}
