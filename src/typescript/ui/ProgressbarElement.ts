@@ -112,6 +112,12 @@ export class ProgressbarElement extends GraphicElement {
     private stopRefreshBar: boolean = false;
 
     /**
+     * Whenever seek was performed or not
+     * @private
+     */
+    private wasSeekPerformend:boolean = false;
+
+    /**
      * Constructor
      * @param stormPlayer reference to the main player class
      */
@@ -174,7 +180,7 @@ export class ProgressbarElement extends GraphicElement {
 
         // Prevent too frequent update
         if (this.lastSeekUpdateTime == seekTime)
-          return;
+            return;
 
         this.lastSeekUpdateTime = seekTime;
 
@@ -182,7 +188,7 @@ export class ProgressbarElement extends GraphicElement {
             seekToTime: seekTime,
         });
 
-      }
+    }
 
     /**
      * Refreshes the bar based on new server data
@@ -190,7 +196,7 @@ export class ProgressbarElement extends GraphicElement {
     public refreshBar(): void {
 
         if (this.stopRefreshBar)
-          return;
+            return;
 
         if (!this.stormPlayer.getGuiConfig().getTimeline() || this.dvrCacheSize < 1000 * 5)
             this.hide();
@@ -269,7 +275,7 @@ export class ProgressbarElement extends GraphicElement {
 
         this.refreshBar();
 
-      }
+    }
 
     /**
      * Updates tooltip
@@ -305,13 +311,13 @@ export class ProgressbarElement extends GraphicElement {
      * @param seconds
      */
     public secondsToNicetime(seconds: number): string {
-          const h = Math.floor(seconds / 3600);
-          const m = Math.floor((seconds % 3600) / 60);
-          const s = Math.round(seconds % 60);
-          return [h, m > 9 ? m : h ? "0" + m : m || "0", s > 9 ? s : "0" + s]
-              .filter(Boolean)
-              .join(":");
-      }
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = Math.round(seconds % 60);
+        return [h, m > 9 ? m : h ? "0" + m : m || "0", s > 9 ? s : "0" + s]
+            .filter(Boolean)
+            .join(":");
+    }
 
     /**
      * Draws graphics related to this element
@@ -382,7 +388,6 @@ export class ProgressbarElement extends GraphicElement {
         return this.progressBarCurrTime;
     }
 
-    public updateThumb
 
     /**
      * Attaches listeners to this element
@@ -405,25 +410,67 @@ export class ProgressbarElement extends GraphicElement {
 
             this.seekElement.addEventListener("touchstart", function (e) {
                 that.stopRefreshBar = true;
+                that.wasSeekPerformend = false;
                 that.stormPlayer.dispatch(EventType.SEEK_STARTED);
                 console.log("T-SEEK START");
+
             });
 
             this.seekElement.addEventListener("touchmove", function (e) {
                 let rect = that.seekElement.getBoundingClientRect();
                 let xPosition = Math.floor(e.touches[0].clientX - rect.left);
+                that.wasSeekPerformend = true;
 
                 if(that.newPosition != xPosition) {
                     that.newPosition = xPosition;
                     that.updateTooltip(xPosition);
                 }
+
+                let value = xPosition;
+                if(value < 0)
+                    value = 0;
+
+                if(value > that.seekElement.clientWidth)
+                    value = that.seekElement.clientWidth
+
+
+                let newPercent = (value / Number(that.seekElement.clientWidth)) * 100;
+
+                that.setPosition(newPercent);
+                console.log("-> "+newPercent+"%");
+
             });
 
             this.seekElement.addEventListener("touchend", function (e) {
-                that.stopRefreshBar = false;
-                that.seekTo(parseFloat(this.value));
+
+                let rect = that.seekElement.getBoundingClientRect();
+                let xPosition = Math.floor(e.changedTouches[0].clientX - rect.left);
+                that.wasSeekPerformend = true;
+
+                if(that.newPosition != xPosition) {
+                    that.newPosition = xPosition;
+                    that.updateTooltip(xPosition);
+                }
+
+                let value = xPosition;
+                if(value < 0)
+                    value = 0;
+
+                if(value > that.seekElement.clientWidth)
+                    value = that.seekElement.clientWidth
+
+
+                let newPercent = (value / Number(that.seekElement.clientWidth)) * 100;
+
+                that.setPosition(newPercent);
+
+                let seekValue = (that.wasSeekPerformend) ? that.progressElement.value : parseFloat(this.value);
+
+                console.log("wasSeek: "+that.wasSeekPerformend+" | value: "+seekValue, newPercent)
+                that.seekTo(newPercent);
+
                 that.stormPlayer.dispatch(EventType.SEEK_ENDED);
-                console.log("T-SEEK END");
+                that.stopRefreshBar = false;
             });
 
         } else {
@@ -439,11 +486,27 @@ export class ProgressbarElement extends GraphicElement {
                 let rect = that.seekElement.getBoundingClientRect();
                 let xPosition = e.clientX - rect.left;
                 that.updateTooltip(xPosition);
+
+                let value = xPosition;
+                if(value < 0)
+                    value = 0;
+
+                if(value > that.seekElement.clientWidth)
+                    value = that.seekElement.clientWidth
+
+
+                let newPercent = (value / Number(that.seekElement.clientWidth)) * 100;
+                console.log("-> "+newPercent+"%s");
+
+                //that.setPosition(newPercent);
+
             });
 
             this.seekElement.addEventListener("mouseup", function (e) {
                 that.stopRefreshBar = false;
                 console.log("M-SEEK END");
+                console.log("that.progressElement.value: "+that.progressElement.value)
+                console.log("this.value: "+this.value)
                 that.seekTo(parseFloat(this.value));
                 that.stormPlayer.dispatch(EventType.SEEK_ENDED);
             });

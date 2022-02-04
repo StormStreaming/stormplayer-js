@@ -65,7 +65,7 @@ export class CuePointsElement extends GraphicElement {
      * Refreshed cue-point positions on the progress bar
      */
     public refreshCuePointsPosition(): void {
-        console.log("refresh-cue-point position");
+
           for (let i = 0; i < this.list.length; i++) {
               let cuePointPercentPosition = this.timeToPercent(this.list[i].getTime());
               let xPosition = (cuePointPercentPosition * this.htmlElement.clientWidth) / 100;
