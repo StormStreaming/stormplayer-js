@@ -187,7 +187,7 @@ export class LibraryManager {
                 if(this.resolutionTimeout != null)
                     clearInterval(this.resolutionTimeout);
 
-                this.getLibrary().setSize(window.screen.width, window.screen.height);
+                this.getLibrary().setSize(window.innerWidth, window.innerHeight);
 
             } else {
 

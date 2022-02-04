@@ -89,6 +89,8 @@ export class MainElement extends GraphicElement {
 
     private oldPlayerHeight:number;
 
+    private resolutionLock:boolean = false;
+
     /**
      * Constructor
      * @param stormPlayer reference to the main player class
@@ -104,6 +106,25 @@ export class MainElement extends GraphicElement {
      * @param height player height in pixels
      */
     public setSize(width: number, height: number) {
+
+        if(this.resolutionLock){
+            this.oldPlayerWidth = width;
+            this.oldPlayerHeight = height;
+            return;
+        }
+
+        this.subSetSize(width, height)
+
+    }
+
+    /**
+     * Internal mechanism for resizing
+     * @param width player width in pixels
+     * @param height player height in pixels
+     * @private
+     */
+    private subSetSize(width:number, height:number){
+
         this.htmlElement.style.maxWidth = width + "px";
         this.spContainer.getHtmlElement().style.height = height + "px";
 
@@ -113,9 +134,9 @@ export class MainElement extends GraphicElement {
         if(!this.stormPlayer.getLibrary().isInitialized()){
             this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerWidth(width);
             this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerHeight(height);
-        } else {
+        } else
             this.stormPlayer.getLibrary().setSize(width, height);
-        }
+
     }
 
     /**
@@ -123,6 +144,23 @@ export class MainElement extends GraphicElement {
      * @param width player width in pixels
      */
     public setWidth(width: number) {
+
+        if(this.resolutionLock){
+            this.oldPlayerWidth = width;
+            return;
+        }
+
+        this.subSetWidth(width);
+
+    }
+
+    /**
+     * Internal mechanism for setting player width
+     * @param width player width in pixels
+     * @private
+     */
+    private subSetWidth(width:number){
+
         this.htmlElement.style.maxWidth = width + "px";
 
         this.playerWidth = width;
@@ -131,13 +169,34 @@ export class MainElement extends GraphicElement {
             this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerWidth(width);
         } else
             this.stormPlayer.getLibrary().setWidth(width);
+
+        if(this.resolutionLock){
+            this.oldPlayerWidth = width;
+            return;
+        }
+
+    }
+
+    /**
+     * Internal mechanism for setting player height
+     * @param height player width in pixels
+     * @private
+     */
+    public setHeight(height:number){
+
+        if(this.resolutionLock){
+            this.oldPlayerHeight = height;
+            return;
+        }
+
+        this.subSetHeight(height);
     }
 
     /**
      * Sets height for the player
      * @param height player height in pixels
      */
-    public setHeight(height: number) {
+    private subSetHeight(height: number) {
         this.spContainer.getHtmlElement().style.height = height + "px";
 
         this.playerHeight = height;
@@ -146,6 +205,11 @@ export class MainElement extends GraphicElement {
             this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerWidth(height);
         } else
             this.stormPlayer.getLibrary().setHeight(height);
+
+        if(this.resolutionLock){
+            this.oldPlayerHeight = height;
+            return;
+        }
 
     }
 
@@ -290,6 +354,8 @@ export class MainElement extends GraphicElement {
 
             spContainerElement.classList.add("sp-fullscreen");
 
+            that.resolutionLock = true;
+
             that.oldPlayerWidth = that.playerWidth;
             that.oldPlayerHeight = that.playerHeight;
 
@@ -337,10 +403,6 @@ export class MainElement extends GraphicElement {
                     that.updateResolution();
                 },100)
 
-                setTimeout(function(){
-                    that.setSize(window.innerWidth, window.innerHeight)
-                },1000)
-
             }
 
         });
@@ -354,7 +416,6 @@ export class MainElement extends GraphicElement {
                 if(that.fsInterval != null)
                     clearInterval(that.fsInterval);
 
-                that.setSize(that.oldPlayerWidth, that.oldPlayerHeight);
 
                 try {
                     const docWithBrowsersExitFunctions = document as Document & {
@@ -388,9 +449,14 @@ export class MainElement extends GraphicElement {
                 if(that.fsInterval != null)
                     clearInterval(that.fsInterval);
 
-                that.setSize(that.oldPlayerWidth, that.oldPlayerHeight);
-
             }
+
+            that.resolutionLock = false;
+            that.playerWidth = that.oldPlayerWidth;
+            that.playerHeight = that.oldPlayerHeight;
+
+            that.subSetSize(that.playerWidth, that.playerHeight);
+
         });
 
         document.addEventListener("fullscreenchange", function () {
@@ -419,7 +485,7 @@ export class MainElement extends GraphicElement {
     private updateResolution():void {
 
         if((this.playerWidth != window.innerWidth) || (this.playerHeight != window.innerHeight)){
-            this.setSize(window.innerWidth, window.innerHeight)
+            this.subSetSize(window.innerWidth, window.innerHeight)
         }
 
     }

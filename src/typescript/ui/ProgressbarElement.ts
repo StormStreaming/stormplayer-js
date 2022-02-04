@@ -382,6 +382,8 @@ export class ProgressbarElement extends GraphicElement {
         return this.progressBarCurrTime;
     }
 
+    public updateThumb
+
     /**
      * Attaches listeners to this element
      * @protected
@@ -400,34 +402,37 @@ export class ProgressbarElement extends GraphicElement {
         });
 
         if (UserCapabilities.isMobile()) {
+
             this.seekElement.addEventListener("touchstart", function (e) {
-                that.stopRefreshBar = false;
-                that.seekTo(parseFloat(this.value));
-                that.stormPlayer.dispatch(EventType.SEEK_ENDED);
+                that.stopRefreshBar = true;
+                that.stormPlayer.dispatch(EventType.SEEK_STARTED);
+                console.log("T-SEEK START");
             });
 
             this.seekElement.addEventListener("touchmove", function (e) {
                 let rect = that.seekElement.getBoundingClientRect();
                 let xPosition = Math.floor(e.touches[0].clientX - rect.left);
 
-                console.log(e.touches[0].clientX - rect.left)
-
                 if(that.newPosition != xPosition) {
                     that.newPosition = xPosition;
                     that.updateTooltip(xPosition);
                 }
-
             });
 
             this.seekElement.addEventListener("touchend", function (e) {
-                that.stopRefreshBar = true;
-                that.stormPlayer.dispatch(EventType.SEEK_STARTED);
-            });
-        } else {
-            this.seekElement.addEventListener("mouseup", function (e) {
                 that.stopRefreshBar = false;
                 that.seekTo(parseFloat(this.value));
                 that.stormPlayer.dispatch(EventType.SEEK_ENDED);
+                console.log("T-SEEK END");
+            });
+
+        } else {
+
+
+            this.seekElement.addEventListener("mousedown", function (e) {
+                that.stopRefreshBar = true;
+                console.log("M-SEEK START");
+                that.stormPlayer.dispatch(EventType.SEEK_STARTED);
             });
 
             this.seekElement.addEventListener("mousemove", function (e) {
@@ -436,10 +441,13 @@ export class ProgressbarElement extends GraphicElement {
                 that.updateTooltip(xPosition);
             });
 
-            this.seekElement.addEventListener("mousedown", function (e) {
-                that.stopRefreshBar = true;
-                that.stormPlayer.dispatch(EventType.SEEK_STARTED);
+            this.seekElement.addEventListener("mouseup", function (e) {
+                that.stopRefreshBar = false;
+                console.log("M-SEEK END");
+                that.seekTo(parseFloat(this.value));
+                that.stormPlayer.dispatch(EventType.SEEK_ENDED);
             });
+
         }
 
     }

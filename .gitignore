@@ -6,3 +6,5 @@
 /.idea/*
 .git
 cdn.config.json
+/dist/*
+/deploy/*
