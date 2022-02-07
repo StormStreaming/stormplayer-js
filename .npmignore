@@ -10,3 +10,4 @@ deploy
 .gitignore
 cdn.config.json
 /deploy/*
+/scripts

@@ -7,3 +7,4 @@
 .git
 cdn.config.json
 /deploy/*
+/scripts
