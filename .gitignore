@@ -9,3 +9,4 @@ cdn.config.json
 /deploy/*
 /scripts
 /tests
+cdn.config.json
