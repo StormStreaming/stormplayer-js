@@ -8,3 +8,4 @@
 cdn.config.json
 /deploy/*
 /scripts
+/tests
