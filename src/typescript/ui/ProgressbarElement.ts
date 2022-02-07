@@ -412,7 +412,10 @@ export class ProgressbarElement extends GraphicElement {
                 that.stopRefreshBar = true;
                 that.wasSeekPerformend = false;
                 that.stormPlayer.dispatch(EventType.SEEK_STARTED);
-                console.log("T-SEEK START");
+
+                let rect = that.seekElement.getBoundingClientRect();
+                let xPosition = Math.floor(e.changedTouches[0].clientX - rect.left);
+                that.updateTooltip(xPosition);
 
             });
 
@@ -437,7 +440,6 @@ export class ProgressbarElement extends GraphicElement {
                 let newPercent = (value / Number(that.seekElement.clientWidth)) * 100;
 
                 that.setPosition(newPercent);
-                console.log("-> "+newPercent+"%");
 
             });
 
@@ -466,7 +468,6 @@ export class ProgressbarElement extends GraphicElement {
 
                 let seekValue = (that.wasSeekPerformend) ? that.progressElement.value : parseFloat(this.value);
 
-                console.log("wasSeek: "+that.wasSeekPerformend+" | value: "+seekValue, newPercent)
                 that.seekTo(newPercent);
 
                 that.stormPlayer.dispatch(EventType.SEEK_ENDED);
@@ -478,7 +479,6 @@ export class ProgressbarElement extends GraphicElement {
 
             this.seekElement.addEventListener("mousedown", function (e) {
                 that.stopRefreshBar = true;
-                console.log("M-SEEK START");
                 that.stormPlayer.dispatch(EventType.SEEK_STARTED);
             });
 
@@ -494,19 +494,13 @@ export class ProgressbarElement extends GraphicElement {
                 if(value > that.seekElement.clientWidth)
                     value = that.seekElement.clientWidth
 
-
-                let newPercent = (value / Number(that.seekElement.clientWidth)) * 100;
-                console.log("-> "+newPercent+"%s");
-
+                //let newPercent = (value / Number(that.seekElement.clientWidth)) * 100;
                 //that.setPosition(newPercent);
 
             });
 
             this.seekElement.addEventListener("mouseup", function (e) {
                 that.stopRefreshBar = false;
-                console.log("M-SEEK END");
-                console.log("that.progressElement.value: "+that.progressElement.value)
-                console.log("this.value: "+this.value)
                 that.seekTo(parseFloat(this.value));
                 that.stormPlayer.dispatch(EventType.SEEK_ENDED);
             });

@@ -19,6 +19,12 @@ Bug fixes:
 - Volume will now be saved and restored using a cookie,
 - Improved FullScreen mode for mobile devices,
 
+Other improvements:
+- Touch events were added to the player (works much better on mobile/devices),
+- Rewritten progress-bar seeking mechanism for mobile,
+- Fullscreen mode has been greatly improved for Desktop,
+- Alternative fullscreen mode for mobile (covers whole document as a fixed layer)
+
 *Minor changes to the rollup config were also made!*
 
 

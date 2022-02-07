@@ -66,6 +66,18 @@ export class LoaderElement extends GraphicElement {
                 that.hide();
             });
 
+            that.stormPlayer.getLibrary().addEventListener("videoNotFound", function () {
+                that.hide();
+            });
+
+            that.stormPlayer.getLibrary().addEventListener("videoError", function () {
+                that.hide();
+            });
+
+            that.stormPlayer.getLibrary().addEventListener("onAllServersFailed", function () {
+                that.hide();
+            });
+
             that.stormPlayer.addEventListener(EventType.ERROR_SHOWN, function () {
                 that.hide();
             });
