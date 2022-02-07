@@ -2,3 +2,11 @@ tests
 node_modules
 cdn.config.json
 scripts
+deploy
+/node_modules
+.DS_Store
+.idea
+/.idea/*
+.gitignore
+cdn.config.json
+/deploy/*

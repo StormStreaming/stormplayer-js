@@ -1,15 +1,12 @@
 {
   "name": "@stormstreaming/stormplayer",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "",
   "private": false,
   "author": "Web-Anatomy s.c. <contact@web-anatomy.com>",
   "main": "dist/iife/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
-  "files": [
-    "*"
-  ],
   "keywords": [
     "stormstreaming",
     "web",
