@@ -6,7 +6,7 @@
   "author": "Web-Anatomy s.c. <contact@web-anatomy.com>",
   "main": "dist/iife/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/types/index.esm.d.ts",
   "keywords": [
     "stormstreaming",
     "web",
@@ -43,7 +43,7 @@
     "@material-ui/lab": "4.0.0-alpha.57",
     "@material-ui/pickers": "^3.3.10",
     "@reduxjs/toolkit": "^1.6.2",
-    "@stormstreaming/stormlibrary": "^2.2.0",
+    "@stormstreaming/stormlibrary": "^2.2.1",
     "dompurify": "^2.3.3",
     "final-form": "^4.20.2",
     "moment-timezone": "^0.5.33",

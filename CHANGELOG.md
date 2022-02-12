@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.1.1
+
+- Small fix in package.json for type declaration path,
+
 ## 2.1.0
 
 Constructor change:
