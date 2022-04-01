@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.2.0
+
+- unnecessary dependencies were removed from package.json,
+- compiling for different bundles now works in parallel (it's 3x faster now),
+
 ## 2.1.2
 
 - Small fix in package.json for type declaration path,
