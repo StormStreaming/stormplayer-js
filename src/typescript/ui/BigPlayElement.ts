@@ -75,7 +75,7 @@ export class BigPlayElement extends GraphicElement {
             that.dontShowPlayback = false;
         });
 
-        this.stormPlayer .addEventListener(EventType.LIBRARY_CREATED, function () {
+        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
 
             that.stormPlayer.getLibrary().addEventListener("playerReady", function () {
                 that.show();

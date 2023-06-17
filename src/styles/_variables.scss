@@ -10,6 +10,26 @@ $dark-two: #0e111d;
 $pinkish-red: #df0f33;
 $pinkish-grey: #c3c3c3;
 
+$progressBarColor1: var(--sp-first-progress-bar-color, $pastel);
+$progressBarColor2: var(--sp-second-progress-bar-color, $melon);
+
+$cuePointColor1: var(--sp-first-progress-bar-color, $pastel);
+$cuePointColor2: var(--sp-second-progress-bar-color, $melon);
+
+$unmuteLabelBgColor: var(--sp-unmute-label-bg-color, $white);
+$unmuteLabelFontColor: var(--sp-unmute-label-font-color, $black);
+
+$titleColor: var(--sp-text-title-color, $white);
+$descColor: var(--sp-text-desc-color, $white);
+$textErrorColor: var(--sp-text-error-color, $white);
+
+$iconPrimaryColor: var(--sp-icons-primary-color, $white);
+$iconSecondaryColor: var(--sp-icons-secondary-color, $black);
+$iconActiveColor: var(--sp-icons-active-color, $pastel);
+$iconErrorColor: var(--sp-icons-error-color, $pinkish-red);
+
+$backgroundColor: var(--sp-background-color, $black);
+
 // colors alpha channel
 $rusty-orange-25: rgba($rusty-orange, 0.25);
 $rusty-two-80: rgba($dark-two, 0.8);
@@ -22,7 +42,7 @@ $bs-progress-bar: 0 4px 11px 0 $rusty-orange-25;
 // gradients
 $g-shadow: linear-gradient(to bottom, rgba(47, 56, 74, 0), #2f384a);
 $g-shadow-bottom: linear-gradient(to bottom, rgba($black, 0), $black);
-$g-progress-bar: linear-gradient(to right, $pastel 4%, $melon 102%);
+$g-progress-bar: linear-gradient(to right, $progressBarColor1 4%, $progressBarColor2 102%);
 
 // transitions
 $t-peek: all 0.1s ease-in-out;

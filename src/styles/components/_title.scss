@@ -34,19 +34,19 @@
 
   &__text {
     font-family: 'Montserrat-Bold', sans-serif;
-    color: $white;
   }
 
   &__title {
     font-size: 22px;
     margin-bottom: 0px;
+    color: $titleColor;
   }
 
   &__sub-title {
 
     display: block;
     font-size: 16px;
-    
+    color: $descColor;
   }
 
   &__hidden {

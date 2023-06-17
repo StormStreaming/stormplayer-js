@@ -52,16 +52,17 @@
       position: relative;
       font-size: 12px;
       font-family: 'Montserrat-Bold', sans-serif;
-      color: $pinkish-grey;
+      color: $iconPrimaryColor;
       display: flex;
       justify-content: flex-start;
       align-items: center;
       padding: 10px 0 11px;
       cursor: pointer;
+      opacity: .75;
 
       &:hover {
         span {
-          color: $melon;
+          color: $iconActiveColor;
         }
       }
 
@@ -106,7 +107,7 @@
       }
 
       &__active {
-        color: $melon;
+        color: $iconActiveColor;
         justify-content: space-between;
 
         svg {

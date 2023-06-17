@@ -1,0 +1,30 @@
+.sp-context-menu {
+  z-index: 2;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  li {
+    padding: 6px 10px;
+    font-size: 14px;
+    color: $iconPrimaryColor;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      color: $iconActiveColor;
+    }
+  }
+  li:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+  }
+
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
+
+

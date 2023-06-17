@@ -1,4 +1,6 @@
 import {GraphicElement} from "./GraphicElement";
+import {WaitingRoom} from "./WaitingRoom";
+import {StatBox} from "./StatBox";
 import {StormPlayer} from "../StormPlayer";
 import {VideoElement} from "./VideoElement";
 import {LoaderElement} from "./LoaderElement";
@@ -9,11 +11,30 @@ import {ControlElement} from "./ControlElement";
 import {EventType} from "../events/EventType";
 import {UnmuteElement} from "./UnmuteElement";
 import {UserCapabilities} from "../utilities/UserCapabilities";
+import {ContextMenu} from "./ContextMenu";
 
 /**
  * Main graphical element
  */
 export class MainElement extends GraphicElement {
+
+    /**
+     * Countdown element
+     * @private
+     */
+    private waitingRoom: WaitingRoom;
+
+    /**
+     * StatBox element
+     * @private
+     */
+    private statBox: StatBox;
+
+    /**
+     * StatBox element
+     * @private
+     */
+    private contextMenu: ContextMenu;
 
     /**
      * Video element
@@ -131,12 +152,13 @@ export class MainElement extends GraphicElement {
         this.playerWidth = width;
         this.playerHeight = height;
 
-        if(!this.stormPlayer.getLibrary().isInitialized()){
-            this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerWidth(width);
-            this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerHeight(height);
-        } else
-            this.stormPlayer.getLibrary().setSize(width, height);
-
+        if (!this.stormPlayer.waitingRoom){
+            if(!this.stormPlayer.getLibrary().isInitialized()){
+                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerWidth(width);
+                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerHeight(height);
+            } else
+                this.stormPlayer.getLibrary().setSize(width, height);
+        }
     }
 
     /**
@@ -235,14 +257,24 @@ export class MainElement extends GraphicElement {
     }
 
     /**
-     * Draw graphics for the element
-     * @protected
+     * Adds waiting screen
      */
-    protected override draw(): void {
-        super.draw();
+    public createWaitingRoom() {
+        this.waitingRoom = new WaitingRoom(this.stormPlayer);
+        this.spContainer.getHtmlElement().appendChild(this.waitingRoom.getHtmlElement());
+    }
 
-        this.spContainer = new GraphicElement(this.stormPlayer, "sp-container");
-        this.htmlElement.appendChild(this.spContainer.getHtmlElement());
+    /**
+     * Adds player
+     */
+    public createPlayer() {
+
+        const waitingRoom = this.htmlElement.querySelector('.sp-waiting-room');
+        this.stormPlayer.waitingRoom = false;
+
+        if(waitingRoom){
+            waitingRoom.remove();
+        }
 
         this.videoElement = new VideoElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.videoElement.getHtmlElement());
@@ -264,6 +296,32 @@ export class MainElement extends GraphicElement {
 
         this.controlElement = new ControlElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.controlElement.getHtmlElement());
+
+        this.statBox = new StatBox(this.stormPlayer);
+        this.spContainer.getHtmlElement().appendChild(this.statBox.getHtmlElement());
+
+        this.contextMenu = new ContextMenu(this.stormPlayer);
+        this.spContainer.getHtmlElement().appendChild(this.contextMenu.getHtmlElement());
+
+
+    }
+
+
+    /**
+     * Draw graphics for the element
+     * @protected
+     */
+    protected override draw(): void {
+        super.draw();
+
+        this.spContainer = new GraphicElement(this.stormPlayer, "sp-container");
+        this.htmlElement.appendChild(this.spContainer.getHtmlElement());
+
+        if (this.stormPlayer.waitingRoom) {
+            this.createWaitingRoom();
+        } else {
+            this.createPlayer();
+        }
     }
 
     /**
@@ -274,13 +332,12 @@ export class MainElement extends GraphicElement {
         let that = this;
         let spContainerElement = this.spContainer.getHtmlElement();
 
-
         this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
             that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
-                    if (!that.hideGUITimeout) {
-                        that.hideGUITimeout = setTimeout(function () {
-                            if (that.stormPlayer.getLibrary().isPlaying())
-                                that.stormPlayer.dispatch(EventType.GUI_HIDED);
+                if (!that.hideGUITimeout) {
+                    that.hideGUITimeout = setTimeout(function () {
+                        if (that.stormPlayer.getLibrary().isPlaying())
+                            that.stormPlayer.dispatch(EventType.GUI_HIDED);
                         }, that.hideGUITimeoutSeconds * 1000);
                     }
                 });
@@ -335,12 +392,36 @@ export class MainElement extends GraphicElement {
 
             this.htmlElement.addEventListener("mouseleave", function () {
                 if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
-                if (that.stormPlayer.getLibrary().isPlaying())
-                    that.stormPlayer.dispatch(EventType.GUI_HIDED);
+                if (!that.stormPlayer.waitingRoom) {
+                    if (that.stormPlayer.getLibrary().isPlaying())
+                        that.stormPlayer.dispatch(EventType.GUI_HIDED);
+                }
+
+            });
+
+            that.htmlElement.addEventListener("contextmenu", function (e) {
+                e.preventDefault();
+
+                if (e.target !== null) {
+                    const element = e.target as Element;
+                    if(element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
+                        return
+                }
+
+                const element = that.htmlElement;
+                that.stormPlayer.dispatch(EventType.CONTEXT_MENU_SHOWN, {e, element});
+            });
+
+            window.addEventListener("click", function (e) {
+                if (e.target !== null) {
+                    const element = e.target as Element;
+                    if(element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
+                        return
+                }
+
+                that.stormPlayer.dispatch(EventType.CONTEXT_MENU_HIDED);
             });
         }
-
-
 
         this.stormPlayer.addEventListener(EventType.GUI_SHOWN, function () {
             that.spContainer.getHtmlElement().classList.remove("sp-container__disablecursor");
@@ -489,6 +570,4 @@ export class MainElement extends GraphicElement {
         }
 
     }
-
-
 }

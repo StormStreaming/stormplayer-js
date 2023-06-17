@@ -20,7 +20,7 @@
       position: absolute;
       content: '';
       display: block;
-      background-color: $white;
+      background-color: $iconPrimaryColor;
       opacity: 0.6;
       height: 7px;
       width: 100%;
@@ -94,7 +94,7 @@
     transform: translateX(100px);
     width: 200%;
     height: 7px;
-    background-color: $white;
+    background-color: $iconPrimaryColor;
     position: relative;
     left: -200%;
     border-radius: $progress-range-radius;
@@ -153,20 +153,21 @@
   display: flex;
   align-items: center;
   padding:10px;
-  background-color: white;
-  color:black;
+  background-color: $unmuteLabelBgColor;
+  color: $unmuteLabelFontColor;
   position:absolute;
   top: 30px;
   left: 15px;
   cursor:pointer;
   font-size:12px;
 
-  &__afterheader{
+  &__after-header{
     top:80px;
   }
 
   svg {
     padding-right: 5px;
+    fill: $unmuteLabelFontColor;
 
     path {
 

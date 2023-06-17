@@ -62,9 +62,9 @@ export class CuePointElement extends GraphicElement {
         this.htmlElement.innerHTML = `
             <svg width="32" height="29" viewBox="0 0 32 29">
                 <defs>
-                    <linearGradient id="j7tevhbxvc" x1="4.09%" x2="102%" y1="34.996%" y2="66.653%">
-                        <stop offset="0%" stop-color="#FFAA5A"></stop>
-                        <stop offset="100%" stop-color="#FF785A"></stop>
+                    <linearGradient id="cue-point-gradient" x1="4.09%" x2="102%" y1="34.996%" y2="66.653%">
+                        <stop offset="0%"></stop>
+                        <stop offset="100%"></stop>
                     </linearGradient>
                     <filter id="33nbyogp2a" width="347.1%" height="556%" x="-123.5%" y="-174.8%" filterUnits="objectBoundingBox">
                         <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>

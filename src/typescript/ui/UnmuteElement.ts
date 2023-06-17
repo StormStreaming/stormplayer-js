@@ -13,7 +13,7 @@ export class UnmuteElement extends GraphicElement {
      * @param stormPlayer reference to the main player class
      */
     constructor(stormPlayer: StormPlayer) {
-        super(stormPlayer, "sp-unmute sp-unmute__afterheader");
+        super(stormPlayer, "sp-unmute sp-unmute__after-header");
     }
 
     /**
@@ -23,7 +23,7 @@ export class UnmuteElement extends GraphicElement {
     protected override draw(): void {
         super.draw();
         this.htmlElement.innerHTML = `
-            <svg width="23" height="18" class="sp-unmute-icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="10px" y="10px" viewBox="0 -2 28 21" xml:space="preserve">
+            <svg width="23" height="18" class="sp-unmute-icon" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="10px" y="10px" viewBox="0 -2 28 21" xml:space="preserve">
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <g id="PLAYER-@go-back" transform="translate(-255.000000, -966.000000)" fill="#000">
                         <g id="Group-4" transform="translate(255.000000, 966.000000)">
@@ -43,7 +43,7 @@ export class UnmuteElement extends GraphicElement {
             this.stormPlayer.getGuiConfig().getSubtitle() &&
             this.stormPlayer.getGuiConfig().getSubtitle() == ""
         )
-            this.getHtmlElement().classList.remove("sp-unmute__afterheader");
+            this.getHtmlElement().classList.remove("sp-unmute__after-header");
 
         this.hide();
     }
@@ -57,12 +57,12 @@ export class UnmuteElement extends GraphicElement {
 
         this.stormPlayer.addEventListener(EventType.GUI_SHOWN, function () {
             if (that.stormPlayer.getGuiConfig().getTitle() || that.stormPlayer.getGuiConfig().getSubtitle())
-                that.getHtmlElement().classList.add("sp-unmute__afterheader");
+                that.getHtmlElement().classList.add("sp-unmute__after-header");
             }
         );
 
         this.stormPlayer .addEventListener(EventType.GUI_HIDED, function () {
-            that.getHtmlElement().classList.remove("sp-unmute__afterheader");
+            that.getHtmlElement().classList.remove("sp-unmute__after-header");
         });
 
         this.htmlElement.addEventListener("click", function () {
@@ -81,17 +81,17 @@ export class UnmuteElement extends GraphicElement {
         this.stormPlayer.addEventListener(EventType.TITLE_SETTED, function () {
             if ((that.stormPlayer.getGuiConfig().getTitle() && that.stormPlayer.getGuiConfig().getTitle() != "") ||
                 (that.stormPlayer.getGuiConfig().getSubtitle() && that.stormPlayer.getGuiConfig().getSubtitle() != ""))
-                that.getHtmlElement().classList.add("sp-unmute__afterheader");
+                that.getHtmlElement().classList.add("sp-unmute__after-header");
             else
-                that.getHtmlElement().classList.remove("sp-unmute__afterheader");
+                that.getHtmlElement().classList.remove("sp-unmute__after-header");
         });
 
         this.stormPlayer .addEventListener(EventType.SUBTITLE_SETTED, function () {
             if ((that.stormPlayer.getGuiConfig().getTitle() && that.stormPlayer.getGuiConfig().getTitle() != "") ||
                 (that.stormPlayer.getGuiConfig().getSubtitle() && that.stormPlayer.getGuiConfig().getSubtitle() != ""))
-                that.getHtmlElement().classList.add("sp-unmute__afterheader");
+                that.getHtmlElement().classList.add("sp-unmute__after-header");
             else
-                that.getHtmlElement().classList.remove("sp-unmute__afterheader");
+                that.getHtmlElement().classList.remove("sp-unmute__after-header");
         });
 
 

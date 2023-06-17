@@ -1,0 +1,100 @@
+.sp-waiting-room {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: $video-radius;
+  background-color: #282c34;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+
+  &_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0, .5);
+    text-align: center;
+
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+
+      .counter {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 128px;
+        height: 128px;
+        font-size: 54px;
+        font-weight: 700;
+
+        span:nth-child(3) {
+          font-size: 12px;
+        }
+
+        .progress-ring {
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          stop:nth-child(1) {
+            stop-color: $progressBarColor1;
+          }
+
+          stop:nth-child(2) {
+            stop-color: $progressBarColor2;
+          }
+
+          circle {
+            r: 60;
+            cx: 64;
+            cy: 64;
+            fill: transparent;
+            stroke-dashoffset: 0;
+            stroke-dasharray: 377;
+            stroke: rgb(234, 234, 234);
+            stroke-width: 1px;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+          }
+
+          .progress-ring__track{
+            opacity: .3;
+          }
+
+          .progress-ring__circle {
+            stroke: url(#gradient);
+            stroke-width: 4px;
+            transition: stroke-dashoffset 1s linear;
+          }
+        }
+      }
+    }
+
+    .video-start {
+      font-size: 16px;
+    }
+
+    .video-start-date {
+      font-weight: 700;
+    }
+  }
+}
+

@@ -33,9 +33,9 @@
       width: 7px;
       cursor: pointer;
       margin-left: 0;
-      -webkit-box-shadow: 0px 0px 0px 5px rgba($melon, 1);
-      -moz-box-shadow: 0px 0px 0px 5px rgba($melon, 1);
-      box-shadow: 0px 0px 0px 5px rgba($melon, 1);
+      -webkit-box-shadow: 0px 0px 0px 5px $progressBarColor2;
+      -moz-box-shadow: 0px 0px 0px 5px $progressBarColor2;
+      box-shadow: 0px 0px 0px 5px $progressBarColor2;
       border-radius: 100%;
     }
   }
@@ -44,14 +44,15 @@
     content: "";
     background-image: linear-gradient(
       91deg,
-      rgba(255, 170, 90, 0.4) 4%,
-      rgba(255, 120, 90, 0.4) 102%
+      $progressBarColor1 4%,
+      $progressBarColor2 102%
     );
     width: calc(100% - #{$progress-range-size} + 2px);
     border-radius: $progress-bar-radius 0 0 $progress-bar-radius;
     position: absolute;
     height: $progress-bar-height;
     z-index: -1;
+    opacity: .4;
   }
 
   input[type="range"]::-webkit-slider-thumb {

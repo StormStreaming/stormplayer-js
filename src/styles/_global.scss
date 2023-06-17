@@ -1,13 +1,11 @@
 .sp-container__wrapper {
-
   all: initial;
+  position: relative;
   display: block;
   font-family: 'Montserrat', sans-serif;
 
   * {
-
     all: unset
-
   }
 
   *,
@@ -30,9 +28,7 @@
             border-radius: 0 !important;
         }
     }
-
   }
-
 }
 
 .sp-hidden {

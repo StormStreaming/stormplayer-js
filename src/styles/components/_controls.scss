@@ -56,10 +56,10 @@
     button {
       svg {
         height: 22px;
-        fill: #fff !important;
+        fill: $iconPrimaryColor !important;
         cursor: pointer;
         g {
-          fill: #fff !important;
+          fill: $iconPrimaryColor !important;
         }
 
         path, polygon {
@@ -79,12 +79,12 @@
       }
 
       &:hover svg path, &:hover svg polygon {
-        fill: $pastel;
+        fill: $iconActiveColor;
       }
 
 
       &:hover svg g {
-        fill: $pastel;
+        fill: $iconActiveColor;
       }
     }
   }
@@ -176,13 +176,13 @@
 
     span {
       border-radius: $progress-bar-radius;
-      background-color: $white;
+      background-color: $iconPrimaryColor;
       padding:0 10px;
       height: 22px;
       font-size: 14px;
       font-weight: bold;
       text-align: center;
-      color: $black;
+      color: $iconSecondaryColor;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -191,7 +191,7 @@
 
     &:hover span,
     &.sp-active span {
-      background-color: $pastel;
+      background-color: $iconActiveColor;
     }
   }
 }

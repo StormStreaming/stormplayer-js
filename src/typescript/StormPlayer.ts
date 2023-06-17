@@ -22,7 +22,7 @@ export class StormPlayer extends Dispatcher {
      * Video container identifier for StormPlayer library video injection
      * @private
      */
-    private instanceID: string;
+    private readonly instanceID: string;
 
     /**
      * Player GUI configuration
@@ -46,19 +46,25 @@ export class StormPlayer extends Dispatcher {
      * Original GUI config
      * @private
      */
-    private origGUIConfig:StormPlayerConfig;
+    private readonly origGUIConfig:StormPlayerConfig;
 
     /**
      * Original Library config
      * @private
      */
-    private origLibraryConfig:StormLibraryConfig;
+    private readonly origLibraryConfig:StormLibraryConfig;
 
     /**
      * Whenever player was started or not
      * @private
      */
     private started:boolean = false;
+
+    /**
+     * Whenever player was started or not
+     * @private
+     */
+    public waitingRoom:boolean = false;
 
     /**
      * Constructor for the player
@@ -92,16 +98,31 @@ export class StormPlayer extends Dispatcher {
         this.started = true;
 
         this.guiConfig = new StormGUIConfigImpl(this.origGUIConfig);
-        this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
-        this.mainElement = new MainElement(this);
 
+        if(new Date(this.origLibraryConfig.waitingRoom.startDate).getTime() - new Date().getTime() < 0) {
+            this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
+        } else
+            this.waitingRoom = true;
+
+        this.mainElement = new MainElement(this);
         document.getElementById(this.guiConfig.getContainerID()).appendChild(this.mainElement.getHtmlElement());
 
-        this.dispatch(EventType.GUI_INITIALIZED);
-        this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
-        this.setTitle(this.guiConfig.getTitle());
-        this.setSubtitle(this.guiConfig.getSubtitle());
+        if (!this.waitingRoom) {
+            this.dispatch(EventType.GUI_INITIALIZED);
+            this.setTitle(this.guiConfig.getTitle());
+            this.setSubtitle(this.guiConfig.getSubtitle());
+        }
 
+        this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
+        this.setStyle(this.origLibraryConfig.style);
+    }
+
+    /**
+     * Sets a libraryManager
+     * @param setLibraryManager
+     */
+    public setLibraryManager() {
+        this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
     }
 
     /**
@@ -168,6 +189,43 @@ export class StormPlayer extends Dispatcher {
     }
 
     /**
+     * Changes player styles
+     * @param styles new player styles
+     */
+    public setStyle(styles: any): void {
+        const player = document.getElementById(this.guiConfig.getContainerID());
+
+        if (styles.progressBar.gradientColor1)
+            player.style.setProperty("--sp-first-progress-bar-color", styles.progressBar.gradientColor1);
+        if (styles.progressBar.gradientColor2)
+            player.style.setProperty("--sp-second-progress-bar-color", styles.progressBar.gradientColor2);
+        if (styles.cuePoint.gradientColor1)
+            player.style.setProperty("--sp-first-cue-point-color", styles.cuePoint.gradientColor1);
+        if (styles.cuePoint.gradientColor2)
+            player.style.setProperty("--sp-second-cue-point-color", styles.cuePoint.gradientColor2);
+        if (styles.unmuteLabel.backgroundColor)
+            player.style.setProperty("--sp-unmute-label-bg-color", styles.unmuteLabel.backgroundColor);
+        if (styles.unmuteLabel.fontColor)
+            player.style.setProperty("--sp-unmute-label-font-color", styles.unmuteLabel.fontColor);
+        if (styles.text.titleColor)
+            player.style.setProperty("--sp-text-title-color", styles.text.titleColor);
+        if (styles.text.descColor)
+            player.style.setProperty("--sp-text-desc-color", styles.text.descColor);
+        if (styles.text.errorColor)
+            player.style.setProperty("--sp-text-error-color", styles.text.errorColor);
+        if (styles.icons.primaryColor)
+            player.style.setProperty("--sp-icons-primary-color", styles.icons.primaryColor);
+        if (styles.icons.secondaryColor)
+            player.style.setProperty("--sp-icons-secondary-color", styles.icons.secondaryColor);
+        if (styles.icons.activeColor)
+            player.style.setProperty("--sp-icons-active-color", styles.icons.activeColor);
+        if (styles.icons.errorColor)
+            player.style.setProperty("--sp-icons-error-color", styles.icons.errorColor);
+        if (styles.backgroundColor)
+            player.style.setProperty("--sp-background-color", styles.backgroundColor);
+    }
+
+    /**
      * Returns plauer width;
      */
     public getWidth():number {
@@ -212,6 +270,13 @@ export class StormPlayer extends Dispatcher {
      */
     public getGuiConfig(): StormGUIConfigImpl {
         return this.guiConfig;
+    }
+
+    /**
+     * Returns GUI configuration object
+     */
+    public getOrigLibraryConfig(): StormLibraryConfig {
+        return this.origLibraryConfig;
     }
 
     /**
