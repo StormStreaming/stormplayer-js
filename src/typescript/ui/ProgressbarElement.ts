@@ -123,6 +123,13 @@ export class ProgressbarElement extends GraphicElement {
      */
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-progress");
+
+        if (this.stormPlayer.getOrigGUIConfig().demoMode) {
+            this.progressBarStartTime = 0;
+            this.progressBarCurrTime = 0;
+            this.progressBarEndTime = 100;
+            this.refreshBar();
+        }
     }
 
     /**

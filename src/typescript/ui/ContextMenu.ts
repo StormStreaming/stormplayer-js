@@ -34,19 +34,23 @@ export class ContextMenu extends GraphicElement {
      */
     public showContextMenu(e: MouseEvent, element: HTMLElement): void {
 
-        const rect = element.getBoundingClientRect();
 
-        if (element.offsetHeight >= this.htmlElement.offsetHeight + e.clientY)
-            this.htmlElement.style.top = (e.clientY - rect.top).toString() + 'px';
-        else
-            this.htmlElement.style.top = (e.clientY - rect.top - this.htmlElement.offsetHeight).toString() + 'px';
+            const rect = element.getBoundingClientRect();
 
-        if (element.offsetWidth >= this.htmlElement.offsetWidth + e.clientX)
-            this.htmlElement.style.left = (e.clientX - rect.left).toString() + 'px';
-        else
-            this.htmlElement.style.left = (e.clientX - rect.left - this.htmlElement.offsetWidth).toString() + 'px';
+            if (element.offsetHeight >= this.htmlElement.offsetHeight + e.clientY)
+                this.htmlElement.style.top = (e.clientY - rect.top).toString() + 'px';
+            else
+                this.htmlElement.style.top = (e.clientY - rect.top - this.htmlElement.offsetHeight).toString() + 'px';
 
-        this.htmlElement.classList.remove("hidden");
+            if (element.offsetWidth >= this.htmlElement.offsetWidth + e.clientX)
+                this.htmlElement.style.left = (e.clientX - rect.left).toString() + 'px';
+            else
+                this.htmlElement.style.left = (e.clientX - rect.left - this.htmlElement.offsetWidth).toString() + 'px';
+
+            this.htmlElement.classList.remove("hidden");
+
+            this.stormPlayer.getMainElement().isOpenMenu = !this.stormPlayer.getMainElement().isOpenMenu;
+
     }
 
     /**

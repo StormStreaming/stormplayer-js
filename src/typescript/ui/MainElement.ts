@@ -12,11 +12,18 @@ import {EventType} from "../events/EventType";
 import {UnmuteElement} from "./UnmuteElement";
 import {UserCapabilities} from "../utilities/UserCapabilities";
 import {ContextMenu} from "./ContextMenu";
+import {Watermark} from "@app/typescript/ui/Watermark";
 
 /**
  * Main graphical element
  */
 export class MainElement extends GraphicElement {
+
+    /**
+     * Countdown element
+     * @private
+     */
+    private watermark: Watermark;
 
     /**
      * Countdown element
@@ -89,6 +96,12 @@ export class MainElement extends GraphicElement {
      * @private
      */
     private hideGUITimeoutSeconds: number;
+
+    /**
+     * Countdown element
+     * @private
+     */
+    public isOpenMenu: boolean;
 
     /**
      * Timeout for hiding GUI
@@ -282,8 +295,10 @@ export class MainElement extends GraphicElement {
         this.loaderElement = new LoaderElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.loaderElement.getHtmlElement());
 
-        this.errorElement = new ErrorElement(this.stormPlayer);
-        this.spContainer.getHtmlElement().appendChild(this.errorElement.getHtmlElement());
+        if (!this.stormPlayer.getOrigGUIConfig().demoMode) {
+            this.errorElement = new ErrorElement(this.stormPlayer);
+            this.spContainer.getHtmlElement().appendChild(this.errorElement.getHtmlElement());
+        }
 
         this.playbackElement = new BigPlayElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.playbackElement.getHtmlElement());
@@ -303,6 +318,8 @@ export class MainElement extends GraphicElement {
         this.contextMenu = new ContextMenu(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.contextMenu.getHtmlElement());
 
+        this.watermark = new Watermark(this.stormPlayer);
+        this.spContainer.getHtmlElement().appendChild(this.watermark.getHtmlElement());
 
     }
 

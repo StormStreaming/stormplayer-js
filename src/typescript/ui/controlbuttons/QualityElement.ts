@@ -26,6 +26,11 @@ export class QualityElement extends GraphicElement {
      */
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-resolution sp-hidden");
+
+        if (this.stormPlayer.getOrigGUIConfig().demoMode) {
+            this.show();
+            this.qualityButtonElement.innerHTML = `<span>Quality</span>`;
+        }
     }
 
     /**

@@ -14,8 +14,8 @@ export class WaitingRoom extends GraphicElement {
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-waiting-room");
         this.setTime();
-        this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.stormPlayer.getOrigLibraryConfig().waitingRoom.startDate;
-        this.getHtmlElement().style.backgroundImage="url("+this.stormPlayer.getOrigLibraryConfig().waitingRoom.posterURL+")";
+        this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.stormPlayer.getOrigGUIConfig().waitingRoom.startDate;
+        this.getHtmlElement().style.backgroundImage="url("+this.stormPlayer.getOrigGUIConfig().waitingRoom.posterURL+")";
     }
 
     public setTime(): void {
@@ -24,8 +24,8 @@ export class WaitingRoom extends GraphicElement {
 
         const countdown = setInterval( function () {
 
-            nowToStart = new Date(that.stormPlayer.getOrigLibraryConfig().waitingRoom.startDate).getTime() -  new Date().getTime();
-            createToStart = new Date(that.stormPlayer.getOrigLibraryConfig().waitingRoom.startDate).getTime() -  new Date(2023, 1, 11, 15, 0, 0).getTime();
+            nowToStart = new Date(that.stormPlayer.getOrigGUIConfig().waitingRoom.startDate).getTime() -  new Date().getTime();
+            createToStart = new Date(that.stormPlayer.getOrigGUIConfig().waitingRoom.startDate).getTime() -  new Date(2023, 1, 11, 15, 0, 0).getTime();
             days = Math.floor(nowToStart / (1000 * 60 * 60 * 24));
             hours = Math.floor(nowToStart / (1000 * 60 * 60) % 24);
             minutes = Math.floor((nowToStart/1000/60) % 60 );
@@ -58,7 +58,7 @@ export class WaitingRoom extends GraphicElement {
         super.draw();
 
         this.htmlElement.innerHTML = `
-      <div class="sp-waiting-room_wrapper">
+      <div class="sp-waiting-room__wrapper">
         <span class="title">Do rozpoczęcia pozostało</span>
         <div class="countdown">
           <div class="counter" id="daysCounter">

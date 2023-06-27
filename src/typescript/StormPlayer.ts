@@ -99,7 +99,7 @@ export class StormPlayer extends Dispatcher {
 
         this.guiConfig = new StormGUIConfigImpl(this.origGUIConfig);
 
-        if(new Date(this.origLibraryConfig.waitingRoom.startDate).getTime() - new Date().getTime() < 0) {
+        if(new Date(this.origGUIConfig.waitingRoom.startDate).getTime() - new Date().getTime() < 0) {
             this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
         } else
             this.waitingRoom = true;
@@ -114,7 +114,7 @@ export class StormPlayer extends Dispatcher {
         }
 
         this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
-        this.setStyle(this.origLibraryConfig.style);
+        this.setStyle(this.origGUIConfig.style);
     }
 
     /**
@@ -277,6 +277,13 @@ export class StormPlayer extends Dispatcher {
      */
     public getOrigLibraryConfig(): StormLibraryConfig {
         return this.origLibraryConfig;
+    }
+
+    /**
+     * Returns GUI configuration object
+     */
+    public getOrigGUIConfig(): StormPlayerConfig {
+        return this.origGUIConfig;
     }
 
     /**
