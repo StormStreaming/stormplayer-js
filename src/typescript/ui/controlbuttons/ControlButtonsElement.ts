@@ -3,7 +3,7 @@ import {StormPlayer} from "../../StormPlayer";
 import {PlayElement} from "./PlayElement";
 import {VolumeElement} from "./VolumeElement";
 import {QualityElement} from "./QualityElement";
-import {FullscreenElement} from "./FullScreenElement";
+import {FullscreenElement} from "./FullscreenElement";
 
 /**
  * Class represents a single controller for all buttons located at the bottom of the player

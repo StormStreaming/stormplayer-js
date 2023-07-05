@@ -9,6 +9,14 @@ export type StormPlayerConfig = {
   subtitle: string;
   unmuteText: string;
   demoMode: boolean;
+  translations: {
+    broadcastRemainingTime: string,
+    broadcastStartTime: string,
+    timeDays:string,
+    timeHours:string,
+    timeMinutes:string,
+    timeSeconds:string
+  },
   waitingRoom: {
     createDate: string,
     startDate: string,

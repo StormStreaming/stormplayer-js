@@ -99,10 +99,18 @@ export class StormPlayer extends Dispatcher {
 
         this.guiConfig = new StormGUIConfigImpl(this.origGUIConfig);
 
-        if(new Date(this.origGUIConfig.waitingRoom.startDate).getTime() - new Date().getTime() < 0) {
+        if(this.guiConfig.getBroadcastCreateDate() != null){
+            let startDate = new Date(this.guiConfig.getBroadcastStartDate());
+            let createDate = new Date(this.guiConfig.getBroadcastCreateDate());
+
+            if(startDate.getTime() - createDate.getTime() < 0){
+                this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
+            } else {
+                this.waitingRoom = true;
+            }
+        } else {
             this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
-        } else
-            this.waitingRoom = true;
+        }
 
         this.mainElement = new MainElement(this);
         document.getElementById(this.guiConfig.getContainerID()).appendChild(this.mainElement.getHtmlElement());
@@ -114,7 +122,7 @@ export class StormPlayer extends Dispatcher {
         }
 
         this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
-        this.setStyle(this.origGUIConfig.style);
+        this.setStyle(this.origGUIConfig);
     }
 
     /**
@@ -192,37 +200,52 @@ export class StormPlayer extends Dispatcher {
      * Changes player styles
      * @param styles new player styles
      */
-    public setStyle(styles: any): void {
+    public setStyle(config: any): void {
+
         const player = document.getElementById(this.guiConfig.getContainerID());
 
-        if (styles.progressBar.gradientColor1)
-            player.style.setProperty("--sp-first-progress-bar-color", styles.progressBar.gradientColor1);
-        if (styles.progressBar.gradientColor2)
-            player.style.setProperty("--sp-second-progress-bar-color", styles.progressBar.gradientColor2);
-        if (styles.cuePoint.gradientColor1)
-            player.style.setProperty("--sp-first-cue-point-color", styles.cuePoint.gradientColor1);
-        if (styles.cuePoint.gradientColor2)
-            player.style.setProperty("--sp-second-cue-point-color", styles.cuePoint.gradientColor2);
-        if (styles.unmuteLabel.backgroundColor)
-            player.style.setProperty("--sp-unmute-label-bg-color", styles.unmuteLabel.backgroundColor);
-        if (styles.unmuteLabel.fontColor)
-            player.style.setProperty("--sp-unmute-label-font-color", styles.unmuteLabel.fontColor);
-        if (styles.text.titleColor)
-            player.style.setProperty("--sp-text-title-color", styles.text.titleColor);
-        if (styles.text.descColor)
-            player.style.setProperty("--sp-text-desc-color", styles.text.descColor);
-        if (styles.text.errorColor)
-            player.style.setProperty("--sp-text-error-color", styles.text.errorColor);
-        if (styles.icons.primaryColor)
-            player.style.setProperty("--sp-icons-primary-color", styles.icons.primaryColor);
-        if (styles.icons.secondaryColor)
-            player.style.setProperty("--sp-icons-secondary-color", styles.icons.secondaryColor);
-        if (styles.icons.activeColor)
-            player.style.setProperty("--sp-icons-active-color", styles.icons.activeColor);
-        if (styles.icons.errorColor)
-            player.style.setProperty("--sp-icons-error-color", styles.icons.errorColor);
-        if (styles.backgroundColor)
-            player.style.setProperty("--sp-background-color", styles.backgroundColor);
+        if(config.style) {
+            if(config.style.progressBar){
+                if (config.style.progressBar.gradientColor1)
+                    player.style.setProperty("--sp-first-progress-bar-color", config.style.progressBar.gradientColor1);
+
+                if (config.style.progressBar.gradientColor2)
+                    player.style.setProperty("--sp-second-progress-bar-color", config.style.progressBar.gradientColor2);
+            }
+
+            if(config.style.cuePoint){
+                if (config.style.cuePoint.gradientColor1)
+                    player.style.setProperty("--sp-first-cue-point-color", config.style.cuePoint.gradientColor1);
+
+                if (config.style.cuePoint.gradientColor2)
+                    player.style.setProperty("--sp-second-cue-point-color", config.style.cuePoint.gradientColor2);
+            }
+
+            if(config.style.text){
+                if (config.style.text.titleColor)
+                    player.style.setProperty("--sp-text-title-color", config.style.text.titleColor);
+                if (config.style.text.descColor)
+                    player.style.setProperty("--sp-text-desc-color", config.style.text.descColor);
+                if (config.style.text.errorColor)
+                    player.style.setProperty("--sp-text-error-color", config.style.text.errorColor);
+
+            }
+
+            if(config.style.icons){
+                if (config.style.icons.primaryColor)
+                    player.style.setProperty("--sp-icons-primary-color", config.style.icons.primaryColor);
+                if (config.style.icons.secondaryColor)
+                    player.style.setProperty("--sp-icons-secondary-color", config.style.icons.secondaryColor);
+                if (config.style.icons.activeColor)
+                    player.style.setProperty("--sp-icons-active-color", config.style.icons.activeColor);
+                if (config.style.icons.errorColor)
+                    player.style.setProperty("--sp-icons-error-color", config.style.icons.errorColor);
+            }
+
+            if (config.style.backgroundColor)
+                player.style.setProperty("--sp-background-color", config.style.backgroundColor);
+
+        }
     }
 
     /**
@@ -303,6 +326,7 @@ export class StormPlayer extends Dispatcher {
             //@ts-ignore - property in the modern browsers to detect touch device in >IE10
             navigator.msMaxTouchPoints > 0
         );
+
     }
 
     /**

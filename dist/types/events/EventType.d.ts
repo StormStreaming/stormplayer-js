@@ -21,5 +21,11 @@ export declare enum EventType {
     SEEK_ENDED = "seekEnd",
     SEEK_SETTED = "seekTo",
     CUEPOINT_ADDED = "cuePointAdd",
-    CUEPOINT_REMOVED = "cuePointRemove"
+    CUEPOINT_REMOVED = "cuePointRemove",
+    BOX_STAT_SHOWN = "boxStatShow",
+    BOX_STAT_HIDED = "boxStatHide",
+    CONTEXT_MENU_SHOWN = "contextMenuShow",
+    CONTEXT_MENU_HIDED = "contextMenuHide",
+    WAITING_ROOM_CREATED = "waitingRoomCreated",
+    WAITING_ROOM_ENDED = "waitingRoomEnded"
 }

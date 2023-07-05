@@ -43,7 +43,9 @@ export default class StormPlayerElement extends HTMLElement {
             "height",
             "title",
             "subtitle",
-            "unmuteText",
+            "demoMode",
+            "style",
+            "watermark",
         ];
     }
 
@@ -67,12 +69,31 @@ export default class StormPlayerElement extends HTMLElement {
         }
 
         this.setGuiConfig({
+            demoMode: false,
+            style: {
+                backgroundColor: "",
+                cuePoint: {gradientColor1: "", gradientColor2: ""},
+                icons: {activeColor: "", errorColor: "", primaryColor: "", secondaryColor: ""},
+                progressBar: {gradientColor1: "", gradientColor2: ""},
+                text: {descColor: "", errorColor: "", titleColor: ""},
+                unmuteLabel: {backgroundColor: "", fontColor: ""}
+            },
+            translations: {
+                broadcastRemainingTime: "",
+                broadcastStartTime: "",
+                timeDays: "",
+                timeHours: "",
+                timeMinutes: "",
+                timeSeconds: ""
+            },
+            unmuteText: "",
+            waitingRoom: {createDate: "", posterURL: "", startDate: ""},
+            watermark: {imgURL: "", position: ""},
             containerID: this.getAttribute("containerID") || "",
             width: parseInt(this.getAttribute("width") || "0"),
             height: parseInt(this.getAttribute("height") || "0"),
             title: this.getAttribute("title") || "",
-            subtitle: this.getAttribute("subtitle") || "",
-            unmuteText: this.getAttribute("unmuteText") || "", // label for unmute button
+            subtitle: this.getAttribute("subtitle") || ""
         });
     };
 
@@ -106,6 +127,11 @@ export default class StormPlayerElement extends HTMLElement {
             title: title,
             subtitle: subtitle,
             unmuteText: unmuteText,
+            demoMode:null,
+            translations:null,
+            waitingRoom:null,
+            style:null,
+            watermark:null
         };
     };
 

@@ -2,9 +2,9 @@ import css from "rollup-plugin-import-css";
 import livereload from "rollup-plugin-livereload";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import serve from "rollup-plugin-serve";
-import styles from "rollup-plugin-styles";
-import {terser} from "rollup-plugin-terser";
-import url from "rollup-plugin-url";
+import styles from "@ironkinoko/rollup-plugin-styles";
+import terser from "@rollup/plugin-terser";
+import url from "@rollup/plugin-url";
 
 import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";

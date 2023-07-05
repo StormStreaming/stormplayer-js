@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.3.0
+
+- Library was upgraded to Node 20.3.1,
+
 ## 2.2.0
 
 - unnecessary dependencies were removed from package.json,

@@ -2,6 +2,10 @@ import { GraphicElement } from "./GraphicElement";
 import { StormPlayer } from "../StormPlayer";
 import { HeaderElement } from "./HeaderElement";
 export declare class MainElement extends GraphicElement {
+    private watermark;
+    private waitingRoom;
+    private statBox;
+    private contextMenu;
     private videoElement;
     private loaderElement;
     private errorElement;
@@ -11,6 +15,7 @@ export declare class MainElement extends GraphicElement {
     private unmuteElement;
     private spContainer;
     private hideGUITimeoutSeconds;
+    isOpenMenu: boolean;
     private hideGUITimeout;
     private fsInterval;
     private playerWidth;
@@ -28,6 +33,8 @@ export declare class MainElement extends GraphicElement {
     getWidth(): number;
     getHeight(): number;
     getHeaderElement(): HeaderElement;
+    createWaitingRoom(): void;
+    createPlayer(): void;
     protected draw(): void;
     protected attachListeners(): void;
     private updateResolution;

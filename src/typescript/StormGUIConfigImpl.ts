@@ -112,6 +112,74 @@ export class StormGUIConfigImpl {
     private unmuteText: string = "UNMUTE SOUND";
 
     /**
+     * Position of a watermark
+     * @private
+     */
+    private watermarkPosition:string = "bottom_left";
+
+    /**
+     * URL of a watermark
+     * @private
+     */
+    private watermarkURL:string;
+
+    /**
+     * Text (translation) for remaining broadcast time
+     * @private
+     */
+    private broadcastRemainingTimeText:string = "Remaining time"
+
+    /**
+     * Text (translation) for remaining broadcast time
+     * @private
+     */
+    private broadcastStartTimeText:string = "Broadcasting will start at ${START_DATE}"
+
+    /**
+     * Time when broadcast will start
+     * @private
+     */
+    private broadcastStartDate:string;
+
+    /**
+     * Time when player was created in reference to the broadcastStartDate
+     * @private
+     */
+    private broadcastCreateDate:string;
+
+    /**
+     * Poster image (in the background) for waiting room
+     * @private
+     */
+    private waitingRoomPoster:string;
+
+    /**
+     * Translation for WaitingRoom - days
+     * @private
+     */
+    private timeDaysText:string = "days"
+
+    /**
+     * Translation for WaitingRoom - hours
+     * @private
+     */
+    private timeHoursText:string = "hours"
+
+    /**
+     * Translation for WaitingRoom - minutes
+     * @private
+     */
+    private timeMinutesText:string = "minutes"
+
+    /**
+     * Translation for WaitingRoom - seconds
+     * @private
+     */
+    private timeSecondsText:string = "seconds"
+
+
+
+    /**
      * Constructor
      * @param guiConfig
      */
@@ -142,8 +210,6 @@ export class StormGUIConfigImpl {
 
         if (guiConfig.subtitle) this.subtitle = guiConfig.subtitle;
 
-        if (guiConfig.unmuteText) this.unmuteText = guiConfig.unmuteText;
-
         if (guiConfig.playerDisconnectedText)
             this.playerDisconnectedText = guiConfig.playerDisconnectedText;
 
@@ -165,6 +231,53 @@ export class StormGUIConfigImpl {
         if (guiConfig.videoStopText) this.videoStopText = guiConfig.videoStopText;
 
         if (guiConfig.liveText) this.liveText = guiConfig.liveText;
+
+        if(guiConfig.style){
+            if(guiConfig.style.watermark){
+                if(guiConfig.style.watermark.imgURL)
+                    this.watermarkURL = guiConfig.style.watermark.imgURL;
+
+                if(guiConfig.style.watermark.position)
+                    this.watermarkPosition = guiConfig.style.watermark.position;
+            }
+        }
+
+        if(guiConfig.translations){
+            if(guiConfig.translations.broadcastRemainingTime)
+                this.broadcastRemainingTimeText = guiConfig.translations.broadcastRemainingTime;
+
+            if(guiConfig.translations.broadcastStartTime)
+                this.broadcastStartTimeText = guiConfig.translations.broadcastStartTime;
+
+            if(guiConfig.translations.timeDays)
+                this.timeDaysText = guiConfig.translations.timeDays;
+
+            if(guiConfig.translations.timeHours)
+                this.timeHoursText = guiConfig.translations.timeHours;
+
+            if(guiConfig.translations.timeMinutes)
+                this.timeMinutesText = guiConfig.translations.timeMinutes;
+
+            if(guiConfig.translations.timeSeconds)
+                this.timeSecondsText = guiConfig.translations.timeSeconds;
+
+            if(guiConfig.translations.unmuteText)
+                this.unmuteText = guiConfig.translations.unmuteText;
+
+
+        }
+
+        if(guiConfig.waitingRoom){
+            if(guiConfig.waitingRoom.startDate)
+                this.broadcastStartDate = guiConfig.waitingRoom.startDate;
+
+            if(guiConfig.waitingRoom.createDate)
+                this.broadcastCreateDate = guiConfig.waitingRoom.createDate;
+
+            if(guiConfig.waitingRoom.poster)
+                this.waitingRoomPoster = guiConfig.waitingRoom.poster;
+        }
+
     }
 
     /**
@@ -436,4 +549,52 @@ export class StormGUIConfigImpl {
     public setVideoNotFoundText(value: string) {
         this.videoNotFoundText = value;
     }
+
+    /**
+     * Returns watermark position
+     */
+    public getWatermarkPosition():string {
+        return this.watermarkPosition;
+    }
+
+    /**
+     * Returns watermark URL
+     */
+    public getWatermarkURL():string {
+        return this.watermarkURL;
+    }
+
+    public getBroadcastStartDate():string {
+        return this.broadcastStartDate;
+    }
+
+    public getBroadcastCreateDate():string {
+        return this.broadcastCreateDate;
+    }
+
+    public getBroadcastRemainingTimeText():string {
+        return this.broadcastRemainingTimeText;
+    }
+
+    public getBroadcastStartTimeText():string {
+        return this.broadcastStartTimeText;
+    }
+
+    public getTimeDaysText():string {
+        return this.timeDaysText;
+    }
+
+    public getTimeHoursText():string {
+        return this.timeHoursText;
+    }
+
+    public getTimeMinutesText():string {
+        return this.timeMinutesText;
+    }
+
+    public getTimeSecondsText():string {
+        return this.timeSecondsText;
+    }
+
+
 }

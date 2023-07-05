@@ -17,6 +17,17 @@ export declare class StormGUIConfigImpl {
     private incompatiblePlayerProtocolText;
     private liveText;
     private unmuteText;
+    private watermarkPosition;
+    private watermarkURL;
+    private broadcastRemainingTimeText;
+    private broadcastStartTimeText;
+    private broadcastStartDate;
+    private broadcastCreateDate;
+    private waitingRoomPoster;
+    private timeDaysText;
+    private timeHoursText;
+    private timeMinutesText;
+    private timeSecondsText;
     constructor(guiConfig: any);
     setIncompatiblePlayerProtocolText(value: string): void;
     getIncompatiblePlayerProtocolText(): string;
@@ -54,4 +65,14 @@ export declare class StormGUIConfigImpl {
     setVideoErrorText(value: string): void;
     getVideoNotFoundText(): string;
     setVideoNotFoundText(value: string): void;
+    getWatermarkPosition(): string;
+    getWatermarkURL(): string;
+    getBroadcastStartDate(): string;
+    getBroadcastCreateDate(): string;
+    getBroadcastRemainingTimeText(): string;
+    getBroadcastStartTimeText(): string;
+    getTimeDaysText(): string;
+    getTimeHoursText(): string;
+    getTimeMinutesText(): string;
+    getTimeSecondsText(): string;
 }
