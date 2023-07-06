@@ -13,12 +13,7 @@
 
     svg {
       use:nth-child(1) {
-        filter: url(#33nbyogp2a);
         fill: rgb(0, 0, 0);
-      }
-
-      use:nth-child(2) {
-        fill: url(#cue-point-gradient);
       }
 
       g g g {
@@ -30,11 +25,11 @@
       }
 
       stop:nth-child(1) {
-        stop-color: $progressBarColor1;
+        stop-color: $cuePointColor1;
       }
 
       stop:nth-child(2) {
-        stop-color: $progressBarColor2;
+        stop-color: $cuePointColor2;
       }
     }
 

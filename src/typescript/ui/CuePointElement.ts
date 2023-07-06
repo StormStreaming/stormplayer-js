@@ -76,8 +76,8 @@ export class CuePointElement extends GraphicElement {
                 <g fill="none" fill-rule="evenodd">
                     <g>
                         <g transform="translate(-719 -898) matrix(1 0 0 -1 0 1834)">
-                            <use fill="#000" filter="url(#33nbyogp2a)" xlink:href="#qxoxvdy78b"></use>
-                            <use fill="url(#j7tevhbxvc)" xlink:href="#qxoxvdy78b"></use>
+                            <use xlink:href="#qxoxvdy78b" style="filter: url(#33nbyogp2a);"></use>
+                            <use xlink:href="#qxoxvdy78b" style="fill: url(#cue-point-gradient);"></use>
                         </g>
                     </g>
                 </g>

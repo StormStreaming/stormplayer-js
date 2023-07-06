@@ -67,12 +67,14 @@ export class WaitingRoom extends GraphicElement {
                 class="progress-ring"
                 width="128"
                 height="128">
-              <linearGradient id="gradient" x1="2" y1="2" x2="-30.4812" y2="86.4152" gradientUnits="userSpaceOnUse">
-                <stop offset="0%"/>
-                <stop offset="100%"/>
-              </linearGradient>
+              <defs>
+                <linearGradient id="gradient1" x1="2" y1="2" x2="-30.4812" y2="86.4152" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%"/>
+                  <stop offset="100%"/>
+                </linearGradient>
+              </defs>
               <circle class="progress-ring__track" r="60" />
-              <circle class="progress-ring__circle" r="60" />
+              <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient1);"/>
             </svg>
             <span>00</span>
             <span>${this.stormPlayer.getGuiConfig().getTimeDaysText()}</span>
@@ -82,12 +84,14 @@ export class WaitingRoom extends GraphicElement {
                 class="progress-ring"
                 width="128"
                 height="128">
-              <linearGradient id="gradient" x1="2" y1="2" x2="-30.4812" y2="86.4152" gradientUnits="userSpaceOnUse">
-                <stop offset="0%"/>
-                <stop offset="100%"/>
-              </linearGradient>
+              <defs>
+                <linearGradient id="gradient2" x1="2" y1="2" x2="-30.4812" y2="86.4152" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%"/>
+                  <stop offset="100%"/>
+                </linearGradient>
+              </defs>
               <circle class="progress-ring__track" r="60" />
-              <circle class="progress-ring__circle" r="60" />
+              <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient2);" />
             </svg>
             <span>00</span>
             <span>${this.stormPlayer.getGuiConfig().getTimeHoursText()}</span>
@@ -97,12 +101,14 @@ export class WaitingRoom extends GraphicElement {
                 class="progress-ring"
                 width="128"
                 height="128">
-              <linearGradient id="gradient" x1="2" y1="2" x2="-30.4812" y2="86.4152" gradientUnits="userSpaceOnUse">
-                <stop offset="0%"/>
-                <stop offset="100%"/>
-              </linearGradient>
+             <defs>
+                <linearGradient id="gradient3" x1="2" y1="2" x2="-30.4812" y2="86.4152" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%"/>
+                  <stop offset="100%"/>
+                </linearGradient>
+              </defs>
               <circle class="progress-ring__track" r="60" />
-              <circle class="progress-ring__circle" r="60" />
+              <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient3);"/>
             </svg>
             <span>00</span>
             <span>${this.stormPlayer.getGuiConfig().getTimeMinutesText()}</span>
@@ -112,12 +118,14 @@ export class WaitingRoom extends GraphicElement {
                 class="progress-ring"
                 width="128"
                 height="128">
-              <linearGradient id="gradient" x1="2" y1="2" x2="-30.4812" y2="86.4152" gradientUnits="userSpaceOnUse">
-                <stop offset="0%"/>
-                <stop offset="100%"/>
-              </linearGradient>
+              <defs>
+                <linearGradient id="gradient4" x1="2" y1="2" x2="-30.4812" y2="86.4152" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%"/>
+                  <stop offset="100%"/>
+                </linearGradient>
+              </defs>
              <circle class="progress-ring__track" r="60" />
-             <circle class="progress-ring__circle" r="60" />
+             <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient4);" />
             </svg>
             <span id="timeSeconds">00</span>
             <span>${this.stormPlayer.getGuiConfig().getTimeSecondsText()}</span>

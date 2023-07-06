@@ -69,7 +69,6 @@
             fill: transparent;
             stroke-dashoffset: 0;
             stroke-dasharray: 377;
-            stroke: rgb(234, 234, 234);
             stroke-width: 1px;
             transform: rotate(-90deg);
             transform-origin: 50% 50%;
@@ -77,10 +76,11 @@
 
           .progress-ring__track{
             opacity: .3;
+            stroke: rgb(234, 234, 234);
           }
 
           .progress-ring__circle {
-            stroke: url(#gradient);
+
             stroke-width: 4px;
             transition: stroke-dashoffset 1s linear;
           }

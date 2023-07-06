@@ -101,9 +101,8 @@ export class StormPlayer extends Dispatcher {
 
         if(this.guiConfig.getBroadcastCreateDate() != null){
             let startDate = new Date(this.guiConfig.getBroadcastStartDate());
-            let createDate = new Date(this.guiConfig.getBroadcastCreateDate());
 
-            if(startDate.getTime() - createDate.getTime() < 0){
+            if(startDate.getTime() - new Date().getTime() < 0){
                 this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
             } else {
                 this.waitingRoom = true;

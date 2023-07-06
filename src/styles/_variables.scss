@@ -13,8 +13,8 @@ $pinkish-grey: #c3c3c3;
 $progressBarColor1: var(--sp-first-progress-bar-color, $pastel);
 $progressBarColor2: var(--sp-second-progress-bar-color, $melon);
 
-$cuePointColor1: var(--sp-first-progress-bar-color, $pastel);
-$cuePointColor2: var(--sp-second-progress-bar-color, $melon);
+$cuePointColor1: var(--sp-first-cue-point-color, $pastel);
+$cuePointColor2: var(--sp-second-cue-point-color, $melon);
 
 $unmuteLabelBgColor: var(--sp-unmute-label-bg-color, $white);
 $unmuteLabelFontColor: var(--sp-unmute-label-font-color, $black);
