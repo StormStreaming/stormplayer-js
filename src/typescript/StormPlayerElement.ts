@@ -17,35 +17,48 @@ export default class StormPlayerElement extends HTMLElement {
      * StormPlayer instance
      * @private
      */
-    private storm: StormPlayer;
+    private player: StormPlayer;
 
     /**
      * StormLibrary configuration
      * @private
      */
-    private libraryConfig: StormLibraryConfig;
+    private streamConfig: StormLibraryConfig;
 
     /**
      * StormPlayer GUI Configuration
      * @private
      */
-    private guiConfig: StormPlayerConfig;
+    private playerConfig: StormPlayerConfig;
+
+    /**
+     * Name of the container
+     * @private
+     */
+    private containerID:string
+
+    /**
+     * Element width
+     * @private
+     */
+    private width:number;
+
+    /**
+     * Element height
+     * @private
+     */
+    private height:number;
 
     /**
      * Returns observed Attributes
      */
     static get observedAttributes() {
         return [
-            "config",
-            "title",
+            "streamConfig",
+            "playerConfig",
             "containerID",
             "width",
-            "height",
-            "title",
-            "subtitle",
-            "demoMode",
-            "style",
-            "watermark",
+            "height"
         ];
     }
 
@@ -62,48 +75,57 @@ export default class StormPlayerElement extends HTMLElement {
      * @private
      */
     private prepare():void {
-        try {
-            this.setLibraryConfig(JSON.parse(this.getAttribute("config") || ""));
-        } catch {
-            throw new Error(`config attribute supplied to containerId=["${this.getAttribute("containerID")}"] must be a valid JSON object`);
+
+        console.log("prepare");
+
+        // checking for container ID
+        if(this.getAttribute("containerID"))
+            this.containerID = this.getAttribute("containerID")
+        else
+            throw new Error(`containerID attribute was not supplied the strom player element`);
+
+        // checking for width
+        if(this.getAttribute("width")){
+            if(this.containsOnlyNumbers(this.getAttribute("width")))
+                this.width = Number(this.getAttribute("width"))
+            else
+                throw new Error(`width attribute supplied to containerId=["${this.getAttribute("containerID")}"] must be a number`);
+        } else
+            throw new Error(`width attribute was not supplied to containerId=["${this.getAttribute("containerID")}"]`);
+
+        // checking for height
+        if(this.getAttribute("height")){
+            if(this.containsOnlyNumbers(this.getAttribute("height")))
+                this.height = Number(this.getAttribute("height"))
+            else
+                throw new Error(`height attribute supplied to containerId=["${this.getAttribute("containerID")}"] must be a number`);
+        } else
+            throw new Error(`height attribute was not supplied to containerId=["${this.getAttribute("containerID")}"]`);
+
+        // checking for streamConfig
+        if(this.getAttribute("streamConfig")){
+            try {
+                this.setStreamConfig(JSON.parse(this.getAttribute("streamConfig")));
+                console.log("streamConfig - ok")
+            } catch {
+                throw new Error(`streamConfig attribute supplied to containerId=["${this.getAttribute("containerID")}"] must be a valid JSON object`);
+            }
         }
 
-        this.setGuiConfig({
-            demoMode: false,
-            style: {
-                backgroundColor: "",
-                cuePoint: {gradientColor1: "", gradientColor2: ""},
-                icons: {activeColor: "", errorColor: "", primaryColor: "", secondaryColor: ""},
-                progressBar: {gradientColor1: "", gradientColor2: ""},
-                text: {descColor: "", errorColor: "", titleColor: ""},
-                unmuteLabel: {backgroundColor: "", fontColor: ""}
-            },
-            translations: {
-                broadcastRemainingTime: "",
-                broadcastStartTime: "",
-                timeDays: "",
-                timeHours: "",
-                timeMinutes: "",
-                timeSeconds: ""
-            },
-            unmuteText: "",
-            waitingRoom: {createDate: "", posterURL: "", startDate: ""},
-            watermark: {imgURL: "", position: ""},
-            containerID: this.getAttribute("containerID") || "",
-            width: parseInt(this.getAttribute("width") || "0"),
-            height: parseInt(this.getAttribute("height") || "0"),
-            title: this.getAttribute("title") || "",
-            subtitle: this.getAttribute("subtitle") || ""
-        });
-    };
+        // checking for streamConfig
+        if(this.getAttribute("playerConfig")){
+            try {
+                this.setPlayerConfig(JSON.parse(this.getAttribute("playerConfig")));
+                this.playerConfig.width = this.width;
+                this.playerConfig.height = this.height;
+                this.playerConfig.containerID = this.containerID;
+            } catch {
+                throw new Error(`playerConfig attribute supplied to containerId=["${this.getAttribute("containerID")}"] must be a valid JSON object`);
+            }
+        } else {
+            this.playerConfig = {width:this.width, height:this.height, containerID:this.containerID};
+        }
 
-    /**
-     * Initializes the player (here it gets created)
-     * @private
-     */
-    private initialize():void {
-        this.setupContainer({containerID: this.guiConfig.containerID});
-        this.storm = new StormPlayer(this.guiConfig, this.libraryConfig);
     };
 
     private setupContainer = ({containerID}: Pick<StormPlayerConfig, "containerID">) => {
@@ -112,34 +134,25 @@ export default class StormPlayerElement extends HTMLElement {
         this.appendChild(this.wrapper);
     };
 
-    private setGuiConfig = ({
-                                containerID,
-                                width,
-                                height,
-                                title,
-                                subtitle,
-                                unmuteText,
-                            }: StormPlayerConfig) => {
-        this.guiConfig = {
-            containerID: containerID,
-            width: width,
-            height: height,
-            title: title,
-            subtitle: subtitle,
-            unmuteText: unmuteText,
-            demoMode:null,
-            translations:null,
-            waitingRoom:null,
-            style:null,
-            watermark:null
-        };
+    /**
+     * Initializes the player (here it gets created)
+     * @private
+     */
+    private initialize():void {
+        console.log("initialize");
+        this.setupContainer({containerID: this.playerConfig.containerID});
+        this.player = new StormPlayer(this.playerConfig, this.streamConfig);
     };
 
-    private setLibraryConfig = (config: StormLibraryConfig) =>
-        (this.libraryConfig = config);
+    private setStreamConfig = (streamConfig: StormLibraryConfig) =>
+        (this.streamConfig = streamConfig);
+
+
+    private setPlayerConfig = (playerConfig: StormPlayerConfig) =>
+        (this.playerConfig = playerConfig);
 
     public connectedCallback() {
-        if (this.libraryConfig) {
+        if (this.streamConfig) {
             this.initialize();
         }
     }
@@ -148,7 +161,7 @@ export default class StormPlayerElement extends HTMLElement {
      * Callback for destoying html element
      */
     public disconnectedCallback() {
-        this.storm.destroy();
+        this.player.destroy();
     }
 
     /**
@@ -158,39 +171,43 @@ export default class StormPlayerElement extends HTMLElement {
      * @param newValue new value of the attribute
      */
     public attributeChangedCallback(name: string, _oldValue: string, newValue: string) {
-        if (this.storm) {
-            const formattedNewValue =
-                name === "width" || name === "height" ? parseInt(newValue) : newValue;
+        if (this.player) {
+            const formattedNewValue = name === "width" || name === "height" ? parseInt(newValue) : newValue;
 
             switch (name) {
                 case "width":
-                    this.storm.setSize(
+                    this.player.setSize(
                         formattedNewValue as number,
-                        this.guiConfig.height
+                        this.playerConfig.height
                     );
+                    this.playerConfig.width = formattedNewValue as number;
                     break;
                 case "height":
-                    this.storm.setSize(
-                        this.guiConfig.height,
+                    this.player.setSize(
+                        this.playerConfig.width,
                         formattedNewValue as number
                     );
-                    break;
-                case "title":
-                    this.storm.setTitle(newValue);
-                    break;
-                case "subtitle":
-                    this.storm.setSubtitle(newValue);
+                    this.playerConfig.height = formattedNewValue as number;
                     break;
             }
 
-            this.setGuiConfig({...this.guiConfig, [name]: formattedNewValue});
-        } else if (name === "config") {
+        } else if (name === "streamConfig" || name === "playerConfig") {
             //We need to push these action to the end of stack, to make sure to not create two players
             setTimeout(() => {
-                this.storm?.destroy();
+                this.player?.destroy();
                 this.prepare();
                 this.initialize();
             }, 0);
         }
     }
+
+    /**
+     * Check if string is made of numbers
+     * @param str string value
+     * @private
+     */
+    private containsOnlyNumbers(str) {
+        return /^\d+$/.test(str);
+    }
+
 }

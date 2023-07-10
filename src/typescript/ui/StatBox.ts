@@ -77,10 +77,6 @@ export class StatBox extends GraphicElement {
 
         let that:StatBox = this;
 
-        setInterval(function (){
-            console.log(that.stormPlayer.getLibraryManager())
-        }, 1000)
-
         that.htmlElement.querySelector('.sp-stat-box_close-btn').addEventListener('click', function () {
             that.stormPlayer.dispatch(EventType.BOX_STAT_HIDED);
         });

@@ -1,8 +1,12 @@
 # Change Log
 
-## 2.3.0
+## 3.0.0
 
-- Library was upgraded to Node 20.3.1,
+- the player was upgraded to Node 20.3.1,
+- updated internal API for Storm Library v3,
+- waiting room was added,
+- styles were added,
+- translations configuration was added,
 
 ## 2.2.0
 
