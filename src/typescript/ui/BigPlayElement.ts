@@ -77,7 +77,7 @@ export class BigPlayElement extends GraphicElement {
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
 
-            that.stormPlayer.getLibrary().addEventListener("playerReady", function () {
+            that.stormPlayer.getLibrary().addEventListener("libraryReady", function () {
                 that.show();
             });
 
@@ -85,15 +85,15 @@ export class BigPlayElement extends GraphicElement {
                 that.show();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackInitiated", function () {
                 that.hide();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
                 that.hide();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoPause", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackPaused", function () {
                 that.show();
             });
         });

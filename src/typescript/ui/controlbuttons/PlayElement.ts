@@ -85,19 +85,15 @@ export class PlayElement extends GraphicElement {
                 that.showPlay();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackInitiated", function () {
                 that.showPause();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
                 that.showPause();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function () {
-                that.showPause();
-            });
-
-            that.stormPlayer.getLibrary().addEventListener("videoPause", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackPaused", function () {
                 that.showPlay();
             });
 

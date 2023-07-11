@@ -85,7 +85,7 @@ export class QualityElement extends GraphicElement {
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
 
-            that.stormPlayer.getLibrary().addEventListener("playerReady", function(){
+            that.stormPlayer.getLibrary().addEventListener("libraryReady", function(){
                 that.refreshButton();
             });
 
@@ -93,11 +93,11 @@ export class QualityElement extends GraphicElement {
                 that.refreshButton();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackInitiated", function () {
                 that.refreshButton();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
                 that.refreshButton();
             });
 

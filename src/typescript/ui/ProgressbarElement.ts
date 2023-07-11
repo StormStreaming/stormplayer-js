@@ -404,7 +404,7 @@ export class ProgressbarElement extends GraphicElement {
         let that:ProgressbarElement = this;
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
-            that.stormPlayer.getLibrary().addEventListener("videoProgress", function (e: any) {
+            that.stormPlayer.getLibrary().addEventListener("playbackProgress", function (e: any) {
                 that.parseServerData(e);
             });
         });

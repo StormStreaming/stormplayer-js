@@ -46,35 +46,31 @@ export class LoaderElement extends GraphicElement {
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
 
-            that.stormPlayer.getLibrary().addEventListener("playerStart", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackInitiated", function () {
                 that.show();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function () {
+            that.stormPlayer.getLibrary().addEventListener("streamBuffering", function () {
                 that.show();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoBufforing", function () {
-                that.show();
-            });
-
-            that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
                 that.hide();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoPause", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackPaused", function () {
                 that.hide();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoNotFound", function () {
+            that.stormPlayer.getLibrary().addEventListener("streamNotFound", function () {
                 that.hide();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoError", function () {
+            that.stormPlayer.getLibrary().addEventListener("streamError", function () {
                 that.hide();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("onAllServersFailed", function () {
+            that.stormPlayer.getLibrary().addEventListener("allConnectionsFailed", function () {
                 that.hide();
             });
 

@@ -79,19 +79,19 @@ export class StormGUIConfigImpl {
      * This message will be displayed if an error occurs during playback
      * @private
      */
-    private videoErrorText: string = "Error while playing video";
+    private streamErrorText: string = "Error while playing video";
 
     /**
      * This error will be displayed if no stream with given name was found on the streaming server
      * @private
      */
-    private videoNotFoundText: string = "Stream with given name was not found";
+    private streamNotFoundText: string = "Stream with given name was not found";
 
     /**
      * This message will be displayed if a stream has been closed
      * @private
      */
-    private videoStopText: string = "The stream has ended";
+    private streamStopText: string = "The stream has ended";
 
     /**
      * This message will be displayed if the library (player) is not compatible with given streaming server
@@ -210,28 +210,6 @@ export class StormGUIConfigImpl {
 
         if (guiConfig.subtitle) this.subtitle = guiConfig.subtitle;
 
-        if (guiConfig.playerDisconnectedText)
-            this.playerDisconnectedText = guiConfig.playerDisconnectedText;
-
-        if (guiConfig.serversFailedText)
-            this.serversFailedText = guiConfig.serversFailedText;
-
-        if (guiConfig.compatibilityErrorText)
-            this.compatibilityErrorText = guiConfig.compatibilityErrorText;
-
-        if (guiConfig.noSSLErrorText)
-            this.noSSLErrorText = guiConfig.noSSLErrorText;
-
-        if (guiConfig.videoErrorText)
-            this.videoErrorText = guiConfig.videoErrorText;
-
-        if (guiConfig.videoNotFoundText)
-            this.videoNotFoundText = guiConfig.videoNotFoundText;
-
-        if (guiConfig.videoStopText) this.videoStopText = guiConfig.videoStopText;
-
-        if (guiConfig.liveText) this.liveText = guiConfig.liveText;
-
         if(guiConfig.style){
             if(guiConfig.style.watermark){
                 if(guiConfig.style.watermark.imgURL)
@@ -263,6 +241,30 @@ export class StormGUIConfigImpl {
 
             if(guiConfig.translations.unmuteText)
                 this.unmuteText = guiConfig.translations.unmuteText;
+
+            if (guiConfig.translations.disconnected)
+                this.playerDisconnectedText = guiConfig.translations.disconnected;
+
+            if (guiConfig.translations.serversFailed)
+                this.serversFailedText = guiConfig.translations.serversFailed;
+
+            if (guiConfig.translations.compatibilityError)
+                this.compatibilityErrorText = guiConfig.translations.compatibilityError;
+
+            if (guiConfig.translations.noSSLError)
+                this.noSSLErrorText = guiConfig.noSSLError;
+
+            if (guiConfig.translations.streamError)
+                this.streamErrorText = guiConfig.streamError;
+
+            if (guiConfig.translations.streamNotFound)
+                this.streamNotFoundText = guiConfig.translations.streamNotFound;
+
+            if (guiConfig.translations.streamStop)
+                this.streamStopText = guiConfig.translations.streamStop;
+
+            if (guiConfig.live)
+                this.liveText = guiConfig.translations.live;
 
 
         }
@@ -330,14 +332,14 @@ export class StormGUIConfigImpl {
      * @param value text for "videoStop"
      */
     public setVideoStopText(value: string): void {
-        this.videoStopText = value;
+        this.streamStopText = value;
     }
 
     /**
      * Returns message for video stop
      */
     public getVideoStopText(): string {
-        return this.videoStopText;
+        return this.streamStopText;
     }
 
     /**
@@ -524,7 +526,7 @@ export class StormGUIConfigImpl {
      * Returns the message for an error while playing a video
      */
     public getVideoErrorText(): string {
-        return this.videoErrorText;
+        return this.streamErrorText;
     }
 
     /**
@@ -532,14 +534,14 @@ export class StormGUIConfigImpl {
      * @param value
      */
     public setVideoErrorText(value: string) {
-        this.videoErrorText = value;
+        this.streamErrorText = value;
     }
 
     /**
      * Gets the message for no video found
      */
     public getVideoNotFoundText(): string {
-        return this.videoNotFoundText;
+        return this.streamNotFoundText;
     }
 
     /**
@@ -547,7 +549,7 @@ export class StormGUIConfigImpl {
      * @param value
      */
     public setVideoNotFoundText(value: string) {
-        this.videoNotFoundText = value;
+        this.streamNotFoundText = value;
     }
 
     /**

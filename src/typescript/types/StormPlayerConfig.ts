@@ -5,6 +5,8 @@ export type StormPlayerConfig = {
   containerID: string;
   width: number;
   height: number;
+  title?:string;
+  subtitle?:string;
   translations?: {
     broadcastRemainingTime?: string,
     broadcastStartTime?: string,
@@ -12,6 +14,14 @@ export type StormPlayerConfig = {
     timeHours?:string,
     timeMinutes?:string,
     timeSeconds?:string
+    disconnectedText?:string;
+    serversFailedText?:string;
+    compatibilityErrorText?:string;
+    noSSLError?:string;
+    streamError?:string;
+    streamNotFound?:string;
+    streamStop?:string;
+    live?:string;
   },
   waitingRoom?: {
     createDate: string,

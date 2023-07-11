@@ -1,6 +1,6 @@
 {
   "name": "@stormstreaming/stormplayer",
-  "version": "2.3.0",
+  "version": "3.0.0-beta.0",
   "description": "",
   "private": false,
   "author": "Web-Anatomy s.c. <contact@web-anatomy.com>",
@@ -33,14 +33,14 @@
     "build": "npm-run-all -l -p clear compile build:types"
   },
   "dependencies": {
-    "@stormstreaming/stormlibrary": "2.3.0-beta.0"
+    "@stormstreaming/stormlibrary": "3.0.0-beta.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.5",
+    "@babel/core": "^7.22.8",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@babel/plugin-transform-react-jsx": "^7.22.5",
-    "@babel/plugin-transform-runtime": "^7.22.6",
-    "@babel/preset-env": "^7.22.6",
+    "@babel/plugin-transform-runtime": "^7.22.7",
+    "@babel/preset-env": "^7.22.7",
     "@babel/preset-react": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
     "@babel/runtime": "^7.22.6",

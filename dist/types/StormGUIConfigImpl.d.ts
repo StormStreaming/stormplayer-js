@@ -11,9 +11,9 @@ export declare class StormGUIConfigImpl {
     private serversFailedText;
     private compatibilityErrorText;
     private noSSLErrorText;
-    private videoErrorText;
-    private videoNotFoundText;
-    private videoStopText;
+    private streamErrorText;
+    private streamNotFoundText;
+    private streamStopText;
     private incompatiblePlayerProtocolText;
     private liveText;
     private unmuteText;

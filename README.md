@@ -50,13 +50,13 @@ For development, you can use:
         /**
          * Standard library configuration object
          */
-        const libraryConfig = {
-            role: "player",                                  // "player" or "streamer"
-            connectionType: "direct",                        // "direct" or "gateway", please check doc for more info
+        const streamConfig = {
+            configurationType: "embedded",                   // "embedded" or "gateway", please check doc for more info
             stream: {
                 serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
                     {
                         host: "localhost",                   // host or ip to the streaming server
+                        application: "live"                  // application name (can be configured in storm server settings)
                         port: 80,                            // server port
                         ssl: false                           // whenever SSL connection should be used or not
                     }
@@ -64,8 +64,7 @@ For development, you can use:
                 sourceList: [
                     {
                         protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
-                        streamName: "test",                  // name of the stream
-                        application: "live"                  // application name (can be configured in storm server settings)
+                        streamKey: "test",                   // streamKey of the stream
                     },
                 ]
             },
@@ -94,33 +93,32 @@ For development, you can use:
             height: 360,                                     // initial player height
             title: "Test title",                             // title for the stream
             subtitle: "Subtitle",                            // subtitle for the stream
-            unmuteText: "Unmute"                             // label for "unmute" button
         };
 
         /**
          * Each player instance must be provided with both player (gui) and library configs
          */
-        const storm = stormPlayer(playerConfig, libraryConfig);
+        const storm = stormPlayer(playerConfig, streamConfig);
 
         /**
          * Event fires whenever player interface becomes visible (e.g. user mouse activity).
          */
-        storm.addEventListener("guiShow", function(event){
-            console.log("guiShow");
+        storm.addEventListener("guiShowed", function(event){
+            console.log("guiShowed");
         });
 
         /**
          * Event fires whenever player interface becomes invisible (user mouse inactivity).
          */
-        storm.addEventListener("guiHide", function(event){
-            console.log("guiHide");
+        storm.addEventListener("guiHid", function(event){
+            console.log("guiHid");
         });
 
         /**
          * Event fires when user clicks any play button
          */
-        storm.addEventListener("playClick", function(event){
-            console.log("playClick");
+        storm.addEventListener("playClicked", function(event){
+            console.log("playClicked");
         });
 
     </script>
@@ -144,13 +142,13 @@ For development, you can use:
         /**
          * Standard library configuration object
          */
-        const libraryConfig = {
-            role: "player",                                  // "player" or "streamer"
-            connectionType: "direct",                        // "direct" or "gateway", please check doc for more info
+        const streamConfig = {
+            configurationType: "embedded",                   // "embedded" or "gateway", please check doc for more info
             stream: {
                 serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
                     {
                         host: "localhost",                   // host or ip to the streaming server
+                        application: "live"                  // application name (can be configured in storm server settings)
                         port: 80,                            // server port
                         ssl: false                           // whenever SSL connection should be used or not
                     }
@@ -158,8 +156,7 @@ For development, you can use:
                 sourceList: [
                     {
                         protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
-                        streamName: "test",                  // name of the stream
-                        application: "live"                  // application name (can be configured in storm server settings)
+                        streamKey: "test",                   // streamKey of the stream
                     },
                 ]
             },
@@ -188,9 +185,8 @@ For development, you can use:
             height: 360,                                     // initial player height
             title: "Test title",                             // title for the stream
             subtitle: "Subtitle",                            // subtitle for the stream
-            unmuteText: "Unmute"                             // label for "unmute" button
         };
-
+        
         /**
          * Creating an instance of the storm library
          */
@@ -199,22 +195,22 @@ For development, you can use:
         /**
          * Event fires whenever player interface becomes visible (e.g. user mouse activity).
          */
-        storm.addEventListener("guiShow", function(event){
-            console.log("guiShow");
+        storm.addEventListener("guiShowed", function(event){
+            console.log("guiShowed");
         });
 
         /**
          * Event fires whenever player interface becomes invisible (user mouse inactivity).
          */
-        storm.addEventListener("guiHide", function(event){
-            console.log("guiHide");
+        storm.addEventListener("guiHid", function(event){
+            console.log("guiHid");
         });
 
         /**
          * Event fires when user clicks any play button
          */
-        storm.addEventListener("playClick", function(event){
-            console.log("playClick");
+        storm.addEventListener("playClicked", function(event){
+            console.log("playClicked");
         });
 
     </script>
@@ -230,13 +226,13 @@ import {StormPlayer} from "../dist/esm/index.js";
 /**
  * Standard library configuration object
  */
-const libraryConfig = {
-    role: "player",                                  // "player" or "streamer"
-    connectionType: "direct",                        // "direct" or "gateway", please check doc for more info
+const streamConfig = {
+    configurationType: "embedded",                   // "embedded" or "gateway", please check doc for more info
     stream: {
         serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
             {
                 host: "localhost",                   // host or ip to the streaming server
+                application: "live"                  // application name (can be configured in storm server settings)
                 port: 80,                            // server port
                 ssl: false                           // whenever SSL connection should be used or not
             }
@@ -244,8 +240,7 @@ const libraryConfig = {
         sourceList: [
             {
                 protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
-                streamName: "test",                  // name of the stream
-                application: "live"                  // application name (can be configured in storm server settings)
+                streamKey: "test",                   // streamKey of the stream
             },
         ]
     },
@@ -274,7 +269,6 @@ const playerConfig = {
     height: 360,                                     // initial player height
     title: "Test title",                             // title for the stream
     subtitle: "Subtitle",                            // subtitle for the stream
-    unmuteText: "Unmute"                             // label for "unmute" button
 };
 
 /**
@@ -285,22 +279,22 @@ const storm = new StormPlayer(playerConfig, libraryConfig);
 /**
  * Event fires whenever player interface becomes visible (e.g. user mouse activity).
  */
-storm.addEventListener("guiShow", function(event){
-    console.log("guiShow");
+storm.addEventListener("guiShowed", function(event){
+    console.log("guiShowed");
 });
 
 /**
  * Event fires whenever player interface becomes invisible (user mouse inactivity).
  */
-storm.addEventListener("guiHide", function(event){
-    console.log("guiHide");
+storm.addEventListener("guiHid", function(event){
+    console.log("guiHid");
 });
 
 /**
  * Event fires when user clicks any play button
  */
-storm.addEventListener("playClick", function(event){
-    console.log("playClick");
+storm.addEventListener("playClicked", function(event){
+    console.log("playClicked");
 });
 ```
 
@@ -317,16 +311,16 @@ storm.addEventListener("playClick", function(event){
 <body>
     <div id="container"></div>
     <script>
-        /**
-         * Standard configuration object
+         /**
+         * Standard library configuration object
          */
-        const libraryConfig = {
-            role: "player",                                  // "player" or "streamer"
-            connectionType: "direct",                        // "direct" or "gateway", please check doc for more info
+        const streamConfig = {
+            configurationType: "embedded",                   // "embedded" or "gateway", please check doc for more info
             stream: {
                 serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
                     {
                         host: "localhost",                   // host or ip to the streaming server
+                        application: "live"                  // application name (can be configured in storm server settings)
                         port: 80,                            // server port
                         ssl: false                           // whenever SSL connection should be used or not
                     }
@@ -334,8 +328,7 @@ storm.addEventListener("playClick", function(event){
                 sourceList: [
                     {
                         protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
-                        streamName: "test",                  // name of the stream
-                        application: "live"                  // application name (can be configured in storm server settings)
+                        streamKey: "test",                   // streamKey of the stream
                     },
                 ]
             },
@@ -364,7 +357,6 @@ storm.addEventListener("playClick", function(event){
             height: 360,                                     // initial player height
             title: "Test title",                             // title for the stream
             subtitle: "Subtitle",                            // subtitle for the stream
-            unmuteText: "Unmute"                             // label for "unmute" button
         };
 
         /**
@@ -380,22 +372,22 @@ storm.addEventListener("playClick", function(event){
             /**
              * Event fires whenever player interface becomes visible (e.g. user mouse activity).
              */
-            player.addEventListener("guiShow", function(event){
-                console.log("guiShow");
+            player.addEventListener("guiShowed", function(event){
+                console.log("guiShowed");
             });
 
             /**
              * Event fires whenever player interface becomes invisible (user mouse inactivity).
              */
-            player.addEventListener("guiHide", function(event){
-                console.log("guiHide");
+            player.addEventListener("guiHid", function(event){
+                console.log("guiHid");
             });
 
             /**
              * Event fires when user clicks any play button
              */
-            player.addEventListener("playClick", function(event){
-                console.log("playClick");
+            player.addEventListener("playClicked", function(event){
+                console.log("playClicked");
             });
 
         });
@@ -473,7 +465,7 @@ It is also possible to use a custom HTML element. The embed code looks as follow
 /**
  * An event can be registered using addEventListener method (preferably before initialize() method is called)
  */
-storm.addEventListener("playerReady", guiHide);
+storm.addEventListener("libraryReady", guiHide);
 
 /**
  * Inline functions are fine too...
@@ -495,31 +487,31 @@ storm.removeEventListener("guiHide");
 
 ## Event list
 
-| Event name | Additional data | Description | Can be fired more than once | 
-| :---: | :---: | :---: | :---: | 
-| interfaceReady | no | Event fires when the player interface is ready. This action takes place before libraryCreated event. | no |
-| libraryCreated | no | Event fires when the player library is created. This action takes place after interfaceReady event. | no |
-| libraryInitialized | no | Event fires when the Storm JavaScript Library is initialized. | no |
-| playClick | no | Event fires when user clicks any play button. | yes |
-| pauseClick | no | Event fires when user clicks the pause button. | yes |
-| videoClick | no | Event fires when user clicks the video screen. | yes |
-| muteClicked | no | Event fires when user mutes the volume. | yes |
-| unmuteClick | no | Event fires when volume is unmuted. | yes |
-| qualityBtnClick | no | Event fires when user chooses different stream quality. | yes |
-| qualityChange | no | Event fires when a stream quality is changed. | yes |
-| volumeChange | no | Event fires when stream volume is changed. | yes |
-| fullscreenEnter | no | Event fires when user enters fullscreen mode. | yes |
-| fullscreenExit | no | Event fires when user exits fullscreen mode. | yes |
-| errorMessage | no | Event fires whenever an error message appears. | yes |
-| guiShow | no | Event fires whenever player interface becomes visible (e.g. user mouse activity). | yes |
-| guiHide | no | Event fires whenever player interface becomes invisible (user mouse inactivity). | yes |
-| titleAdd | no | Event fires whenever a stream title is added. | yes |
-| subtitleAdd | no | Event fires whenever a stream subtitle is added. | yes |
-| seekStart | no | Event fires whenever a user grabs progress bar thumb (mouse button down). | yes |
-| seekEnd | no | Event fires whenever a user releases progress bar thumb (mouse button up). | yes |
-| seekTo | no | Event fires everytime a user clicks on a progress bar or releases progress bar thumb in a new place. | yes |
-| cuePointAdd | no | Event fires everytime new CUE Point is added. | yes |
-| cuePointRemove | no | Event fires whenever an existing CUE Point is removed. | yes |
+|      Event name       | Additional data | Description | Can be fired more than once | 
+|:---------------------:| :---: | :---: | :---: | 
+|    interfaceReady     | no | Event fires when the player interface is ready. This action takes place before libraryCreated event. | no |
+|    libraryCreated     | no | Event fires when the player library is created. This action takes place after interfaceReady event. | no |
+|  libraryInitialized   | no | Event fires when the Storm JavaScript Library is initialized. | no |
+|      playClicked      | no | Event fires when user clicks any play button. | yes |
+|     pauseClicked      | no | Event fires when user clicks the pause button. | yes |
+|     videoClicked      | no | Event fires when user clicks the video screen. | yes |
+|      muteClicked      | no | Event fires when user mutes the volume. | yes |
+|      muteClicked      | no | Event fires when volume is unmuted. | yes |
+|   qualityBtnClicked   | no | Event fires when user chooses different stream quality. | yes |
+|    qualityChanged     | no | Event fires when a stream quality is changed. | yes |
+|     volumeChanged     | no | Event fires when stream volume is changed. | yes |
+|   fullscreenEntered   | no | Event fires when user enters fullscreen mode. | yes |
+|   fullscreenExited    | no | Event fires when user exits fullscreen mode. | yes |
+|     errorMessage      | no | Event fires whenever an error message appears. | yes |
+|       guiShowed       | no | Event fires whenever player interface becomes visible (e.g. user mouse activity). | yes |
+|        guiHid         | no | Event fires whenever player interface becomes invisible (user mouse inactivity). | yes |
+|      titleAdded       | no | Event fires whenever a stream title is added. | yes |
+|      subtitleAdd      | no | Event fires whenever a stream subtitle is added. | yes |
+|      seekStarted      | no | Event fires whenever a user grabs progress bar thumb (mouse button down). | yes |
+|       seekEnded       | no | Event fires whenever a user releases progress bar thumb (mouse button up). | yes |
+|        seekTo         | no | Event fires everytime a user clicks on a progress bar or releases progress bar thumb in a new place. | yes |
+|     cuePointAdded     | no | Event fires everytime new CUE Point is added. | yes |
+|    cuePointRemoved    | no | Event fires whenever an existing CUE Point is removed. | yes |
 
 ## API
 

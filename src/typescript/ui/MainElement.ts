@@ -350,7 +350,7 @@ export class MainElement extends GraphicElement {
         let spContainerElement = this.spContainer.getHtmlElement();
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
-            that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
                 if (!that.hideGUITimeout) {
                     that.hideGUITimeout = setTimeout(function () {
                         if (that.stormPlayer.getLibrary().isPlaying())

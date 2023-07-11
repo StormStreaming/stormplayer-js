@@ -15,7 +15,7 @@ export declare class StormPlayer extends Dispatcher {
     private readonly origLibraryConfig;
     private started;
     waitingRoom: boolean;
-    constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: any, wait?: boolean);
+    constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: StormLibraryConfig, wait?: boolean);
     initialize(): void;
     setLibraryManager(): void;
     addCuePoint(title: string, time: number): void;

@@ -62,11 +62,11 @@ export class ErrorElement extends GraphicElement {
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
 
-            that.stormPlayer.getLibrary().addEventListener("playerDisconnected", function (e: any) {
+            that.stormPlayer.getLibrary().addEventListener("libraryDisconnected", function (e: any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getPlayerDisconnectedText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("onAllServersFailed", function (e: any) {
+            that.stormPlayer.getLibrary().addEventListener("allConnectionsFailed", function (e: any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getServersFailedText());
             });
 
@@ -78,15 +78,15 @@ export class ErrorElement extends GraphicElement {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getNoSSLErrorText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoError", function (e: any) {
+            that.stormPlayer.getLibrary().addEventListener("streamError", function (e: any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getVideoErrorText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoNotFound", function (e: any) {
+            that.stormPlayer.getLibrary().addEventListener("streamNotFound", function (e: any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getVideoNotFoundText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoStop", function (e: any) {
+            that.stormPlayer.getLibrary().addEventListener("playbackStopped", function (e: any) {
                 that.showErrorMessage(that.stormPlayer.getGuiConfig().getVideoStopText());
             });
 

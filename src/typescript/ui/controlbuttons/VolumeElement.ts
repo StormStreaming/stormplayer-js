@@ -232,7 +232,7 @@ export class VolumeElement extends GraphicElement {
 
 
         this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
-            that.stormPlayer.getLibrary().addEventListener("volumeChange", function (event: any){
+            that.stormPlayer.getLibrary().addEventListener("volumeChanged", function (event: any){
                 that.updateVolume(event.volume);
                 if (event.isMuted)
                     that.showUnMute();

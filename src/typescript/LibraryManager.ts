@@ -109,7 +109,7 @@ export class LibraryManager {
 
         // when library is created
         this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
-            that.getLibrary().addEventListener("videoObjectCreation", function () {
+            that.getLibrary().addEventListener("videoElementCreated", function () {
                 document
                     .querySelector("#" + that.stormPlayer.getInstanceID() + " video")
                     .classList.add("sp-video");

@@ -2,11 +2,11 @@
 
 ## 3.0.0
 
-- the player was upgraded to Node 20.3.1,
-- updated internal API for Storm Library v3,
-- waiting room was added,
-- styles were added,
-- translations configuration was added,
+- The player was upgraded to Node 20.3.1,
+- Updated internal API for Storm Library v3,
+- Waiting room was added,
+- Styles were added,
+- Translations configuration was added,
 
 ## 2.2.0
 

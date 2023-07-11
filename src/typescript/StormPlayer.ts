@@ -73,7 +73,7 @@ export class StormPlayer extends Dispatcher {
      * @param stormLibraryConfig
      * @param cuepoints
      */
-    constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: any, wait:boolean = false) {
+    constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: StormLibraryConfig, wait:boolean = false) {
         super();
 
         this.origGUIConfig = guiConfig;

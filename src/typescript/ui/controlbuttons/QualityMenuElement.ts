@@ -120,7 +120,7 @@ export class QualityMenuElement extends GraphicElement {
                 that.refreshList();
             }
 
-            that.stormPlayer.getLibrary().addEventListener("playerReady", function(){
+            that.stormPlayer.getLibrary().addEventListener("libraryReady", function(){
                 that.refreshList();
             });
 
@@ -128,11 +128,11 @@ export class QualityMenuElement extends GraphicElement {
                 that.refreshList();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoConnecting", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackInitiated", function () {
                 that.setCurrentItem();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("videoPlay", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
                 that.setCurrentItem();
             });
 
