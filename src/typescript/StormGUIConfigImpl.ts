@@ -61,7 +61,7 @@ export class StormGUIConfigImpl {
      * This message is displayed when player fails to connect to a streaming server
      * @private
      */
-    private serversFailedText: string = "Failed to connect to the streaming server.";
+    private connectionFailedText: string = "Failed to connect to the streaming server.";
 
     /**
      * This message is displayed when device is not compatible with the player and video cannot be played
@@ -79,7 +79,7 @@ export class StormGUIConfigImpl {
      * This message will be displayed if an error occurs during playback
      * @private
      */
-    private streamErrorText: string = "Error while playing video";
+    private streamErrorText: string = "Error while playing the stream";
 
     /**
      * This error will be displayed if no stream with given name was found on the streaming server
@@ -239,23 +239,23 @@ export class StormGUIConfigImpl {
             if(guiConfig.translations.timeSeconds)
                 this.timeSecondsText = guiConfig.translations.timeSeconds;
 
-            if(guiConfig.translations.unmuteText)
-                this.unmuteText = guiConfig.translations.unmuteText;
+            if(guiConfig.translations.unmute)
+                this.unmuteText = guiConfig.translations.unmute;
 
             if (guiConfig.translations.disconnected)
                 this.playerDisconnectedText = guiConfig.translations.disconnected;
 
-            if (guiConfig.translations.serversFailed)
-                this.serversFailedText = guiConfig.translations.serversFailed;
+            if (guiConfig.translations.connectionFailed)
+                this.connectionFailedText = guiConfig.translations.connectionFailed;
 
             if (guiConfig.translations.compatibilityError)
                 this.compatibilityErrorText = guiConfig.translations.compatibilityError;
 
             if (guiConfig.translations.noSSLError)
-                this.noSSLErrorText = guiConfig.noSSLError;
+                this.noSSLErrorText = guiConfig.translations.noSSLError;
 
             if (guiConfig.translations.streamError)
-                this.streamErrorText = guiConfig.streamError;
+                this.streamErrorText = guiConfig.translations.streamError;
 
             if (guiConfig.translations.streamNotFound)
                 this.streamNotFoundText = guiConfig.translations.streamNotFound;
@@ -263,7 +263,7 @@ export class StormGUIConfigImpl {
             if (guiConfig.translations.streamStop)
                 this.streamStopText = guiConfig.translations.streamStop;
 
-            if (guiConfig.live)
+            if (guiConfig.translations.live)
                 this.liveText = guiConfig.translations.live;
 
 
@@ -481,7 +481,7 @@ export class StormGUIConfigImpl {
      * Returns the message for when the player fails to connect to a server
      */
     public getServersFailedText(): string {
-        return this.serversFailedText;
+        return this.connectionFailedText;
     }
 
     /**
@@ -489,7 +489,7 @@ export class StormGUIConfigImpl {
      * @param value
      */
     public setServersFailedText(value: string) {
-        this.serversFailedText = value;
+        this.connectionFailedText = value;
     }
 
     /**

@@ -18,7 +18,7 @@ export declare enum EventType {
     TITLE_SETTED = "titleAdded",
     SUBTITLE_SETTED = "subtitleAdd",
     SEEK_STARTED = "seekStarted",
-    SEEK_ENDED = "seekEnd",
+    SEEK_ENDED = "seekEnded",
     SEEK_SETTED = "seekTo",
     CUEPOINT_ADDED = "cuePointAdded",
     CUEPOINT_REMOVED = "cuePointRemoved",

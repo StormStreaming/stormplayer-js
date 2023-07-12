@@ -7,6 +7,7 @@ export type StormPlayerConfig = {
   height: number;
   title?:string;
   subtitle?:string;
+  demoMode?:boolean;
   translations?: {
     broadcastRemainingTime?: string,
     broadcastStartTime?: string,
@@ -14,14 +15,15 @@ export type StormPlayerConfig = {
     timeHours?:string,
     timeMinutes?:string,
     timeSeconds?:string
-    disconnectedText?:string;
-    serversFailedText?:string;
-    compatibilityErrorText?:string;
+    disconnected?:string;
+    connectionFailed?:string;
+    compatibilityError?:string;
     noSSLError?:string;
     streamError?:string;
     streamNotFound?:string;
     streamStop?:string;
     live?:string;
+    unmute?:string;
   },
   waitingRoom?: {
     createDate: string,
@@ -54,7 +56,7 @@ export type StormPlayerConfig = {
     backgroundColor?: string,
     text?: {
       titleColor?: string,
-      descColor?: string,
+      subtitleColor?: string,
       errorColor?: string,
     },
   }

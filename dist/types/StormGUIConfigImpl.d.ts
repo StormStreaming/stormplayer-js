@@ -8,7 +8,7 @@ export declare class StormGUIConfigImpl {
     private title;
     private subtitle;
     private playerDisconnectedText;
-    private serversFailedText;
+    private connectionFailedText;
     private compatibilityErrorText;
     private noSSLErrorText;
     private streamErrorText;

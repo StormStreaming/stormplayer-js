@@ -24,8 +24,10 @@ export class WaitingRoom extends GraphicElement {
 
         const countdown = setInterval( function () {
 
-            nowToStart = new Date(that.stormPlayer.getGuiConfig().getBroadcastStartDate()).getTime() -  new Date().getTime();
-            createToStart = new Date(that.stormPlayer.getGuiConfig().getBroadcastStartDate()).getTime() -  new Date(2023, 1, 11, 15, 0, 0).getTime();
+            nowToStart = new Date(that.stormPlayer.getGuiConfig().getBroadcastStartDate()).getTime();
+            createToStart = new Date(that.stormPlayer.getGuiConfig().getBroadcastCreateDate()).getTime();
+
+            nowToStart = nowToStart-createToStart;
 
             days = Math.floor(nowToStart / (1000 * 60 * 60 * 24));
             hours = Math.floor(nowToStart / (1000 * 60 * 60) % 24);
@@ -131,7 +133,7 @@ export class WaitingRoom extends GraphicElement {
             <span>${this.stormPlayer.getGuiConfig().getTimeSecondsText()}</span>
           </div>
         </div>
-        <span class="video-start">${this.stormPlayer.getGuiConfig().getBroadcastStartTimeText()} <span id="videoStartDate" class="video-start-date">11.2.2023 16:00</span></span>
+        <span class="video-start">${this.stormPlayer.getGuiConfig().getBroadcastStartTimeText()+" "} <span id="videoStartDate" class="video-start-date">11.2.2023 16:00</span></span>
       </div>
       `;
 

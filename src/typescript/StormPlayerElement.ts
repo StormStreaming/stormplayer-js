@@ -206,7 +206,7 @@ export default class StormPlayerElement extends HTMLElement {
      * @param str string value
      * @private
      */
-    private containsOnlyNumbers(str) {
+    private containsOnlyNumbers(str:string) {
         return /^\d+$/.test(str);
     }
 

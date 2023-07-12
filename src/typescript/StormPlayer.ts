@@ -76,6 +76,8 @@ export class StormPlayer extends Dispatcher {
     constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: StormLibraryConfig, wait:boolean = false) {
         super();
 
+
+
         this.origGUIConfig = guiConfig;
         this.origLibraryConfig = stormLibraryConfig;
 
@@ -101,12 +103,13 @@ export class StormPlayer extends Dispatcher {
 
         if(this.guiConfig.getBroadcastCreateDate() != null){
             let startDate = new Date(this.guiConfig.getBroadcastStartDate());
+            let createDate = new Date(this.guiConfig.getBroadcastCreateDate());
 
-            if(startDate.getTime() - new Date().getTime() < 0){
+            if(startDate.getTime() - createDate.getTime() < 0)
                 this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
-            } else {
+            else
                 this.waitingRoom = true;
-            }
+
         } else {
             this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
         }
@@ -223,8 +226,8 @@ export class StormPlayer extends Dispatcher {
             if(config.style.text){
                 if (config.style.text.titleColor)
                     player.style.setProperty("--sp-text-title-color", config.style.text.titleColor);
-                if (config.style.text.descColor)
-                    player.style.setProperty("--sp-text-desc-color", config.style.text.descColor);
+                if (config.style.text.subtitleColor)
+                    player.style.setProperty("--sp-text-desc-color", config.style.text.subtitleColor);
                 if (config.style.text.errorColor)
                     player.style.setProperty("--sp-text-error-color", config.style.text.errorColor);
 
