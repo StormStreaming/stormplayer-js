@@ -76,8 +76,6 @@ export class StormPlayer extends Dispatcher {
     constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: StormLibraryConfig, wait:boolean = false) {
         super();
 
-
-
         this.origGUIConfig = guiConfig;
         this.origLibraryConfig = stormLibraryConfig;
 
