@@ -6,92 +6,89 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 </head>
 <body>
-    <div id="container"></div>
-    <script>
-
-        /**
-         * Standard configuration object
-         */
-        const libraryConfig = {
-            role: "player",                                  // "player" or "streamer"
-            connectionType: "direct",                        // "direct" or "gateway", please check doc for more info
-            stream: {
-                serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
-                    {
-                        host: "localhost",                   // host or ip to the streaming server
-                        port: 80,                            // server port
-                        ssl: false                           // whenever SSL connection should be used or not
-                    }
-                ],
-                sourceList: [
-                    {
-                        protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
-                        streamName: "test",                  // name of the stream
-                        application: "live"                  // application name (can be configured in storm server settings)
-                    },
-                ]
-            },
-            settings: {
-                autoStart: true,                              // if true, video will start playing automatically, but will be muted too
-                restartOnError: true,                         // if something bad happens, player will try to restart
-                reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
-                enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
-                video: {
-                    scalingMode: "letterbox"                       // possible values "fill", "letterbox", "crop" and "letterbox"
+<div id="container"></div>
+<script>
+    /**
+     * Standard library configuration object
+     */
+    const streamConfig = {
+        configurationType: "embedded",                   // "embedded" or "gateway", please check doc for more info
+        stream: {
+            serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
+                {
+                    host: "localhost",                   // host or ip to the streaming server
+                    application: "live",                 // application name (can be configured in storm server settings)
+                    port: 80,                            // server port
+                    ssl: false                           // whenever SSL connection should be used or not
+                }
+            ],
+            sourceList: [
+                {
+                    protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
+                    streamKey: "test",                   // streamKey of the stream
                 },
-                debug: {
-                    console: {                                // console output
-                        enabled: true                         // if console output is activated
-                    }
+            ]
+        },
+        settings: {
+            autoStart: true,                              // if true, video will start playing automatically, but will be muted too
+            restartOnError: true,                         // if something bad happens, player will try to restart
+            reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
+            enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
+            video: {
+                scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
+            },
+            debug: {
+                console: {                                // console output
+                    enabled: true                         // if console output is activated
                 }
             }
-        };
+        }
+    };
+
+    /**
+     * Standard player configuration object
+     */
+    const playerConfig = {
+        containerID: "container",                        // HTML container where player will be added
+        aspectRatio: "16:9",                             // <video> element will scale to provided aspect-ratio. This parameter is optional and will overwrite "height" parameter as "width" will only be used for calculations
+        width: "100%",                                   // <video> element width, can be either "px" or "%" (string), as (number) will always be "px" value. For % it'll auto-scale to parent container,
+        title: "Title goes here",                        // title for the stream
+        subtitle: "This is going to be epic!",           // subtitle for the stream
+    };
+
+    /**
+     * Path to the AMD module
+     */
+    requirejs(['../dist/amd/index'], function (storm) {
 
         /**
-         * Standard player configuration object
+         * Library instance
          */
-        const playerConfig = {
-            containerID: "container",                        // HTML container where player will be added
-            width: 640,                                      // initial player width
-            height: 360,                                     // initial player height
-            title: "Test title",                             // title for the stream
-            subtitle: "Subtitle",                            // subtitle for the stream
-            unmuteText: "Unmute"                             // label for "unmute" button
-        };
+        const player = new storm.create(playerConfig, libraryConfig);
 
         /**
-         * Path to the AMD module
+         * Event fires whenever player interface becomes visible (e.g. user mouse activity).
          */
-        requirejs(['../dist/amd/index'], function (storm) {
-
-            /**
-             * Library instance
-             */
-            const player = new storm.create(playerConfig, libraryConfig);
-
-            /**
-             * Event fires whenever player interface becomes visible (e.g. user mouse activity).
-             */
-            player.addEventListener("guiShow", function(event){
-                console.log("guiShow");
-            });
-
-            /**
-             * Event fires whenever player interface becomes invisible (user mouse inactivity).
-             */
-            player.addEventListener("guiHide", function(event){
-                console.log("guiHide");
-            });
-
-            /**
-             * Event fires when user clicks any play button
-             */
-            player.addEventListener("playClick", function(event){
-                console.log("playClick");
-            });
-
+        player.addEventListener("guiShowed", function(event){
+            console.log("guiShowed");
         });
 
-    </script>
+        /**
+         * Event fires whenever player interface becomes invisible (user mouse inactivity).
+         */
+        player.addEventListener("guiHid", function(event){
+            console.log("guiHid");
+        });
+
+        /**
+         * Event fires when user clicks any play button
+         */
+        player.addEventListener("playClicked", function(event){
+            console.log("playClicked");
+        });
+
+    });
+
+</script>
 </body>
 </html>

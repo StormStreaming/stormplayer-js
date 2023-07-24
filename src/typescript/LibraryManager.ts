@@ -1,6 +1,6 @@
 import {StormPlayer} from "./StormPlayer";
 import {EventType} from "./events/EventType";
-import {StormLibraryConfig, StormLibrary} from "@stormstreaming/stormlibrary";
+import {StormLibrary, StormStreamConfig} from "@stormstreaming/stormlibrary";
 
 /**
  * Class responsible for managing StormLibrary instance
@@ -17,7 +17,7 @@ export class LibraryManager {
      * A configuration object for the library
      * @private
      */
-    private config: StormLibraryConfig;
+    private config: StormStreamConfig;
 
     /**
      * The StormLibrary Instance
@@ -55,17 +55,17 @@ export class LibraryManager {
      * @param config a config for the library
      * @param stormPlayer a reference to the main player class
      */
-    constructor(config: StormLibraryConfig, stormPlayer: StormPlayer) {
+    constructor(config: StormStreamConfig, stormPlayer: StormPlayer) {
         this.stormPlayer = stormPlayer;
 
         this.config = config;
 
-        this.config.settings.video.containerID = stormPlayer.getInstanceID();
-        this.config.settings.video.width = stormPlayer.getGuiConfig().getWidth();
-        this.config.settings.video.height = stormPlayer.getGuiConfig().getHeight();
+        this.config.settings.video.containerID = stormPlayer.getInstanceName()+"_video";
+        this.config.settings.video.width = stormPlayer.getPlayerConfig().getWidth();
+        this.config.settings.video.height = stormPlayer.getPlayerConfig().getHeight();
 
-        this.currWidth = stormPlayer.getGuiConfig().getWidth();
-        this.currHeight = stormPlayer.getGuiConfig().getHeight();
+        this.currWidth = stormPlayer.getPlayerConfig().getWidth();
+        this.currHeight = stormPlayer.getPlayerConfig().getHeight();
 
         this.attachListeners();
     }
@@ -73,7 +73,7 @@ export class LibraryManager {
     /**
      * Returns library config
      */
-    public getConfig(): StormLibraryConfig {
+    public getConfig(): StormStreamConfig {
         return this.config;
     }
 
@@ -111,7 +111,7 @@ export class LibraryManager {
         this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
             that.getLibrary().addEventListener("videoElementCreated", function () {
                 document
-                    .querySelector("#" + that.stormPlayer.getInstanceID() + " video")
+                    .querySelector("#" + that.stormPlayer.getInstanceName()+"_video" + " video")
                     .classList.add("sp-video");
             });
         });
@@ -162,6 +162,7 @@ export class LibraryManager {
             // when user enters full-screen mode
             that.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function () {
                 that.isFullScreenMode = true;
+
                 if(that.resolutionTimeout != null)
                     clearInterval(that.resolutionTimeout);
 
@@ -171,6 +172,7 @@ export class LibraryManager {
                 },100);
 
             });
+
 
         });
     }
@@ -196,6 +198,12 @@ export class LibraryManager {
 
             }
 
+        }
+    }
+
+    public destroy():void{
+        if(this.library != null){
+            this.library.destroy();
         }
     }
 

@@ -1,11 +1,11 @@
 import "../styles/index.scss";
-import { StormPlayerConfig } from "./types/StormPlayerConfig";
-import { StormPlayer } from "./StormPlayer";
-import { StormLibraryConfig } from "@stormstreaming/stormlibrary";
+import {StormPlayerConfig} from "./types/StormPlayerConfig";
+import {StormPlayer} from "./StormPlayer";
+import {StormStreamConfig} from "@stormstreaming/stormlibrary";
 import StormPlayerCustomElement from "./StormPlayerElement";
 
-export default function(playerConfig:StormPlayerConfig, libraryConfig:StormLibraryConfig, wait:boolean):StormPlayer{
-    return new StormPlayer(playerConfig, libraryConfig, wait);
+export default function(playerConfig:StormPlayerConfig, stormConfig:StormStreamConfig, wait:boolean):StormPlayer{
+    return new StormPlayer(playerConfig, stormConfig, wait);
 }
 
 customElements.define("storm-player", StormPlayerCustomElement);

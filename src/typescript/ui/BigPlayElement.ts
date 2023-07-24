@@ -20,15 +20,16 @@ export class BigPlayElement extends GraphicElement {
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-playback");
 
-        if (this.stormPlayer.getGuiConfig().isBigPlaybackButton() === false)
+        if (this.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false) {
             this.hide();
+        }
     }
 
     /**
      * Makes element visible
      */
     public override show(): void {
-        if (this.stormPlayer.getGuiConfig().isBigPlaybackButton() === false || this.dontShowPlayback)
+        if (this.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false || this.dontShowPlayback)
             return;
 
         super.show();

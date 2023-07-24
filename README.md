@@ -56,7 +56,7 @@ For development, you can use:
                 serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
                     {
                         host: "localhost",                   // host or ip to the streaming server
-                        application: "live"                  // application name (can be configured in storm server settings)
+                        application: "live",                 // application name (can be configured in storm server settings)
                         port: 80,                            // server port
                         ssl: false                           // whenever SSL connection should be used or not
                     }
@@ -70,11 +70,8 @@ For development, you can use:
             },
             settings: {
                 autoStart: true,                              // if true, video will start playing automatically, but will be muted too
-                restartOnError: true,                         // if something bad happens, player will try to restart
-                reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
-                enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
                 video: {
-                    scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
+                    scalingMode: "fill"                       // possible values "fill", "letterbox", "crop" and "letterbox"
                 },
                 debug: {
                     console: {                                // console output
@@ -89,10 +86,10 @@ For development, you can use:
          */
         const playerConfig = {
             containerID: "container",                        // HTML container where player will be added
-            width: 640,                                      // initial player width
-            height: 360,                                     // initial player height
-            title: "Test title",                             // title for the stream
-            subtitle: "Subtitle",                            // subtitle for the stream
+            aspectRatio: "16:9",                             // <video> element will scale to provided aspect-ratio. This parameter is optional and will overwrite "height" parameter as "width" will only be used for calculations
+            width: "100%",                                   // <video> element width, can be either "px" or "%" (string), as (number) will always be "px" value. For % it'll auto-scale to parent container,
+            title: "Title goes here",                        // title for the stream
+            subtitle: "This is going to be epic!",           // subtitle for the stream
         };
 
         /**
@@ -148,7 +145,7 @@ For development, you can use:
                 serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
                     {
                         host: "localhost",                   // host or ip to the streaming server
-                        application: "live"                  // application name (can be configured in storm server settings)
+                        application: "live",                 // application name (can be configured in storm server settings)
                         port: 80,                            // server port
                         ssl: false                           // whenever SSL connection should be used or not
                     }
@@ -181,10 +178,10 @@ For development, you can use:
          */
         const playerConfig = {
             containerID: "container",                        // HTML container where player will be added
-            width: 640,                                      // initial player width
-            height: 360,                                     // initial player height
-            title: "Test title",                             // title for the stream
-            subtitle: "Subtitle",                            // subtitle for the stream
+            aspectRatio: "16:9",                             // <video> element will scale to provided aspect-ratio. This parameter is optional and will overwrite "height" parameter as "width" will only be used for calculations
+            width: "100%",                                   // <video> element width, can be either "px" or "%" (string), as (number) will always be "px" value. For % it'll auto-scale to parent container,
+            title: "Title goes here",                        // title for the stream
+            subtitle: "This is going to be epic!",           // subtitle for the stream
         };
         
         /**
@@ -232,7 +229,7 @@ const streamConfig = {
         serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
             {
                 host: "localhost",                   // host or ip to the streaming server
-                application: "live"                  // application name (can be configured in storm server settings)
+                application: "live",                 // application name (can be configured in storm server settings)
                 port: 80,                            // server port
                 ssl: false                           // whenever SSL connection should be used or not
             }
@@ -265,10 +262,10 @@ const streamConfig = {
  */
 const playerConfig = {
     containerID: "container",                        // HTML container where player will be added
-    width: 640,                                      // initial player width
-    height: 360,                                     // initial player height
-    title: "Test title",                             // title for the stream
-    subtitle: "Subtitle",                            // subtitle for the stream
+    aspectRatio: "16:9",                             // <video> element will scale to provided aspect-ratio. This parameter is optional and will overwrite "height" parameter as "width" will only be used for calculations
+    width: "100%",                                   // <video> element width, can be either "px" or "%" (string), as (number) will always be "px" value. For % it'll auto-scale to parent container,
+    title: "Title goes here",                        // title for the stream
+    subtitle: "This is going to be epic!",           // subtitle for the stream
 };
 
 /**
@@ -320,7 +317,7 @@ storm.addEventListener("playClicked", function(event){
                 serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
                     {
                         host: "localhost",                   // host or ip to the streaming server
-                        application: "live"                  // application name (can be configured in storm server settings)
+                        application: "live",                 // application name (can be configured in storm server settings)
                         port: 80,                            // server port
                         ssl: false                           // whenever SSL connection should be used or not
                     }
@@ -353,10 +350,10 @@ storm.addEventListener("playClicked", function(event){
          */
         const playerConfig = {
             containerID: "container",                        // HTML container where player will be added
-            width: 640,                                      // initial player width
-            height: 360,                                     // initial player height
-            title: "Test title",                             // title for the stream
-            subtitle: "Subtitle",                            // subtitle for the stream
+            aspectRatio: "16:9",                             // <video> element will scale to provided aspect-ratio. This parameter is optional and will overwrite "height" parameter as "width" will only be used for calculations
+            width: "100%",                                   // <video> element width, can be either "px" or "%" (string), as (number) will always be "px" value. For % it'll auto-scale to parent container,
+            title: "Title goes here",                        // title for the stream
+            subtitle: "This is going to be epic!",           // subtitle for the stream
         };
 
         /**
@@ -396,67 +393,6 @@ storm.addEventListener("playClicked", function(event){
 </body>
 </html>
 ```
-
-## Custom HTML Element
-
-It is also possible to use a custom HTML element. The embed code looks as follow:
-
-``` html
-<storm-player
-    containerID="player1"
-    width="640"
-    height="360"
-    title="Your streaming video title"
-    subtitle="Subtitle for your video"
-    unmuteText="UNMUTE SOUND"
-/>
-<script>
-    /**
-     * Standard library configuration object
-     */
-    const libraryConfig = {
-        role: "player",                                  // "player" or "streamer"
-        connectionType: "direct",                        // "direct" or "gateway", please check doc for more info
-        stream: {
-            serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
-                {
-                    host: "localhost",                   // host or ip to the streaming server
-                    port: 80,                            // server port
-                    ssl: false                           // whenever SSL connection should be used or not
-                }
-            ],
-            sourceList: [
-                {
-                    protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
-                    streamName: "test",                  // name of the stream
-                    application: "live"                  // application name (can be configured in storm server settings)
-                },
-            ]
-        },
-        settings: {
-            autoStart: true,                              // if true, video will start playing automatically, but will be muted too
-            restartOnError: false,                        // if something bad happens, player will try to restart
-            reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
-            enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
-            video: {
-                scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
-            },
-            debug: {
-                console: {                                // console output
-                    enabled: true                         // if console output is activated
-                }
-            }
-        }
-    };
-
-    /**
-     * Each player instance must be provided with both player (gui) and library configs
-     */
-    document.querySelector('[containerID="player1"]').setAttribute("config", JSON.stringify(libraryConfig));
-
-</script>
-```
-
 
 ## Attaching and detaching events
 
@@ -513,25 +449,39 @@ storm.removeEventListener("guiHide");
 |     cuePointAdded     | no | Event fires everytime new CUE Point is added. | yes |
 |    cuePointRemoved    | no | Event fires whenever an existing CUE Point is removed. | yes |
 
+## Playback Event List
+
+|    Event name    | Additional data |                                                                                                  Description                                                                                                  | Can be fired more than once |
+|:----------------:|:---------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------:|
+| streamBuffering  |       no        |     This event indicates that video content is being readied for playback. The content isn't playing yet, but it will start imminently. This is the second event in the sequence for successful playback.     |    yes (once per video)     |
+| metadataReceived |       yes       |                               This event comprises all data related to the video, such as resolutions and codecs. It's the third event in the sequence for successful playback.                               |    yes (once per video)     |
+| playbackStarted  |       no        |                                          The event is fired whenever the playback starts. It's the fourth and final event in the sequence for a successful playback.                                          |             yes             |
+|  playbackPaused  |       no        |                                                                              The event is triggered when the playback is paused.                                                                              |             yes             |
+| playbackProgress |       yes       |                                                    Event informs on video progress, source stream time, source stream start time and current viewer time.                                                     |      yes (each second)      |
+| playbackStopped  |       no        |                                       Event will be called when the stream is closed on the server side (usually it means that the broadcaster has stopped streaming).                                        |    yes (once per video)     |
+|  volumeChanged   |    newVolume    |                                                            This event tells us that video volume was changed (either by the system or by a user).                                                             |             yes             |
+|  streamNotFound  |       no        | This event is called whenever a stream with a specific name was not found (was not published or is not ready yet). This event will be triggered after videoConnecting only and will stop a playback sequence. |    yes (once per video)     |
+|   streamError    |       no        |                                              Event indicates that there was a problem with playback (it usually means that the browser was not able to play it).                                              |    yes (once per video)     |
+
 ## API
 
-| Method | Returns | Return type | Description | 
-| :---: | :---: | :---: | :---: | 
-| initialize() | - | void | Starts the player. This method will be called automatically by the constructor unless *wait* parameter in the constructor has been set to *false*.  | 
-| getInstanceID() | Instance ID number | number | The method returns instance ID of the player. | 
-| getLibrary() | StormLibrary Object | number | The method returns main StormLibrary object used by the player. |
-| setSize(width:number, height:number) | - | void | This method allows to resize the player. | 
-| setWidth(width:number) | - | void | This method allows to change player width. | 
-| setHeight(height:number) | - | void | This method allows to change player height. | 
-| getWidth() | Player width | number | Returns player width |
-| getHeight() | Player height | number | Returns player height |
-| setTitle(title:string) | - | void | The method allows to specify the title displayed in the upper-right corner of the player. |
-| setSubtitle(subtitle:string) | - | void | The method allows to specify the subtitle displayed in the upper-right corner of the player (below the title). |
-| getGuiConfig() | Object containing player settings | Object | This method returns an object containing all player preferences (related to its GUI). | 
-| addCuePoint(title:string, time:number) | - | void | This method adds a CUE point to the player timeline with a given title. | 
-| removeCuePoint(time:number) | - | void | This method removes a CUE point based on its time. |
-| addEventListener(eventName:string, callback:function) | - | void | Registers an event with the player object. Whenever a registered event occurs, player will call a predefined function provided | 
-| removeEventListener(eventName:string, callback:function) | - | void | Removes event listener from the player. | 
+|                          Method                          | Returns | Return type |                                                                                                                                                    Description                                                                                                                                                     | 
+|:--------------------------------------------------------:| :---: | :---: |:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:| 
+|                       initialize()                       | - | void |                                                                                 Starts the player. This method will be called automatically by the constructor unless *wait* parameter in the constructor has been set to *false*.                                                                                 | 
+|                     getInstanceID()                      | Instance ID number | number |                                                                                                                                   The method returns instance ID of the player.                                                                                                                                    | 
+|                       getLibrary()                       | StormLibrary Object | number |                                                                                                                          The method returns main StormLibrary object used by this player.                                                                                                                          |
+|      setSize(width:number/string, height:number/s)       | - | void | The method sets a new width and height for the player. The values can be given as a number (in which case they are treated as the number of pixels), or as a string ending with "px" (this will also be the number of pixels) or "%", where the number is treated as a percentage of the parent container's value. | 
+|              setWidth(width:number/string)               | - | void |        The method sets a new width for the player. The value can be given as a number (in which case it is treated as the number of pixels), or as a string ending with "px" (this will also be the number of pixels) or "%", where the number is treated as a percentage of the parent container's value.         | 
+|             setHeight(height:number/string)              | - | void |        The method sets a new height for the player. The value can be given as a number (in which case it is treated as the number of pixels), or as a string ending with "px" (this will also be the number of pixels) or "%", where the number is treated as a percentage of the parent container's value.        | 
+|                        getWidth()                        | Player width | number |                                                                                                                                          Returns player width in pixels.                                                                                                                                           |
+|                       getHeight()                        | Player height | number |                                                                                                                                          Returns player height in pixels.                                                                                                                                          |
+|                  setTitle(title:string)                  | - | void |                                                                                                            The method allows to add/change the title displayed in the upper-right corner of the player.                                                                                                            |
+|               setSubtitle(subtitle:string)               | - | void |                                                                                                 The method allows to add/change the subtitle displayed in the upper-right corner of the player (below the title).                                                                                                  |
+|                    getPlayerConfig()                     | Object containing player settings | Object |                                                                                                               This method returns an object containing all player preferences (related to its GUI).                                                                                                                | 
+|          addCuePoint(title:string, time:number)          | - | void |                                                                                                                      This method adds a CUE point to the player timeline with a given title.                                                                                                                       | 
+|               removeCuePoint(time:number)                | - | void |                                                                                                                                 This method removes a CUE point based on its time.                                                                                                                                 |
+|  addEventListener(eventName:string, callback:function)   | - | void |                                                                                           Registers an event with the player object. Whenever a registered event occurs, player will call a predefined function provided                                                                                           | 
+| removeEventListener(eventName:string, callback:function) | - | void |                                                                                                                                      Removes event listener from the player.                                                                                                                                       | 
 
 
 Browser compatibility

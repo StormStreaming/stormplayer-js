@@ -4,6 +4,7 @@ import {PlayElement} from "./PlayElement";
 import {VolumeElement} from "./VolumeElement";
 import {QualityElement} from "./QualityElement";
 import {FullscreenElement} from "./FullscreenElement";
+import {EventType} from "@app/typescript/events/EventType";
 
 /**
  * Class represents a single controller for all buttons located at the bottom of the player

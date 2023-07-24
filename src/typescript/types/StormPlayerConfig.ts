@@ -3,8 +3,9 @@
  */
 export type StormPlayerConfig = {
   containerID: string;
-  width: number;
-  height: number;
+  width?: number | string;
+  height?: number | string;
+  aspectRatio?:string;
   title?:string;
   subtitle?:string;
   demoMode?:boolean;
@@ -26,14 +27,21 @@ export type StormPlayerConfig = {
     unmute?:string;
   },
   waitingRoom?: {
-    createDate: string,
-    startDate: string,
+    createTime:string,
+    startTime: string,
     posterURL: string
   },
   watermark?: {
     imgURL: string,
     position: string
   },
+  interface?:{
+    showBigPlayBTN?:boolean;
+    showTimeline?:boolean;
+    autoGUIHide?:boolean;
+    autoGUIHideTime?:number;
+    nativeMobileGUI?:boolean;
+  }
   style?: {
     progressBar?: {
       gradientColor1?: string,

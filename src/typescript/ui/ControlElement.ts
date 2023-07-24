@@ -77,5 +77,17 @@ export class ControlElement extends GraphicElement {
             that.hide();
         });
 
+        this.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function () {
+            if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                //that.htmlElement.style.display = "none";
+            }
+        });
+
+        this.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function () {
+            if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                //that.htmlElement.style.display = "block";
+            }
+        });
+
     }
 }

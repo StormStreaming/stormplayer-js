@@ -14,25 +14,28 @@ export class WaitingRoom extends GraphicElement {
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-waiting-room");
         this.setTime();
-        this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.stormPlayer.getGuiConfig().getBroadcastStartDate();
+        this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.stormPlayer.getPlayerConfig().getBroadcastStartDate();
         this.getHtmlElement().style.backgroundImage="url("+this.stormPlayer.getOrigGUIConfig().waitingRoom.posterURL+")";
     }
 
     public setTime(): void {
+
         let that:WaitingRoom = this;
-        let nowToStart:number, createToStart:number, days:number, hours:number, minutes:number, seconds:number;
+        let nowTime:number, startTime:number, createTime:number;
 
         const countdown = setInterval( function () {
 
-            nowToStart = new Date(that.stormPlayer.getGuiConfig().getBroadcastStartDate()).getTime();
-            createToStart = new Date(that.stormPlayer.getGuiConfig().getBroadcastCreateDate()).getTime();
+            createTime = new Date(that.stormPlayer.getPlayerConfig().getBroadcastCreateDate()).getTime();
+            startTime = new Date(that.stormPlayer.getPlayerConfig().getBroadcastStartDate()).getTime();
+            nowTime = new Date().getTime();
 
-            nowToStart = nowToStart-createToStart;
+            let nowToStart = startTime-nowTime;
+            let createToStart = startTime-createTime;
 
-            days = Math.floor(nowToStart / (1000 * 60 * 60 * 24));
-            hours = Math.floor(nowToStart / (1000 * 60 * 60) % 24);
-            minutes = Math.floor((nowToStart/1000/60) % 60 );
-            seconds = Math.floor((nowToStart/1000) % 60);
+            let days = Math.floor(nowToStart / (1000 * 60 * 60 * 24));
+            let hours = Math.floor(nowToStart / (1000 * 60 * 60) % 24);
+            let minutes = Math.floor((nowToStart/1000/60) % 60 );
+            let seconds = Math.floor((nowToStart/1000) % 60);
 
             if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
                 clearInterval(countdown);
@@ -45,6 +48,7 @@ export class WaitingRoom extends GraphicElement {
             that.getHtmlElement().querySelector('#hoursCounter > span').innerHTML = hours <= 9 ? "0" + hours.toString() : hours.toString();
             that.getHtmlElement().querySelector('#minutesCounter > span').innerHTML = minutes <= 9 ? "0" + minutes.toString() : minutes.toString();
             that.getHtmlElement().querySelector('#secondCounter > span').innerHTML = seconds <= 9 ? "0" + seconds.toString() : seconds.toString();
+
             that.getHtmlElement().querySelector<HTMLElement>('#daysCounter .progress-ring__circle').style.strokeDashoffset = String(nowToStart > 86400000 ? 376.98 - ((nowToStart - 86400000) * (376.98/(createToStart - 86400000))) : 376.98);
             that.getHtmlElement().querySelector<HTMLElement>('#hoursCounter .progress-ring__circle').style.strokeDashoffset = String(nowToStart < 86400000 && nowToStart > 3600000 ? 376.98 - ((nowToStart - 3600000) * (376.98/(86400000- 3600000))) : nowToStart < 3600000 ? 376.98 : 0);
             that.getHtmlElement().querySelector<HTMLElement>('#minutesCounter .progress-ring__circle').style.strokeDashoffset = String(nowToStart < 3600000 && nowToStart > 60000 ? 376.98 - ((nowToStart - 60000) * (376.98/(3600000- 60000))) : nowToStart < 60000 ? 376.98 : 0);
@@ -62,7 +66,7 @@ export class WaitingRoom extends GraphicElement {
 
         this.htmlElement.innerHTML = `
       <div class="sp-waiting-room__wrapper">
-        <span class="title">${this.stormPlayer.getGuiConfig().getBroadcastRemainingTimeText()}</span>
+        <span class="title">${this.stormPlayer.getPlayerConfig().getBroadcastRemainingTimeText()}</span>
         <div class="countdown">
           <div class="counter" id="daysCounter">
             <svg
@@ -79,7 +83,7 @@ export class WaitingRoom extends GraphicElement {
               <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient1);"/>
             </svg>
             <span>00</span>
-            <span>${this.stormPlayer.getGuiConfig().getTimeDaysText()}</span>
+            <span>${this.stormPlayer.getPlayerConfig().getTimeDaysText()}</span>
           </div>
           <div class="counter" id="hoursCounter">
             <svg
@@ -96,7 +100,7 @@ export class WaitingRoom extends GraphicElement {
               <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient2);" />
             </svg>
             <span>00</span>
-            <span>${this.stormPlayer.getGuiConfig().getTimeHoursText()}</span>
+            <span>${this.stormPlayer.getPlayerConfig().getTimeHoursText()}</span>
           </div>
           <div class="counter" id="minutesCounter">
             <svg
@@ -113,7 +117,7 @@ export class WaitingRoom extends GraphicElement {
               <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient3);"/>
             </svg>
             <span>00</span>
-            <span>${this.stormPlayer.getGuiConfig().getTimeMinutesText()}</span>
+            <span>${this.stormPlayer.getPlayerConfig().getTimeMinutesText()}</span>
           </div>
           <div class="counter" id="secondCounter">
             <svg
@@ -130,10 +134,10 @@ export class WaitingRoom extends GraphicElement {
              <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient4);" />
             </svg>
             <span id="timeSeconds">00</span>
-            <span>${this.stormPlayer.getGuiConfig().getTimeSecondsText()}</span>
+            <span>${this.stormPlayer.getPlayerConfig().getTimeSecondsText()}</span>
           </div>
         </div>
-        <span class="video-start">${this.stormPlayer.getGuiConfig().getBroadcastStartTimeText()+" "} <span id="videoStartDate" class="video-start-date">11.2.2023 16:00</span></span>
+        <span class="video-start">${this.stormPlayer.getPlayerConfig().getBroadcastStartTimeText()+" "} <span id="videoStartDate" class="video-start-date">11.2.2023 16:00</span></span>
       </div>
       `;
 
@@ -155,8 +159,8 @@ export class WaitingRoom extends GraphicElement {
             that.stormPlayer.setLibraryManager();
             that.stormPlayer.getMainElement().createPlayer();
             that.stormPlayer.dispatch(EventType.GUI_INITIALIZED);
-            that.stormPlayer.setTitle(that.stormPlayer.getGuiConfig().getTitle());
-            that.stormPlayer.setSubtitle(that.stormPlayer.getGuiConfig().getSubtitle());
+            that.stormPlayer.setTitle(that.stormPlayer.getPlayerConfig().getTitle());
+            that.stormPlayer.setSubtitle(that.stormPlayer.getPlayerConfig().getSubtitle());
         });
 
     }

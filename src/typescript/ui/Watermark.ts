@@ -22,9 +22,9 @@ export class Watermark extends GraphicElement {
     protected override draw(): void {
         super.draw();
 
-        if(this.stormPlayer.getGuiConfig().getWatermarkURL() != null) {
+        if(this.stormPlayer.getPlayerConfig().getWatermarkURL() != null) {
 
-            switch (this.stormPlayer.getGuiConfig().getWatermarkPosition().toLowerCase()) {
+            switch (this.stormPlayer.getPlayerConfig().getWatermarkPosition().toLowerCase()) {
                 case 'bottom_left':
                     this.htmlElement.style.left = '20px';
                     break;
@@ -35,7 +35,7 @@ export class Watermark extends GraphicElement {
                     this.htmlElement.style.right = '20px';
             }
 
-            this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getGuiConfig().getWatermarkURL()}' alt="watermark logo">`;
+            this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getWatermarkURL()}' alt="watermark logo">`;
         }
 
     }
@@ -54,6 +54,18 @@ export class Watermark extends GraphicElement {
 
         this.stormPlayer.addEventListener(EventType.WAITING_ROOM_ENDED, function () {
 
+        });
+
+        this.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function () {
+            if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                //that.htmlElement.style.display = "none";
+            }
+        });
+
+        this.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function () {
+            if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                //that.htmlElement.style.display = "block";
+            }
         });
 
     }

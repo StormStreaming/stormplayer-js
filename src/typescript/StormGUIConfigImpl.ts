@@ -13,13 +13,19 @@ export class StormGUIConfigImpl {
      * Initial player width
      * @private
      */
-    private width: number;
+    private width: number | string = "100%";
 
     /**
      * Initial player height
      * @private
      */
-    private height: number;
+    private height: number | string = "100%";
+
+    /**
+     * Aspect ratio for the player
+     * @private
+     */
+    private aspectRatio:string = "none";
 
     /**
      * Whenever big play button should be displayed at start or not
@@ -176,7 +182,8 @@ export class StormGUIConfigImpl {
      * @private
      */
     private timeSecondsText:string = "seconds"
-
+    private autoGUIHide: boolean = true;
+    private nativeMobileGUI: boolean = false;
 
 
     /**
@@ -187,24 +194,34 @@ export class StormGUIConfigImpl {
         if (!guiConfig.containerID)
             throw new Error("containerID is not defined in guiConfig");
 
-        if (!guiConfig.width)
-            throw new Error("width is not defined in guiConfig");
-
-        if (!guiConfig.height)
-            throw new Error("height is not defined in guiConfig");
-
         this.containerID = guiConfig.containerID;
-        this.width = guiConfig.width;
-        this.height = guiConfig.height;
 
-        if (typeof guiConfig.timeline != "undefined")
-            this.timeline = guiConfig.timeline;
+        if (typeof guiConfig.width != "undefined")
+            this.width = guiConfig.width;
 
-        if (typeof guiConfig.bigPlaybackButton != "undefined")
-            this.bigPlaybackButton = guiConfig.bigPlaybackButton;
+        if (typeof guiConfig.height != "undefined")
+            this.height = guiConfig.height;
 
-        if (guiConfig.guiHideSeconds)
-            this.guiHideSeconds = guiConfig.guiHideSeconds;
+        if (typeof guiConfig.aspectRatio != "undefined")
+            this.aspectRatio = guiConfig.aspectRatio;
+
+        if(guiConfig.interface){
+            if(typeof guiConfig.interface.autoGUIHide  != "undefined")
+                this.autoGUIHide = guiConfig.interface.autoGUIHide;
+
+            if(typeof guiConfig.interface.autoGUIHideTime  != "undefined")
+                this.guiHideSeconds = guiConfig.interface.autoGUIHideTime;
+
+            if(typeof guiConfig.interface.showBigPlayBTN  != "undefined")
+                this.bigPlaybackButton = guiConfig.interface.showBigPlayBTN;
+
+            if(typeof guiConfig.interface.nativeMobileGUI != "undefined")
+                this.nativeMobileGUI = guiConfig.interface.nativeMobileGUI;
+
+            if(typeof guiConfig.interface.showTimeline != "undefined")
+                this.timeline = guiConfig.interface.showTimeline;
+
+        }
 
         if (guiConfig.title) this.title = guiConfig.title;
 
@@ -266,15 +283,14 @@ export class StormGUIConfigImpl {
             if (guiConfig.translations.live)
                 this.liveText = guiConfig.translations.live;
 
-
         }
 
         if(guiConfig.waitingRoom){
-            if(guiConfig.waitingRoom.startDate)
-                this.broadcastStartDate = guiConfig.waitingRoom.startDate;
+            if(guiConfig.waitingRoom.createTime)
+                this.broadcastCreateDate = guiConfig.waitingRoom.createTime;
 
-            if(guiConfig.waitingRoom.createDate)
-                this.broadcastCreateDate = guiConfig.waitingRoom.createDate;
+            if(guiConfig.waitingRoom.startTime)
+                this.broadcastStartDate = guiConfig.waitingRoom.startTime;
 
             if(guiConfig.waitingRoom.poster)
                 this.waitingRoomPoster = guiConfig.waitingRoom.poster;
@@ -377,6 +393,10 @@ export class StormGUIConfigImpl {
      */
     public getGuiHideSeconds(): number {
         return this.guiHideSeconds;
+    }
+
+    public getIfAutoGUIHide():boolean {
+        return this.autoGUIHide;
     }
 
     /**
@@ -596,6 +616,14 @@ export class StormGUIConfigImpl {
 
     public getTimeSecondsText():string {
         return this.timeSecondsText;
+    }
+
+    public getAspectRatio():string {
+        return this.aspectRatio;
+    }
+
+    public getIfNativeMobileGUI():boolean {
+        return this.nativeMobileGUI;
     }
 
 

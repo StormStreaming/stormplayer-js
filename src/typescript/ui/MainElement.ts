@@ -115,23 +115,77 @@ export class MainElement extends GraphicElement {
      */
     private fsInterval:any
 
+    /**
+     * Aspect ratio for the player;
+     * @private
+     */
+    private aspectRatio:string = "none";
+
+    /**
+     * Player width in pixels
+     * @private
+     */
     private playerWidth:number;
 
+    /**
+     * Player height in pixels
+     * @private
+     */
     private playerHeight:number;
 
-    private oldPlayerWidth:number;
+    /**
+     * Stores player width for fullScreen time
+     * @private
+     */
+    private copyPlayerWidth:number;
 
-    private oldPlayerHeight:number;
+    /**
+     * Stores player height for fullScreen time
+     * @private
+     */
+    private copyPlayerHeight:number;
+
+
+    private widthOrigValue:number | string;
+
+    private heightOrigValue:number | string;
+
+    /**
+     * Whenever changes to resolution are locked due to FullScreen mode
+     * @private
+     */
 
     private resolutionLock:boolean = false;
+
+    /**
+     * Reference to the player parent container
+     * @private
+     */
+    private parentContainer:HTMLElement | null;
+
+    private resizeObserver:ResizeObserver;
 
     /**
      * Constructor
      * @param stormPlayer reference to the main player class
      */
     constructor(stormPlayer: StormPlayer) {
-        super(stormPlayer, "sp-container__wrapper");
-        this.hideGUITimeoutSeconds = stormPlayer.getGuiConfig().getGuiHideSeconds();
+        super(stormPlayer, "sp-container__wrapper stormPlayer");
+
+        this.parentContainer = document.getElementById(stormPlayer.getPlayerConfig().getContainerID());
+
+        this.getHtmlElement().setAttribute("id",stormPlayer.getInstanceName())
+        this.aspectRatio = stormPlayer.getPlayerConfig().getAspectRatio();
+
+        this.hideGUITimeoutSeconds = stormPlayer.getPlayerConfig().getGuiHideSeconds();
+
+        this.resizeObserver = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                this.setSize(this.widthOrigValue, this.heightOrigValue);
+            }});
+
+        this.resizeObserver.observe(this.parentContainer);
+
     }
 
     /**
@@ -139,16 +193,123 @@ export class MainElement extends GraphicElement {
      * @param width player width in pixels
      * @param height player height in pixels
      */
-    public setSize(width: number, height: number) {
+    public setSize(width: number | string, height: number | string) {
+
+        let widthValue:number = 0;
+        let heightValue:number = 0;
+        let isWidthInPixels:boolean = true;
+        let isHeightInPixels:boolean = true;
+
+        let finalPlayerWidth = 640;
+        let finalPlayerHeight = 360;
+
+
+        // width
+        if (typeof width === "number") {
+
+            widthValue = width;
+            isWidthInPixels = true;
+
+        } else if (typeof width === "string") {
+            if (width.toLowerCase().endsWith('px')) {
+
+                widthValue = parseInt(width);
+                isWidthInPixels = true;
+
+            } else if (width.toLowerCase().endsWith('%')) {
+
+                widthValue = parseInt(width);
+                isWidthInPixels = false;
+
+            }
+        }  else
+            throw new Error("Unknown value for parameter \"width\" - it must be a number or a string! ")
+
+        // height
+        if (typeof height === "number") {
+
+            heightValue = height;
+            isHeightInPixels = true;
+
+        } else if (typeof height === "string") {
+            if (height.toLowerCase().endsWith('px')) {
+
+                heightValue = parseInt(height);
+                isHeightInPixels = true;
+
+            } else if (height.toLowerCase().endsWith('%')) {
+
+                heightValue = parseInt(height);
+                isHeightInPixels = false;
+
+            }
+        }  else
+            throw new Error("Unknown value for parameter \"width\" - it must be a number or a string! ")
+
+
+        if(this.aspectRatio == "none"){
+
+            if(isWidthInPixels){
+                finalPlayerWidth = widthValue;
+            } else {
+                if(this.parentContainer != null)
+                    finalPlayerWidth = (this.parentContainer?.getBoundingClientRect().width*widthValue/100);
+
+            }
+
+            if(isHeightInPixels){
+                finalPlayerHeight = heightValue;
+            } else {
+                if(this.parentContainer != null)
+                    finalPlayerHeight = (this.parentContainer?.getBoundingClientRect().height*heightValue/100);
+
+            }
+
+        } else {
+
+            let aspectWRatio:number = Number(this.aspectRatio.split(":")[0]);
+            let aspectHRatio:number = Number(this.aspectRatio.split(":")[1]);
+
+            if(isWidthInPixels){
+                finalPlayerWidth = widthValue;
+            } else {
+                if(this.parentContainer != null)
+                    finalPlayerWidth = (this.parentContainer?.getBoundingClientRect().width*widthValue/100);
+
+            }
+
+            finalPlayerHeight = finalPlayerWidth * aspectHRatio / aspectWRatio;
+
+        }
+
+        this.widthOrigValue = width;
+        this.heightOrigValue = height;
 
         if(this.resolutionLock){
-            this.oldPlayerWidth = width;
-            this.oldPlayerHeight = height;
+            this.copyPlayerWidth = finalPlayerWidth;
+            this.copyPlayerHeight = finalPlayerHeight;
             return;
         }
 
-        this.subSetSize(width, height)
+        this.calculateSize(finalPlayerWidth, finalPlayerHeight)
 
+    }
+
+    /**
+     * Sets width for the player
+     * @param width player width in pixels
+     */
+    public setWidth(width: number | number) {
+       this.setSize(width, this.heightOrigValue);
+    }
+
+    /**
+     * Internal mechanism for setting player height
+     * @param height player width in pixels
+     * @private
+     */
+    public setHeight(height:number){
+      this.setSize(this.widthOrigValue, height);
     }
 
     /**
@@ -157,7 +318,7 @@ export class MainElement extends GraphicElement {
      * @param height player height in pixels
      * @private
      */
-    private subSetSize(width:number, height:number){
+    private calculateSize(width:number, height:number){
 
         this.htmlElement.style.maxWidth = width + "px";
         this.spContainer.getHtmlElement().style.height = height + "px";
@@ -167,99 +328,27 @@ export class MainElement extends GraphicElement {
 
         if (!this.stormPlayer.waitingRoom){
             if(!this.stormPlayer.getLibrary().isInitialized()){
-                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerWidth(width);
-                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerHeight(height);
+                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setVideoWidthValue(width);
+                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setIfVideoWidthInPixels(true);
+                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setVideoHeightValue(height);
+                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setIfVideoHeightInPixels(true);
             } else
                 this.stormPlayer.getLibrary().setSize(width, height);
         }
     }
 
     /**
-     * Sets width for the player
-     * @param width player width in pixels
-     */
-    public setWidth(width: number) {
-
-        if(this.resolutionLock){
-            this.oldPlayerWidth = width;
-            return;
-        }
-
-        this.subSetWidth(width);
-
-    }
-
-    /**
-     * Internal mechanism for setting player width
-     * @param width player width in pixels
-     * @private
-     */
-    private subSetWidth(width:number){
-
-        this.htmlElement.style.maxWidth = width + "px";
-
-        this.playerWidth = width;
-
-        if(!this.stormPlayer.getLibrary().isInitialized()) {
-            this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerWidth(width);
-        } else
-            this.stormPlayer.getLibrary().setWidth(width);
-
-        if(this.resolutionLock){
-            this.oldPlayerWidth = width;
-            return;
-        }
-
-    }
-
-    /**
-     * Internal mechanism for setting player height
-     * @param height player width in pixels
-     * @private
-     */
-    public setHeight(height:number){
-
-        if(this.resolutionLock){
-            this.oldPlayerHeight = height;
-            return;
-        }
-
-        this.subSetHeight(height);
-    }
-
-    /**
-     * Sets height for the player
-     * @param height player height in pixels
-     */
-    private subSetHeight(height: number) {
-        this.spContainer.getHtmlElement().style.height = height + "px";
-
-        this.playerHeight = height;
-
-        if(!this.stormPlayer.getLibrary().isInitialized()) {
-            this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setContainerWidth(height);
-        } else
-            this.stormPlayer.getLibrary().setHeight(height);
-
-        if(this.resolutionLock){
-            this.oldPlayerHeight = height;
-            return;
-        }
-
-    }
-
-    /**
      * Returns plauer width;
      */
     public getWidth():number {
-        return this.stormPlayer.getLibrary().getWidth();
+        return this.playerWidth;
     }
 
     /**
      * Returns plauer height;
      */
     public getHeight():number {
-        return this.stormPlayer.getLibrary().getHeight();
+        return this.playerHeight;
     }
 
     /**
@@ -349,95 +438,97 @@ export class MainElement extends GraphicElement {
         let that = this;
         let spContainerElement = this.spContainer.getHtmlElement();
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
-            that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
-                if (!that.hideGUITimeout) {
+        if(this.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
+            this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
+                    that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
+                        if (!that.hideGUITimeout) {
+                            that.hideGUITimeout = setTimeout(function () {
+                                if (that.stormPlayer.getLibrary().isPlaying())
+                                    that.stormPlayer.dispatch(EventType.GUI_HIDED);
+                            }, that.hideGUITimeoutSeconds * 1000);
+                        }
+                    });
+                }
+            );
+
+            if (UserCapabilities.isMobile()) {
+                this.htmlElement.addEventListener("touchstart", function () {
+                    if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
+                    that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+
                     that.hideGUITimeout = setTimeout(function () {
                         if (that.stormPlayer.getLibrary().isPlaying())
+                            (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
+                    }, that.hideGUITimeoutSeconds * 1000);
+
+                });
+
+                this.htmlElement.addEventListener("touchmove", function () {
+
+                    if (that.hideGUITimeout)
+                        clearTimeout(that.hideGUITimeout);
+
+                    that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+
+                    that.hideGUITimeout = setTimeout(function () {
+                        if (that.stormPlayer.getLibrary().isPlaying())
+                            (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
+                    }, that.hideGUITimeoutSeconds * 1000);
+
+                });
+
+            } else {
+                this.htmlElement.addEventListener("mouseenter", function () {
+                    if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
+                    that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+                });
+
+                this.htmlElement.addEventListener("mousemove", function () {
+
+                    if (that.hideGUITimeout)
+                        clearTimeout(that.hideGUITimeout);
+
+                    that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+
+                    that.hideGUITimeout = setTimeout(function () {
+                        if (that.stormPlayer.getLibrary().isPlaying())
+                            (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
+                    }, that.hideGUITimeoutSeconds * 1000);
+
+                });
+
+                this.htmlElement.addEventListener("mouseleave", function () {
+                    if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
+                    if (!that.stormPlayer.waitingRoom) {
+                        if (that.stormPlayer.getLibrary().isPlaying())
                             that.stormPlayer.dispatch(EventType.GUI_HIDED);
-                        }, that.hideGUITimeoutSeconds * 1000);
                     }
+
+                });
+
+                that.htmlElement.addEventListener("contextmenu", function (e) {
+                    e.preventDefault();
+
+                    if (e.target !== null) {
+                        const element = e.target as Element;
+                        if (element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
+                            return
+                    }
+
+                    const element = that.htmlElement;
+                    that.stormPlayer.dispatch(EventType.CONTEXT_MENU_SHOWN, {e, element});
+                });
+
+                window.addEventListener("click", function (e) {
+                    if (e.target !== null) {
+                        const element = e.target as Element;
+                        if (element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
+                            return
+                    }
+
+                    that.stormPlayer.dispatch(EventType.CONTEXT_MENU_HIDED);
                 });
             }
-        );
-
-        if (UserCapabilities.isMobile()) {
-            this.htmlElement.addEventListener("touchstart", function () {
-                if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
-                that.stormPlayer.dispatch(EventType.GUI_SHOWN);
-
-                that.hideGUITimeout = setTimeout(function () {
-                    if (that.stormPlayer.getLibrary().isPlaying())
-                        (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
-                }, that.hideGUITimeoutSeconds * 1000);
-
-            });
-
-            this.htmlElement.addEventListener("touchmove", function () {
-
-                if (that.hideGUITimeout)
-                    clearTimeout(that.hideGUITimeout);
-
-                that.stormPlayer.dispatch(EventType.GUI_SHOWN);
-
-                that.hideGUITimeout = setTimeout(function () {
-                    if (that.stormPlayer.getLibrary().isPlaying())
-                        (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
-                }, that.hideGUITimeoutSeconds * 1000);
-
-            });
-
-        } else {
-            this.htmlElement.addEventListener("mouseenter", function () {
-                if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
-                that.stormPlayer.dispatch(EventType.GUI_SHOWN);
-            });
-
-            this.htmlElement.addEventListener("mousemove", function () {
-
-                if (that.hideGUITimeout)
-                    clearTimeout(that.hideGUITimeout);
-
-                that.stormPlayer.dispatch(EventType.GUI_SHOWN);
-
-                that.hideGUITimeout = setTimeout(function () {
-                    if (that.stormPlayer.getLibrary().isPlaying())
-                        (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
-                }, that.hideGUITimeoutSeconds * 1000);
-
-            });
-
-            this.htmlElement.addEventListener("mouseleave", function () {
-                if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
-                if (!that.stormPlayer.waitingRoom) {
-                    if (that.stormPlayer.getLibrary().isPlaying())
-                        that.stormPlayer.dispatch(EventType.GUI_HIDED);
-                }
-
-            });
-
-            that.htmlElement.addEventListener("contextmenu", function (e) {
-                e.preventDefault();
-
-                if (e.target !== null) {
-                    const element = e.target as Element;
-                    if(element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
-                        return
-                }
-
-                const element = that.htmlElement;
-                that.stormPlayer.dispatch(EventType.CONTEXT_MENU_SHOWN, {e, element});
-            });
-
-            window.addEventListener("click", function (e) {
-                if (e.target !== null) {
-                    const element = e.target as Element;
-                    if(element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
-                        return
-                }
-
-                that.stormPlayer.dispatch(EventType.CONTEXT_MENU_HIDED);
-            });
         }
 
         this.stormPlayer.addEventListener(EventType.GUI_SHOWN, function () {
@@ -454,10 +545,10 @@ export class MainElement extends GraphicElement {
 
             that.resolutionLock = true;
 
-            that.oldPlayerWidth = that.playerWidth;
-            that.oldPlayerHeight = that.playerHeight;
+            that.copyPlayerWidth = that.playerWidth;
+            that.copyPlayerHeight = that.playerHeight;
 
-            if (!UserCapabilities.isMobile()) {
+            if (!UserCapabilities.isMobile() || that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()) {
 
                 try {
                     const docElmWithBrowsersFullScreenFunctions = spContainerElement as HTMLElement & {
@@ -550,16 +641,17 @@ export class MainElement extends GraphicElement {
             }
 
             that.resolutionLock = false;
-            that.playerWidth = that.oldPlayerWidth;
-            that.playerHeight = that.oldPlayerHeight;
+            that.playerWidth = that.copyPlayerWidth;
+            that.playerHeight = that.copyPlayerHeight;
 
-            that.subSetSize(that.playerWidth, that.playerHeight);
+            that.calculateSize(that.playerWidth, that.playerHeight);
 
         });
 
         document.addEventListener("fullscreenchange", function () {
             if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
                 that.stormPlayer .dispatch(EventType.FULLSCREEN_EXITED);
+
         }, false);
 
 
@@ -583,8 +675,20 @@ export class MainElement extends GraphicElement {
     private updateResolution():void {
 
         if((this.playerWidth != window.innerWidth) || (this.playerHeight != window.innerHeight)){
-            this.subSetSize(window.innerWidth, window.innerHeight)
+            this.calculateSize(window.innerWidth, window.innerHeight)
         }
 
     }
+
+    /**
+     * Returns the reference to the player HTML element
+     */
+    public getPlayerElement():HTMLElement | null {
+        return this.getHtmlElement();
+    }
+
+    public getParentContainer():HTMLElement | null {
+        return this.parentContainer;
+    }
+
 }

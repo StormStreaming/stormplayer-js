@@ -22,7 +22,7 @@ export class VideoElement extends GraphicElement {
      */
     protected override draw(): void {
         super.draw();
-        this.htmlElement.setAttribute("id", this.stormPlayer.getInstanceID());
+        this.htmlElement.setAttribute("id", this.stormPlayer.getInstanceName()+"_video");
     }
 
     /**

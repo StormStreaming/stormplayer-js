@@ -205,7 +205,7 @@ export class ProgressbarElement extends GraphicElement {
         if (this.stopRefreshBar)
             return;
 
-        if (!this.stormPlayer.getGuiConfig().getTimeline() || this.dvrCacheSize < 1000 * 5)
+        if (!this.stormPlayer.getPlayerConfig().getTimeline() || this.dvrCacheSize < 1000 * 5)
             this.hide();
         else {
 
@@ -301,7 +301,7 @@ export class ProgressbarElement extends GraphicElement {
         let tooltipText =
             percentTimeSeconds > 0
                 ? "-" + this.secondsToNicetime(percentTimeSeconds)
-                : this.stormPlayer.getGuiConfig().getLiveText();
+                : this.stormPlayer.getPlayerConfig().getLiveText();
 
         this.seekTooltipElement.getHtmlElement().innerHTML = tooltipText;
 
@@ -515,4 +515,6 @@ export class ProgressbarElement extends GraphicElement {
         }
 
     }
+
+
 }
