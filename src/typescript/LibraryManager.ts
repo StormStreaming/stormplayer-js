@@ -41,13 +41,13 @@ export class LibraryManager {
      * Current player width
      * @private
      */
-    private currWidth:number = 0;
+    private currWidth:number | string = 0;
 
     /**
      * Current player height
      * @private
      */
-    private currHeight:number = 0;
+    private currHeight:number | string = 0;
 
     /**
      * Constructor for the LibraryManager

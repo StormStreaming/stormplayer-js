@@ -1,5 +1,5 @@
 import { StormPlayer } from "./StormPlayer";
-import { StormLibraryConfig, StormLibrary } from "@stormstreaming/stormlibrary";
+import { StormLibrary, StormStreamConfig } from "@stormstreaming/stormlibrary";
 export declare class LibraryManager {
     private stormPlayer;
     private config;
@@ -8,10 +8,11 @@ export declare class LibraryManager {
     private isFullScreenMode;
     private currWidth;
     private currHeight;
-    constructor(config: StormLibraryConfig, stormPlayer: StormPlayer);
-    getConfig(): StormLibraryConfig;
+    constructor(config: StormStreamConfig, stormPlayer: StormPlayer);
+    getConfig(): StormStreamConfig;
     getLibrary(): StormLibrary;
     initializeLibrary(): void;
     private attachListeners;
     checkResolution(): void;
+    destroy(): void;
 }

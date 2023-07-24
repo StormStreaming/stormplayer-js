@@ -2,6 +2,7 @@ export declare class StormGUIConfigImpl {
     private containerID;
     private width;
     private height;
+    private aspectRatio;
     private bigPlaybackButton;
     private timeline;
     private guiHideSeconds;
@@ -28,6 +29,8 @@ export declare class StormGUIConfigImpl {
     private timeHoursText;
     private timeMinutesText;
     private timeSecondsText;
+    private autoGUIHide;
+    private nativeMobileGUI;
     constructor(guiConfig: any);
     setIncompatiblePlayerProtocolText(value: string): void;
     getIncompatiblePlayerProtocolText(): string;
@@ -42,11 +45,12 @@ export declare class StormGUIConfigImpl {
     getContainerID(): string;
     setGuiHideSeconds(value: number): void;
     getGuiHideSeconds(): number;
+    getIfAutoGUIHide(): boolean;
     setContainerID(value: string): void;
-    getWidth(): number;
-    setWidth(value: number): void;
-    getHeight(): number;
-    setHeight(value: number): void;
+    getWidth(): number | string;
+    setWidth(value: number | string): void;
+    getHeight(): number | string;
+    setHeight(value: number | string): void;
     getTitle(): string;
     setTitle(value: string): void;
     getSubtitle(): string;
@@ -75,4 +79,6 @@ export declare class StormGUIConfigImpl {
     getTimeHoursText(): string;
     getTimeMinutesText(): string;
     getTimeSecondsText(): string;
+    getAspectRatio(): string;
+    getIfNativeMobileGUI(): boolean;
 }

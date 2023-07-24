@@ -18,18 +18,21 @@ export declare class MainElement extends GraphicElement {
     isOpenMenu: boolean;
     private hideGUITimeout;
     private fsInterval;
+    private aspectRatio;
     private playerWidth;
     private playerHeight;
-    private oldPlayerWidth;
-    private oldPlayerHeight;
+    private copyPlayerWidth;
+    private copyPlayerHeight;
+    private widthOrigValue;
+    private heightOrigValue;
     private resolutionLock;
+    private parentContainer;
+    private resizeObserver;
     constructor(stormPlayer: StormPlayer);
-    setSize(width: number, height: number): void;
-    private subSetSize;
-    setWidth(width: number): void;
-    private subSetWidth;
-    setHeight(height: number): void;
-    private subSetHeight;
+    setSize(width: number | string, height: number | string): void;
+    setWidth(width: number | string): void;
+    setHeight(height: number | string): void;
+    private calculateSize;
     getWidth(): number;
     getHeight(): number;
     getHeaderElement(): HeaderElement;
@@ -38,4 +41,6 @@ export declare class MainElement extends GraphicElement {
     protected draw(): void;
     protected attachListeners(): void;
     private updateResolution;
+    getPlayerElement(): HTMLElement | null;
+    getParentContainer(): HTMLElement | null;
 }

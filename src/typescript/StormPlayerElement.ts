@@ -1,4 +1,4 @@
-import {StormLibraryConfig} from "@stormstreaming/stormlibrary";
+import {StormStreamConfig} from "@stormstreaming/stormlibrary";
 import {StormPlayer} from "./StormPlayer";
 import {StormPlayerConfig} from "./types/StormPlayerConfig";
 
@@ -23,7 +23,7 @@ export default class StormPlayerElement extends HTMLElement {
      * StormLibrary configuration
      * @private
      */
-    private streamConfig: StormLibraryConfig;
+    private streamConfig: StormStreamConfig;
 
     /**
      * StormPlayer GUI Configuration
@@ -144,7 +144,7 @@ export default class StormPlayerElement extends HTMLElement {
         this.player = new StormPlayer(this.playerConfig, this.streamConfig);
     };
 
-    private setStreamConfig = (streamConfig: StormLibraryConfig) =>
+    private setStreamConfig = (streamConfig: StormStreamConfig) =>
         (this.streamConfig = streamConfig);
 
 

@@ -299,7 +299,7 @@ export class MainElement extends GraphicElement {
      * Sets width for the player
      * @param width player width in pixels
      */
-    public setWidth(width: number | number) {
+    public setWidth(width: number | string) {
        this.setSize(width, this.heightOrigValue);
     }
 
@@ -308,7 +308,7 @@ export class MainElement extends GraphicElement {
      * @param height player width in pixels
      * @private
      */
-    public setHeight(height:number){
+    public setHeight(height:number | string){
       this.setSize(this.widthOrigValue, height);
     }
 

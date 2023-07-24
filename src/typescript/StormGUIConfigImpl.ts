@@ -410,7 +410,7 @@ export class StormGUIConfigImpl {
     /**
      * Returns the initial player width
      */
-    public getWidth(): number {
+    public getWidth(): number | string {
         return this.width;
     }
 
@@ -418,14 +418,14 @@ export class StormGUIConfigImpl {
      * Sets the initial player width
      * @param value width in pixels
      */
-    public setWidth(value: number) {
+    public setWidth(value: number | string) {
         this.width = value;
     }
 
     /**
      * Return the initial player height
      */
-    public getHeight(): number {
+    public getHeight(): number | string {
         return this.height;
     }
 
@@ -433,7 +433,7 @@ export class StormGUIConfigImpl {
      * Sets the initial player height
      * @param value hight in pixels
      */
-    public setHeight(value: number) {
+    public setHeight(value: number | string) {
         this.height = value;
     }
 
