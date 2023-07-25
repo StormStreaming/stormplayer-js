@@ -20053,6 +20053,11 @@ define(['exports'], (function (exports) { 'use strict';
      */
 
     /**
+     * Resize observer
+     * @private
+     */
+
+    /**
      * Constructor
      * @param stormPlayer reference to the main player class
      */

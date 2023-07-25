@@ -164,6 +164,10 @@ export class MainElement extends GraphicElement {
      */
     private parentContainer:HTMLElement | null;
 
+    /**
+     * Resize observer
+     * @private
+     */
     private resizeObserver:ResizeObserver;
 
     /**

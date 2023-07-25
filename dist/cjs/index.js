@@ -20053,6 +20053,11 @@ var MainElement = /*#__PURE__*/function (_GraphicElement) {
    */
 
   /**
+   * Resize observer
+   * @private
+   */
+
+  /**
    * Constructor
    * @param stormPlayer reference to the main player class
    */
