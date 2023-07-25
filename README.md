@@ -7,6 +7,8 @@ If you wish to test the player, check its API, look code snippets please visit o
 
 To get started check our examples and documentation at https://www.stormstreaming.com/docs/javascript-getting-started
 
+# Requirements
+* Node 16.16.0+
 
 # Installation
 
@@ -31,6 +33,7 @@ Now you can build the project with:
 
 For development, you can use:
 > `npm run dev`
+
 
 ## Sample setup
 

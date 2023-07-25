@@ -212,7 +212,12 @@ export class MainElement extends GraphicElement {
         let finalPlayerHeight = 360;
 
         // width
-        if (typeof width === "number") {
+        if (typeof width === "undefined") {
+
+            widthValue = 100;
+            isHeightInPixels = false;
+
+        } else if (typeof width === "number") {
 
             widthValue = width;
             isWidthInPixels = true;
@@ -233,7 +238,12 @@ export class MainElement extends GraphicElement {
             throw new Error("Unknown value for parameter \"width\" - it must be a number or a string! ")
 
         // height
-        if (typeof height === "number") {
+        if (typeof height === "undefined") {
+
+            heightValue = 100;
+            isHeightInPixels = false;
+
+        } else if (typeof height === "number") {
 
             heightValue = height;
             isHeightInPixels = true;
@@ -251,7 +261,7 @@ export class MainElement extends GraphicElement {
 
             }
         }  else
-            throw new Error("Unknown value for parameter \"width\" - it must be a number or a string! ")
+            throw new Error("Unknown value for parameter \"height\" - it must be a number or a string! ")
 
 
         if(this.aspectRatio == "none"){

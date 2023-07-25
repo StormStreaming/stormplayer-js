@@ -1,3 +1,5 @@
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 var stormPlayer = (function () {
   'use strict';
 
@@ -20172,7 +20174,10 @@ var stormPlayer = (function () {
         var finalPlayerHeight = 360;
 
         // width
-        if (typeof width === "number") {
+        if (typeof width === "undefined") {
+          widthValue = 100;
+          isHeightInPixels = false;
+        } else if (typeof width === "number") {
           widthValue = width;
           isWidthInPixels = true;
         } else if (typeof width === "string") {
@@ -20186,7 +20191,10 @@ var stormPlayer = (function () {
         } else throw new Error("Unknown value for parameter \"width\" - it must be a number or a string! ");
 
         // height
-        if (typeof height === "number") {
+        if (typeof height === "undefined") {
+          heightValue = 100;
+          isHeightInPixels = false;
+        } else if (typeof height === "number") {
           heightValue = height;
           isHeightInPixels = true;
         } else if (typeof height === "string") {
@@ -20197,7 +20205,7 @@ var stormPlayer = (function () {
             heightValue = parseInt(height);
             isHeightInPixels = false;
           }
-        } else throw new Error("Unknown value for parameter \"width\" - it must be a number or a string! ");
+        } else throw new Error("Unknown value for parameter \"height\" - it must be a number or a string! ");
         if (this.aspectRatio == "none") {
           if (isWidthInPixels) {
             finalPlayerWidth = widthValue;
