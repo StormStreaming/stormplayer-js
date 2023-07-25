@@ -18,7 +18,10 @@ export class StormPlayer extends Dispatcher {
      */
     private static NEXT_PLAYER_ID:number = 0;
 
-
+    /**
+     * Player ID
+     * @private
+     */
     private readonly id:number;
 
     /**
@@ -84,6 +87,7 @@ export class StormPlayer extends Dispatcher {
 
         this.id = StormPlayer.NEXT_PLAYER_ID;
         this.instanceName = "stormPlayer-"+this.id;
+        this.libraryManager = new LibraryManager(this);
         StormPlayer.NEXT_PLAYER_ID++;
 
         if(!wait == true)
@@ -107,12 +111,12 @@ export class StormPlayer extends Dispatcher {
             let createDate = new Date(this.playerConfig.getBroadcastCreateDate());
 
             if(startDate.getTime() - createDate.getTime() < 0)
-                this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
+                this.libraryManager.initialize(this.origLibraryConfig);
             else
                 this.waitingRoom = true;
 
         } else {
-            this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
+            this.libraryManager.initialize(this.origLibraryConfig);
         }
 
         this.mainElement = new MainElement(this);
@@ -125,7 +129,59 @@ export class StormPlayer extends Dispatcher {
         }
 
         this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
+        this.mainElement.setObserver();
         this.setStyle(this.origGUIConfig);
+
+    }
+
+    /**
+     * Registers new event listener with the player
+     * @param event event name
+     * @param callback a callback function
+     */
+    public override addEventListener(event: string | number, callback: any): boolean {
+
+        switch(event){
+            case "playbackStopped":
+            case "playbackStarted":
+            case "volumeChanged":
+            case "playbackProgress":
+            case "metadataReceived":
+            case "playbackPaused":
+            case "playbackInitiated":
+            case "streamBuffering":{
+                return this.libraryManager.addEventListener(event, callback);
+            }
+            break;
+        }
+
+        return super.addEventListener(event, callback);
+
+    }
+
+    /**
+     * Removes event from the player
+     * @param event event name
+     * @param callback callback function previously registered (can be null for inline function)
+     */
+    public override removeEventListener(event: string | number, callback: any = null): boolean {
+
+        switch(event){
+            case "playbackStopped":
+            case "playbackStarted":
+            case "volumeChanged":
+            case "playbackProgress":
+            case "metadataReceived":
+            case "playbackPaused":
+            case "playbackInitiated":
+            case "streamBuffering":{
+                return this.libraryManager.removeEventListener(event, callback);
+            }
+                break;
+        }
+
+        return super.removeEventListener(event, callback);
+
     }
 
     /**
@@ -133,7 +189,8 @@ export class StormPlayer extends Dispatcher {
      * @param setLibraryManager
      */
     public setLibraryManager() {
-        this.libraryManager = new LibraryManager(this.origLibraryConfig, this);
+        this.libraryManager = new LibraryManager(this);
+        this.libraryManager.initialize(this.origLibraryConfig)
     }
 
     /**
@@ -222,7 +279,6 @@ export class StormPlayer extends Dispatcher {
                 if (config.style.progressBar.gradientColor2)
                     player.style.setProperty("--sp-second-progress-bar-color", config.style.progressBar.gradientColor2);
             }
-
             if(config.style.cuePoint){
                 if (config.style.cuePoint.gradientColor1)
                     player.style.setProperty("--sp-first-cue-point-color", config.style.cuePoint.gradientColor1);
@@ -230,7 +286,6 @@ export class StormPlayer extends Dispatcher {
                 if (config.style.cuePoint.gradientColor2)
                     player.style.setProperty("--sp-second-cue-point-color", config.style.cuePoint.gradientColor2);
             }
-
             if(config.style.text){
                 if (config.style.text.titleColor)
                     player.style.setProperty("--sp-text-title-color", config.style.text.titleColor);
@@ -240,7 +295,6 @@ export class StormPlayer extends Dispatcher {
                     player.style.setProperty("--sp-text-error-color", config.style.text.errorColor);
 
             }
-
             if(config.style.icons){
                 if (config.style.icons.primaryColor)
                     player.style.setProperty("--sp-icons-primary-color", config.style.icons.primaryColor);
@@ -251,7 +305,6 @@ export class StormPlayer extends Dispatcher {
                 if (config.style.icons.errorColor)
                     player.style.setProperty("--sp-icons-error-color", config.style.icons.errorColor);
             }
-
             if (config.style.backgroundColor)
                 player.style.setProperty("--sp-background-color", config.style.backgroundColor);
 
@@ -277,9 +330,9 @@ export class StormPlayer extends Dispatcher {
      * @param title new title
      */
     public setTitle(title: string): void {
-        if (!this.mainElement.getHeaderElement()) {
+
+        if (!this.mainElement.getHeaderElement())
             return;
-        }
 
         this.playerConfig.setTitle(title);
         this.mainElement.getHeaderElement().setTitle(title);
@@ -290,9 +343,8 @@ export class StormPlayer extends Dispatcher {
      * @param subtitle
      */
     public setSubtitle(subtitle: string): void {
-        if (!this.mainElement.getHeaderElement()) {
+        if (!this.mainElement.getHeaderElement())
             return;
-        }
 
         this.playerConfig.setSubtitle(subtitle);
         this.mainElement.getHeaderElement().setSubtitle(subtitle);
@@ -336,7 +388,6 @@ export class StormPlayer extends Dispatcher {
             //@ts-ignore - property in the modern browsers to detect touch device in >IE10
             navigator.msMaxTouchPoints > 0
         );
-
     }
 
     /**

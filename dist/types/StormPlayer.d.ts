@@ -18,6 +18,8 @@ export declare class StormPlayer extends Dispatcher {
     waitingRoom: boolean;
     constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: StormStreamConfig, wait?: boolean);
     initialize(): void;
+    addEventListener(event: string | number, callback: any): boolean;
+    removeEventListener(event: string | number, callback?: any): boolean;
     setLibraryManager(): void;
     addCuePoint(title: string, time: number): void;
     removeCuePoint(time: number): void;

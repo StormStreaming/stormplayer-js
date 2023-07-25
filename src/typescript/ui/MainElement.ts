@@ -13,6 +13,7 @@ import {UnmuteElement} from "./UnmuteElement";
 import {UserCapabilities} from "../utilities/UserCapabilities";
 import {ContextMenu} from "./ContextMenu";
 import {Watermark} from "@app/typescript/ui/Watermark";
+import { debounce } from 'lodash';
 
 /**
  * Main graphical element
@@ -172,6 +173,8 @@ export class MainElement extends GraphicElement {
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-container__wrapper stormPlayer");
 
+        const that:MainElement = this;
+
         this.parentContainer = document.getElementById(stormPlayer.getPlayerConfig().getContainerID());
 
         this.getHtmlElement().setAttribute("id",stormPlayer.getInstanceName())
@@ -179,13 +182,14 @@ export class MainElement extends GraphicElement {
 
         this.hideGUITimeoutSeconds = stormPlayer.getPlayerConfig().getGuiHideSeconds();
 
-        this.resizeObserver = new ResizeObserver((entries) => {
-            for (const entry of entries) {
-                this.setSize(this.widthOrigValue, this.heightOrigValue);
-            }});
+        this.resizeObserver = new ResizeObserver(debounce(function(){
+            that.setSize(that.widthOrigValue, that.heightOrigValue);
+        },1));
 
+    }
+
+    public setObserver():void{
         this.resizeObserver.observe(this.parentContainer);
-
     }
 
     /**
@@ -202,7 +206,6 @@ export class MainElement extends GraphicElement {
 
         let finalPlayerWidth = 640;
         let finalPlayerHeight = 360;
-
 
         // width
         if (typeof width === "number") {

@@ -1,6 +1,7 @@
 import {StormPlayer} from "./StormPlayer";
 import {EventType} from "./events/EventType";
 import {StormLibrary, StormStreamConfig} from "@stormstreaming/stormlibrary";
+import {VideoConfig} from "@stormstreaming/stormlibrary/dist/types/types/VideoConfig";
 
 /**
  * Class responsible for managing StormLibrary instance
@@ -50,24 +51,48 @@ export class LibraryManager {
     private currHeight:number | string = 0;
 
     /**
+     * Events registered with this object
+     * @private
+     */
+    private libraryEvents: any = {}
+
+    /**
      * Constructor for the LibraryManager
      *
      * @param config a config for the library
      * @param stormPlayer a reference to the main player class
      */
-    constructor(config: StormStreamConfig, stormPlayer: StormPlayer) {
+    constructor(stormPlayer: StormPlayer) {
         this.stormPlayer = stormPlayer;
+    }
+
+    public initialize(config: StormStreamConfig):void {
 
         this.config = config;
 
-        this.config.settings.video.containerID = stormPlayer.getInstanceName()+"_video";
-        this.config.settings.video.width = stormPlayer.getPlayerConfig().getWidth();
-        this.config.settings.video.height = stormPlayer.getPlayerConfig().getHeight();
+        if(typeof this.config.settings.video != "undefined") {
 
-        this.currWidth = stormPlayer.getPlayerConfig().getWidth();
-        this.currHeight = stormPlayer.getPlayerConfig().getHeight();
+            this.config.settings.video.containerID = this.stormPlayer.getInstanceName() + "_video";
+            this.config.settings.video.width = this.stormPlayer.getPlayerConfig().getWidth();
+            this.config.settings.video.height = this.stormPlayer.getPlayerConfig().getHeight();
+
+        } else {
+
+            let video:VideoConfig = {
+                containerID: this.stormPlayer.getInstanceName() + "_video",
+                width: this.stormPlayer.getPlayerConfig().getWidth(),
+                height: this.stormPlayer.getPlayerConfig().getHeight(),
+            };
+
+            this.config.settings.video = video;
+
+        }
+
+        this.currWidth = this.stormPlayer.getPlayerConfig().getWidth();
+        this.currHeight = this.stormPlayer.getPlayerConfig().getHeight();
 
         this.attachListeners();
+
     }
 
     /**
@@ -88,10 +113,76 @@ export class LibraryManager {
      * Initializes the library
      */
     public initializeLibrary(): void {
+
+        const that:LibraryManager = this;
+
         this.library = new StormLibrary(this.config);
         this.stormPlayer.dispatch(EventType.LIBRARY_CREATED);
         this.library.initialize();
         this.stormPlayer.dispatch(EventType.LIBRARY_INITIALIZED);
+
+        for (const key in this.libraryEvents) {
+            if (this.libraryEvents.hasOwnProperty(key)) {
+                this.libraryEvents[key].listeners.forEach(function(element:any){
+                    that.library.addEventListener(key,element)
+                });
+            }
+        }
+
+    }
+
+    public addEventListener(event: any, callback: any): boolean {
+
+        // Check if the callback is not a function
+        if (typeof callback !== 'function') {
+            console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
+            return false;
+        }
+        // Check if the event is not a string
+        if (typeof event !== 'string') {
+            console.error(`The event name must be a string, the given type is ${typeof event}`);
+            return false;
+        }
+
+        // Create the event if not exists
+        if (this.libraryEvents[event] === undefined) {
+            this.libraryEvents[event] = {
+                listeners: []
+            }
+        }
+
+        this.libraryEvents[event].listeners.push(callback);
+
+        if(this.getLibrary() != null)
+            this.library.addEventListener(event, callback);
+
+        return true;
+
+    }
+
+    /**
+     * Removes event from the player
+     * @param event event name
+     * @param callback callback function previously registered (can be null for inline function)
+     */
+    public removeEventListener(event: string | number, callback: any = null): boolean {
+
+        if(callback == null)
+            this.libraryEvents[event].listeners = null
+
+        if (this.libraryEvents[event] === undefined) {
+            console.error(`This event: ${event} does not exist`);
+            return false;
+        }
+
+        this.libraryEvents[event].listeners = this.libraryEvents[event].listeners.filter((listener: any) => {
+            return listener.toString() !== callback.toString();
+        });
+
+        if(this.getLibrary() != null)
+            if (typeof event === "string")
+                this.library.removeEventListener(event, callback);
+
     }
 
     /**

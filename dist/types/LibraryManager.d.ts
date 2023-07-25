@@ -8,10 +8,14 @@ export declare class LibraryManager {
     private isFullScreenMode;
     private currWidth;
     private currHeight;
-    constructor(config: StormStreamConfig, stormPlayer: StormPlayer);
+    private libraryEvents;
+    constructor(stormPlayer: StormPlayer);
+    initialize(config: StormStreamConfig): void;
     getConfig(): StormStreamConfig;
     getLibrary(): StormLibrary;
     initializeLibrary(): void;
+    addEventListener(event: any, callback: any): boolean;
+    removeEventListener(event: string | number, callback?: any): boolean;
     private attachListeners;
     checkResolution(): void;
     destroy(): void;

@@ -29,6 +29,7 @@ export declare class MainElement extends GraphicElement {
     private parentContainer;
     private resizeObserver;
     constructor(stormPlayer: StormPlayer);
+    setObserver(): void;
     setSize(width: number | string, height: number | string): void;
     setWidth(width: number | string): void;
     setHeight(height: number | string): void;
