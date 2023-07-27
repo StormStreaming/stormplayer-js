@@ -104,6 +104,7 @@ const config = {
                     file: 'dist/umd/index.js',
                     format: 'umd',
                     name: 'stormPlayer',
+                    plugins: [terser()],
                     sourcemap:true,
                 },
             ]
@@ -114,6 +115,7 @@ const config = {
                     file: 'dist/cjs/index.js',
                     format: 'cjs',
                     name: 'stormPlayer',
+                    plugins: [terser()],
                     sourcemap:true,
                 },
             ]
@@ -124,6 +126,7 @@ const config = {
                     file: 'dist/iife/index.js',
                     format: 'iife',
                     name: 'stormPlayer',
+                    plugins: [terser()],
                     sourcemap:true,
                 },
             ]
@@ -134,6 +137,7 @@ const config = {
                     file: 'dist/amd/index.js',
                     format: 'amd',
                     name: 'stormPlayer',
+                    plugins: [terser()],
                     sourcemap:true,
                 },
             ]

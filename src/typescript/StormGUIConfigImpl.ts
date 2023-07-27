@@ -139,7 +139,7 @@ export class StormGUIConfigImpl {
      * Text (translation) for remaining broadcast time
      * @private
      */
-    private broadcastStartTimeText:string = "Broadcasting will start at ${START_DATE}"
+    private broadcastStartTimeText:string = "Broadcasting will start at "
 
     /**
      * Time when broadcast will start

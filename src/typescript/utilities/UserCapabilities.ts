@@ -14,7 +14,9 @@ export class UserCapabilities {
      * Returns true if user is using a mobile browser
      */
     public static isMobile(): boolean {
-        return /Mobile|mini|Fennec|Android|iP(ad|od|hone)/.test(navigator.userAgent);
+        const mobileCheckString = "Mobile|mini|Fennec|Android|iP(ad|od|hone)";
+        const mobileCheckRegExp = new RegExp(mobileCheckString);
+        return mobileCheckRegExp.test(navigator.userAgent);
     }
 
     /**
@@ -42,9 +44,13 @@ export class UserCapabilities {
         let os: string = UserCapabilities.getOS();
 
         if (os != null) {
-            if (/Windows/.test(os)) {
+            const windowsCheckString = "Windows";
+            const windowsCheckRegExp = new RegExp(windowsCheckString);
+            if (windowsCheckRegExp.test(os)) {
+                const windowsExecString = "Windows (.*)";
+                const windowsExecRegExp = new RegExp(windowsExecString);
                 // @ts-ignore
-                osVersion = (/Windows (.*)/.exec(os)[1] != null) ? /Windows (.*)/.exec(os)[1] : osVersion;
+                osVersion = (windowsExecRegExp.exec(os)[1] != null) ? windowsExecRegExp.exec(os)[1] : osVersion;
                 // @ts-ignore
                 os = 'Windows';
             }
@@ -53,13 +59,17 @@ export class UserCapabilities {
                 case 'Mac OS':
                 case 'Mac OS X':
                 case 'Android':
+                    const versionExecString = "(?:Android|Mac OS|Mac OS X|MacPPC|MacIntel|Mac_PowerPC|Macintosh) ([\\.\\_\\d]+)";
+                    const versionExecRegExp = new RegExp(versionExecString);
                     // @ts-ignore
-                    osVersion = /(?:Android|Mac OS|Mac OS X|MacPPC|MacIntel|Mac_PowerPC|Macintosh) ([\.\_\d]+)/.exec(navigator.userAgent)[1];
+                    osVersion = versionExecRegExp.exec(navigator.userAgent)[1];
                     break;
 
                 case 'iOS':
+                    const iOSExecString = "OS (\\d+)_(\\d+)_?(\\d+)?";
+                    const iOSExecRegExp = new RegExp(iOSExecString);
                     // @ts-ignore
-                    osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(navigator.userAgent);
+                    osVersion = iOSExecRegExp.exec(navigator.userAgent);
                     // @ts-ignore
                     osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
                     break;
@@ -67,7 +77,6 @@ export class UserCapabilities {
         }
 
         return osVersion;
-
     }
 
     /**
@@ -191,49 +200,49 @@ export class UserCapabilities {
 
         let os: string = "Unknown OS";
 
-        let oscodes: { os: string, code: RegExp }[] = [
-            {"os": 'Windows 10', "code": /(Windows 10.0|Windows NT 10.0)/},
-            {"os": 'Windows 8.1', "code": /(Windows 8.1|Windows NT 6.3)/},
-            {"os": 'Windows 8', "code": /(Windows 8|Windows NT 6.2)/},
-            {"os": 'Windows 7', "code": /(Windows 7|Windows NT 6.1)/},
-            {"os": 'Windows Vista', "code": /Windows NT 6.0/},
-            {"os": 'Windows Server 2003', "code": /Windows NT 5.2/},
-            {"os": 'Windows XP', "code": /(Windows NT 5.1|Windows XP)/},
-            {"os": 'Windows 2000', "code": /(Windows NT 5.0|Windows 2000)/},
-            {"os": 'Windows ME', "code": /(Win 9x 4.90|Windows ME)/},
-            {"os": 'Windows 98', "code": /(Windows 98|Win98)/},
-            {"os": 'Windows 95', "code": /(Windows 95|Win95|Windows_95)/},
-            {"os": 'Windows NT 4.0', "code": /(Windows NT 4.0|WinNT4.0|WinNT|Windows NT)/},
-            {"os": 'Windows CE', "code": /Windows CE/},
-            {"os": 'Windows 3.11', "code": /Win16/},
-            {"os": 'Android', "code": /Android/},
-            {"os": 'Open BSD', "code": /OpenBSD/},
-            {"os": 'Sun OS', "code": /SunOS/},
-            {"os": 'Chrome OS', "code": /CrOS/},
-            {"os": 'Linux', "code": /(Linux|X11(?!.*CrOS))/},
-            {"os": 'iOS', "code": /(iPhone|iPad|iPod)/},
-            {"os": 'Mac OS X', "code": /Mac OS X/},
-            {"os": 'Mac OS', "code": /(Mac OS|MacPPC|MacIntel|Mac_PowerPC|Macintosh)/},
-            {"os": 'QNX', "code": /QNX/},
-            {"os": 'UNIX', "code": /UNIX/},
-            {"os": 'BeOS', "code": /BeOS/},
-            {"os": 'OS/2', "code": /OS\/2/},
+        let oscodes: { os: string, code: string }[] = [
+            {"os": 'Windows 10', "code": "(Windows 10.0|Windows NT 10.0)"},
+            {"os": 'Windows 8.1', "code": "(Windows 8.1|Windows NT 6.3)"},
+            {"os": 'Windows 8', "code": "(Windows 8|Windows NT 6.2)"},
+            {"os": 'Windows 7', "code": "(Windows 7|Windows NT 6.1)"},
+            {"os": 'Windows Vista', "code": "Windows NT 6.0"},
+            {"os": 'Windows Server 2003', "code": "Windows NT 5.2"},
+            {"os": 'Windows XP', "code": "(Windows NT 5.1|Windows XP)"},
+            {"os": 'Windows 2000', "code": "(Windows NT 5.0|Windows 2000)"},
+            {"os": 'Windows ME', "code": "(Win 9x 4.90|Windows ME)"},
+            {"os": 'Windows 98', "code": "(Windows 98|Win98)"},
+            {"os": 'Windows 95', "code": "(Windows 95|Win95|Windows_95)"},
+            {"os": 'Windows NT 4.0', "code": "(Windows NT 4.0|WinNT4.0|WinNT|Windows NT)"},
+            {"os": 'Windows CE', "code": "Windows CE"},
+            {"os": 'Windows 3.11', "code": "Win16"},
+            {"os": 'Android', "code": "Android"},
+            {"os": 'Open BSD', "code": "OpenBSD"},
+            {"os": 'Sun OS', "code": "SunOS"},
+            {"os": 'Chrome OS', "code": "CrOS"},
+            {"os": 'Linux', "code": "(Linux|X11(?!.*CrOS))"},
+            {"os": 'iOS', "code": "(iPhone|iPad|iPod)"},
+            {"os": 'Mac OS X', "code": "Mac OS X"},
+            {"os": 'Mac OS', "code": "(Mac OS|MacPPC|MacIntel|Mac_PowerPC|Macintosh)"},
+            {"os": 'QNX', "code": "QNX"},
+            {"os": 'UNIX', "code": "UNIX"},
+            {"os": 'BeOS', "code": "BeOS"},
+            {"os": 'OS/2', "code": "OS\\/2"},
             {
                 "os": 'Search Bot',
-                "code": /(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/
+                "code": "(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\\/Teoma|ia_archiver)"
             }
         ];
 
         for (var id in oscodes) {
-            var cs: { os: string, code: RegExp } = oscodes[id];
-            if (cs.code.test(navigator.userAgent)) {
+            var cs: { os: string, code: string } = oscodes[id];
+            var re = new RegExp(cs.code);
+            if (re.test(navigator.userAgent)) {
                 os = cs.os;
                 break;
             }
         }
 
         return os;
-
     }
 
     /**
