@@ -1,6 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
-import {EventType} from "@app/typescript/events/EventType";
 
 /**
  * Class representing stat box
@@ -34,22 +33,21 @@ export class ContextMenu extends GraphicElement {
      */
     public showContextMenu(e: MouseEvent, element: HTMLElement): void {
 
+        const rect = element.getBoundingClientRect();
 
-            const rect = element.getBoundingClientRect();
+        if (element.offsetHeight >= this.htmlElement.offsetHeight + e.clientY)
+            this.htmlElement.style.top = (e.clientY - rect.top).toString() + 'px';
+        else
+            this.htmlElement.style.top = (e.clientY - rect.top - this.htmlElement.offsetHeight).toString() + 'px';
 
-            if (element.offsetHeight >= this.htmlElement.offsetHeight + e.clientY)
-                this.htmlElement.style.top = (e.clientY - rect.top).toString() + 'px';
-            else
-                this.htmlElement.style.top = (e.clientY - rect.top - this.htmlElement.offsetHeight).toString() + 'px';
+        if (element.offsetWidth >= this.htmlElement.offsetWidth + e.clientX)
+            this.htmlElement.style.left = (e.clientX - rect.left).toString() + 'px';
+        else
+            this.htmlElement.style.left = (e.clientX - rect.left - this.htmlElement.offsetWidth).toString() + 'px';
 
-            if (element.offsetWidth >= this.htmlElement.offsetWidth + e.clientX)
-                this.htmlElement.style.left = (e.clientX - rect.left).toString() + 'px';
-            else
-                this.htmlElement.style.left = (e.clientX - rect.left - this.htmlElement.offsetWidth).toString() + 'px';
+        this.htmlElement.classList.remove("hidden");
 
-            this.htmlElement.classList.remove("hidden");
-
-            this.stormPlayer.getMainElement().isOpenMenu = !this.stormPlayer.getMainElement().isOpenMenu;
+        this.stormPlayer.getMainElement().isOpenMenu = !this.stormPlayer.getMainElement().isOpenMenu;
 
     }
 
@@ -74,17 +72,17 @@ export class ContextMenu extends GraphicElement {
 
 
         that.htmlElement.querySelector('.sp-context-menu__statistics').addEventListener('click', function () {
-            that.stormPlayer.dispatch(EventType.BOX_STAT_SHOWN);
-            that.stormPlayer.dispatch(EventType.CONTEXT_MENU_HIDED);
+            that.stormPlayer.dispatchEvent("boxStatShown", {ref:that.stormPlayer});
+            that.stormPlayer.dispatchEvent("contextMenuHid", {ref:that.stormPlayer});
         });
 
-        this.stormPlayer.addEventListener(EventType.CONTEXT_MENU_SHOWN, function (e: {e: MouseEvent, element: HTMLElement}) {
-            that.showContextMenu(e.e, e.element);
-        });
+        //this.stormPlayer.addEventListener(EventType.CONTEXT_MENU_SHOWN, function (e: {e: MouseEvent, element: HTMLElement}) {
+            //that.showContextMenu(e.e, e.element);
+        //});
 
-        this.stormPlayer.addEventListener(EventType.CONTEXT_MENU_HIDED, function () {
-            that.hideContextMenu();
-        });
+        //this.stormPlayer.addEventListener(EventType.CONTEXT_MENU_HIDED, function () {
+            //that.hideContextMenu();
+        //});
 
     }
 }

@@ -1,6 +1,5 @@
 import {GraphicElement} from "../GraphicElement";
 import {StormPlayer} from "../../StormPlayer";
-import {EventType} from "../../events/EventType";
 
 /**
  * Class represents the FullScreen button
@@ -67,19 +66,19 @@ export class FullscreenElement extends GraphicElement {
 
             if (enterFullscreen) {
                 that.isFullScreenMode = true;
-                that.stormPlayer.dispatch(EventType.FULLSCREEN_ENTERED);
+                that.stormPlayer.dispatchEvent("fullscreenEntered", {ref:that.stormPlayer});
             } else {
                 that.isFullScreenMode = false;
-                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXITED);
+                that.stormPlayer.dispatchEvent("fullscreenExited", {ref:that.stormPlayer});
             }
 
         });
 
-        this.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function () {
+        this.stormPlayer.addEventListener("fullscreenEntered", function () {
             that.htmlElement.classList.add("sp-active");
         });
 
-        this.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function () {
+        this.stormPlayer.addEventListener("fullscreenExited", function () {
             that.htmlElement.classList.remove("sp-active");
         });
     }

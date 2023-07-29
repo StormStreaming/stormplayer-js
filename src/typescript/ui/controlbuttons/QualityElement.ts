@@ -1,6 +1,5 @@
 import {GraphicElement} from "../GraphicElement";
 import {StormPlayer} from "../../StormPlayer";
-import {EventType} from "../../events/EventType";
 import {QualityMenuElement} from "./QualityMenuElement";
 
 /**
@@ -79,11 +78,12 @@ export class QualityElement extends GraphicElement {
     protected override attachListeners(): void {
 
         let that = this;
+
         this.qualityButtonElement.addEventListener("click", function () {
-            that.stormPlayer.dispatch(EventType.QUALITY_CLICKED);
+            that.stormPlayer.dispatchEvent("qualitySwitchClicked", {ref:that.stormPlayer});
         });
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
+        this.stormPlayer.addEventListener("libraryInitialized", function () {
 
             that.stormPlayer.getLibrary().addEventListener("libraryReady", function(){
                 that.refreshButton();
@@ -103,7 +103,7 @@ export class QualityElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener(EventType.QUALITY_CHANGED, function(event:any){
+        this.stormPlayer.addEventListener("qualityChanged", function(event){
             setTimeout(function(){
                 that.refreshButton();
             },100)

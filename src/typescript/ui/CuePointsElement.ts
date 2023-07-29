@@ -2,7 +2,6 @@ import { GraphicElement } from "./GraphicElement";
 import { StormPlayer } from "../StormPlayer";
 import { CuePointElement } from "./CuePointElement";
 import { ProgressbarElement } from "./ProgressbarElement";
-import { EventType } from "../events/EventType";
 
 /**
  * Class representing an element containing all CuePoints on the progress bar
@@ -97,12 +96,12 @@ export class CuePointsElement extends GraphicElement {
 
         let that:CuePointsElement = this;
 
-        this.stormPlayer.addEventListener(EventType.CUEPOINT_ADDED, function (e: any) {
-            that.addCuePoint(e.title, e.time);
+        this.stormPlayer.addEventListener("cuePointAdded", function (event) {
+            that.addCuePoint(event.label, event.time);
         });
 
-        this.stormPlayer.addEventListener(EventType.CUEPOINT_REMOVED, function (e: any) {
-            that.removeCuePoint(e.time);
+        this.stormPlayer.addEventListener("cuePointRemoved", function (event) {
+            that.removeCuePoint(event.time);
         });
     }
 }

@@ -1,11 +1,11 @@
-import { Dispatcher } from "./events/Dispatcher";
 import { MainElement } from "./ui/MainElement";
 import { LibraryManager } from "./LibraryManager";
 import { StormLibrary } from "@stormstreaming/stormlibrary";
 import { StormGUIConfigImpl } from "./StormGUIConfigImpl";
 import { StormPlayerConfig } from "./types/StormPlayerConfig";
 import { StormStreamConfig } from "@stormstreaming/stormlibrary";
-export declare class StormPlayer extends Dispatcher {
+import { EventDispatcher } from "./events/EventDispatcher";
+export declare class StormPlayer extends EventDispatcher {
     private static NEXT_PLAYER_ID;
     private readonly id;
     private readonly instanceName;
@@ -16,12 +16,10 @@ export declare class StormPlayer extends Dispatcher {
     private readonly origLibraryConfig;
     private started;
     waitingRoom: boolean;
-    constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: StormStreamConfig, wait?: boolean);
+    constructor(playerConfig: StormPlayerConfig, streamConfig: StormStreamConfig, wait?: boolean);
     initialize(): void;
-    addEventListener(event: string | number, callback: any): boolean;
-    removeEventListener(event: string | number, callback?: any): boolean;
     setLibraryManager(): void;
-    addCuePoint(title: string, time: number): void;
+    addCuePoint(label: string, time: number): void;
     removeCuePoint(time: number): void;
     getLibrary(): StormLibrary;
     getInstanceID(): number;

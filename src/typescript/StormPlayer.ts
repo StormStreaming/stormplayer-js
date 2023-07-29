@@ -1,16 +1,15 @@
-import {Dispatcher} from "./events/Dispatcher";
 import {MainElement} from "./ui/MainElement";
-import {EventType} from "./events/EventType";
 import {LibraryManager} from "./LibraryManager";
 import {StormLibrary} from "@stormstreaming/stormlibrary";
 import {StormGUIConfigImpl} from "./StormGUIConfigImpl";
 import {StormPlayerConfig} from "./types/StormPlayerConfig";
 import {StormStreamConfig} from "@stormstreaming/stormlibrary";
+import {EventDispatcher} from "./events/EventDispatcher";
 
 /**
  * Main class for the player
  */
-export class StormPlayer extends Dispatcher {
+export class StormPlayer extends EventDispatcher {
 
     /**
      * Static variable for assigning IDs to the player
@@ -75,15 +74,18 @@ export class StormPlayer extends Dispatcher {
     /**
      * Constructor for the player
      *
-     * @param guiConfig
-     * @param stormLibraryConfig
+     * @param playerConfig
+     * @param streamConfig
      * @param cuepoints
      */
-    constructor(guiConfig: StormPlayerConfig, stormLibraryConfig: StormStreamConfig, wait:boolean = false) {
+    constructor(playerConfig: StormPlayerConfig, streamConfig: StormStreamConfig, wait:boolean = false) {
         super();
 
-        this.origGUIConfig = guiConfig;
-        this.origLibraryConfig = stormLibraryConfig;
+        if(typeof window === 'undefined' || !window.document || !window.document.createElement)
+            return;
+
+        this.origGUIConfig = playerConfig;
+        this.origLibraryConfig = streamConfig;
 
         this.id = StormPlayer.NEXT_PLAYER_ID;
         this.instanceName = "stormPlayer-"+this.id;
@@ -123,7 +125,7 @@ export class StormPlayer extends Dispatcher {
         document.getElementById(this.playerConfig.getContainerID()).appendChild(this.mainElement.getHtmlElement());
 
         if (!this.waitingRoom) {
-            this.dispatch(EventType.GUI_INITIALIZED);
+            this.dispatchEvent("interfaceReady", {ref:this});
             this.setTitle(this.playerConfig.getTitle());
             this.setSubtitle(this.playerConfig.getSubtitle());
         }
@@ -131,56 +133,6 @@ export class StormPlayer extends Dispatcher {
         this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
         this.mainElement.setObserver();
         this.setStyle(this.origGUIConfig);
-
-    }
-
-    /**
-     * Registers new event listener with the player
-     * @param event event name
-     * @param callback a callback function
-     */
-    public override addEventListener(event: string | number, callback: any): boolean {
-
-        switch(event){
-            case "playbackStopped":
-            case "playbackStarted":
-            case "volumeChanged":
-            case "playbackProgress":
-            case "metadataReceived":
-            case "playbackPaused":
-            case "playbackInitiated":
-            case "streamBuffering":{
-                return this.libraryManager.addEventListener(event, callback);
-            }
-            break;
-        }
-
-        return super.addEventListener(event, callback);
-
-    }
-
-    /**
-     * Removes event from the player
-     * @param event event name
-     * @param callback callback function previously registered (can be null for inline function)
-     */
-    public override removeEventListener(event: string | number, callback: any = null): boolean {
-
-        switch(event){
-            case "playbackStopped":
-            case "playbackStarted":
-            case "volumeChanged":
-            case "playbackProgress":
-            case "metadataReceived":
-            case "playbackPaused":
-            case "playbackInitiated":
-            case "streamBuffering":{
-                return this.libraryManager.removeEventListener(event, callback);
-            }
-                break;
-        }
-
-        return super.removeEventListener(event, callback);
 
     }
 
@@ -195,11 +147,11 @@ export class StormPlayer extends Dispatcher {
 
     /**
      * Adds a new cuePoint to the timeline
-     * @param title title for this cuepoint
+     * @param label label for this cuepoint
      * @param time time in unixtime format for where to attach this cuePoint
      */
-    public addCuePoint(title: string, time: number): void {
-        this.dispatch(EventType.CUEPOINT_ADDED, {title: title, time: time});
+    public addCuePoint(label: string, time: number): void {
+        this.dispatchEvent("cuePointAdded", {ref:this, label: label, time: time});
     }
 
     /**
@@ -207,7 +159,7 @@ export class StormPlayer extends Dispatcher {
      * @param time
      */
     public removeCuePoint(time: number): void {
-        this.dispatch(EventType.CUEPOINT_REMOVED, {time: time});
+        this.dispatchEvent("cuePointRemoved", {ref:this, time: time});
     }
 
     /**

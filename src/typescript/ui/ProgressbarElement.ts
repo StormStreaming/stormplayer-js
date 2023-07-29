@@ -1,8 +1,7 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
 import {CuePointsElement} from "./CuePointsElement";
-import {EventType} from "../events/EventType";
-import {UserCapabilities} from "@app/typescript/utilities/UserCapabilities";
+import {UserCapabilities} from "../utilities/UserCapabilities";
 
 /**
  * Class represents the progress bar
@@ -191,9 +190,7 @@ export class ProgressbarElement extends GraphicElement {
 
         this.lastSeekUpdateTime = seekTime;
 
-        this.stormPlayer.dispatch(EventType.SEEK_SETTED, {
-            seekToTime: seekTime,
-        });
+        this.stormPlayer.dispatchEvent("seekSet", {ref:this.stormPlayer, time:seekTime});
 
     }
 
@@ -233,10 +230,10 @@ export class ProgressbarElement extends GraphicElement {
      */
     public parseServerData(data: any): void {
 
-        this.streamDuration = data.streamDuration; // how long does our stream works
-        this.sourceDuration = data.sourceDuration; // how long is the source broadcasting
-        this.sourceStartTime = data.sourceStartTime; // when the source was started
-        this.streamStartTime = data.streamStartTime; // when our stream was started
+        this.streamDuration = data.playbackDuration; // how long does our stream works
+        this.sourceDuration = data.streamDuration; // how long is the source broadcasting
+        this.sourceStartTime = data.streamStartTime; // when the source was started
+        this.streamStartTime = data.playbackStartTime; // when our stream was started
         this.dvrCacheSize = data.dvrCacheSize; // how many ms does the DVR Cache hold at this point
 
         this.progressBarStartTime = this.sourceStartTime + this.sourceDuration - this.dvrCacheSize;
@@ -403,9 +400,9 @@ export class ProgressbarElement extends GraphicElement {
     protected override attachListeners(): void {
         let that:ProgressbarElement = this;
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
-            that.stormPlayer.getLibrary().addEventListener("playbackProgress", function (e: any) {
-                that.parseServerData(e);
+        this.stormPlayer.addEventListener("libraryCreated", function () {
+            that.stormPlayer.getLibrary().addEventListener("playbackProgress", function (event) {
+                that.parseServerData(event);
             });
         });
 
@@ -418,7 +415,7 @@ export class ProgressbarElement extends GraphicElement {
             this.seekElement.addEventListener("touchstart", function (e) {
                 that.stopRefreshBar = true;
                 that.wasSeekPerformend = false;
-                that.stormPlayer.dispatch(EventType.SEEK_STARTED);
+                that.stormPlayer.dispatchEvent("seekStarted", {ref:that.stormPlayer});
 
                 let rect = that.seekElement.getBoundingClientRect();
                 let xPosition = Math.floor(e.changedTouches[0].clientX - rect.left);
@@ -477,16 +474,15 @@ export class ProgressbarElement extends GraphicElement {
 
                 that.seekTo(newPercent);
 
-                that.stormPlayer.dispatch(EventType.SEEK_ENDED);
+                that.stormPlayer.dispatchEvent("seekEnded", {ref:that.stormPlayer});
                 that.stopRefreshBar = false;
             });
 
         } else {
 
-
             this.seekElement.addEventListener("mousedown", function (e) {
                 that.stopRefreshBar = true;
-                that.stormPlayer.dispatch(EventType.SEEK_STARTED);
+                that.stormPlayer.dispatchEvent("seekStarted",{ref:that.stormPlayer});
             });
 
             this.seekElement.addEventListener("mousemove", function (e) {
@@ -509,7 +505,7 @@ export class ProgressbarElement extends GraphicElement {
             this.seekElement.addEventListener("mouseup", function (e) {
                 that.stopRefreshBar = false;
                 that.seekTo(parseFloat(this.value));
-                that.stormPlayer.dispatch(EventType.SEEK_ENDED);
+                that.stormPlayer.dispatchEvent("seekEnded", {ref:that.stormPlayer});
             });
 
         }

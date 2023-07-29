@@ -31,12 +31,6 @@
         },
         settings: {
             autoStart: true,                              // if true, video will start playing automatically, but will be muted too
-            restartOnError: true,                         // if something bad happens, player will try to restart
-            reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
-            enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
-            video: {
-                scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
-            },
             debug: {
                 console: {                                // console output
                     enabled: true                         // if console output is activated
@@ -73,13 +67,6 @@
      */
     storm.addEventListener("guiHid", function(event){
         console.log("guiHid");
-    });
-
-    /**
-     * Event fires when user clicks any play button
-     */
-    storm.addEventListener("playClicked", function(event){
-        console.log("playClicked");
     });
 
 </script>

@@ -1,6 +1,6 @@
 {
   "name": "@stormstreaming/stormplayer",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-rc.4",
   "description": "",
   "private": false,
   "author": "Web-Anatomy s.c. <contact@web-anatomy.com>",
@@ -28,15 +28,14 @@
     "compile:esmBundled": "cross-env NODE_ENV=production BABEL_ENV=esmBundled rollup -c rollup.config.js",
     "compile:amdBundled": "cross-env NODE_ENV=production BABEL_ENV=amdBundled rollup -c rollup.config.js",
     "compile:cjsBundled": "cross-env NODE_ENV=production BABEL_ENV=cjsBundled rollup -c rollup.config.js",
-    "prepare": "npm run build",
     "build:types": "tsc",
     "compile": "npm-run-all -l -p compile:iifeBundled compile:umdBundled compile:esmBundled compile:amdBundled compile:cjsBundled",
     "build": "npm-run-all -l -p clear compile build:types"
   },
   "dependencies": {
-    "@stormstreaming/stormlibrary": "3.0.0-alpha.2",
-    "@types/lodash": "^4.14.195",
-    "lodash": "^4.17.21"
+    "@stormstreaming/stormlibrary": "3.0.0-rc.1",
+    "@types/lodash.debounce": "^4.0.7",
+    "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.22.8",

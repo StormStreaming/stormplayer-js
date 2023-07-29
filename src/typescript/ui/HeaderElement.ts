@@ -1,6 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
-import {EventType} from "../events/EventType";
 
 /**
  * Header (top) element of the player
@@ -88,7 +87,7 @@ export class HeaderElement extends GraphicElement {
      */
     public setTitle(title: string): void {
         this.wrapperElement.getHtmlElement().querySelector("h2").innerHTML = title;
-        this.stormPlayer.dispatch(EventType.TITLE_SETTED, title);
+        this.stormPlayer.dispatchEvent("titleAdded", {ref:this.stormPlayer, title:title});
     }
 
     /**
@@ -97,7 +96,7 @@ export class HeaderElement extends GraphicElement {
      */
     public setSubtitle(subtitle: string): void {
         this.wrapperElement.getHtmlElement().querySelector("p").innerHTML = subtitle;
-        this.stormPlayer .dispatch(EventType.SUBTITLE_SETTED, subtitle);
+        this.stormPlayer.dispatchEvent("subtitleAdd", {ref:this.stormPlayer, subtitle:subtitle});
     }
 
     /**
@@ -108,21 +107,21 @@ export class HeaderElement extends GraphicElement {
 
         let that:HeaderElement = this;
 
-        this.stormPlayer.addEventListener(EventType.GUI_SHOWN, function () {
+        this.stormPlayer.addEventListener("guiShown", function () {
             that.show();
         });
 
-        this.stormPlayer.addEventListener(EventType.GUI_HIDED, function () {
+        this.stormPlayer.addEventListener("guiHid", function () {
             that.hide();
         });
 
-        this.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function () {
+        this.stormPlayer.addEventListener("fullscreenEntered", function () {
             if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
                 //that.htmlElement.style.display = "none";
             }
         });
 
-        this.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function () {
+        this.stormPlayer.addEventListener("fullscreenExited", function () {
             if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
                 //that.htmlElement.style.display = "flex";
             }

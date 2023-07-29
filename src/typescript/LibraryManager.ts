@@ -1,5 +1,4 @@
 import {StormPlayer} from "./StormPlayer";
-import {EventType} from "./events/EventType";
 import {StormLibrary, StormStreamConfig} from "@stormstreaming/stormlibrary";
 import {VideoConfig} from "@stormstreaming/stormlibrary/dist/types/types/VideoConfig";
 
@@ -117,71 +116,120 @@ export class LibraryManager {
         const that:LibraryManager = this;
 
         this.library = new StormLibrary(this.config);
-        this.stormPlayer.dispatch(EventType.LIBRARY_CREATED);
+        this.stormPlayer.dispatchEvent("libraryCreated",{ref:this.stormPlayer, library:this.library});
+
+        // libraryReady
+        this.library.addEventListener("libraryReady", function(event){
+            that.stormPlayer.dispatchEvent("libraryReady", {ref:that.stormPlayer, mode:event.mode})
+        },false)
+
+        // libraryConnected
+        this.library.addEventListener("libraryConnected", function(event){
+            that.stormPlayer.dispatchEvent("libraryConnected", {ref:that.stormPlayer, mode:event.mode, serverURL:event.serverURL})
+        },false)
+
+        // libraryDisconnected
+        this.library.addEventListener("libraryDisconnected", function(event){
+            that.stormPlayer.dispatchEvent("libraryDisconnected", {ref:that.stormPlayer, mode:event.mode, serverURL:event.serverURL})
+        },false)
+
+        // libraryConnectionFailed
+        this.library.addEventListener("libraryConnectionFailed", function(event){
+            that.stormPlayer.dispatchEvent("libraryConnectionFailed", {ref:that.stormPlayer, mode:event.mode, serverURL:event.serverURL})
+        },false)
+
+        // allConnectionsFailed
+        this.library.addEventListener("allConnectionsFailed", function(event){
+            that.stormPlayer.dispatchEvent("allConnectionsFailed", {ref:that.stormPlayer, mode:event.mode})
+        },false)
+
+        // interactionRequired
+        this.library.addEventListener("interactionRequired", function(event){
+            that.stormPlayer.dispatchEvent("interactionRequired", {ref:that.stormPlayer, mode:event.mode})
+        },false)
+
+        // compatibilityError
+        this.library.addEventListener("compatibilityError", function(event){
+            that.stormPlayer.dispatchEvent("compatibilityError", {ref:that.stormPlayer, message:event.message})
+        },false)
+
+        // playbackInitiated
+        this.library.addEventListener("playbackInitiated", function(event){
+            that.stormPlayer.dispatchEvent("playbackInitiated", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        },false)
+
+        // streamBuffering
+        this.library.addEventListener("streamBuffering", function(event){
+            that.stormPlayer.dispatchEvent("streamBuffering", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        },false)
+
+        // playbackStarted
+        this.library.addEventListener("playbackStarted", function(event){
+            that.stormPlayer.dispatchEvent("playbackStarted", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        },false)
+
+        // playbackPaused
+        this.library.addEventListener("playbackPaused", function(event){
+            that.stormPlayer.dispatchEvent("playbackPaused", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        },false)
+
+        // playbackStopped
+        this.library.addEventListener("playbackStopped", function(event){
+            that.stormPlayer.dispatchEvent("playbackStopped", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        },false)
+
+        // playbackError
+        this.library.addEventListener("playbackError", function(event){
+            that.stormPlayer.dispatchEvent("playbackError", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        },false)
+
+        // playbackProgress
+        this.library.addEventListener("playbackProgress", function(event){
+            that.stormPlayer.dispatchEvent("playbackProgress", {
+                ref:that.stormPlayer,
+                mode:event.mode,
+                streamKey:event.streamKey,
+                playbackDuration:event.playbackDuration,
+                playbackStartTime:event.playbackStartTime,
+                streamStartTime:event.streamStartTime,
+                streamDuration:event.streamDuration,
+                dvrCacheSize:event.dvrCacheSize
+            })
+        },false)
+
+        // streamNotFound
+        this.library.addEventListener("streamNotFound", function(event){
+            that.stormPlayer.dispatchEvent("streamNotFound", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        },false)
+
+        // newStreamSourceAdded
+        this.library.addEventListener("newStreamSourceAdded", function(event){
+            that.stormPlayer.dispatchEvent("newStreamSourceAdded", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        },false)
+
+        // metadataReceived
+        this.library.addEventListener("metadataReceived", function(event){
+            that.stormPlayer.dispatchEvent("metadataReceived", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey, metadata:event.metadata})
+        },false)
+
+        // volumeChanged
+        this.library.addEventListener("volumeChanged", function(event){
+            that.stormPlayer.dispatchEvent("volumeChanged", {ref:that.stormPlayer, mode:event.mode, volume:event.volume, muted:event.muted, invokedBy:event.invokedBy})
+        },false)
+
+        // videoElementCreated
+        this.library.addEventListener("videoElementCreated", function(event){
+            that.stormPlayer.dispatchEvent("videoElementCreated", {ref:that.stormPlayer, videoElement:event.videoElement})
+        },false)
+
+        // SSLError
+        this.library.addEventListener("SSLError", function(event){
+            that.stormPlayer.dispatchEvent("SSLError", {ref:that.stormPlayer, mode:event.mode})
+        },false)
+
         this.library.initialize();
-        this.stormPlayer.dispatch(EventType.LIBRARY_INITIALIZED);
+        this.stormPlayer.dispatchEvent("libraryInitialized",{ref:this.stormPlayer, library:this.library});
 
-        for (const key in this.libraryEvents) {
-            if (this.libraryEvents.hasOwnProperty(key)) {
-                this.libraryEvents[key].listeners.forEach(function(element:any){
-                    that.library.addEventListener(key,element)
-                });
-            }
-        }
-
-    }
-
-    public addEventListener(event: any, callback: any): boolean {
-
-        // Check if the callback is not a function
-        if (typeof callback !== 'function') {
-            console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
-            return false;
-        }
-        // Check if the event is not a string
-        if (typeof event !== 'string') {
-            console.error(`The event name must be a string, the given type is ${typeof event}`);
-            return false;
-        }
-
-        // Create the event if not exists
-        if (this.libraryEvents[event] === undefined) {
-            this.libraryEvents[event] = {
-                listeners: []
-            }
-        }
-
-        this.libraryEvents[event].listeners.push(callback);
-
-        if(this.getLibrary() != null)
-            this.library.addEventListener(event, callback);
-
-        return true;
-
-    }
-
-    /**
-     * Removes event from the player
-     * @param event event name
-     * @param callback callback function previously registered (can be null for inline function)
-     */
-    public removeEventListener(event: string | number, callback: any = null): boolean {
-
-        if(callback == null)
-            this.libraryEvents[event].listeners = null
-
-        if (this.libraryEvents[event] === undefined) {
-            console.error(`This event: ${event} does not exist`);
-            return false;
-        }
-
-        this.libraryEvents[event].listeners = this.libraryEvents[event].listeners.filter((listener: any) => {
-            return listener.toString() !== callback.toString();
-        });
-
-        if(this.getLibrary() != null)
-            if (typeof event === "string")
-                this.library.removeEventListener(event, callback);
 
     }
 
@@ -194,64 +242,59 @@ export class LibraryManager {
         const that:LibraryManager = this;
 
         // when gui is ready, let's create an instance of the library
-        this.stormPlayer.addEventListener(EventType.GUI_INITIALIZED, function () {
-            that.initializeLibrary();
+        this.stormPlayer.addEventListener("interfaceReady", function(event){
+           that.initializeLibrary();
         });
 
-        // when library is created
-        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
-            that.getLibrary().addEventListener("videoElementCreated", function () {
-                document
-                    .querySelector("#" + that.stormPlayer.getInstanceName()+"_video" + " video")
-                    .classList.add("sp-video");
-            });
-        });
+        this.stormPlayer.addEventListener("videoElementCreated", function(event){
+            document.querySelector("#" + that.stormPlayer.getInstanceName()+"_video" + " video").classList.add("sp-video");
+        })
 
         // library is now ready to register events
-        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
+        this.stormPlayer.addEventListener("libraryInitialized", function () {
 
             // when play is clicked
-            that.stormPlayer.addEventListener(EventType.PLAY_CLICKED, function () {
+            that.stormPlayer.addEventListener("playClicked", function () {
                 that.getLibrary().play();
             });
 
             // when pause is cliked
-            that.stormPlayer.addEventListener(EventType.PAUSE_CLICKED, function () {
+            that.stormPlayer.addEventListener("pauseClicked", function () {
                 that.getLibrary().pause();
             });
 
             // when mute is clicked
-            that.stormPlayer.addEventListener(EventType.MUTE_CLICKED, function () {
+            that.stormPlayer.addEventListener("muteClicked", function () {
                 that.getLibrary().mute();
             });
 
             // when mute is clicked again/or unmute button is clicked
-            that.stormPlayer.addEventListener(EventType.UNMUTE_CLICKED, function () {
+            that.stormPlayer.addEventListener("unmuteClicked", function () {
                 that.getLibrary().unmute();
             });
 
             // when toggle play button is clicked (works as pause/play)
-            that.stormPlayer.addEventListener(EventType.TOGGLE_CLICKED, function () {
+            that.stormPlayer.addEventListener("videoClicked", function () {
                 that.getLibrary().togglePlay();
             });
 
             // when volume is changed
-            that.stormPlayer.addEventListener(EventType.VOLUME_CHANGED, function (e: any) {
-                that.getLibrary().setVolume(e.volume);
+            that.stormPlayer.addEventListener("volumeSet", function (event) {
+                that.getLibrary().setVolume(event.volume);
             });
 
             // when video quality is changed
-            that.stormPlayer.addEventListener(EventType.QUALITY_CHANGED, function (e: any) {
-                that.getLibrary().setQuality(e.label);
+            that.stormPlayer.addEventListener("qualityChanged", function (event) {
+                that.getLibrary().setQuality(event.label);
             });
 
             // when user clicks on progress bar or uses thumb to seek
-            that.stormPlayer.addEventListener(EventType.SEEK_SETTED, function (e: any) {
-                that.getLibrary().seek(e.seekToTime);
+            that.stormPlayer.addEventListener("seekSet", function (event) {
+                that.getLibrary().seek(event.time);
             });
 
             // when user enters full-screen mode
-            that.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function () {
+            that.stormPlayer.addEventListener("fullscreenEntered", function () {
                 that.isFullScreenMode = true;
 
                 if(that.resolutionTimeout != null)
@@ -264,8 +307,8 @@ export class LibraryManager {
 
             });
 
-
         });
+
     }
 
     public checkResolution():void{

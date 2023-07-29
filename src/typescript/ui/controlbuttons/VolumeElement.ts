@@ -1,6 +1,5 @@
 import { GraphicElement } from "../GraphicElement";
 import { StormPlayer } from "../../StormPlayer";
-import { EventType } from "../../events/EventType";
 
 /**
  * Class represents volume change button and the slider
@@ -86,7 +85,8 @@ export class VolumeElement extends GraphicElement {
         let px = (percent * 70) / 100;
         this.volumeProgressElement.style.transform = `translateX(${px}px)`;
 
-        this.stormPlayer.dispatch(EventType.VOLUME_CHANGED, {
+        this.stormPlayer.dispatchEvent("volumeSet", {
+            ref:this.stormPlayer,
           volume: percent,
         });
 
@@ -201,18 +201,18 @@ export class VolumeElement extends GraphicElement {
                 that.resetHideTimeout();
             });
 
-            this.stormPlayer.addEventListener(EventType.MUTE_CLICKED, function () {
+            this.stormPlayer.addEventListener("muteClicked", function () {
                 that.volumeButtonElement.classList.remove("sp-active");
                 that.volumeControlWrapperElement.classList.add("sp-hidden");
             });
 
-            this.stormPlayer.addEventListener(EventType.UNMUTE_CLICKED, function () {
+            this.stormPlayer.addEventListener("unmuteClicked", function () {
                 // nothing...
             });
 
         }
 
-        this.stormPlayer.addEventListener(EventType.GUI_HIDED, function () {
+        this.stormPlayer.addEventListener("guiHid", function () {
             that.volumeButtonElement.classList.remove("sp-active");
             that.volumeControlWrapperElement.classList.add("sp-hidden");
         });
@@ -224,17 +224,17 @@ export class VolumeElement extends GraphicElement {
 
         this.volumeButtonElement.addEventListener("click", function (e) {
             if (that.volumeButtonElement.querySelector(".sp-mute-icon").classList.contains("sp-hidden")) {
-                that.stormPlayer.dispatch(EventType.UNMUTE_CLICKED);
+                that.stormPlayer.dispatchEvent("unmuteClicked", {ref:that.stormPlayer});
             } else {
-                that.stormPlayer.dispatch(EventType.MUTE_CLICKED);
+                that.stormPlayer.dispatchEvent("muteClicked", {ref:that.stormPlayer});
             }
         });
 
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
-            that.stormPlayer.getLibrary().addEventListener("volumeChanged", function (event: any){
+        this.stormPlayer.addEventListener("libraryInitialized", function () {
+            that.stormPlayer.getLibrary().addEventListener("volumeChanged", function (event){
                 that.updateVolume(event.volume);
-                if (event.isMuted)
+                if (event.muted)
                     that.showUnMute();
                 else
                     that.showMute();

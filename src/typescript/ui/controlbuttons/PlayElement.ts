@@ -1,6 +1,5 @@
 import {GraphicElement} from "../GraphicElement";
 import {StormPlayer} from "../../StormPlayer";
-import {EventType} from "../../events/EventType";
 
 /**
  * Class represents play button
@@ -79,7 +78,7 @@ export class PlayElement extends GraphicElement {
     protected override attachListeners(): void {
         const that = this;
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
+        this.stormPlayer.addEventListener("libraryInitialized", function () {
 
             that.stormPlayer.getLibrary().addEventListener("interactionRequired", function (e: any) {
                 that.showPlay();
@@ -105,9 +104,9 @@ export class PlayElement extends GraphicElement {
                 return;
 
             if (!that.playButtonElement.querySelector(".sp-play-icon").classList.contains("sp-hidden"))
-                that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
+                that.stormPlayer.dispatchEvent("playClicked",{ref:that.stormPlayer});
             else
-                that.stormPlayer.dispatch(EventType.PAUSE_CLICKED);
+                that.stormPlayer.dispatchEvent("pauseClicked", {ref:that.stormPlayer});
         });
     }
 }

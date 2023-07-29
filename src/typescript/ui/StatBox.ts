@@ -1,6 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
-import {EventType} from "@app/typescript/events/EventType";
 
 /**
  * Class representing stat box
@@ -78,14 +77,14 @@ export class StatBox extends GraphicElement {
         let that:StatBox = this;
 
         that.htmlElement.querySelector('.sp-stat-box_close-btn').addEventListener('click', function () {
-            that.stormPlayer.dispatch(EventType.BOX_STAT_HIDED);
+            that.stormPlayer.dispatchEvent("boxStatShown", {ref:that.stormPlayer});
         });
 
-        this.stormPlayer.addEventListener(EventType.BOX_STAT_SHOWN, function () {
+        this.stormPlayer.addEventListener("boxStatShown", function () {
             that.showStatBox();
         });
 
-        this.stormPlayer.addEventListener(EventType.BOX_STAT_HIDED, function () {
+        this.stormPlayer.addEventListener("boxStatHid", function () {
             that.hideStatBox();
         });
 

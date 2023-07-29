@@ -1,6 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
-import {EventType} from "@app/typescript/events/EventType";
 
 /**
  * Class representing countdown screen
@@ -48,21 +47,13 @@ export class Watermark extends GraphicElement {
 
         let that:Watermark = this;
 
-        this.stormPlayer.addEventListener(EventType.WAITING_ROOM_CREATED, function () {
-
-        });
-
-        this.stormPlayer.addEventListener(EventType.WAITING_ROOM_ENDED, function () {
-
-        });
-
-        this.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function () {
+        this.stormPlayer.addEventListener("fullscreenEntered", function () {
             if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
                 //that.htmlElement.style.display = "none";
             }
         });
 
-        this.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function () {
+        this.stormPlayer.addEventListener("fullscreenExited", function () {
             if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
                 //that.htmlElement.style.display = "block";
             }

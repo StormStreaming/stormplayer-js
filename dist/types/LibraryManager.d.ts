@@ -14,8 +14,6 @@ export declare class LibraryManager {
     getConfig(): StormStreamConfig;
     getLibrary(): StormLibrary;
     initializeLibrary(): void;
-    addEventListener(event: any, callback: any): boolean;
-    removeEventListener(event: string | number, callback?: any): boolean;
     private attachListeners;
     checkResolution(): void;
     destroy(): void;

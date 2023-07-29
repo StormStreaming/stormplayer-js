@@ -1,6 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
-import {EventType} from "../events/EventType";
 
 /**
  * Class represents error element
@@ -22,7 +21,7 @@ export class ErrorElement extends GraphicElement {
     public showErrorMessage(message: string) {
         this.htmlElement.querySelector("span").innerHTML = message;
         this.show();
-        this.stormPlayer.dispatch(EventType.ERROR_SHOWN);
+        this.stormPlayer.dispatchEvent("errorShown", {ref:this.stormPlayer, message:message});
     }
 
     /**
@@ -60,10 +59,14 @@ export class ErrorElement extends GraphicElement {
 
         let that = this;
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
+        this.stormPlayer.addEventListener("libraryCreated", function () {
 
             that.stormPlayer.getLibrary().addEventListener("libraryDisconnected", function (e: any) {
                 that.showErrorMessage(that.stormPlayer.getPlayerConfig().getPlayerDisconnectedText());
+            });
+
+            that.stormPlayer.getLibrary().addEventListener("libraryConnectionFailed", function (e: any) {
+                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getServersFailedText());
             });
 
             that.stormPlayer.getLibrary().addEventListener("allConnectionsFailed", function (e: any) {
@@ -74,11 +77,11 @@ export class ErrorElement extends GraphicElement {
                 that.showErrorMessage(that.stormPlayer.getPlayerConfig().getCompatibilityErrorText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("noSLLError", function (e: any) {
+            that.stormPlayer.getLibrary().addEventListener("SSLError", function (e: any) {
                 that.showErrorMessage(that.stormPlayer.getPlayerConfig().getNoSSLErrorText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("streamError", function (e: any) {
+            that.stormPlayer.getLibrary().addEventListener("playbackError", function (e: any) {
                 that.showErrorMessage(that.stormPlayer.getPlayerConfig().getVideoErrorText());
             });
 
@@ -88,10 +91,6 @@ export class ErrorElement extends GraphicElement {
 
             that.stormPlayer.getLibrary().addEventListener("playbackStopped", function (e: any) {
                 that.showErrorMessage(that.stormPlayer.getPlayerConfig().getVideoStopText());
-            });
-
-            that.stormPlayer.getLibrary().addEventListener("incompatiblePlayerProtocol", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getIncompatiblePlayerProtocolText());
             });
 
         });

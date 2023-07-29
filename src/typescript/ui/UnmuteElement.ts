@@ -1,6 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
-import {EventType} from "../events/EventType";
 
 /**
  * Class representing unmute button. Due to browser's restrictions, no video object can autostart playback with audio "on".
@@ -55,30 +54,30 @@ export class UnmuteElement extends GraphicElement {
     protected override attachListeners(): void {
         let that:UnmuteElement = this;
 
-        this.stormPlayer.addEventListener(EventType.GUI_SHOWN, function () {
+        this.stormPlayer.addEventListener("guiShown", function () {
             if (that.stormPlayer.getPlayerConfig().getTitle() || that.stormPlayer.getPlayerConfig().getSubtitle())
                 that.getHtmlElement().classList.add("sp-unmute__after-header");
             }
         );
 
-        this.stormPlayer .addEventListener(EventType.GUI_HIDED, function () {
+        this.stormPlayer .addEventListener("guiHid", function () {
             that.getHtmlElement().classList.remove("sp-unmute__after-header");
         });
 
         this.htmlElement.addEventListener("click", function () {
-            that.stormPlayer.dispatch(EventType.UNMUTE_CLICKED);
+            that.stormPlayer.dispatchEvent("unmuteClicked", {ref:that.stormPlayer});
         });
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
-            that.stormPlayer.getLibrary().addEventListener("volumeChanged", function (event: any) {
-                if (event.isMuted && event.type == "browser") {
+        this.stormPlayer.addEventListener("libraryInitialized", function () {
+            that.stormPlayer.getLibrary().addEventListener("volumeChanged", function (event) {
+                if (event.muted && event.invokedBy == "browser") {
                     that.show();
                 } else
                     that.hide();
             });
         });
 
-        this.stormPlayer.addEventListener(EventType.TITLE_SETTED, function () {
+        this.stormPlayer.addEventListener("titleAdded", function () {
             if ((that.stormPlayer.getPlayerConfig().getTitle() && that.stormPlayer.getPlayerConfig().getTitle() != "") ||
                 (that.stormPlayer.getPlayerConfig().getSubtitle() && that.stormPlayer.getPlayerConfig().getSubtitle() != ""))
                 that.getHtmlElement().classList.add("sp-unmute__after-header");
@@ -86,16 +85,13 @@ export class UnmuteElement extends GraphicElement {
                 that.getHtmlElement().classList.remove("sp-unmute__after-header");
         });
 
-        this.stormPlayer .addEventListener(EventType.SUBTITLE_SETTED, function () {
+        this.stormPlayer .addEventListener("subtitleAdd", function () {
             if ((that.stormPlayer.getPlayerConfig().getTitle() && that.stormPlayer.getPlayerConfig().getTitle() != "") ||
                 (that.stormPlayer.getPlayerConfig().getSubtitle() && that.stormPlayer.getPlayerConfig().getSubtitle() != ""))
                 that.getHtmlElement().classList.add("sp-unmute__after-header");
             else
                 that.getHtmlElement().classList.remove("sp-unmute__after-header");
         });
-
-
-
 
     }
 }

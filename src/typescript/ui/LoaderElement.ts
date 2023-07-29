@@ -1,6 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
-import {EventType} from "../events/EventType";
 
 /**
  * Loader element
@@ -44,7 +43,7 @@ export class LoaderElement extends GraphicElement {
     protected override attachListeners(): void {
         let that = this;
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
+        this.stormPlayer.addEventListener("libraryCreated", function () {
 
             that.stormPlayer.getLibrary().addEventListener("playbackInitiated", function () {
                 that.show();
@@ -66,15 +65,15 @@ export class LoaderElement extends GraphicElement {
                 that.hide();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("streamError", function () {
-                that.hide();
-            });
+            //that.stormPlayer.getLibrary().addEventListener("streamError", function () {
+                //that.hide();
+            //});
 
             that.stormPlayer.getLibrary().addEventListener("allConnectionsFailed", function () {
                 that.hide();
             });
 
-            that.stormPlayer.addEventListener(EventType.ERROR_SHOWN, function () {
+            that.stormPlayer.addEventListener("errorShown", function () {
                 that.hide();
             });
         });

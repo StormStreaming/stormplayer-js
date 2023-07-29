@@ -1,6 +1,6 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
-import {EventType} from "@app/typescript/events/EventType";
+
 
 /**
  * Class representing countdown screen
@@ -40,7 +40,7 @@ export class WaitingRoom extends GraphicElement {
             if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
                 clearInterval(countdown);
                 setTimeout(() => {
-                    that.stormPlayer.dispatch(EventType.WAITING_ROOM_ENDED);
+                    that.stormPlayer.dispatchEvent("waitingRoomEnded", {ref:that.stormPlayer});
                 }, 1000)
             }
 
@@ -151,14 +151,14 @@ export class WaitingRoom extends GraphicElement {
 
         let that:WaitingRoom = this;
 
-        this.stormPlayer.addEventListener(EventType.WAITING_ROOM_CREATED, function () {
-
+        this.stormPlayer.addEventListener("waitingRoomCreated", function () {
+            // nothing
         });
 
-        this.stormPlayer.addEventListener(EventType.WAITING_ROOM_ENDED, function () {
+        this.stormPlayer.addEventListener("waitingRoomEnded", function () {
             that.stormPlayer.setLibraryManager();
             that.stormPlayer.getMainElement().createPlayer();
-            that.stormPlayer.dispatch(EventType.GUI_INITIALIZED);
+            that.stormPlayer.dispatchEvent("interfaceReady", {ref:that.stormPlayer});
             that.stormPlayer.setTitle(that.stormPlayer.getPlayerConfig().getTitle());
             that.stormPlayer.setSubtitle(that.stormPlayer.getPlayerConfig().getSubtitle());
         });

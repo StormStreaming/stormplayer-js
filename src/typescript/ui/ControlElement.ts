@@ -2,7 +2,6 @@ import { GraphicElement } from "./GraphicElement";
 import { StormPlayer } from "../StormPlayer";
 import { ProgressbarElement } from "./ProgressbarElement";
 import { ControlButtonsElement } from "./controlbuttons/ControlButtonsElement";
-import { EventType } from "../events/EventType";
 
 /**
  * Class represents main control element
@@ -69,21 +68,21 @@ export class ControlElement extends GraphicElement {
 
         let that:ControlElement = this;
 
-        this.stormPlayer .addEventListener(EventType.GUI_SHOWN, function () {
+        this.stormPlayer .addEventListener("guiShown", function () {
             that.show();
         });
 
-        this.stormPlayer.addEventListener(EventType.GUI_HIDED, function () {
+        this.stormPlayer.addEventListener("guiHid", function () {
             that.hide();
         });
 
-        this.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function () {
+        this.stormPlayer.addEventListener("fullscreenEntered", function () {
             if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
                 //that.htmlElement.style.display = "none";
             }
         });
 
-        this.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function () {
+        this.stormPlayer.addEventListener("fullscreenExited", function () {
             if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
                 //that.htmlElement.style.display = "block";
             }

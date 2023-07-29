@@ -1,6 +1,5 @@
 import { GraphicElement } from "../GraphicElement";
 import { StormPlayer } from "../../StormPlayer";
-import { EventType } from "../../events/EventType";
 
 /**
  * Class represents quality menu (the list) for quality switch button
@@ -84,7 +83,8 @@ export class QualityMenuElement extends GraphicElement {
             this.spMenuBoxElement.getHtmlElement().querySelector("ul").appendChild(menuPosition);
 
             menuPosition.addEventListener("click", function () {
-                that.stormPlayer.dispatch(EventType.QUALITY_CHANGED, {
+                that.stormPlayer.dispatchEvent("qualityChanged", {
+                    ref:that.stormPlayer,
                     label: this.getAttribute("data-label"),
                 });
                 that.getHtmlElement().classList.add("sp-menu--hidden");
@@ -114,7 +114,7 @@ export class QualityMenuElement extends GraphicElement {
 
         let that = this;
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
+        this.stormPlayer.addEventListener("libraryInitialized", function () {
 
             if(that.stormPlayer.getLibrary().isInitialized()){
                 that.refreshList();
@@ -138,17 +138,17 @@ export class QualityMenuElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener(EventType.QUALITY_CLICKED, function () {
+        this.stormPlayer.addEventListener("qualitySwitchClicked", function () {
             that.getHtmlElement().classList.toggle("sp-menu--hidden");
         });
 
-        this.stormPlayer.addEventListener(EventType.QUALITY_CHANGED, function () {
+        this.stormPlayer.addEventListener("qualityChanged", function () {
             setTimeout(function(){
                 that.refreshList();
             },100)
         });
 
-        this.stormPlayer.addEventListener(EventType.GUI_HIDED, function () {
+        this.stormPlayer.addEventListener("guiHid", function () {
             that.getHtmlElement().classList.add("sp-menu--hidden");
         });
 

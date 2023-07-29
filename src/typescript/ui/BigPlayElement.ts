@@ -1,6 +1,5 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
-import {EventType} from "../events/EventType";
 
 /**
  * Class representing big play button (visible in the middle of the player)
@@ -65,18 +64,18 @@ export class BigPlayElement extends GraphicElement {
         let that:BigPlayElement = this;
 
         this.htmlElement.addEventListener("click", function () {
-            that.stormPlayer.dispatch(EventType.PLAY_CLICKED);
+            that.stormPlayer.dispatchEvent("playClicked", {ref:that.stormPlayer});
         });
 
-        this.stormPlayer.addEventListener(EventType.SEEK_STARTED, function () {
+        this.stormPlayer.addEventListener("seekStarted", function () {
             that.dontShowPlayback = true;
         });
 
-        this.stormPlayer.addEventListener(EventType.SEEK_ENDED, function () {
+        this.stormPlayer.addEventListener("seekEnded", function () {
             that.dontShowPlayback = false;
         });
 
-        this.stormPlayer.addEventListener(EventType.LIBRARY_CREATED, function () {
+        this.stormPlayer.addEventListener("libraryCreated", function () {
 
             that.stormPlayer.getLibrary().addEventListener("libraryReady", function () {
                 that.show();

@@ -40,6 +40,7 @@ export type StormPlayerConfig = {
         nativeMobileGUI?: boolean;
     };
     style?: {
+        loaderColor?: string;
         progressBar?: {
             gradientColor1?: string;
             gradientColor2?: string;

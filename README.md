@@ -14,7 +14,7 @@ To get started check our examples and documentation at https://www.stormstreamin
 
 1. Using NPM:
 
-> `npm install --save @stormstreaming/stormplayer`
+> `npm install @stormstreaming/stormplayer`
 
 2. Using Yarn:
 
@@ -73,9 +73,6 @@ For development, you can use:
             },
             settings: {
                 autoStart: true,                              // if true, video will start playing automatically, but will be muted too
-                video: {
-                    scalingMode: "fill"                       // possible values "fill", "letterbox", "crop" and "letterbox"
-                },
                 debug: {
                     console: {                                // console output
                         enabled: true                         // if console output is activated
@@ -112,13 +109,6 @@ For development, you can use:
          */
         storm.addEventListener("guiHid", function(event){
             console.log("guiHid");
-        });
-
-        /**
-         * Event fires when user clicks any play button
-         */
-        storm.addEventListener("playClicked", function(event){
-            console.log("playClicked");
         });
 
     </script>
@@ -162,12 +152,6 @@ For development, you can use:
             },
             settings: {
                 autoStart: true,                              // if true, video will start playing automatically, but will be muted too
-                restartOnError: true,                         // if something bad happens, player will try to restart
-                reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
-                enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
-                video: {
-                    scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
-                },
                 debug: {
                     console: {                                // console output
                         enabled: true                         // if console output is activated
@@ -206,13 +190,6 @@ For development, you can use:
             console.log("guiHid");
         });
 
-        /**
-         * Event fires when user clicks any play button
-         */
-        storm.addEventListener("playClicked", function(event){
-            console.log("playClicked");
-        });
-
     </script>
 </body>
 </html>
@@ -246,12 +223,6 @@ const streamConfig = {
     },
     settings: {
         autoStart: true,                              // if true, video will start playing automatically, but will be muted too
-        restartOnError: true,                         // if something bad happens, player will try to restart
-        reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
-        enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
-        video: {
-            scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
-        },
         debug: {
             console: {                                // console output
                 enabled: true                         // if console output is activated
@@ -290,12 +261,6 @@ storm.addEventListener("guiHid", function(event){
     console.log("guiHid");
 });
 
-/**
- * Event fires when user clicks any play button
- */
-storm.addEventListener("playClicked", function(event){
-    console.log("playClicked");
-});
 ```
 
 4. **AMD** (Asynchronous Module Definition).
@@ -334,12 +299,6 @@ storm.addEventListener("playClicked", function(event){
             },
             settings: {
                 autoStart: true,                              // if true, video will start playing automatically, but will be muted too
-                restartOnError: true,                         // if something bad happens, player will try to restart
-                reconnectTime: 1.0,                           // if a connection with a server fails, player will restart in given time
-                enabledProtocols: ["MSE", "HLS"],             // "MSE" for desktop, android browsers and iPad OS, "HLS" for iPhone iOS
-                video: {
-                    scalingMode: "letterbox"                  // possible values "fill", "letterbox", "crop" and "letterbox"
-                },
                 debug: {
                     console: {                                // console output
                         enabled: true                         // if console output is activated
@@ -383,13 +342,6 @@ storm.addEventListener("playClicked", function(event){
                 console.log("guiHid");
             });
 
-            /**
-             * Event fires when user clicks any play button
-             */
-            player.addEventListener("playClicked", function(event){
-                console.log("playClicked");
-            });
-
         });
 
     </script>
@@ -400,7 +352,6 @@ storm.addEventListener("playClicked", function(event){
 ## Attaching and detaching events
 
 ``` JavaScript
-
 /**
  * An event can be registered using addEventListener method (preferably before initialize() method is called)
  */
@@ -424,35 +375,141 @@ storm.removeEventListener("guiHide", onPlayerReady);
 storm.removeEventListener("guiHide");
 ```
 
-## Event list
+## ## Sample event listeners
 
-|      Event name       | Additional data | Description | Can be fired more than once | 
-|:---------------------:| :---: | :---: | :---: | 
-|    interfaceReady     | no | Event fires when the player interface is ready. This action takes place before libraryCreated event. | no |
-|    libraryCreated     | no | Event fires when the player library is created. This action takes place after interfaceReady event. | no |
-|  libraryInitialized   | no | Event fires when the Storm JavaScript Library is initialized. | no |
-|      playClicked      | no | Event fires when user clicks any play button. | yes |
-|     pauseClicked      | no | Event fires when user clicks the pause button. | yes |
-|     videoClicked      | no | Event fires when user clicks the video screen. | yes |
-|      muteClicked      | no | Event fires when user mutes the volume. | yes |
-|      muteClicked      | no | Event fires when volume is unmuted. | yes |
-|   qualityBtnClicked   | no | Event fires when user chooses different stream quality. | yes |
-|    qualityChanged     | no | Event fires when a stream quality is changed. | yes |
-|     volumeChanged     | no | Event fires when stream volume is changed. | yes |
-|   fullscreenEntered   | no | Event fires when user enters fullscreen mode. | yes |
-|   fullscreenExited    | no | Event fires when user exits fullscreen mode. | yes |
-|     errorMessage      | no | Event fires whenever an error message appears. | yes |
-|       guiShowed       | no | Event fires whenever player interface becomes visible (e.g. user mouse activity). | yes |
-|        guiHid         | no | Event fires whenever player interface becomes invisible (user mouse inactivity). | yes |
-|      titleAdded       | no | Event fires whenever a stream title is added. | yes |
-|      subtitleAdd      | no | Event fires whenever a stream subtitle is added. | yes |
-|      seekStarted      | no | Event fires whenever a user grabs progress bar thumb (mouse button down). | yes |
-|       seekEnded       | no | Event fires whenever a user releases progress bar thumb (mouse button up). | yes |
-|        seekTo         | no | Event fires everytime a user clicks on a progress bar or releases progress bar thumb in a new place. | yes |
-|     cuePointAdded     | no | Event fires everytime new CUE Point is added. | yes |
-|    cuePointRemoved    | no | Event fires whenever an existing CUE Point is removed. | yes |
+``` JavaScript
+storm.addEventListener("libraryReady", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID} is ready for interaction!`);
+})
 
-## Playback Event List
+storm.addEventListener("libraryConnected", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Successfully connected to: ${event.serverURL}`);
+})
+
+storm.addEventListener("libraryDisconnected", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Disconnected from: ${event.serverURL}`);
+})
+
+storm.addEventListener("libraryConnectionFailed", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Could not connect to server: ${event.serverURL}`);
+})
+
+storm.addEventListener("allConnectionsFailed", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - All connections from server list failed`);
+})
+
+storm.addEventListener("streamNotFound", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - No stream for streamKey: ${event.streamKey}`);
+})
+
+storm.addEventListener("interactionRequired", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - User interaction is required!`);
+})
+
+storm.addEventListener("playbackInitiated", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Playback initiated for streamKey: ${event.streamKey}`);
+})
+
+storm.addEventListener("playbackStarted", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Playback started for streamKey: ${event.streamKey}`);
+})
+
+storm.addEventListener("playbackPaused", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Playback paused for streamKey: ${event.streamKey}`);
+})
+
+storm.addEventListener("playbackStopped", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Playback stopped for streamKey: ${event.streamKey}`);
+})
+
+storm.addEventListener("volumeChanged", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Volumed changed, new value: ${event.volume}`);
+    console.log(`-- >: is muted: ${event.muted}`);
+    console.log(`-- >: invoked by: ${event.invokedBy}`);
+})
+
+storm.addEventListener("volumeSet", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Volume set to: ${event.volume}`);
+})
+
+storm.addEventListener("metadataReceived", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Metadata arrived`);
+    console.log(`-- >: video-codec: ${event.metadata.getVideoCodec()}`);
+    console.log(`-- >: audio-codec: ${event.metadata.getAudioCodec()}`);
+    console.log(`-- >: video width: ${event.metadata.getVideoWidth()}`);
+    console.log(`-- >: video height: ${event.metadata.getVideoHeight()}`);
+    console.log(`-- >: fps: ${event.metadata.getNominalFPS()}`);
+    console.log(`-- >: encoder: ${event.metadata.getEncoder()}`);
+})
+
+storm.addEventListener("fullscreenEntered", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Entered FullScreen Mode`);
+})
+
+storm.addEventListener("fullscreenExited", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Exited FullScreen Mode`);
+})
+
+storm.addEventListener("guiShown", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Player GUI is now visible`);
+})
+
+storm.addEventListener("guiHid", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Player GUI was hidden due to inactivity`);
+})
+
+storm.addEventListener("qualityChanged", function(event){
+    console.log(`Player ID: ${event.ref.getInstanceID()} - Quality changed to:${event.label}`);
+})
+
+```
+
+
+## Player Event list
+
+|      Event name      | Additional data |                                             Description                                              | Can be fired more than once | 
+|:--------------------:| :---: |:----------------------------------------------------------------------------------------------------:| :---: | 
+|    interfaceReady    | no | Event fires when the player interface is ready. This action takes place before libraryCreated event. | no |
+|    libraryCreated    | no | Event fires when the player library is created. This action takes place after interfaceReady event.  | no |
+|  libraryInitialized  | no |                    Event fires when the Storm JavaScript Library is initialized.                     | no |
+|     playClicked      | no |                            Event fires when user clicks any play button.                             | yes |
+|     pauseClicked     | no |                            Event fires when user clicks the pause button.                            | yes |
+|     videoClicked     | no |                            Event fires when user clicks the video screen.                            | yes |
+|     muteClicked      | no |                               Event fires when user mutes the volume.                                | yes |
+|     muteClicked      | no |                                 Event fires when volume is unmuted.                                  | yes |
+| qualitySwitchClicked | no |                             Event fires when user clicks quality switch.                             | yes |
+|    qualityChanged    | no |                            Event fires when a stream quality is changed.                             | yes |
+|    volumeChanged     | no |                              Event fires when stream volume is changed.                              | yes |
+|  fullscreenEntered   | no |                            Event fires when user enters fullscreen mode.                             | yes |
+|   fullscreenExited   | no |                             Event fires when user exits fullscreen mode.                             | yes |
+|     errorMessage     | no |                            Event fires whenever an error message appears.                            | yes |
+|       guiShown       | no |          Event fires whenever player interface becomes visible (e.g. user mouse activity).           | yes |
+|        guiHid        | no |           Event fires whenever player interface becomes invisible (user mouse inactivity).           | yes |
+|      titleAdded      | no |                            Event fires whenever a stream title is added.                             | yes |
+|     subtitleAdd      | no |                           Event fires whenever a stream subtitle is added.                           | yes |
+|     seekStarted      | no |              Event fires whenever a user grabs progress bar thumb (mouse button down).               | yes |
+|      seekEnded       | no |              Event fires whenever a user releases progress bar thumb (mouse button up).              | yes |
+|       seekSet        | no | Event fires everytime a user clicks on a progress bar or releases progress bar thumb in a new place. | yes |
+|    cuePointAdded     | no |                            Event fires everytime new CUE Point is added.                             | yes |
+|   cuePointRemoved    | no |                        Event fires whenever an existing CUE Point is removed.                        | yes |
+
+## Library Event List (inherited after Storm Library component)
+
+|       Event name        | Additional data |                                                                                                                                                           Description                                                                                                                                                           | Can be fired more than once |
+|:-----------------------:|:---------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------:|
+|      libraryReady       |       no        |                                                                                      This event is activated when the library is prepared to accept API calls. No method should be invoked on the library before this event is registered.                                                                                      |             no              |
+|    libraryConnected     |       no        |                                                                                                      This event is triggered when the library establishes a connection with the Storm Streaming Server or Cloud instance.                                                                                                       |    yes (once per video)     |
+|   libraryDisconnected   |       no        |                                                                                   This event is activated when the library is disconnected from the Storm server, which may occur due to viewer connection problems or other network issues.                                                                                    |    yes (once per video)     |
+| libraryConnectionFailed |       no        |                     This event is triggered when the library fails to establish a connection with a Storm Streaming Server or Cloud instance, possibly due to network issues. If there are additional servers on the configuration list, the library will attempt to connect to a different server instead.                     |             yes             |
+|  allConnectionsFailed   |       no        |                                                        This event is associated with "libraryConnectionFailed". If the library is unable to connect to any of the servers provided in the configuration list, this event indicates that no further action can be taken.                                                         |             yes             |
+|   compatibilityError    |       no        | This event is triggered if a browser or device does not support the provided sources. Please note that the library will attempt all possible measures (switching between various modes) to ensure maximum compatibility with a given device. However, there may be instances where it is simply impossible to initiate a video. |             yes             |
+|   interactionRequired   |       no        |                                                Certain browsers and devices do not permit a video element to initiate on its own and necessitate direct user interaction, such as a mouse click or a touch gesture. This event signifies that such an "engagement" is required.                                                 |             no              |
+|       noSLLError        |       no        |                                                                                                       If an SSL layer is required for specific sources and the browser does not provide it, this error will be displayed.                                                                                                       |             no              |
+|   videoElementCreated   |       no        |                                                                                                               This event is triggered whenever a video element within the library is either created or recreated.                                                                                                               |             yes             |
+|  newStreamSourceAdded   |       no        |                                                                                                     This event is activated whenever a new video source is added to the library (check addSourceStream in the API section).                                                                                                     |             yes             |
+
+
+## Playback Event List (inherited after Storm Library component)
 
 |    Event name    | Additional data |                                                                                                  Description                                                                                                  | Can be fired more than once |
 |:----------------:|:---------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------:|
@@ -496,10 +553,6 @@ Browser compatibility
 * Opera 15+
 
 For legacy browsers, HLS mode is used instead.
-
-## Requirements
-
-- Node v14
 
 ## Resources
 

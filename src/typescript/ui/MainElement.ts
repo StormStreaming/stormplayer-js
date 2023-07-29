@@ -8,12 +8,11 @@ import {ErrorElement} from "./ErrorElement";
 import {BigPlayElement} from "./BigPlayElement";
 import {HeaderElement} from "./HeaderElement";
 import {ControlElement} from "./ControlElement";
-import {EventType} from "../events/EventType";
 import {UnmuteElement} from "./UnmuteElement";
 import {UserCapabilities} from "../utilities/UserCapabilities";
 import {ContextMenu} from "./ContextMenu";
 import {Watermark} from "@app/typescript/ui/Watermark";
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce';
 
 /**
  * Main graphical element
@@ -456,12 +455,12 @@ export class MainElement extends GraphicElement {
         let spContainerElement = this.spContainer.getHtmlElement();
 
         if(this.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
-            this.stormPlayer.addEventListener(EventType.LIBRARY_INITIALIZED, function () {
+            this.stormPlayer.addEventListener("libraryInitialized", function () {
                     that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
                         if (!that.hideGUITimeout) {
                             that.hideGUITimeout = setTimeout(function () {
                                 if (that.stormPlayer.getLibrary().isPlaying())
-                                    that.stormPlayer.dispatch(EventType.GUI_HIDED);
+                                    that.stormPlayer.dispatchEvent("guiHid", {ref:that.stormPlayer});
                             }, that.hideGUITimeoutSeconds * 1000);
                         }
                     });
@@ -471,11 +470,11 @@ export class MainElement extends GraphicElement {
             if (UserCapabilities.isMobile()) {
                 this.htmlElement.addEventListener("touchstart", function () {
                     if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
-                    that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+                    that.stormPlayer.dispatchEvent("guiShown", {ref:that.stormPlayer});
 
                     that.hideGUITimeout = setTimeout(function () {
                         if (that.stormPlayer.getLibrary().isPlaying())
-                            (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
+                            (that.stormPlayer as any).dispatchEvent("guiHid", {ref:that.stormPlayer});
                     }, that.hideGUITimeoutSeconds * 1000);
 
                 });
@@ -485,11 +484,11 @@ export class MainElement extends GraphicElement {
                     if (that.hideGUITimeout)
                         clearTimeout(that.hideGUITimeout);
 
-                    that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+                    that.stormPlayer.dispatchEvent("guiShown", {ref:that.stormPlayer});
 
                     that.hideGUITimeout = setTimeout(function () {
                         if (that.stormPlayer.getLibrary().isPlaying())
-                            (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
+                            (that.stormPlayer as any).dispatchEvent("guiHid", {ref:that.stormPlayer});
                     }, that.hideGUITimeoutSeconds * 1000);
 
                 });
@@ -497,7 +496,7 @@ export class MainElement extends GraphicElement {
             } else {
                 this.htmlElement.addEventListener("mouseenter", function () {
                     if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
-                    that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+                    that.stormPlayer.dispatchEvent("guiShown", {ref:that.stormPlayer});
                 });
 
                 this.htmlElement.addEventListener("mousemove", function () {
@@ -505,11 +504,11 @@ export class MainElement extends GraphicElement {
                     if (that.hideGUITimeout)
                         clearTimeout(that.hideGUITimeout);
 
-                    that.stormPlayer.dispatch(EventType.GUI_SHOWN);
+                    that.stormPlayer.dispatchEvent("guiShown", {ref:that.stormPlayer});
 
                     that.hideGUITimeout = setTimeout(function () {
                         if (that.stormPlayer.getLibrary().isPlaying())
-                            (that.stormPlayer as any).dispatch(EventType.GUI_HIDED);
+                            (that.stormPlayer as any).dispatchEvent("guiHid", {ref:that.stormPlayer});
                     }, that.hideGUITimeoutSeconds * 1000);
 
                 });
@@ -518,7 +517,7 @@ export class MainElement extends GraphicElement {
                     if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
                     if (!that.stormPlayer.waitingRoom) {
                         if (that.stormPlayer.getLibrary().isPlaying())
-                            that.stormPlayer.dispatch(EventType.GUI_HIDED);
+                            that.stormPlayer.dispatchEvent("guiHid", {ref:that.stormPlayer});
                     }
 
                 });
@@ -531,9 +530,8 @@ export class MainElement extends GraphicElement {
                         if (element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
                             return
                     }
-
-                    const element = that.htmlElement;
-                    that.stormPlayer.dispatch(EventType.CONTEXT_MENU_SHOWN, {e, element});
+                    //const element:HTMLElement = that.htmlElement;
+                    that.stormPlayer.dispatchEvent("contextMenuShown", {ref:that.stormPlayer});
                 });
 
                 window.addEventListener("click", function (e) {
@@ -543,20 +541,20 @@ export class MainElement extends GraphicElement {
                             return
                     }
 
-                    that.stormPlayer.dispatch(EventType.CONTEXT_MENU_HIDED);
+                    that.stormPlayer.dispatchEvent("contextMenuHid", {ref:that.stormPlayer});
                 });
             }
         }
 
-        this.stormPlayer.addEventListener(EventType.GUI_SHOWN, function () {
+        this.stormPlayer.addEventListener("guiShown", function () {
             that.spContainer.getHtmlElement().classList.remove("sp-container__disablecursor");
         });
 
-        this.stormPlayer.addEventListener(EventType.GUI_HIDED, function () {
+        this.stormPlayer.addEventListener("guiHid", function () {
             that.spContainer.getHtmlElement().classList.add("sp-container__disablecursor");
         });
 
-        this.stormPlayer.addEventListener(EventType.FULLSCREEN_ENTERED, function () {
+        this.stormPlayer.addEventListener("fullscreenEntered", function () {
 
             spContainerElement.classList.add("sp-fullscreen");
 
@@ -598,7 +596,6 @@ export class MainElement extends GraphicElement {
 
             } else {
 
-
                 that.htmlElement.classList.add("fs-mode");
                 document.body.classList.add("fs-body-fix");
 
@@ -613,7 +610,7 @@ export class MainElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener(EventType.FULLSCREEN_EXITED, function () {
+        this.stormPlayer.addEventListener("fullscreenExited", function () {
 
             spContainerElement.classList.remove("sp-fullscreen");
 
@@ -646,7 +643,6 @@ export class MainElement extends GraphicElement {
                     // nothing
                 }
 
-
             } else {
 
                 that.htmlElement.classList.remove("fs-mode");
@@ -667,24 +663,23 @@ export class MainElement extends GraphicElement {
 
         document.addEventListener("fullscreenchange", function () {
             if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer .dispatch(EventType.FULLSCREEN_EXITED);
-
+                that.stormPlayer.dispatchEvent("fullscreenExited", {ref:that.stormPlayer});
         }, false);
 
 
         document.addEventListener("mozfullscreenchange", function () {
             if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXITED);
+                that.stormPlayer.dispatchEvent("fullscreenExited", {ref:that.stormPlayer});
         }, false);
 
         document.addEventListener("MSFullscreenChange", function () {
             if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXITED);
+                that.stormPlayer.dispatchEvent("fullscreenExited", {ref:that.stormPlayer});
         }, false);
 
         document.addEventListener("webkitfullscreenchange", function () {
             if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer.dispatch(EventType.FULLSCREEN_EXITED);
+                that.stormPlayer.dispatchEvent("fullscreenExited", {ref:that.stormPlayer});
         }, false);
 
     }

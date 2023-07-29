@@ -76,8 +76,6 @@ export default class StormPlayerElement extends HTMLElement {
      */
     private prepare():void {
 
-        console.log("prepare");
-
         // checking for container ID
         if(this.getAttribute("containerID"))
             this.containerID = this.getAttribute("containerID")
@@ -106,7 +104,6 @@ export default class StormPlayerElement extends HTMLElement {
         if(this.getAttribute("streamConfig")){
             try {
                 this.setStreamConfig(JSON.parse(this.getAttribute("streamConfig")));
-                console.log("streamConfig - ok")
             } catch {
                 throw new Error(`streamConfig attribute supplied to containerId=["${this.getAttribute("containerID")}"] must be a valid JSON object`);
             }
@@ -139,7 +136,6 @@ export default class StormPlayerElement extends HTMLElement {
      * @private
      */
     private initialize():void {
-        console.log("initialize");
         this.setupContainer({containerID: this.playerConfig.containerID});
         this.player = new StormPlayer(this.playerConfig, this.streamConfig);
     };
