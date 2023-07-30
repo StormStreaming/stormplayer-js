@@ -227,6 +227,16 @@ export class LibraryManager {
             that.stormPlayer.dispatchEvent("SSLError", {ref:that.stormPlayer, mode:event.mode})
         },false)
 
+        // incompatibleProtocol
+        this.library.addEventListener("incompatibleProtocol", function(event){
+            that.stormPlayer.dispatchEvent("incompatibleProtocol", {ref:that.stormPlayer, mode:event.mode, clientProtocolVer:event.clientProtocolVer, serverProtocolVersion:event.serverProtocolVersion})
+        },false)
+
+        // incompatibleProtocol
+        this.library.addEventListener("licenseError", function(event){
+            that.stormPlayer.dispatchEvent("licenseError", {ref:that.stormPlayer})
+        },false)
+
         this.library.initialize();
         this.stormPlayer.dispatchEvent("libraryInitialized",{ref:this.stormPlayer, library:this.library});
 

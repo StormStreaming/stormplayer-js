@@ -33,7 +33,7 @@
     "build": "npm-run-all -l -p clear compile build:types"
   },
   "dependencies": {
-    "@stormstreaming/stormlibrary": "3.0.0-rc.1",
+    "@stormstreaming/stormlibrary": "file:.yalc/@stormstreaming/stormlibrary",
     "@types/lodash.debounce": "^4.0.7",
     "lodash.debounce": "^4.0.8"
   },

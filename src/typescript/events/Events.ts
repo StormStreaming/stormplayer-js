@@ -54,5 +54,7 @@ export interface StormPlayerEvent {
     "qualitySwitchClicked": {ref:StormPlayer}
     "qualityChanged": {ref:StormPlayer, label:string}
     "SSLError":  { ref:StormPlayer, mode:string};
+    "incompatibleProtocol": {ref:StormPlayer, mode:string, clientProtocolVer:number,serverProtocolVersion:number}
+    "licenseError": {ref:StormPlayer}
 
 }

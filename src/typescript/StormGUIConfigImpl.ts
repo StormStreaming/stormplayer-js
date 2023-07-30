@@ -76,6 +76,18 @@ export class StormGUIConfigImpl {
     private compatibilityErrorText: string = "Your device is not compatible with the available video source.";
 
     /**
+     * This message is displayed when device is not compatible with the player and video cannot be played
+     * @private
+     */
+    private incorrectProtocolVersionText: string = "Incorrect Storm Protocol Version";
+
+    /**
+     * This message is displayed when device is not compatible with the player and video cannot be played
+     * @private
+     */
+    private licenseErrorText: string = "Incorrect Storm Protocol Version";
+
+    /**
      * This message will be displayed if player requires SSL connection
      * @private
      */
@@ -535,6 +547,13 @@ export class StormGUIConfigImpl {
     }
 
     /**
+     * Gets the message for non-ssl connection (if required by the player)
+     */
+    public getLicenseErrorText(): string {
+        return this.licenseErrorText;
+    }
+
+    /**
      * Sets a message for non-ssl connection (if required by the player)
      * @param value
      */
@@ -547,6 +566,10 @@ export class StormGUIConfigImpl {
      */
     public getVideoErrorText(): string {
         return this.streamErrorText;
+    }
+
+    public getIncorrectProtocolVersionText():string {
+        return this.incorrectProtocolVersionText;
     }
 
     /**

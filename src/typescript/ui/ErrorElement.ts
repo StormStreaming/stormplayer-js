@@ -62,11 +62,13 @@ export class ErrorElement extends GraphicElement {
         this.stormPlayer.addEventListener("libraryCreated", function () {
 
             that.stormPlayer.getLibrary().addEventListener("libraryDisconnected", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getPlayerDisconnectedText());
+                if(!that.stormPlayer.getLibrary().getConfig().getSettings().getIfRestartOnError())
+                    that.showErrorMessage(that.stormPlayer.getPlayerConfig().getPlayerDisconnectedText());
             });
 
             that.stormPlayer.getLibrary().addEventListener("libraryConnectionFailed", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getServersFailedText());
+                if(!that.stormPlayer.getLibrary().getConfig().getSettings().getIfRestartOnError())
+                    that.showErrorMessage(that.stormPlayer.getPlayerConfig().getServersFailedText());
             });
 
             that.stormPlayer.getLibrary().addEventListener("allConnectionsFailed", function (e: any) {
@@ -91,6 +93,18 @@ export class ErrorElement extends GraphicElement {
 
             that.stormPlayer.getLibrary().addEventListener("playbackStopped", function (e: any) {
                 that.showErrorMessage(that.stormPlayer.getPlayerConfig().getVideoStopText());
+            });
+
+            that.stormPlayer.getLibrary().addEventListener("incompatibleProtocol", function (e: any) {
+                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getIncorrectProtocolVersionText());
+            });
+
+            that.stormPlayer.getLibrary().addEventListener("licenseError", function (e: any) {
+                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getLicenseErrorText());
+            });
+
+            that.stormPlayer.getLibrary().addEventListener("SSLError", function (e: any) {
+                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getNoSSLErrorText());
             });
 
         });

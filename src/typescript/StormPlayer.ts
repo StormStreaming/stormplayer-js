@@ -90,6 +90,7 @@ export class StormPlayer extends EventDispatcher {
         this.id = StormPlayer.NEXT_PLAYER_ID;
         this.instanceName = "stormPlayer-"+this.id;
         this.libraryManager = new LibraryManager(this);
+
         StormPlayer.NEXT_PLAYER_ID++;
 
         if(!wait == true)
