@@ -11,6 +11,5 @@ deploy
 cdn.config.json
 /deploy/*
 /scripts
-yalc.lock
 /.yalc
-/.yalc/*
+yalc.lock

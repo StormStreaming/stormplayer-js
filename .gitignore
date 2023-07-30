@@ -9,7 +9,6 @@ cdn.config.json
 /deploy/*
 /scripts
 /tests
-yalc.lock
 /.yalc
-/.yalc/*
+yalc.lock
 cdn.config.json
