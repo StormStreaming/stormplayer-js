@@ -206,4 +206,13 @@ export interface StormPlayerEvent {
         ref: StormPlayer;
         mode: string;
     };
+    "incompatibleProtocol": {
+        ref: StormPlayer;
+        mode: string;
+        clientProtocolVer: number;
+        serverProtocolVersion: number;
+    };
+    "licenseError": {
+        ref: StormPlayer;
+    };
 }

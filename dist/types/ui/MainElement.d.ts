@@ -28,6 +28,7 @@ export declare class MainElement extends GraphicElement {
     private resolutionLock;
     private parentContainer;
     private resizeObserver;
+    private isGUIHidden;
     constructor(stormPlayer: StormPlayer);
     setObserver(): void;
     setSize(width: number | string, height: number | string): void;

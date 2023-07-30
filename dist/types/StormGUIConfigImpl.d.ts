@@ -11,6 +11,8 @@ export declare class StormGUIConfigImpl {
     private playerDisconnectedText;
     private connectionFailedText;
     private compatibilityErrorText;
+    private incorrectProtocolVersionText;
+    private licenseErrorText;
     private noSSLErrorText;
     private streamErrorText;
     private streamNotFoundText;
@@ -64,8 +66,10 @@ export declare class StormGUIConfigImpl {
     getCompatibilityErrorText(): string;
     setCompatibilityErrorText(value: string): void;
     getNoSSLErrorText(): string;
+    getLicenseErrorText(): string;
     setNoSSLErrorText(value: string): void;
     getVideoErrorText(): string;
+    getIncorrectProtocolVersionText(): string;
     setVideoErrorText(value: string): void;
     getVideoNotFoundText(): string;
     setVideoNotFoundText(value: string): void;
