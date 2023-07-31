@@ -1,6 +1,6 @@
 {
   "name": "@stormstreaming/stormplayer",
-  "version": "3.0.0-rc.4",
+  "version": "3.0.0-rc.5",
   "description": "",
   "private": false,
   "author": "Web-Anatomy s.c. <contact@web-anatomy.com>",
@@ -30,10 +30,11 @@
     "compile:cjsBundled": "cross-env NODE_ENV=production BABEL_ENV=cjsBundled rollup -c rollup.config.js",
     "build:types": "tsc",
     "compile": "npm-run-all -l -p compile:iifeBundled compile:umdBundled compile:esmBundled compile:amdBundled compile:cjsBundled",
-    "build": "npm-run-all -l -p clear compile build:types"
+    "build": "npm-run-all -l -p clear compile build:types",
+    "deploy": "node scripts/cdn-upload.js"
   },
   "dependencies": {
-    "@stormstreaming/stormlibrary": "file:.yalc/@stormstreaming/stormlibrary",
+    "@stormstreaming/stormlibrary": "3.0.0-rc.2",
     "@types/lodash.debounce": "^4.0.7",
     "lodash.debounce": "^4.0.8"
   },
@@ -69,7 +70,8 @@
     "sass": "^1.63.6",
     "serve": "^14.2.0",
     "tsconfig-replace-paths": "^0.0.14",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "sftp-upload": "^1.0.4"
   },
   "publishConfig": {
     "access": "public"
