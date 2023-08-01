@@ -1,4 +1,4 @@
-import { StormPlayerEvent } from "./Events";
+import { StormPlayerEvent } from "./StormPlayerEvent";
 export declare class EventDispatcher {
     private listeners;
     addEventListener<K extends keyof StormPlayerEvent>(eventName: K, listener: (ev: StormPlayerEvent[K]) => void, removable?: boolean): boolean;

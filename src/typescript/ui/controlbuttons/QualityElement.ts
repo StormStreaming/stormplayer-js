@@ -28,7 +28,15 @@ export class QualityElement extends GraphicElement {
 
         if (this.stormPlayer.getOrigGUIConfig().demoMode) {
             this.show();
-            this.qualityButtonElement.innerHTML = `<span>Quality</span>`;
+
+            let label = "Quality";
+            try {
+                label = this.stormPlayer.getOrigLibraryConfig().stream.sourceList.at(0).streamInfo.label;
+            } catch(e){
+                // nobody's care
+            }
+
+            this.qualityButtonElement.innerHTML = '<span>'+label+'</span>';
         }
     }
 
@@ -63,6 +71,7 @@ export class QualityElement extends GraphicElement {
         super.draw();
 
         this.qualityButtonElement = document.createElement("button");
+        this.qualityButtonElement.setAttribute("type","button");
         this.qualityButtonElement.className = "sp-controls__button";
 
         this.htmlElement.append(this.qualityButtonElement);

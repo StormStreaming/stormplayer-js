@@ -1,5 +1,5 @@
-import {StormPlayerEvent} from "./Events";
-import {EventListener} from "./EventListener";
+import {StormPlayerEvent} from "./StormPlayerEvent";
+import {StormPlayerListener} from "./StormPlayerListener";
 
 /**
  * General class for event-listeners
@@ -10,7 +10,7 @@ export class EventDispatcher {
      * An array storing all the listeners
      * @private
      */
-    private listeners: { [K in keyof StormPlayerEvent]?: Array<EventListener<K>>; } = {};
+    private listeners: { [K in keyof StormPlayerEvent]?: Array<StormPlayerListener<K>>; } = {};
 
     /**
      * Method registers event listener with the object
@@ -26,9 +26,9 @@ export class EventDispatcher {
         let elementFound = false;
 
         if(this.listeners[eventName] != undefined){
-            if((this.listeners[eventName] as EventListener<K>[]).length > 0){
-                for(let i=0;i<(this.listeners[eventName] as EventListener<K>[]).length;i++){
-                    let element:EventListener<K> = (this.listeners[eventName] as EventListener<K>[])[i];
+            if((this.listeners[eventName] as StormPlayerListener<K>[]).length > 0){
+                for(let i=0; i<(this.listeners[eventName] as StormPlayerListener<K>[]).length; i++){
+                    let element:StormPlayerListener<K> = (this.listeners[eventName] as StormPlayerListener<K>[])[i];
                     if(element[1] == listener){
                         elementFound = true;
                         break;
@@ -38,7 +38,7 @@ export class EventDispatcher {
         }
 
         if(!elementFound) {
-            (this.listeners[eventName] as EventListener<K>[]).push([eventName, listener, removable]);
+            (this.listeners[eventName] as StormPlayerListener<K>[]).push([eventName, listener, removable]);
             return true;
         } else
             return false;
@@ -55,14 +55,14 @@ export class EventDispatcher {
         let elementFound = false;
 
         if(this.listeners[eventName] != undefined){
-            if((this.listeners[eventName] as EventListener<K>[]).length > 0){
-                for(let i=0;i<(this.listeners[eventName] as EventListener<K>[]).length;i++){
-                    let element:EventListener<K> = (this.listeners[eventName] as EventListener<K>[])[i];
+            if((this.listeners[eventName] as StormPlayerListener<K>[]).length > 0){
+                for(let i=0; i<(this.listeners[eventName] as StormPlayerListener<K>[]).length; i++){
+                    let element:StormPlayerListener<K> = (this.listeners[eventName] as StormPlayerListener<K>[])[i];
                     if(listener) {
                         if (element[1] == listener) {
                             if (element[2] == true) {
                                 elementFound = true;
-                                (this.listeners[eventName] as EventListener<K>[]).splice(i, 1);
+                                (this.listeners[eventName] as StormPlayerListener<K>[]).splice(i, 1);
                                 break;
                             } else
                                 break;
@@ -70,7 +70,7 @@ export class EventDispatcher {
                     } else {
                         elementFound = true;
                         if (element[2] == true)
-                            (this.listeners[eventName] as EventListener<K>[]).splice(i, 1);
+                            (this.listeners[eventName] as StormPlayerListener<K>[]).splice(i, 1);
                     }
                 }
             }
@@ -87,10 +87,10 @@ export class EventDispatcher {
 
         for(let listener in this.listeners) {
             let eventName = (listener as K);
-            let branch = (this.listeners[eventName] as EventListener<K>[])
+            let branch = (this.listeners[eventName] as StormPlayerListener<K>[])
             if (branch.length > 0) {
                 for (let i = 0; i < branch.length; i++) {
-                    let element: EventListener<K> = branch[i];
+                    let element: StormPlayerListener<K> = branch[i];
                     if (element[2] == true)
                         branch.splice(i, 1);
                 }
@@ -105,9 +105,9 @@ export class EventDispatcher {
      */
     public dispatchEvent<K extends keyof StormPlayerEvent>(eventName: K, event: StormPlayerEvent[K]): void {
         if(this.listeners[eventName] != undefined){
-            if((this.listeners[eventName] as EventListener<K>[]).length > 0){
-                for(let i=0;i<(this.listeners[eventName] as EventListener<K>[]).length;i++){
-                    let element:EventListener<K> = (this.listeners[eventName] as EventListener<K>[])[i];
+            if((this.listeners[eventName] as StormPlayerListener<K>[]).length > 0){
+                for(let i=0; i<(this.listeners[eventName] as StormPlayerListener<K>[]).length; i++){
+                    let element:StormPlayerListener<K> = (this.listeners[eventName] as StormPlayerListener<K>[])[i];
                     (element[1] as Function).call(this, event);
                 }
             }

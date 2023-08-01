@@ -79,6 +79,10 @@ export class GraphicElement {
         this.htmlElement = document.createElement(this.tagName);
         if (this.className != '')
             this.htmlElement.className = this.className;
+
+        if(this.tagName == "button")
+            this.htmlElement.setAttribute("type","button")
+
         this.htmlElement.innerHTML = ``;
     }
 

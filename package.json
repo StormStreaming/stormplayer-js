@@ -1,6 +1,6 @@
 {
   "name": "@stormstreaming/stormplayer",
-  "version": "3.0.0-rc.5",
+  "version": "3.0.0-rc.7",
   "description": "",
   "private": false,
   "author": "Web-Anatomy s.c. <contact@web-anatomy.com>",
@@ -34,7 +34,7 @@
     "deploy": "node scripts/cdn-upload.js"
   },
   "dependencies": {
-    "@stormstreaming/stormlibrary": "3.0.0-rc.2",
+    "@stormstreaming/stormlibrary": "3.0.0-rc.6",
     "@types/lodash.debounce": "^4.0.7",
     "lodash.debounce": "^4.0.8"
   },
@@ -69,9 +69,9 @@
     "run-all": "^1.0.1",
     "sass": "^1.63.6",
     "serve": "^14.2.0",
+    "sftp-upload": "^1.0.4",
     "tsconfig-replace-paths": "^0.0.14",
-    "typescript": "^5.1.6",
-    "sftp-upload": "^1.0.4"
+    "typescript": "^5.1.6"
   },
   "publishConfig": {
     "access": "public"

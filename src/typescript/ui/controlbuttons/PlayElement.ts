@@ -28,6 +28,7 @@ export class PlayElement extends GraphicElement {
         super.draw();
 
         this.playButtonElement = document.createElement("button");
+        this.playButtonElement.setAttribute("type","button");
         this.playButtonElement.className = "sp-play__button";
         this.playButtonElement.innerHTML = `<svg class="sp-play-icon" width="17" height="22" viewBox="0 2 21 26">
                     <g fill="none" fill-rule="evenodd">

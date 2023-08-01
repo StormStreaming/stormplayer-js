@@ -132,6 +132,7 @@ export class VolumeElement extends GraphicElement {
         super.draw();
 
         this.volumeButtonElement = document.createElement("button");
+        this.volumeButtonElement.setAttribute("type","button");
         this.volumeButtonElement.className = "sp-volume__button";
         this.volumeButtonElement.innerHTML = `
                 <svg class="sp-mute-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="21" viewBox="0 0 28 21">
