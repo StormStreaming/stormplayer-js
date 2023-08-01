@@ -100,8 +100,8 @@ For development, you can use:
         /**
          * Event fires whenever player interface becomes visible (e.g. user mouse activity).
          */
-        storm.addEventListener("guiShowed", function(event){
-            console.log("guiShowed");
+        storm.addEventListener("guiShown", function(event){
+            console.log("guiShown");
         });
 
         /**
@@ -504,7 +504,7 @@ storm.addEventListener("qualityChanged", function(event){
 |  allConnectionsFailed   |       no        |                                                        This event is associated with "libraryConnectionFailed". If the library is unable to connect to any of the servers provided in the configuration list, this event indicates that no further action can be taken.                                                         |             yes             |
 |   compatibilityError    |       no        | This event is triggered if a browser or device does not support the provided sources. Please note that the library will attempt all possible measures (switching between various modes) to ensure maximum compatibility with a given device. However, there may be instances where it is simply impossible to initiate a video. |             yes             |
 |   interactionRequired   |       no        |                                                Certain browsers and devices do not permit a video element to initiate on its own and necessitate direct user interaction, such as a mouse click or a touch gesture. This event signifies that such an "engagement" is required.                                                 |             no              |
-|       noSLLError        |       no        |                                                                                                       If an SSL layer is required for specific sources and the browser does not provide it, this error will be displayed.                                                                                                       |             no              |
+|        SLLError         |       no        |                                                                                                       If an SSL layer is required for specific sources and the browser does not provide it, this error will be displayed.                                                                                                       |             no              |
 |   videoElementCreated   |       no        |                                                                                                               This event is triggered whenever a video element within the library is either created or recreated.                                                                                                               |             yes             |
 |  newStreamSourceAdded   |       no        |                                                                                                     This event is activated whenever a new video source is added to the library (check addSourceStream in the API section).                                                                                                     |             yes             |
 
@@ -521,7 +521,7 @@ storm.addEventListener("qualityChanged", function(event){
 | playbackStopped  |       no        |                                       Event will be called when the stream is closed on the server side (usually it means that the broadcaster has stopped streaming).                                        |    yes (once per video)     |
 |  volumeChanged   |    newVolume    |                                                            This event tells us that video volume was changed (either by the system or by a user).                                                             |             yes             |
 |  streamNotFound  |       no        | This event is called whenever a stream with a specific name was not found (was not published or is not ready yet). This event will be triggered after videoConnecting only and will stop a playback sequence. |    yes (once per video)     |
-|   streamError    |       no        |                                              Event indicates that there was a problem with playback (it usually means that the browser was not able to play it).                                              |    yes (once per video)     |
+|  playbackError   |       no        |                                              Event indicates that there was a problem with playback (it usually means that the browser was not able to play it).                                              |    yes (once per video)     |
 
 ## API
 
