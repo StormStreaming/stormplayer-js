@@ -225,28 +225,25 @@ export class StormPlayer extends EventDispatcher {
         const player = this.mainElement.getPlayerElement();
 
         if(config.style) {
+            if (config.style.loaderColor)
+                player.style.setProperty("--sp-loader-color", config.style.loaderColor);
             if(config.style.progressBar){
                 if (config.style.progressBar.gradientColor1)
                     player.style.setProperty("--sp-first-progress-bar-color", config.style.progressBar.gradientColor1);
-
                 if (config.style.progressBar.gradientColor2)
                     player.style.setProperty("--sp-second-progress-bar-color", config.style.progressBar.gradientColor2);
             }
             if(config.style.cuePoint){
                 if (config.style.cuePoint.gradientColor1)
                     player.style.setProperty("--sp-first-cue-point-color", config.style.cuePoint.gradientColor1);
-
                 if (config.style.cuePoint.gradientColor2)
                     player.style.setProperty("--sp-second-cue-point-color", config.style.cuePoint.gradientColor2);
             }
-            if(config.style.text){
-                if (config.style.text.titleColor)
-                    player.style.setProperty("--sp-text-title-color", config.style.text.titleColor);
-                if (config.style.text.subtitleColor)
-                    player.style.setProperty("--sp-text-desc-color", config.style.text.subtitleColor);
-                if (config.style.text.errorColor)
-                    player.style.setProperty("--sp-text-error-color", config.style.text.errorColor);
-
+            if(config.style.unmuteLabel){
+                if (config.style.unmuteLabel.backgroundColor )
+                    player.style.setProperty("--sp-unmute-label-bg-color", config.style.unmuteLabel.backgroundColor);
+                if (config.style.unmuteLabel.primaryColor)
+                    player.style.setProperty("--sp-unmute-label-primary-color", config.style.unmuteLabel.primaryColor);
             }
             if(config.style.icons){
                 if (config.style.icons.primaryColor)
@@ -260,7 +257,14 @@ export class StormPlayer extends EventDispatcher {
             }
             if (config.style.backgroundColor)
                 player.style.setProperty("--sp-background-color", config.style.backgroundColor);
-
+            if(config.style.text){
+                if (config.style.text.titleColor)
+                    player.style.setProperty("--sp-text-title-color", config.style.text.titleColor);
+                if (config.style.text.subtitleColor)
+                    player.style.setProperty("--sp-text-desc-color", config.style.text.subtitleColor);
+                if (config.style.text.errorColor)
+                    player.style.setProperty("--sp-text-error-color", config.style.text.errorColor);
+            }
         }
     }
 

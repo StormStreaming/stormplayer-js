@@ -154,7 +154,7 @@
   align-items: center;
   padding:10px;
   background-color: $unmuteLabelBgColor;
-  color: $unmuteLabelFontColor;
+  color: $unmuteLabelPrimaryColor;
   position:absolute;
   top: 30px;
   left: 15px;
@@ -167,7 +167,7 @@
 
   svg {
     padding-right: 5px;
-    fill: $unmuteLabelFontColor;
+    fill: $unmuteLabelPrimaryColor;
 
     path {
 

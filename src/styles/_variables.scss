@@ -10,6 +10,8 @@ $dark-two: #0e111d;
 $pinkish-red: #df0f33;
 $pinkish-grey: #c3c3c3;
 
+$loaderColor: var(--sp-loader-color, $pastel);
+
 $progressBarColor1: var(--sp-first-progress-bar-color, $pastel);
 $progressBarColor2: var(--sp-second-progress-bar-color, $melon);
 
@@ -17,11 +19,7 @@ $cuePointColor1: var(--sp-first-cue-point-color, $pastel);
 $cuePointColor2: var(--sp-second-cue-point-color, $melon);
 
 $unmuteLabelBgColor: var(--sp-unmute-label-bg-color, $white);
-$unmuteLabelFontColor: var(--sp-unmute-label-font-color, $black);
-
-$titleColor: var(--sp-text-title-color, $white);
-$descColor: var(--sp-text-desc-color, $white);
-$textErrorColor: var(--sp-text-error-color, $white);
+$unmuteLabelPrimaryColor: var(--sp-unmute-label-primary-color, $black);
 
 $iconPrimaryColor: var(--sp-icons-primary-color, $white);
 $iconSecondaryColor: var(--sp-icons-secondary-color, $black);
@@ -29,6 +27,10 @@ $iconActiveColor: var(--sp-icons-active-color, $pastel);
 $iconErrorColor: var(--sp-icons-error-color, $pinkish-red);
 
 $backgroundColor: var(--sp-background-color, $black);
+
+$titleColor: var(--sp-text-title-color, $white);
+$descColor: var(--sp-text-desc-color, $white);
+$textErrorColor: var(--sp-text-error-color, $white);
 
 // colors alpha channel
 $rusty-orange-25: rgba($rusty-orange, 0.25);
