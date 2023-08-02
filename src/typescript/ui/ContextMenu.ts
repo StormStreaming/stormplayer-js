@@ -6,6 +6,8 @@ import {StormPlayer} from "../StormPlayer";
  */
 export class ContextMenu extends GraphicElement {
 
+    private isFullScreen: boolean = false;
+
     /**
      * Constructor
      * @param stormPlayer reference to the main player class
@@ -31,24 +33,44 @@ export class ContextMenu extends GraphicElement {
     /**
      * Shows context menu
      */
-    public showContextMenu(e: MouseEvent, element: HTMLElement): void {
+    public showContextMenu(e: MouseEvent): void {
 
-        const rect = element.getBoundingClientRect();
+        if (this.isFullScreen) {
+            const rect = this.stormPlayer.getMainElement().getPlayerElement().querySelector('video').getBoundingClientRect()
 
-        if (element.offsetHeight >= this.htmlElement.offsetHeight + e.clientY)
-            this.htmlElement.style.top = (e.clientY - rect.top).toString() + 'px';
-        else
-            this.htmlElement.style.top = (e.clientY - rect.top - this.htmlElement.offsetHeight).toString() + 'px';
+            if (this.stormPlayer.getMainElement().getPlayerElement().querySelector('video').offsetHeight >= this.htmlElement.offsetHeight + e.clientY - rect.top )
+                this.htmlElement.style.top = (e.clientY - rect.top).toString() + 'px';
+            else
+                this.htmlElement.style.top = (e.clientY - rect.top - this.htmlElement.offsetHeight).toString() + 'px';
 
-        if (element.offsetWidth >= this.htmlElement.offsetWidth + e.clientX)
-            this.htmlElement.style.left = (e.clientX - rect.left).toString() + 'px';
-        else
-            this.htmlElement.style.left = (e.clientX - rect.left - this.htmlElement.offsetWidth).toString() + 'px';
+            if (this.stormPlayer.getMainElement().getPlayerElement().querySelector('video').offsetWidth >= this.htmlElement.offsetWidth + e.clientX)
+                this.htmlElement.style.left = (e.clientX - rect.left + 1).toString() + 'px';
+            else
+                this.htmlElement.style.left = (e.clientX - rect.left - this.htmlElement.offsetWidth - 1).toString() + 'px';
+        }
+
+        else {
+            const rect = this.stormPlayer.getMainElement().getPlayerElement().getBoundingClientRect();
+
+            if (this.stormPlayer.getMainElement().getPlayerElement().offsetHeight >= this.htmlElement.offsetHeight + e.clientY - rect.top )
+                this.htmlElement.style.top = (e.clientY - rect.top).toString() + 'px';
+            else
+                this.htmlElement.style.top = (e.clientY - rect.top - this.htmlElement.offsetHeight).toString() + 'px';
+
+            if (this.stormPlayer.getMainElement().getPlayerElement().offsetWidth >= this.htmlElement.offsetWidth + e.clientX)
+                this.htmlElement.style.left = (e.clientX - rect.left + 1).toString() + 'px';
+            else
+                this.htmlElement.style.left = (e.clientX - rect.left - this.htmlElement.offsetWidth - 1).toString() + 'px';
+        }
+
+
+        console.log()
+
+
 
         this.htmlElement.classList.remove("hidden");
 
         this.stormPlayer.getMainElement().isOpenMenu = !this.stormPlayer.getMainElement().isOpenMenu;
-
     }
 
     /**
@@ -70,19 +92,25 @@ export class ContextMenu extends GraphicElement {
 
         let that:ContextMenu = this;
 
-
         that.htmlElement.querySelector('.sp-context-menu__statistics').addEventListener('click', function () {
             that.stormPlayer.dispatchEvent("boxStatShown", {ref:that.stormPlayer});
             that.stormPlayer.dispatchEvent("contextMenuHid", {ref:that.stormPlayer});
         });
 
-        //this.stormPlayer.addEventListener(EventType.CONTEXT_MENU_SHOWN, function (e: {e: MouseEvent, element: HTMLElement}) {
-            //that.showContextMenu(e.e, e.element);
-        //});
+        this.stormPlayer.addEventListener("contextMenuShown", function (ref) {
+            that.showContextMenu(ref.e);
+        });
 
-        //this.stormPlayer.addEventListener(EventType.CONTEXT_MENU_HIDED, function () {
-            //that.hideContextMenu();
-        //});
+        this.stormPlayer.addEventListener("contextMenuHid", function () {
+            that.hideContextMenu();
+        });
 
+        this.stormPlayer.addEventListener("fullscreenEntered", function () {
+            that.isFullScreen = true;
+        });
+
+        this.stormPlayer.addEventListener("fullscreenExited", function () {
+            that.isFullScreen = false;
+        });
     }
 }

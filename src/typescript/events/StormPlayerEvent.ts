@@ -47,7 +47,7 @@ export interface StormPlayerEvent {
     "subtitleAdd": {ref:StormPlayer, subtitle:string}
     "boxStatShown": {ref:StormPlayer}
     "boxStatHid": {ref:StormPlayer}
-    "contextMenuShown": {ref:StormPlayer}
+    "contextMenuShown": {ref:StormPlayer, e: MouseEvent}
     "contextMenuHid": {ref:StormPlayer}
     "errorShown": {ref:StormPlayer, message:string}
     "qualitySwitchClicked": {ref:StormPlayer}

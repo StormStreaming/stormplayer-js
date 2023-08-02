@@ -77,7 +77,7 @@ export class StatBox extends GraphicElement {
         let that:StatBox = this;
 
         that.htmlElement.querySelector('.sp-stat-box_close-btn').addEventListener('click', function () {
-            that.stormPlayer.dispatchEvent("boxStatShown", {ref:that.stormPlayer});
+            that.stormPlayer.dispatchEvent("boxStatHid", {ref:that.stormPlayer});
         });
 
         this.stormPlayer.addEventListener("boxStatShown", function () {
