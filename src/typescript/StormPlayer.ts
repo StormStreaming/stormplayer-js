@@ -5,11 +5,18 @@ import {StormGUIConfigImpl} from "./StormGUIConfigImpl";
 import {StormPlayerConfig} from "./types/StormPlayerConfig";
 import {StormStreamConfig} from "@stormstreaming/stormlibrary";
 import {EventDispatcher} from "./events/EventDispatcher";
+import {VERSION} from "rollup";
 
 /**
  * Main class for the player
  */
 export class StormPlayer extends EventDispatcher {
+
+    /**
+     * Version
+     * @private
+     */
+    private static VERSION:string = "3.0.0";
 
     /**
      * Static variable for assigning IDs to the player
@@ -345,6 +352,10 @@ export class StormPlayer extends EventDispatcher {
             //@ts-ignore - property in the modern browsers to detect touch device in >IE10
             navigator.msMaxTouchPoints > 0
         );
+    }
+
+    public getVersion(): string {
+        return StormPlayer.VERSION;
     }
 
     /**

@@ -22,28 +22,57 @@ export class StatBox extends GraphicElement {
     protected override draw(): void {
         super.draw();
 
+        this.htmlElement.classList.add("sp-hidden");
+    }
+
+    public update():void {
+
+        let that:StatBox = this;
+
+        let streamKey:string = "Unknown";
+        let host:string = "Unknown";
+        let metadata:string = "Unknown";
+
+        // streamKey
+        try {
+            streamKey = this.stormPlayer.getLibrary().getCurrentSource().getStreamKey();
+        } catch(error){
+
+        }
+
+        try {
+            host = this.stormPlayer.getLibrary().internalPlayer.connection.socketURL;
+        } catch(error){
+
+        }
+
+        try {
+            metadata = this.stormPlayer.getLibrary().internalPlayer.metaData.toString();
+            let metadataArray = metadata.split("|");
+            metadata = metadataArray.join("<br>");
+        } catch(error){
+
+        }
+
         this.htmlElement.innerHTML =`
          <span class="sp-stat-box_close-btn">x</span>
          <div class="sp-stat-box_column sp-stat-box_column--first">
-           <span>streamName</span>
-           <span>application</span>
+           <span>streamKey</span>
            <span>host</span>
-           <span>Codecs</span>
-           <span>Bandwidth</span>
-           <span>Buffer size</span>
+           <span>metadata</span>
          </div>
          <div class="sp-stat-box_column">
-           <span>abdf2342341</span>
-           <span>live</span>
-           <span>stormstreaming01.web-anatomy.com</span>
-           <span>h.264 / aac</span>
-           <div class="canvas">
-             <canvas id="canvas" ></canvas>
-             <span>4000 Kbps</span>
-           </div cl>
+           <span>${streamKey}</span>
+           <span>${host}</span>
+           <span>${metadata}</span>
          </div>
         `;
         this.htmlElement.classList.add("sp-hidden");
+
+        that.htmlElement.querySelector('.sp-stat-box_close-btn').addEventListener('click', function () {
+            that.stormPlayer.dispatchEvent("boxStatHid", {ref:that.stormPlayer});
+        });
+
     }
 
     /**
@@ -76,11 +105,8 @@ export class StatBox extends GraphicElement {
 
         let that:StatBox = this;
 
-        that.htmlElement.querySelector('.sp-stat-box_close-btn').addEventListener('click', function () {
-            that.stormPlayer.dispatchEvent("boxStatHid", {ref:that.stormPlayer});
-        });
-
         this.stormPlayer.addEventListener("boxStatShown", function () {
+            that.update();
             that.showStatBox();
         });
 

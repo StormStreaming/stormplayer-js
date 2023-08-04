@@ -105,11 +105,12 @@
   }
 
   input[type="range"].sp-volume__input {
-    height: 7px;
+    height: 7px !important;
     background-color: transparent;
     overflow: hidden;
     border-radius: 100px;
-    margin-left: -15px;
+    margin-left: 0 0 0 -15px !important;
+    padding: 0 !important;
     opacity: 0;
   }
 

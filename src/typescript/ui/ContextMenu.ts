@@ -25,7 +25,8 @@ export class ContextMenu extends GraphicElement {
         super.draw();
 
         this.htmlElement.innerHTML =`
-         <li class="sp-context-menu__statistics">statystyki</li>
+         <li class="sp-context-menu__statistics storm">Storm JavaScript Player v${this.stormPlayer.getVersion()}</li>
+         <li class="sp-context-menu__statistics debug">Debug</li>
         `;
 
     }
@@ -92,10 +93,16 @@ export class ContextMenu extends GraphicElement {
 
         let that:ContextMenu = this;
 
-        that.htmlElement.querySelector('.sp-context-menu__statistics').addEventListener('click', function () {
+        that.htmlElement.querySelector('.storm').addEventListener('click', function () {
+            window. open("https://stormstreaming.com", "_blank")
+            that.stormPlayer.dispatchEvent("contextMenuHid", {ref:that.stormPlayer});
+        });
+
+        that.htmlElement.querySelector('.debug').addEventListener('click', function () {
             that.stormPlayer.dispatchEvent("boxStatShown", {ref:that.stormPlayer});
             that.stormPlayer.dispatchEvent("contextMenuHid", {ref:that.stormPlayer});
         });
+
 
         this.stormPlayer.addEventListener("contextMenuShown", function (ref) {
             that.showContextMenu(ref.e);

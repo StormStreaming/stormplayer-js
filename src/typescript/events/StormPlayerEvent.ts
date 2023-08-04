@@ -1,4 +1,4 @@
-import {StormPlayer} from "@app/typescript/StormPlayer";
+import {StormPlayer} from "../StormPlayer";
 import {StormMetaDataItem} from "@stormstreaming/stormlibrary/dist/types/model/StormMetaDataItem";
 import {StormLibrary} from "@stormstreaming/stormlibrary";
 
