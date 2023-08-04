@@ -1,55 +1,64 @@
 .sp-header {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  transition: all 0.2s ease;
-  padding: 8px 15px 0 15px;
-  //padding: 22px 28px;
-  pointer-events: none;
-  display: flex;
-  justify-content: space-between;
-  border-radius: $video-radius;
-  overflow: hidden;
-
-  //@media (min-width: $laptop-min) {
-  //  padding: 14px 15px;
-  //}
-
-  &__shadow {
-    opacity: 0.8;
-    transform: rotate(-180deg);
-    background-image: linear-gradient(to bottom, rgba($dark, 0), $dark);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
-
-  &__wrapper {
-    position: relative;
-    z-index: 2;
-  }
-
-  &__text {
-    font-family: 'Montserrat-Bold', sans-serif;
-  }
-
-  &__title {
-    font-size: 22px;
-    margin-bottom: 0px;
-    color: $titleColor;
-  }
-
-  &__sub-title {
-
-    display: block;
-    font-size: 16px;
-    color: $descColor;
-  }
-
-  &__hidden {
-    opacity: 0;
+  & {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    transition: all 0.2s ease !important;
+    padding: 8px 15px 0 15px !important;
+    pointer-events: none !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    border-radius: $video-radius !important;
+    overflow: hidden !important;
   }
 }
+
+.sp-header__shadow {
+  & {
+    opacity: 0.8 !important;
+    transform: rotate(-180deg) !important;
+    background-image: linear-gradient(to bottom, rgba($dark, 0), $dark) !important;
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+
+.sp-header__wrapper {
+  & {
+    position: relative !important;
+    z-index: 2 !important;
+  }
+}
+
+.sp-header__text {
+  & {
+    font-family: 'Montserrat-Bold', sans-serif !important;
+  }
+}
+
+.sp-header__title {
+  & {
+    font-size: 22px !important;
+    margin-bottom: 0 !important;
+    color: $titleColor !important;
+  }
+}
+
+.sp-header__sub-title {
+  & {
+    display: block !important;
+    font-size: 16px !important;
+    color: $descColor !important;
+  }
+}
+
+.sp-header__hidden {
+  & {
+    opacity: 0 !important;
+  }
+}
+
