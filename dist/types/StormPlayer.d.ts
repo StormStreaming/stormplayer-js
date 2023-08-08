@@ -6,6 +6,7 @@ import { StormPlayerConfig } from "./types/StormPlayerConfig";
 import { StormStreamConfig } from "@stormstreaming/stormlibrary";
 import { EventDispatcher } from "./events/EventDispatcher";
 export declare class StormPlayer extends EventDispatcher {
+    private static VERSION;
     private static NEXT_PLAYER_ID;
     private readonly id;
     private readonly instanceName;
@@ -25,6 +26,7 @@ export declare class StormPlayer extends EventDispatcher {
     getInstanceID(): number;
     getInstanceName(): string;
     getMainElement(): MainElement;
+    setMainElement(element: MainElement): void;
     setSize(width: number | string, height: number | string): void;
     setWidth(width: number | string): void;
     setHeight(height: number | string): void;
@@ -38,5 +40,6 @@ export declare class StormPlayer extends EventDispatcher {
     getOrigGUIConfig(): StormPlayerConfig;
     getLibraryManager(): LibraryManager;
     isTouchDevice(): boolean;
+    getVersion(): string;
     destroy(): void;
 }

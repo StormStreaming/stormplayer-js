@@ -199,6 +199,14 @@ export class StormPlayer extends EventDispatcher {
     }
 
     /**
+     * Sets new main element
+     * @param element
+     */
+    public setMainElement(element:MainElement){
+        this.mainElement = element;
+    }
+
+    /**
      * Resizes the player
      * @param width new player width in pixels
      * @param height new player height in pixels
@@ -262,8 +270,10 @@ export class StormPlayer extends EventDispatcher {
                 if (config.style.icons.errorColor)
                     player.style.setProperty("--sp-icons-error-color", config.style.icons.errorColor);
             }
+
             if (config.style.backgroundColor)
                 player.style.setProperty("--sp-background-color", config.style.backgroundColor);
+
             if(config.style.text){
                 if (config.style.text.titleColor)
                     player.style.setProperty("--sp-text-title-color", config.style.text.titleColor);

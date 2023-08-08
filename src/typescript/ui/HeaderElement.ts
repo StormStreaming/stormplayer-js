@@ -1,5 +1,6 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
+import {UserCapabilities} from "@app/typescript/utilities/UserCapabilities";
 
 /**
  * Header (top) element of the player
@@ -116,14 +117,14 @@ export class HeaderElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("fullscreenEntered", function () {
-            if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
-                //that.htmlElement.style.display = "none";
+            if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                that.htmlElement.style.display = "none";
             }
         });
 
         this.stormPlayer.addEventListener("fullscreenExited", function () {
-            if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
-                //that.htmlElement.style.display = "flex";
+            if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                that.htmlElement.style.display = "flex";
             }
         });
 

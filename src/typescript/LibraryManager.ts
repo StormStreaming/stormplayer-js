@@ -1,6 +1,7 @@
 import {StormPlayer} from "./StormPlayer";
 import {StormLibrary, StormStreamConfig} from "@stormstreaming/stormlibrary";
 import {VideoConfig} from "@stormstreaming/stormlibrary/dist/types/types/VideoConfig";
+import {UserCapabilities} from "@app/typescript/utilities/UserCapabilities";
 
 /**
  * Class responsible for managing StormLibrary instance
@@ -54,6 +55,12 @@ export class LibraryManager {
      * @private
      */
     private libraryEvents: any = {}
+
+    /**
+     * Reference to the newst video element
+     * @private
+     */
+    private videoElement:HTMLVideoElement | undefined;
 
     /**
      * Constructor for the LibraryManager
@@ -307,6 +314,11 @@ export class LibraryManager {
             that.stormPlayer.addEventListener("fullscreenEntered", function () {
                 that.isFullScreenMode = true;
 
+
+                if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                    that.library.getVideoElement().setAttribute("controls","true");
+                }
+
                 if(that.resolutionTimeout != null)
                     clearInterval(that.resolutionTimeout);
 
@@ -314,6 +326,16 @@ export class LibraryManager {
                 that.resolutionTimeout = setInterval(function(){
                     that.checkResolution();
                 },100);
+
+            });
+
+            // when user enters full-screen mode
+            that.stormPlayer.addEventListener("fullscreenExited", function () {
+                that.isFullScreenMode = false
+
+                if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                    that.library.getVideoElement().setAttribute("controls","false");
+                }
 
             });
 

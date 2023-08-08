@@ -145,9 +145,16 @@ export class MainElement extends GraphicElement {
      */
     private copyPlayerHeight:number;
 
-
+    /**
+     * Original width value
+     * @private
+     */
     private widthOrigValue:number | string;
 
+    /**
+     * Original height value
+     * @private
+     */
     private heightOrigValue:number | string;
 
     /**
@@ -169,7 +176,15 @@ export class MainElement extends GraphicElement {
      */
     private resizeObserver:ResizeObserver;
 
+    /**
+     * Is currently gui hidden?
+     * @private
+     */
     private isGUIHidden:boolean = false;
+
+    private mainWrapper:HTMLElement;
+
+    private shadowRoot:ShadowRoot;
 
     /**
      * Constructor
@@ -180,18 +195,22 @@ export class MainElement extends GraphicElement {
 
         const that:MainElement = this;
 
+
+        this.stormPlayer.setMainElement(this);
         this.parentContainer = document.getElementById(stormPlayer.getPlayerConfig().getContainerID());
 
         this.getHtmlElement().setAttribute("id",stormPlayer.getInstanceName())
+
         this.aspectRatio = stormPlayer.getPlayerConfig().getAspectRatio();
 
         this.hideGUITimeoutSeconds = stormPlayer.getPlayerConfig().getGuiHideSeconds();
 
         this.resizeObserver = new ResizeObserver(debounce(function(){
             that.setSize(that.widthOrigValue, that.heightOrigValue);
-        },1));
+        },100));
 
     }
+
 
     public setObserver():void{
         this.resizeObserver.observe(this.parentContainer);
@@ -203,6 +222,13 @@ export class MainElement extends GraphicElement {
      * @param height player height in pixels
      */
     public setSize(width: number | string, height: number | string) {
+
+        this.htmlElement.style.display = "none";
+
+        let tempContainerWidth:number = this.parentContainer?.getBoundingClientRect().width;
+        let tempContainerHeight:number = this.parentContainer?.getBoundingClientRect().height;
+
+        this.htmlElement.style.display = "block";
 
         let widthValue:number = 0;
         let heightValue:number = 0;
@@ -271,7 +297,7 @@ export class MainElement extends GraphicElement {
                 finalPlayerWidth = widthValue;
             } else {
                 if(this.parentContainer != null)
-                    finalPlayerWidth = (this.parentContainer?.getBoundingClientRect().width*widthValue/100);
+                    finalPlayerWidth = (tempContainerWidth*widthValue/100);
 
             }
 
@@ -279,7 +305,7 @@ export class MainElement extends GraphicElement {
                 finalPlayerHeight = heightValue;
             } else {
                 if(this.parentContainer != null)
-                    finalPlayerHeight = (this.parentContainer?.getBoundingClientRect().height*heightValue/100);
+                    finalPlayerHeight = (tempContainerHeight*heightValue/100);
 
             }
 
@@ -292,7 +318,7 @@ export class MainElement extends GraphicElement {
                 finalPlayerWidth = widthValue;
             } else {
                 if(this.parentContainer != null)
-                    finalPlayerWidth = (this.parentContainer?.getBoundingClientRect().width*widthValue/100);
+                    finalPlayerWidth = (tempContainerWidth*widthValue/100);
 
             }
 
@@ -597,6 +623,7 @@ export class MainElement extends GraphicElement {
             if (!UserCapabilities.isMobile() || that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()) {
 
                 try {
+
                     const docElmWithBrowsersFullScreenFunctions = spContainerElement as HTMLElement & {
                         mozRequestFullScreen(): Promise<void>;
                         webkitRequestFullscreen(): Promise<void>;
@@ -622,7 +649,7 @@ export class MainElement extends GraphicElement {
                         docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();
                     }
                 } catch(error:any){
-                    // nothing
+                    console.log("error:"+error)
                 }
 
             } else {

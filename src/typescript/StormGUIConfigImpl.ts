@@ -195,7 +195,7 @@ export class StormGUIConfigImpl {
      */
     private timeSecondsText:string = "seconds"
     private autoGUIHide: boolean = true;
-    private nativeMobileGUI: boolean = false;
+    private nativeMobileGUI: boolean = true;
 
 
     /**

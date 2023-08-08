@@ -123,11 +123,18 @@ export class ProgressbarElement extends GraphicElement {
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-progress");
 
+        const that:ProgressbarElement = this;
+
         if (this.stormPlayer.getOrigGUIConfig().demoMode) {
             this.progressBarStartTime = 0;
-            this.progressBarCurrTime = 0;
+            this.progressBarCurrTime = 100;
             this.progressBarEndTime = 100;
             this.refreshBar();
+
+            setInterval(function(){
+                that.refreshBar();
+            }, 100)
+
         }
     }
 
@@ -213,10 +220,17 @@ export class ProgressbarElement extends GraphicElement {
             this.progressElement.setAttribute("value", (this.progressBarCurrTime - this.progressBarStartTime).toString());
 
             let maxThumbPos = this.seekElement.clientWidth;
+
+
+
             maxThumbPos -= 15; //offset right
+
 
             let thumbPos = (maxThumbPos * (this.progressBarCurrTime - this.progressBarStartTime)) / (this.progressBarEndTime - this.progressBarStartTime);
             thumbPos += 5; //offset left
+
+
+
             this.thumbElement.getHtmlElement().style.transform = `translateX(${thumbPos}px)`;
             this.thumbElement.show();
 

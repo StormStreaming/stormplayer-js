@@ -55,6 +55,7 @@ export class FullscreenElement extends GraphicElement {
 
             let enterFullscreen = !that.isFullScreenMode;
 
+
             if(!that.isMobile()){
                 // @ts-ignore: Unreachable code error
                 enterFullscreen =

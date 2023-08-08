@@ -41,12 +41,14 @@ export class StatBox extends GraphicElement {
         }
 
         try {
+            // @ts-ignore
             host = this.stormPlayer.getLibrary().internalPlayer.connection.socketURL;
         } catch(error){
 
         }
 
         try {
+            // @ts-ignore
             metadata = this.stormPlayer.getLibrary().internalPlayer.metaData.toString();
             let metadataArray = metadata.split("|");
             metadata = metadataArray.join("<br>");

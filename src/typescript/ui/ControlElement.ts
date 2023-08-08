@@ -2,6 +2,7 @@ import { GraphicElement } from "./GraphicElement";
 import { StormPlayer } from "../StormPlayer";
 import { ProgressbarElement } from "./ProgressbarElement";
 import { ControlButtonsElement } from "./controlbuttons/ControlButtonsElement";
+import {UserCapabilities} from "@app/typescript/utilities/UserCapabilities";
 
 /**
  * Class represents main control element
@@ -77,14 +78,14 @@ export class ControlElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("fullscreenEntered", function () {
-            if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
-                //that.htmlElement.style.display = "none";
+            if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                that.htmlElement.style.display = "none";
             }
         });
 
         this.stormPlayer.addEventListener("fullscreenExited", function () {
-            if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
-                //that.htmlElement.style.display = "block";
+            if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                that.htmlElement.style.display = "block";
             }
         });
 

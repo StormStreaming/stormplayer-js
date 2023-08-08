@@ -64,11 +64,6 @@ export class ContextMenu extends GraphicElement {
                 this.htmlElement.style.left = (e.clientX - rect.left - this.htmlElement.offsetWidth - 1).toString() + 'px';
         }
 
-
-        console.log()
-
-
-
         this.htmlElement.classList.remove("hidden");
 
         this.stormPlayer.getMainElement().isOpenMenu = !this.stormPlayer.getMainElement().isOpenMenu;

@@ -9,6 +9,7 @@ export declare class LibraryManager {
     private currWidth;
     private currHeight;
     private libraryEvents;
+    private videoElement;
     constructor(stormPlayer: StormPlayer);
     initialize(config: StormStreamConfig): void;
     getConfig(): StormStreamConfig;

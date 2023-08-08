@@ -1,4 +1,4 @@
-import { StormPlayer } from "@app/typescript/StormPlayer";
+import { StormPlayer } from "../StormPlayer";
 import { StormMetaDataItem } from "@stormstreaming/stormlibrary/dist/types/model/StormMetaDataItem";
 import { StormLibrary } from "@stormstreaming/stormlibrary";
 export interface StormPlayerEvent {
@@ -187,6 +187,7 @@ export interface StormPlayerEvent {
     };
     "contextMenuShown": {
         ref: StormPlayer;
+        e: MouseEvent;
     };
     "contextMenuHid": {
         ref: StormPlayer;
