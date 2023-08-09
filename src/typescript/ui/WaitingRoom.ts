@@ -37,7 +37,7 @@ export class WaitingRoom extends GraphicElement {
             let minutes = Math.floor((nowToStart/1000/60) % 60 );
             let seconds = Math.floor((nowToStart/1000) % 60);
 
-            if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+            if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
                 clearInterval(countdown);
                 setTimeout(() => {
                     that.stormPlayer.dispatchEvent("waitingRoomEnded", {ref:that.stormPlayer});
@@ -66,8 +66,9 @@ export class WaitingRoom extends GraphicElement {
 
         this.htmlElement.innerHTML = `
       <div class="sp-waiting-room__wrapper">
-        <span class="title">${this.stormPlayer.getPlayerConfig().getBroadcastRemainingTimeText()}</span>
-        <div class="countdown">
+        <div class="countdown-container">
+          <span class="title">${this.stormPlayer.getPlayerConfig().getBroadcastRemainingTimeText()}</span>
+          <div class="countdown">
           <div class="counter" id="daysCounter">
             <svg
                 class="progress-ring"
@@ -137,7 +138,8 @@ export class WaitingRoom extends GraphicElement {
             <span>${this.stormPlayer.getPlayerConfig().getTimeSecondsText()}</span>
           </div>
         </div>
-        <span class="video-start">${this.stormPlayer.getPlayerConfig().getBroadcastStartTimeText()+" "} <span id="videoStartDate" class="video-start-date">11.2.2023 16:00</span></span>
+          <span class="video-start">${this.stormPlayer.getPlayerConfig().getBroadcastStartTimeText()+" "} <span id="videoStartDate" class="video-start-date">11.2.2023 16:00</span></span>
+        </div>
       </div>
       `;
 

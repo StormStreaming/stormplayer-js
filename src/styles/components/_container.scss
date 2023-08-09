@@ -2,7 +2,7 @@
 
 .sp-container {
   width: 100%;
-  border-radius: $video-radius;
+  border-radius: $borderRadius;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@
     margin:0 auto;
     width: 100%;
     height: 100%;
-    border-radius: $video-radius;
+    border-radius: $borderRadius;
     opacity: 1;
 
     &--hidden {
@@ -44,7 +44,7 @@
     height: 100%;
     position: relative;
     overflow: hidden;
-    border-radius: $video-radius;
+    border-radius: $borderRadius;
     background-color: $backgroundColor;
   }
 

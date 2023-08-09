@@ -118,9 +118,8 @@ export class StormPlayer extends EventDispatcher {
 
         if(this.playerConfig.getBroadcastCreateDate() != null){
             let startDate = new Date(this.playerConfig.getBroadcastStartDate());
-            let createDate = new Date(this.playerConfig.getBroadcastCreateDate());
 
-            if(startDate.getTime() - createDate.getTime() < 0)
+            if(startDate.getTime() - Date.now() <= 0)
                 this.libraryManager.initialize(this.origLibraryConfig);
             else
                 this.waitingRoom = true;
@@ -138,10 +137,26 @@ export class StormPlayer extends EventDispatcher {
             this.setSubtitle(this.playerConfig.getSubtitle());
         }
 
+        if (this.waitingRoom) {
+            this.waitingRoomResize();
+            window.addEventListener('resize', this.waitingRoomResize)
+        }
+
         this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
         this.mainElement.setObserver();
         this.setStyle(this.origGUIConfig);
+    }
 
+    public waitingRoomResize = (): void => {
+        console.log(!this.waitingRoom)
+        if (!this.waitingRoom)
+            window.removeEventListener('resize', this.waitingRoomResize)
+
+
+        if(this.mainElement.getHtmlElement().clientWidth < 600)
+            this.mainElement.getHtmlElement().querySelector<HTMLElement>('.countdown-container').style.transform = `scale(${this.mainElement.getHtmlElement().clientWidth/600})`
+        else
+            this.mainElement.getHtmlElement().querySelector<HTMLElement>('.countdown-container').style.transform = `scale(1)`
     }
 
     /**
@@ -281,6 +296,9 @@ export class StormPlayer extends EventDispatcher {
                     player.style.setProperty("--sp-text-desc-color", config.style.text.subtitleColor);
                 if (config.style.text.errorColor)
                     player.style.setProperty("--sp-text-error-color", config.style.text.errorColor);
+
+            if (config.style.borderRadius)
+                player.style.setProperty("--sp-border-radius", config.style.borderRadius);
             }
         }
     }

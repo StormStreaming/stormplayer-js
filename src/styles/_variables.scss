@@ -58,6 +58,7 @@ $progress-range-radius: 16px;
 
 //
 $video-radius: 10px;
+$borderRadius: var(--sp-border-radius, $video-radius);
 
 // media breakpoints
 $mobile-min: 500px;
