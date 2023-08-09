@@ -31,7 +31,8 @@
     "build:types": "tsc",
     "compile": "npm-run-all -l -p compile:iifeBundled compile:umdBundled compile:esmBundled compile:amdBundled compile:cjsBundled",
     "build": "npm-run-all -l -p clear compile build:types",
-    "deploy": "node scripts/cdn-upload.js"
+    "deploy": "node scripts/cdn-upload.js",
+    "s3": "node scripts/s3-upload.js"
   },
   "dependencies": {
     "@stormstreaming/stormlibrary": "3.0.0-rc.7",
@@ -39,6 +40,9 @@
     "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
+    "@aws-sdk/s3-request-presigner": "^3.387.0",
+    "@aws-sdk/client-s3": "^3.387.0",
+    "@aws-sdk/lib-storage": "^3.387.0",
     "@babel/core": "^7.22.8",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@babel/plugin-transform-react-jsx": "^7.22.5",

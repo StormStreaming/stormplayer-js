@@ -12,3 +12,4 @@ cdn.config.json
 /.yalc
 yalc.lock
 cdn.config.json
+s3.config.json

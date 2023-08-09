@@ -13,3 +13,4 @@ cdn.config.json
 /scripts
 /.yalc
 yalc.lock
+s3.config.json
