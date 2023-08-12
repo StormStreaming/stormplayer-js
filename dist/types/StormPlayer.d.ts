@@ -19,6 +19,7 @@ export declare class StormPlayer extends EventDispatcher {
     waitingRoom: boolean;
     constructor(playerConfig: StormPlayerConfig, streamConfig: StormStreamConfig, wait?: boolean);
     initialize(): void;
+    waitingRoomResize: () => void;
     setLibraryManager(): void;
     addCuePoint(label: string, time: number): void;
     removeCuePoint(time: number): void;

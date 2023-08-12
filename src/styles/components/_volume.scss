@@ -157,14 +157,20 @@
   background-color: $unmuteLabelBgColor;
   color: $unmuteLabelPrimaryColor;
   position:absolute;
-  top: 30px;
+  top: 90px;
   left: 15px;
   cursor:pointer;
   font-size:12px;
 
-  &__after-header{
-    top:80px;
+  &.tiny {
+    top:45px;
   }
+
+  &.narrow {
+    top:70px;
+  }
+
+
 
   svg {
     padding-right: 5px;

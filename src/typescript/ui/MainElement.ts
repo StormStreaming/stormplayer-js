@@ -331,6 +331,8 @@ export class MainElement extends GraphicElement {
             return;
         }
 
+        this.stormPlayer.dispatchEvent("resize",{ref: this.stormPlayer, newWidth: finalPlayerWidth, newHeight: finalPlayerHeight});
+
         this.calculateSize(finalPlayerWidth, finalPlayerHeight)
 
     }
@@ -742,6 +744,7 @@ export class MainElement extends GraphicElement {
 
         if((this.playerWidth != window.innerWidth) || (this.playerHeight != window.innerHeight)){
             this.calculateSize(window.innerWidth, window.innerHeight)
+            this.stormPlayer.dispatchEvent("resize",{ref: this.stormPlayer, newWidth: window.innerWidth, newHeight: window.innerHeight});
         }
 
     }

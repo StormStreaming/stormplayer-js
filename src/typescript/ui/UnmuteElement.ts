@@ -1,5 +1,6 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
+import {StormPlayerEvent} from "@app/typescript/events/StormPlayerEvent";
 
 /**
  * Class representing unmute button. Due to browser's restrictions, no video object can autostart playback with audio "on".
@@ -53,6 +54,27 @@ export class UnmuteElement extends GraphicElement {
      */
     protected override attachListeners(): void {
         let that:UnmuteElement = this;
+
+        this.stormPlayer.addEventListener("resize", function (event:StormPlayerEvent["resize"]) {
+
+            if(event.newWidth >= 700) {
+
+                that.getHtmlElement().classList.remove("tiny");
+                that.getHtmlElement().classList.remove("narrow");
+
+            } else if(event.newWidth < 700 && event.newWidth >= 500){
+
+                that.getHtmlElement().classList.remove("tiny");
+                that.getHtmlElement().classList.add("narrow");
+
+            } else if(event.newWidth < 500){
+
+                that.getHtmlElement().classList.add("tiny");
+                that.getHtmlElement().classList.remove("narrow");
+
+            }
+
+        });
 
         this.stormPlayer.addEventListener("guiShown", function () {
             if (that.stormPlayer.getPlayerConfig().getTitle() || that.stormPlayer.getPlayerConfig().getSubtitle())

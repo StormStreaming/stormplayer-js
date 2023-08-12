@@ -55,4 +55,5 @@ export interface StormPlayerEvent {
     "SSLError":  { ref:StormPlayer, mode:string};
     "incompatibleProtocol": {ref:StormPlayer, mode:string, clientProtocolVer:number,serverProtocolVersion:number}
     "licenseError": {ref:StormPlayer}
+    "resize": {ref:StormPlayer, newWidth:number, newHeight:number}
 }

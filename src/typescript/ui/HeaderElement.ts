@@ -1,6 +1,7 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
 import {UserCapabilities} from "@app/typescript/utilities/UserCapabilities";
+import {StormPlayerEvent} from "@app/typescript/events/StormPlayerEvent";
 
 /**
  * Header (top) element of the player
@@ -107,6 +108,34 @@ export class HeaderElement extends GraphicElement {
     protected override attachListeners(): void {
 
         let that:HeaderElement = this;
+
+        this.stormPlayer.addEventListener("resize", function (event:StormPlayerEvent["resize"]) {
+
+            if(event.newWidth >= 700) {
+
+                that.wrapperElement.getHtmlElement().querySelector("p").classList.remove("tiny");
+                that.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("tiny");
+                that.wrapperElement.getHtmlElement().querySelector("p").classList.remove("narrow");
+                that.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("narrow");
+
+            } else if(event.newWidth < 700 && event.newWidth >= 500){
+
+                that.wrapperElement.getHtmlElement().querySelector("p").classList.remove("tiny");
+                that.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("tiny");
+                that.wrapperElement.getHtmlElement().querySelector("p").classList.add("narrow");
+                that.wrapperElement.getHtmlElement().querySelector("h2").classList.add("narrow");
+
+            } else if(event.newWidth < 500){
+
+                that.wrapperElement.getHtmlElement().querySelector("p").classList.add("tiny");
+                that.wrapperElement.getHtmlElement().querySelector("p").classList.remove("narrow");
+                that.wrapperElement.getHtmlElement().querySelector("h2").classList.add("tiny");
+                that.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("narrow");
+
+            }
+
+        });
+
 
         this.stormPlayer.addEventListener("guiShown", function () {
             that.show();

@@ -216,4 +216,9 @@ export interface StormPlayerEvent {
     "licenseError": {
         ref: StormPlayer;
     };
+    "resize": {
+        ref: StormPlayer;
+        newWidth: number;
+        newHeight: number;
+    };
 }

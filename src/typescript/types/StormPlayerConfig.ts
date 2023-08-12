@@ -63,6 +63,7 @@ export type StormPlayerConfig = {
       errorColor?: string
     },
     backgroundColor?: string,
+    borderRadius?:number,
     text?: {
       titleColor?: string,
       subtitleColor?: string,
