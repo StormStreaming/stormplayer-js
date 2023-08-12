@@ -40,7 +40,7 @@ export class VolumeElement extends GraphicElement {
      * Number of seconds after which volume bar disappears
      * @private
      */
-    private hideTimeoutSeconds: number = 3;
+    private hideTimeoutSeconds: number = 1.5;
 
     /**
      * Timeout for hiding the volume bar
