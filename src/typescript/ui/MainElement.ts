@@ -423,8 +423,8 @@ export class MainElement extends GraphicElement {
         this.videoElement = new VideoElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.videoElement.getHtmlElement());
 
-        this.loaderElement = new LoaderElement(this.stormPlayer);
-        this.spContainer.getHtmlElement().appendChild(this.loaderElement.getHtmlElement());
+        //this.loaderElement = new LoaderElement(this.stormPlayer);
+        //this.spContainer.getHtmlElement().appendChild(this.loaderElement.getHtmlElement());
 
         if (!this.stormPlayer.getOrigGUIConfig().demoMode) {
             this.errorElement = new ErrorElement(this.stormPlayer);

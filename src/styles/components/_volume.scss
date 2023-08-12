@@ -5,7 +5,7 @@
   width: 45px;
 
   input {
-    width: 100px;
+    width: 90px;
     opacity: 1;
     transition: all 0.4s ease;
     border-radius: $progress-range-radius;
@@ -109,7 +109,7 @@
     background-color: transparent;
     overflow: hidden;
     border-radius: 100px;
-    margin-left: 0 0 0 -15px !important;
+    margin: 0 0 0 -10px !important;
     padding: 0 !important;
     opacity: 0;
   }
