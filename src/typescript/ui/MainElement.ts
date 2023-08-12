@@ -182,10 +182,6 @@ export class MainElement extends GraphicElement {
      */
     private isGUIHidden:boolean = false;
 
-    private mainWrapper:HTMLElement;
-
-    private shadowRoot:ShadowRoot;
-
     /**
      * Constructor
      * @param stormPlayer reference to the main player class
@@ -194,7 +190,6 @@ export class MainElement extends GraphicElement {
         super(stormPlayer, "sp-container__wrapper stormPlayer");
 
         const that:MainElement = this;
-
 
         this.stormPlayer.setMainElement(this);
         this.parentContainer = document.getElementById(stormPlayer.getPlayerConfig().getContainerID());
@@ -214,6 +209,7 @@ export class MainElement extends GraphicElement {
 
     public setObserver():void{
         this.resizeObserver.observe(this.parentContainer);
+        this.resizeObserver.observe(document.body);
     }
 
     /**
