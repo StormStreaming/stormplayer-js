@@ -183,6 +183,12 @@ export class MainElement extends GraphicElement {
     private isGUIHidden:boolean = false;
 
     /**
+     * Whenever fullscreen is on or not
+     * @private
+     */
+    private isFullScreenOn:boolean =false;
+
+    /**
      * Constructor
      * @param stormPlayer reference to the main player class
      */
@@ -614,6 +620,7 @@ export class MainElement extends GraphicElement {
             spContainerElement.classList.add("sp-fullscreen");
 
             that.resolutionLock = true;
+            that.isFullScreenOn = true;
 
             that.copyPlayerWidth = that.playerWidth;
             that.copyPlayerHeight = that.playerHeight;
@@ -677,24 +684,28 @@ export class MainElement extends GraphicElement {
 
 
                 try {
-                    const docWithBrowsersExitFunctions = document as Document & {
-                        mozCancelFullScreen(): Promise<void>;
-                        webkitExitFullscreen(): Promise<void>;
-                        msExitFullscreen(): Promise<void>;
-                    };
 
-                    if (docWithBrowsersExitFunctions.exitFullscreen) {
-                        docWithBrowsersExitFunctions.exitFullscreen();
-                    } else if (docWithBrowsersExitFunctions.mozCancelFullScreen) {
-                        /* Firefox */
-                        docWithBrowsersExitFunctions.mozCancelFullScreen();
-                    } else if (docWithBrowsersExitFunctions.webkitExitFullscreen) {
-                        /* Chrome, Safari and Opera */
-                        docWithBrowsersExitFunctions.webkitExitFullscreen();
-                    } else if (docWithBrowsersExitFunctions.msExitFullscreen) {
-                        /* IE/Edge */
-                        docWithBrowsersExitFunctions.msExitFullscreen();
+                    if(that.isFullScreenOn) {
+                        const docWithBrowsersExitFunctions = document as Document & {
+                            mozCancelFullScreen(): Promise<void>;
+                            webkitExitFullscreen(): Promise<void>;
+                            msExitFullscreen(): Promise<void>;
+                        };
+
+                        if (docWithBrowsersExitFunctions.exitFullscreen) {
+                            docWithBrowsersExitFunctions.exitFullscreen();
+                        } else if (docWithBrowsersExitFunctions.mozCancelFullScreen) {
+                            /* Firefox */
+                            docWithBrowsersExitFunctions.mozCancelFullScreen();
+                        } else if (docWithBrowsersExitFunctions.webkitExitFullscreen) {
+                            /* Chrome, Safari and Opera */
+                            docWithBrowsersExitFunctions.webkitExitFullscreen();
+                        } else if (docWithBrowsersExitFunctions.msExitFullscreen) {
+                            /* IE/Edge */
+                            docWithBrowsersExitFunctions.msExitFullscreen();
+                        }
                     }
+
                 } catch(error:any){
                     // nothing
                 }
@@ -718,25 +729,34 @@ export class MainElement extends GraphicElement {
         });
 
         document.addEventListener("fullscreenchange", function () {
-            if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer.dispatchEvent("fullscreenExited", {ref:that.stormPlayer});
+            if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false) {
+                that.isFullScreenOn = false;
+                that.stormPlayer.dispatchEvent("fullscreenExited", {ref: that.stormPlayer});
+            }
         }, false);
 
-
+        /**
         document.addEventListener("mozfullscreenchange", function () {
-            if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer.dispatchEvent("fullscreenExited", {ref:that.stormPlayer});
+            if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false) {
+                that.isFullScreenOn = false;
+                that.stormPlayer.dispatchEvent("fullscreenExited", {ref: that.stormPlayer});
+            }
         }, false);
 
         document.addEventListener("MSFullscreenChange", function () {
-            if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer.dispatchEvent("fullscreenExited", {ref:that.stormPlayer});
+            if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false) {
+                that.isFullScreenOn = false;
+                that.stormPlayer.dispatchEvent("fullscreenExited", {ref: that.stormPlayer});
+            }
         }, false);
 
         document.addEventListener("webkitfullscreenchange", function () {
-            if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false)
-                that.stormPlayer.dispatchEvent("fullscreenExited", {ref:that.stormPlayer});
+            if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false) {
+                that.isFullScreenOn = false;
+                that.stormPlayer.dispatchEvent("fullscreenExited", {ref: that.stormPlayer});
+            }
         }, false);
+         **/
 
     }
 
