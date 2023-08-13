@@ -114,4 +114,8 @@ export class EventDispatcher {
         }
     }
 
+    public deleteAllEventListeners():void{
+        this.listeners = {};
+    }
+
 }

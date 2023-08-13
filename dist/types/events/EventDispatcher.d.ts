@@ -5,4 +5,5 @@ export declare class EventDispatcher {
     removeEventListener<K extends keyof StormPlayerEvent>(eventName: K, listener?: (ev: StormPlayerEvent[K]) => void): boolean;
     removeAllEventListeners<K extends keyof StormPlayerEvent>(): void;
     dispatchEvent<K extends keyof StormPlayerEvent>(eventName: K, event: StormPlayerEvent[K]): void;
+    deleteAllEventListeners(): void;
 }

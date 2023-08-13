@@ -397,8 +397,10 @@ export class StormPlayer extends EventDispatcher {
      * Destroys the player, removing HTML element and related StormLibrary
      */
     public destroy(): void {
-        this.mainElement.remove();
         if(this.getLibrary() != null)
             this.getLibrary().destroy();
+
+        this.deleteAllEventListeners();
+        this.mainElement.remove();
     }
 }
