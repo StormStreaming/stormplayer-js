@@ -304,7 +304,6 @@ export class StormPlayer extends EventDispatcher {
             }
 
             if (config.style.borderRadius != undefined){
-                console.log("bb");
                 player.style.setProperty("--sp-border-radius", config.style.borderRadius);
             }
         }

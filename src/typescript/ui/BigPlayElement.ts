@@ -86,7 +86,7 @@ export class BigPlayElement extends GraphicElement {
             });
 
             that.stormPlayer.getLibrary().addEventListener("playbackInitiated", function () {
-                that.hide();
+                that.show();
             });
 
             that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
