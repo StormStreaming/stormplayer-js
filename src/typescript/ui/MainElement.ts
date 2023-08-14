@@ -264,7 +264,7 @@ export class MainElement extends GraphicElement {
 
             }
         }  else
-            throw new Error("Unknown value for parameter \"width\" - it must be a number or a string! ")
+            throw new Error("Unknown value for parameter \"width\" - it must be a number or a string!")
 
         // height
         if (typeof height === "undefined") {
@@ -290,7 +290,7 @@ export class MainElement extends GraphicElement {
 
             }
         }  else
-            throw new Error("Unknown value for parameter \"height\" - it must be a number or a string! ")
+            throw new Error("Unknown value for parameter \"height\" - it must be a number or a string!")
 
 
         if(this.aspectRatio == "none"){

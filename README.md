@@ -467,31 +467,32 @@ storm.addEventListener("qualityChanged", function(event){
 
 ## Player Event list
 
-|      Event name      | Additional data |                                             Description                                              | Can be fired more than once | 
-|:--------------------:| :---: |:----------------------------------------------------------------------------------------------------:| :---: | 
-|    interfaceReady    | no | Event fires when the player interface is ready. This action takes place before libraryCreated event. | no |
-|    libraryCreated    | no | Event fires when the player library is created. This action takes place after interfaceReady event.  | no |
-|  libraryInitialized  | no |                    Event fires when the Storm JavaScript Library is initialized.                     | no |
-|     playClicked      | no |                            Event fires when user clicks any play button.                             | yes |
-|     pauseClicked     | no |                            Event fires when user clicks the pause button.                            | yes |
-|     videoClicked     | no |                            Event fires when user clicks the video screen.                            | yes |
-|     muteClicked      | no |                               Event fires when user mutes the volume.                                | yes |
-|     muteClicked      | no |                                 Event fires when volume is unmuted.                                  | yes |
-| qualitySwitchClicked | no |                             Event fires when user clicks quality switch.                             | yes |
-|    qualityChanged    | no |                            Event fires when a stream quality is changed.                             | yes |
-|    volumeChanged     | no |                              Event fires when stream volume is changed.                              | yes |
-|  fullscreenEntered   | no |                            Event fires when user enters fullscreen mode.                             | yes |
-|   fullscreenExited   | no |                             Event fires when user exits fullscreen mode.                             | yes |
-|     errorMessage     | no |                            Event fires whenever an error message appears.                            | yes |
-|       guiShown       | no |          Event fires whenever player interface becomes visible (e.g. user mouse activity).           | yes |
-|        guiHid        | no |           Event fires whenever player interface becomes invisible (user mouse inactivity).           | yes |
-|      titleAdded      | no |                            Event fires whenever a stream title is added.                             | yes |
-|     subtitleAdd      | no |                           Event fires whenever a stream subtitle is added.                           | yes |
-|     seekStarted      | no |              Event fires whenever a user grabs progress bar thumb (mouse button down).               | yes |
-|      seekEnded       | no |              Event fires whenever a user releases progress bar thumb (mouse button up).              | yes |
-|       seekSet        | no | Event fires everytime a user clicks on a progress bar or releases progress bar thumb in a new place. | yes |
-|    cuePointAdded     | no |                            Event fires everytime new CUE Point is added.                             | yes |
-|   cuePointRemoved    | no |                        Event fires whenever an existing CUE Point is removed.                        | yes |
+|      Event name      |   Additional data    |                                             Description                                              | Can be fired more than once | 
+|:--------------------:|:--------------------:|:----------------------------------------------------------------------------------------------------:| :---: | 
+|    interfaceReady    |          no          | Event fires when the player interface is ready. This action takes place before libraryCreated event. | no |
+|    libraryCreated    |          no          | Event fires when the player library is created. This action takes place after interfaceReady event.  | no |
+|  libraryInitialized  |          no          |                    Event fires when the Storm JavaScript Library is initialized.                     | no |
+|     playClicked      |          no          |                            Event fires when user clicks any play button.                             | yes |
+|     pauseClicked     |          no          |                            Event fires when user clicks the pause button.                            | yes |
+|     videoClicked     |          no          |                            Event fires when user clicks the video screen.                            | yes |
+|     muteClicked      |          no          |                               Event fires when user mutes the volume.                                | yes |
+|     muteClicked      |          no          |                                 Event fires when volume is unmuted.                                  | yes |
+| qualitySwitchClicked |          no          |                             Event fires when user clicks quality switch.                             | yes |
+|    qualityChanged    |          no          |                            Event fires when a stream quality is changed.                             | yes |
+|    volumeChanged     |          no          |                              Event fires when stream volume is changed.                              | yes |
+|  fullscreenEntered   |          no          |                            Event fires when user enters fullscreen mode.                             | yes |
+|   fullscreenExited   |          no          |                             Event fires when user exits fullscreen mode.                             | yes |
+|     errorMessage     |          no          |                            Event fires whenever an error message appears.                            | yes |
+|       guiShown       |          no          |          Event fires whenever player interface becomes visible (e.g. user mouse activity).           | yes |
+|        guiHid        |          no          |           Event fires whenever player interface becomes invisible (user mouse inactivity).           | yes |
+|      titleAdded      |          no          |                            Event fires whenever a stream title is added.                             | yes |
+|     subtitleAdd      |          no          |                           Event fires whenever a stream subtitle is added.                           | yes |
+|     seekStarted      |          no          |              Event fires whenever a user grabs progress bar thumb (mouse button down).               | yes |
+|      seekEnded       |          no          |              Event fires whenever a user releases progress bar thumb (mouse button up).              | yes |
+|       seekSet        |          no          | Event fires everytime a user clicks on a progress bar or releases progress bar thumb in a new place. | yes |
+|    cuePointAdded     |          no          |                            Event fires everytime new CUE Point is added.                             | yes |
+|   cuePointRemoved    |          no          |                        Event fires whenever an existing CUE Point is removed.                        | yes |
+|        resize        | newWidth & newHeight |                             Event fires whenever player size is changed                              | yes |
 
 ## Library Event List (inherited after Storm Library component)
 
