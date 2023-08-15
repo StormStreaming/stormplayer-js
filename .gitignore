@@ -15,3 +15,5 @@ cdn.config.json
 yalc.lock
 cdn.config.json
 s3.config.json
+/dist/*.*
+/dist
