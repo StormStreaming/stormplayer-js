@@ -8,6 +8,8 @@
 cdn.config.json
 /deploy/*
 /scripts
+/deploy/*.*
+/dist/*.*
 /tests
 /.yalc
 yalc.lock

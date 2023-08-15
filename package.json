@@ -1,6 +1,6 @@
 {
   "name": "@stormstreaming/stormplayer",
-  "version": "3.0.0-rc.15",
+  "version": "3.0.0-rc.16",
   "description": "",
   "private": false,
   "author": "Web-Anatomy s.c. <contact@web-anatomy.com>",
@@ -31,11 +31,15 @@
     "build:types": "tsc",
     "compile": "npm-run-all -l -p compile:iifeBundled compile:umdBundled compile:esmBundled compile:amdBundled compile:cjsBundled",
     "build": "npm-run-all -l -p clear compile build:types",
-    "deploy": "node scripts/cdn-upload.js",
-    "s3": "node scripts/s3-upload.js"
+    "prepare": "npm run build",
+    "deploy:prepare": "node scripts/create-deploy.js",
+    "deploy:upload-sftp": "node scripts/sftp-upload.js",
+    "deploy:upload-s3": "node scripts/s3-upload.js",
+    "deploy:s3": "npm-run-all prepare deploy:prepare deploy:upload-s3",
+    "deploy:sftp": "npm-run-all prepare deploy:prepare deploy:upload-sftp"
   },
   "dependencies": {
-    "@stormstreaming/stormlibrary": "3.0.0-rc.8",
+    "@stormstreaming/stormlibrary": "3.0.0-rc.9",
     "@types/lodash.debounce": "^4.0.7",
     "lodash.debounce": "^4.0.8"
   },
@@ -75,7 +79,8 @@
     "serve": "^14.2.0",
     "sftp-upload": "^1.0.4",
     "tsconfig-replace-paths": "^0.0.14",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "uglify-js": "^3.17.4"
   },
   "publishConfig": {
     "access": "public"

@@ -1,0 +1,14 @@
+ /*
+ * StormStreaming JavaScript Player
+ * Copyright © 2021-2023 Web-Anatomy s.c. All rights reserved.
+ * contact@stormstreaming.com
+ * https://stormstreaming.com
+ *
+ * Version: $version
+ * Version: $compileDate
+ *
+ * LEGAL NOTICE:
+ * This software is subject to the terms and conditions defined in
+ * separate license conditions ('LICENSE.txt')
+ *
+ */

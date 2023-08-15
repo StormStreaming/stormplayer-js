@@ -200,6 +200,10 @@ export class StormPlayer extends EventDispatcher {
     }
 
     public setStreamConfig(streamConfig: StormStreamConfig):void {
+
+        if(this.getOrigGUIConfig().demoMode)
+            return;
+
         streamConfig.settings.video = this.origLibraryConfig.settings.video;
         this.origLibraryConfig = streamConfig;
         if(this.libraryManager != null){

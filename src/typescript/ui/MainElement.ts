@@ -375,10 +375,10 @@ export class MainElement extends GraphicElement {
 
         if (!this.stormPlayer.waitingRoom){
             if(!this.stormPlayer.getLibrary().isInitialized()){
-                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setVideoWidthValue(width);
-                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setIfVideoWidthInPixels(true);
-                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setVideoHeightValue(height);
-                this.stormPlayer.getLibrary().getConfig().getSettings().getVideoConfig().setIfVideoHeightInPixels(true);
+                this.stormPlayer.getLibrary().getStreamConfig().getSettings().getVideoConfig().setVideoWidthValue(width);
+                this.stormPlayer.getLibrary().getStreamConfig().getSettings().getVideoConfig().setIfVideoWidthInPixels(true);
+                this.stormPlayer.getLibrary().getStreamConfig().getSettings().getVideoConfig().setVideoHeightValue(height);
+                this.stormPlayer.getLibrary().getStreamConfig().getSettings().getVideoConfig().setIfVideoHeightInPixels(true);
             } else
                 this.stormPlayer.getLibrary().setSize(width, height);
         }

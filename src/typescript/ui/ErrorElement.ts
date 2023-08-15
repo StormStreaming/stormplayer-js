@@ -62,12 +62,12 @@ export class ErrorElement extends GraphicElement {
         this.stormPlayer.addEventListener("libraryCreated", function () {
 
             that.stormPlayer.getLibrary().addEventListener("libraryDisconnected", function (e: any) {
-                if(!that.stormPlayer.getLibrary().getConfig().getSettings().getIfRestartOnError())
+                if(!that.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())
                     that.showErrorMessage(that.stormPlayer.getPlayerConfig().getPlayerDisconnectedText());
             });
 
             that.stormPlayer.getLibrary().addEventListener("libraryConnectionFailed", function (e: any) {
-                if(!that.stormPlayer.getLibrary().getConfig().getSettings().getIfRestartOnError())
+                if(!that.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())
                     that.showErrorMessage(that.stormPlayer.getPlayerConfig().getServersFailedText());
             });
 

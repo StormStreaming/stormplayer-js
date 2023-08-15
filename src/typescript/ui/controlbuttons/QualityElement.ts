@@ -122,6 +122,5 @@ export class QualityElement extends GraphicElement {
             },100)
         })
 
-
     }
 }
