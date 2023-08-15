@@ -114,6 +114,10 @@ export class QualityMenuElement extends GraphicElement {
 
         let that = this;
 
+        this.stormPlayer.addEventListener("streamConfigUpdated", function () {
+            that.refreshList();
+        });
+
         this.stormPlayer.addEventListener("libraryInitialized", function () {
 
             if(that.stormPlayer.getLibrary().isInitialized()){

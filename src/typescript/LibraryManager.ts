@@ -115,6 +115,13 @@ export class LibraryManager {
         return this.library;
     }
 
+    public setStreamConfig(streamConfig: StormStreamConfig):void {
+        this.config = streamConfig;
+        if(this.library != null){
+            this.library.setStreamConfig(streamConfig);
+        }
+    }
+
     /**
      * Initializes the library
      */

@@ -31,10 +31,6 @@ export type StormPlayerConfig = {
     startTime: string,
     posterURL: string
   },
-  watermark?: {
-    imgURL: string,
-    position: string
-  },
   interface?:{
     showBigPlayBTN?:boolean;
     showTimeline?:boolean;
@@ -54,7 +50,7 @@ export type StormPlayerConfig = {
     },
     unmuteLabel?: {
       backgroundColor?: string,
-      fontColor?: string
+      primaryColor?: string
     },
     icons?: {
       primaryColor?: string,
@@ -63,11 +59,15 @@ export type StormPlayerConfig = {
       errorColor?: string
     },
     backgroundColor?: string,
-    borderRadius?:number,
+    borderRadius?:string,
     text?: {
       titleColor?: string,
       subtitleColor?: string,
       errorColor?: string,
+    },
+    watermark?: {
+      imgURL: string,
+      position: string
     },
   }
 };

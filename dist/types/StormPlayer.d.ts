@@ -13,8 +13,8 @@ export declare class StormPlayer extends EventDispatcher {
     private playerConfig;
     private mainElement;
     private libraryManager;
-    private readonly origGUIConfig;
-    private readonly origLibraryConfig;
+    private origGUIConfig;
+    private origLibraryConfig;
     private started;
     waitingRoom: boolean;
     constructor(playerConfig: StormPlayerConfig, streamConfig: StormStreamConfig, wait?: boolean);
@@ -25,6 +25,8 @@ export declare class StormPlayer extends EventDispatcher {
     removeCuePoint(time: number): void;
     getLibrary(): StormLibrary;
     getInstanceID(): number;
+    setStreamConfig(streamConfig: StormStreamConfig): void;
+    setPlayerConfig(playerConfig: StormPlayerConfig): void;
     getInstanceName(): string;
     getMainElement(): MainElement;
     setMainElement(element: MainElement): void;

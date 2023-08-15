@@ -221,4 +221,10 @@ export interface StormPlayerEvent {
         newWidth: number;
         newHeight: number;
     };
+    "playerConfigUpdated": {
+        ref: StormPlayer;
+    };
+    "streamConfigUpdated": {
+        ref: StormPlayer;
+    };
 }

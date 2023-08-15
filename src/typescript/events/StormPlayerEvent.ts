@@ -56,4 +56,6 @@ export interface StormPlayerEvent {
     "incompatibleProtocol": {ref:StormPlayer, mode:string, clientProtocolVer:number,serverProtocolVersion:number}
     "licenseError": {ref:StormPlayer}
     "resize": {ref:StormPlayer, newWidth:number, newHeight:number}
+    "playerConfigUpdated": {ref:StormPlayer}
+    "streamConfigUpdated": {ref:StormPlayer}
 }

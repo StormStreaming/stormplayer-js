@@ -136,6 +136,11 @@ export class HeaderElement extends GraphicElement {
 
         });
 
+        this.stormPlayer.addEventListener("playerConfigUpdated", function () {
+            that.htmlElement.querySelector("span.sp-live-icon__text").innerHTML = that.stormPlayer.getPlayerConfig().getLiveText();
+            that.setTitle(that.stormPlayer.getPlayerConfig().getTitle());
+            that.setSubtitle(that.stormPlayer.getPlayerConfig().getSubtitle())
+        });
 
         this.stormPlayer.addEventListener("guiShown", function () {
             that.show();

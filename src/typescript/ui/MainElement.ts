@@ -203,7 +203,6 @@ export class MainElement extends GraphicElement {
         this.getHtmlElement().setAttribute("id",stormPlayer.getInstanceName())
 
         this.aspectRatio = stormPlayer.getPlayerConfig().getAspectRatio();
-
         this.hideGUITimeoutSeconds = stormPlayer.getPlayerConfig().getGuiHideSeconds();
 
         this.resizeObserver = new ResizeObserver(debounce(function(){
@@ -485,6 +484,13 @@ export class MainElement extends GraphicElement {
     protected override attachListeners(): void {
         let that = this;
         let spContainerElement = this.spContainer.getHtmlElement();
+
+        this.stormPlayer.addEventListener("playerConfigUpdated", function () {
+
+            that.aspectRatio = that.stormPlayer.getPlayerConfig().getAspectRatio();
+            that.hideGUITimeoutSeconds = that.stormPlayer.getPlayerConfig().getGuiHideSeconds();
+
+        });
 
         if(this.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
 

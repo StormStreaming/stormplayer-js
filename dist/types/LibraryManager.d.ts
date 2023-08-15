@@ -14,6 +14,7 @@ export declare class LibraryManager {
     initialize(config: StormStreamConfig): void;
     getConfig(): StormStreamConfig;
     getLibrary(): StormLibrary;
+    setStreamConfig(streamConfig: StormStreamConfig): void;
     initializeLibrary(): void;
     private attachListeners;
     checkResolution(): void;

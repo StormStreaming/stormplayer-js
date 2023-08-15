@@ -58,13 +58,13 @@ export class StormPlayer extends EventDispatcher {
      * Original GUI config
      * @private
      */
-    private readonly origGUIConfig:StormPlayerConfig;
+    private origGUIConfig:StormPlayerConfig;
 
     /**
      * Original Library config
      * @private
      */
-    private readonly origLibraryConfig:StormStreamConfig;
+    private origLibraryConfig:StormStreamConfig;
 
     /**
      * Whenever player was started or not
@@ -197,6 +197,29 @@ export class StormPlayer extends EventDispatcher {
      */
     public getInstanceID(): number {
         return this.id;
+    }
+
+    public setStreamConfig(streamConfig: StormStreamConfig):void {
+        streamConfig.settings.video = this.origLibraryConfig.settings.video;
+        this.origLibraryConfig = streamConfig;
+        if(this.libraryManager != null){
+            this.libraryManager.setStreamConfig(streamConfig);
+        }
+
+        this.dispatchEvent("streamConfigUpdated", {ref:this});
+    }
+
+    public setPlayerConfig(playerConfig: StormPlayerConfig):void {
+
+        playerConfig.containerID = this.origGUIConfig.containerID;
+
+        this.origGUIConfig = playerConfig;
+        this.playerConfig = new StormGUIConfigImpl(this.origGUIConfig);
+        this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
+        this.setStyle(this.origGUIConfig);
+
+        this.dispatchEvent("playerConfigUpdated", {ref:this});
+
     }
 
     /**

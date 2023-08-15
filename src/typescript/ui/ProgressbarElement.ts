@@ -420,6 +420,12 @@ export class ProgressbarElement extends GraphicElement {
             });
         });
 
+        this.stormPlayer.addEventListener("playerConfigUpdated", function () {
+            if (that.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false) {
+                that.hide();
+            }
+        });
+
         this.seekElement.addEventListener("input", function (e) {
             that.setPosition(parseFloat(this.value));
         });
