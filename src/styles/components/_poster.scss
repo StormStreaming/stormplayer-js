@@ -1,0 +1,16 @@
+.sp-poster {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  &--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+}

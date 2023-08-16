@@ -9,6 +9,7 @@ export type StormPlayerConfig = {
   title?:string;
   subtitle?:string;
   demoMode?:boolean;
+  poster?:string;
   translations?: {
     broadcastRemainingTime?: string,
     broadcastStartTime?: string,

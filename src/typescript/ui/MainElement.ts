@@ -13,6 +13,7 @@ import {UserCapabilities} from "../utilities/UserCapabilities";
 import {ContextMenu} from "./ContextMenu";
 import {Watermark} from "@app/typescript/ui/Watermark";
 import debounce from 'lodash.debounce';
+import {PosterElement} from "@app/typescript/ui/PosterElement";
 
 /**
  * Main graphical element
@@ -84,6 +85,12 @@ export class MainElement extends GraphicElement {
      * @private
      */
     private unmuteElement: UnmuteElement;
+
+    /**
+     * Poster element
+     * @private
+     */
+    private posterElement: PosterElement;
 
     /**
      * Wrapper for the element
@@ -187,6 +194,7 @@ export class MainElement extends GraphicElement {
      * @private
      */
     private isFullScreenOn:boolean =false;
+
 
     /**
      * Constructor
@@ -427,6 +435,9 @@ export class MainElement extends GraphicElement {
 
         this.videoElement = new VideoElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.videoElement.getHtmlElement());
+
+        this.posterElement = new PosterElement(this.stormPlayer);
+        this.spContainer.getHtmlElement().appendChild(this.posterElement.getHtmlElement());
 
         //this.loaderElement = new LoaderElement(this.stormPlayer);
         //this.spContainer.getHtmlElement().appendChild(this.loaderElement.getHtmlElement());

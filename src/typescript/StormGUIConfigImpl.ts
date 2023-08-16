@@ -34,6 +34,12 @@ export class StormGUIConfigImpl {
     private bigPlaybackButton: boolean = true;
 
     /**
+     * Main poster for the video
+     * @private
+     */
+    private poster:string;
+
+    /**
      * Whenever timeline should be visible
      * @private
      */
@@ -210,6 +216,9 @@ export class StormGUIConfigImpl {
 
         if (typeof guiConfig.width != "undefined")
             this.width = guiConfig.width;
+
+        if (typeof guiConfig.poster != "undefined")
+            this.poster = guiConfig.poster;
 
         if (typeof guiConfig.height != "undefined")
             this.height = guiConfig.height;
@@ -647,6 +656,10 @@ export class StormGUIConfigImpl {
 
     public getIfNativeMobileGUI():boolean {
         return this.nativeMobileGUI;
+    }
+
+    public getPoster():string {
+        return this.poster;
     }
 
 

@@ -64,7 +64,8 @@ export class BigPlayElement extends GraphicElement {
         let that:BigPlayElement = this;
 
         this.htmlElement.addEventListener("click", function () {
-            that.stormPlayer.dispatchEvent("playClicked", {ref:that.stormPlayer});
+            if(!that.stormPlayer.getOrigGUIConfig().demoMode)
+                that.stormPlayer.dispatchEvent("playClicked", {ref:that.stormPlayer});
         });
 
         this.stormPlayer.addEventListener("seekStarted", function () {
