@@ -53,7 +53,12 @@ export class UnmuteElement extends GraphicElement {
      * @protected
      */
     protected override attachListeners(): void {
+
         let that:UnmuteElement = this;
+
+        this.stormPlayer.addEventListener("playerConfigUpdated", function () {
+            that.draw();
+        });
 
         this.stormPlayer.addEventListener("resize", function (event:StormPlayerEvent["resize"]) {
 

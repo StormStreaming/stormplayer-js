@@ -217,8 +217,8 @@ export class StormGUIConfigImpl {
         if (typeof guiConfig.width != "undefined")
             this.width = guiConfig.width;
 
-        if (typeof guiConfig.poster != "undefined")
-            this.poster = guiConfig.poster;
+        if (typeof guiConfig.posterURL != "undefined")
+            this.poster = guiConfig.posterURL;
 
         if (typeof guiConfig.height != "undefined")
             this.height = guiConfig.height;
