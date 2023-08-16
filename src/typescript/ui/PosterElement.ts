@@ -40,7 +40,7 @@ export class PosterElement extends GraphicElement {
     protected override draw(): void {
         super.draw();
 
-        if(this.stormPlayer.getPlayerConfig().getPoster() != null) {
+        if(this.stormPlayer.getPlayerConfig().getPoster() != null && this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfAutoStart()) {
             this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
         }
 
@@ -55,7 +55,7 @@ export class PosterElement extends GraphicElement {
         let that:PosterElement = this;
 
         this.stormPlayer.addEventListener("playerConfigUpdated", function () {
-            if(that.stormPlayer.getPlayerConfig().getPoster() != null)
+            if(that.stormPlayer.getPlayerConfig().getPoster() != null && that.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfAutoStart())
                 that.htmlElement.innerHTML = `<img src='${that.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
             else
                 that.htmlElement.innerHTML = ``;

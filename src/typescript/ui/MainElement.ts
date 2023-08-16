@@ -493,14 +493,23 @@ export class MainElement extends GraphicElement {
      * @protected
      */
     protected override attachListeners(): void {
-        let that = this;
-        let spContainerElement = this.spContainer.getHtmlElement();
+
+        const that = this;
+        const spContainerElement = this.spContainer.getHtmlElement();
 
         this.stormPlayer.addEventListener("playerConfigUpdated", function () {
 
             that.aspectRatio = that.stormPlayer.getPlayerConfig().getAspectRatio();
             that.hideGUITimeoutSeconds = that.stormPlayer.getPlayerConfig().getGuiHideSeconds();
+            clearTimeout(that.hideGUITimeout)
+            that.stormPlayer.dispatchEvent("guiShown", {ref:that.stormPlayer});
 
+            if(that.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
+                that.hideGUITimeout = setTimeout(function () {
+                    that.isGUIHidden = true;
+                    that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                }, that.hideGUITimeoutSeconds * 1000);
+            }
         });
 
         if(this.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
@@ -520,6 +529,7 @@ export class MainElement extends GraphicElement {
             );
 
             if (UserCapabilities.isMobile()) {
+
                 this.htmlElement.addEventListener("touchstart", function () {
 
                     if (that.hideGUITimeout)
@@ -775,6 +785,11 @@ export class MainElement extends GraphicElement {
         }, false);
          **/
 
+        setTimeout(function(){
+            that.demoHidingMode();
+        },that.hideGUITimeoutSeconds * 1000)
+
+
     }
 
     private updateResolution():void {
@@ -784,6 +799,103 @@ export class MainElement extends GraphicElement {
             this.stormPlayer.dispatchEvent("resize",{ref: this.stormPlayer, newWidth: window.innerWidth, newHeight: window.innerHeight});
         }
 
+    }
+
+    private demoHidingMode(): void {
+
+        const that:MainElement = this;
+
+        if(this.stormPlayer.getOrigGUIConfig().demoMode){
+
+            if (!that.hideGUITimeout) {
+
+                that.hideGUITimeout = setTimeout(function () {
+                    that.isGUIHidden = true;
+                    that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                }, that.hideGUITimeoutSeconds * 1000);
+
+            }
+
+            if (UserCapabilities.isMobile()) {
+
+                this.htmlElement.addEventListener("touchstart", function () {
+                    if(that.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
+                        if (that.hideGUITimeout)
+                            clearTimeout(that.hideGUITimeout);
+
+                        if (that.isGUIHidden == true)
+                            that.stormPlayer.dispatchEvent("guiShown", {ref: that.stormPlayer});
+
+                        that.isGUIHidden = false;
+
+                        that.hideGUITimeout = setTimeout(function () {
+                            that.isGUIHidden = true;
+                            that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                        }, that.hideGUITimeoutSeconds * 1000);
+                    }
+                });
+
+                this.htmlElement.addEventListener("touchmove", function () {
+                    if(that.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
+                        if (that.hideGUITimeout)
+                            clearTimeout(that.hideGUITimeout);
+
+                        if (that.isGUIHidden == true)
+                            that.stormPlayer.dispatchEvent("guiShown", {ref: that.stormPlayer});
+
+                        that.isGUIHidden = false;
+
+                        that.hideGUITimeout = setTimeout(function () {
+                            that.isGUIHidden = true;
+                            that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                        }, that.hideGUITimeoutSeconds * 1000);
+                    }
+                });
+
+
+            } else {
+
+
+                this.htmlElement.addEventListener("mouseenter", function () {
+                    if(that.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
+                        if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
+                        if (that.isGUIHidden == true) {
+                            that.isGUIHidden = false;
+                            that.stormPlayer.dispatchEvent("guiShown", {ref: that.stormPlayer});
+                        }
+                    }
+                });
+
+                this.htmlElement.addEventListener("mousemove", function () {
+                    if(that.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
+                        if (that.hideGUITimeout)
+                            clearTimeout(that.hideGUITimeout);
+
+                        if (that.isGUIHidden == true) {
+                            that.stormPlayer.dispatchEvent("guiShown", {ref: that.stormPlayer});
+                            that.isGUIHidden = false;
+                        }
+
+                        that.hideGUITimeout = setTimeout(function () {
+                            console.log("x3");
+                            that.isGUIHidden = true;
+                            that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                        }, that.hideGUITimeoutSeconds * 1000);
+                    }
+                });
+
+                this.htmlElement.addEventListener("mouseleave", function () {
+                    if(that.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
+                        if (that.hideGUITimeout) clearTimeout(that.hideGUITimeout);
+                        if (!that.stormPlayer.waitingRoom) {
+                            that.isGUIHidden = true;
+                            that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                        }
+                    }
+                });
+            }
+
+        }
     }
 
     /**
