@@ -5,7 +5,7 @@
   width: 45px;
 
   input {
-    width: 90px;
+    width: 70px;
     opacity: 1;
     transition: all 0.4s ease;
     border-radius: $progress-range-radius;
@@ -13,7 +13,6 @@
   }
 
   &__input {
-    transform: rotate(-90deg);
     position: relative;
 
     &:after {
@@ -28,11 +27,10 @@
   }
 
   &__wrapper {
-
     position: absolute;
-    top: -65px;
+    top: -50px;
     left: 50%;
-    transform: translateX(-30%);
+    transform: translateX(calc(-50% + 8.5px)) rotate(-90deg);
     display: block;
 
     &--hidden {
@@ -42,61 +40,44 @@
 
   &__button {
     margin-left: 17px;
+
     svg {
-
       width: 28px;
-
     }
 
     .sp-mute-icon {
-
       path {
-
         d: path("M 22.486 20.649 l -0.161 -0.157 a 1.183 1.183 0 0 1 -0.072 -1.622 a 12.59 12.59 0 0 0 -0.216 -16.715 A 1.182 1.182 0 0 1 22.086 0.511 l 0.16 -0.157 a 1.2 1.2 0 0 1 0.9 -0.353 a 1.235 1.235 0 0 1 0.881 0.4 a 15.171 15.171 0 0 1 0.257 20.171 A 1.237 1.237 0 0 1 23.4 21 h -0.051 A 1.236 1.236 0 0 1 22.486 20.649 Z m -11.419 -0.916 l -6.45 -5.259 H 1.18 A 1.171 1.171 0 0 1 0 13.313 V 8.688 A 1.17 1.17 0 0 1 1.18 7.527 H 4.616 l 6.45 -5.26 a 1.2 1.2 0 0 1 1.255 -0.157 A 1.162 1.162 0 0 1 13 3.162 V 18.839 a 1.158 1.158 0 0 1 -0.679 1.05 a 1.193 1.193 0 0 1 -1.255 -0.157 Z m 7.2 -3.217 l -0.165 -0.161 a 1.182 1.182 0 0 1 -0.118 -1.564 a 6.863 6.863 0 0 0 -0.189 -8.554 a 1.182 1.182 0 0 1 0.085 -1.606 l 0.164 -0.16 a 1.212 1.212 0 0 1 0.928 -0.35 a 1.234 1.234 0 0 1 0.888 0.439 a 9.455 9.455 0 0 1 0.256 11.825 a 1.233 1.233 0 0 1 -0.895 0.479 c -0.03 0 -0.059 0 -0.088 0 A 1.239 1.239 0 0 1 18.266 16.516 Z");
-
       }
-
     }
 
     .sp-unmute-icon {
-
       path {
-
         d: path("M 12.3213 17.8895 C 12.1613 17.964 11.9898 18 11.8195 18 C 11.5497 18 11.2824 17.9088 11.0665 17.7326 L 4.61569 12.4735 L 1.17996 12.4735 C 0.528401 12.4741 0 11.9539 0 11.3129 L 0 6.68762 C 0 6.04631 0.528401 5.52644 1.17996 5.52644 L 4.61597 5.52644 L 11.0668 0.267295 C 11.4193 -0.0201172 11.908 -0.0813914 12.3216 0.110949 C 12.7352 0.301916 13 0.711327 13 1.1614 L 12.9997 16.8391 C 12.9997 17.2894 12.7352 17.6986 12.3213 17.8895 Z");
-
       }
-
     }
-
   }
 
   &__progress {
-
     display: block;
     background-color: rgba($white, 0.4);
-    transform: rotate(-90deg);
     position: absolute;
+    margin-top: -11px;
     width: 70px;
     border-radius: $progress-range-radius;
     overflow: hidden;
     pointer-events: none;
-    // left: 20px;
-    // position: absolute;
-    // top: -65px;
-    // display: block;
-
   }
 
   &__thumb {
-
     display: block;
     pointer-events: none;
     transform: translateX(100px);
-    width: 200%;
+    width: 100%;
     height: 7px;
     background-color: $iconPrimaryColor;
     position: relative;
-    left: -200%;
+    left: -100%;
     border-radius: $progress-range-radius;
   }
 
@@ -105,11 +86,12 @@
   }
 
   input[type="range"].sp-volume__input {
+    -webkit-appearance: none;
     height: 7px !important;
     background-color: transparent;
     overflow: hidden;
     border-radius: 100px;
-    margin: 0 0 0 -10px !important;
+    margin: 0 !important;
     padding: 0 !important;
     opacity: 0;
   }
@@ -119,11 +101,11 @@
   }
 
   input[type="range"].sp-volume__input::-webkit-slider-thumb {
+    -webkit-appearance: none;
     margin-left: 0;
-    height: 14px;
-    width: 14px;
+    height: 1px;
+    width: 1px;
     background: transparent;
-    // box-shadow: -100vw 0 0 100vw $white;
     box-sizing: border-box;
     border-radius: 100%;
   }
@@ -143,11 +125,13 @@
   }
 
   input[type="range"].sp-volume__input::-moz-range-thumb {
+    -webkit-appearance: none;
+    height: 1px;
+    width: 1px;
     border: 1px solid $white;
     background: $white;
     opacity: 0;
   }
-
 }
 
 .sp-unmute{
@@ -172,17 +156,12 @@
     top:70px;
   }
 
-
-
   svg {
     padding-right: 5px;
     fill: $unmuteLabelPrimaryColor;
 
     path {
-
       d: path("M 12.3213 17.8895 C 12.1613 17.964 11.9898 18 11.8195 18 C 11.5497 18 11.2824 17.9088 11.0665 17.7326 L 4.61569 12.4735 L 1.17996 12.4735 C 0.528401 12.4741 0 11.9539 0 11.3129 L 0 6.68762 C 0 6.04631 0.528401 5.52644 1.17996 5.52644 L 4.61597 5.52644 L 11.0668 0.267295 C 11.4193 -0.0201172 11.908 -0.0813914 12.3216 0.110949 C 12.7352 0.301916 13 0.711327 13 1.1614 L 12.9997 16.8391 C 12.9997 17.2894 12.7352 17.6986 12.3213 17.8895 Z");
-
     }
-
   }
 }

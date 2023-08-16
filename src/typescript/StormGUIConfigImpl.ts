@@ -85,43 +85,43 @@ export class StormGUIConfigImpl {
      * This message is displayed when device is not compatible with the player and video cannot be played
      * @private
      */
-    private incorrectProtocolVersionText: string = "Incorrect Storm Protocol Version";
+    private incorrectProtocolVersionText: string = "Incorrect Storm Protocol Version.";
 
     /**
      * This message is displayed when device is not compatible with the player and video cannot be played
      * @private
      */
-    private licenseErrorText: string = "Incorrect Storm Protocol Version";
+    private licenseErrorText: string = "Incorrect Storm Protocol Version.";
 
     /**
      * This message will be displayed if player requires SSL connection
      * @private
      */
-    private noSSLErrorText: string = "This connection requires a secure SSL connection";
+    private noSSLErrorText: string = "This connection requires a secure SSL connection.";
 
     /**
      * This message will be displayed if an error occurs during playback
      * @private
      */
-    private streamErrorText: string = "Error while playing the stream";
+    private streamErrorText: string = "Error while playing the stream.";
 
     /**
      * This error will be displayed if no stream with given name was found on the streaming server
      * @private
      */
-    private streamNotFoundText: string = "Stream with given name was not found";
+    private streamNotFoundText: string = "Stream with given name was not found.";
 
     /**
      * This message will be displayed if a stream has been closed
      * @private
      */
-    private streamStopText: string = "The stream has ended";
+    private streamStopText: string = "The stream has ended.";
 
     /**
      * This message will be displayed if the library (player) is not compatible with given streaming server
      * @private
      */
-    private incompatiblePlayerProtocolText: string = "This player version is not compatible with the provided streaming server";
+    private incompatiblePlayerProtocolText: string = "This player version is not compatible with the provided streaming server.";
 
     /**
      * Text indicating a "Live" stream (upper-right corner)
@@ -157,7 +157,7 @@ export class StormGUIConfigImpl {
      * Text (translation) for remaining broadcast time
      * @private
      */
-    private broadcastStartTimeText:string = "Broadcasting will start at "
+    private broadcastStartTimeText:string = "Broadcasting will start at"
 
     /**
      * Time when broadcast will start

@@ -5,7 +5,6 @@
   position: absolute;
   top: 100px;
   left: 200px;
-  min-width: 290px;
   z-index: 9;
 
   &__caption {
@@ -16,12 +15,10 @@
 
   &__quality {
     transform: translate(-50%, -100%);
-    min-width: 165px;
     left: 50%;
     margin-top:-110px;
 
     &:after {
-
       content: '';
       position: absolute;
       bottom: -6px;
@@ -33,14 +30,11 @@
       border-left: 6px solid transparent;
       border-right: 6px solid transparent;
       border-top: 6px solid rgba(0, 0, 0, 0.7);
-
     }
-
   }
 
   &__box {
     padding: 15px 0 14px;
-    width: 100%;
   }
 
   &__list {
@@ -79,7 +73,7 @@
 
       span {
         transition: $t-basic;
-        margin-left: 13px;
+        padding: 0 20px;
         pointer-events: none;
       }
 
