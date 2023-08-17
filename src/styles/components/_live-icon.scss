@@ -12,6 +12,13 @@
   top: -6px;
   margin-left: 12px;
 
+  &.empty {
+    right:-6px;
+    span {
+      display: none !important;
+    }
+  }
+
   &__text {
     padding: 5px 0 5px 4px;
     font-size: 12px;

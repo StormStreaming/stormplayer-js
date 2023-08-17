@@ -43,8 +43,8 @@ export interface StormPlayerEvent {
     "waitingRoomEnded": {ref:StormPlayer}
     "guiShown": {ref:StormPlayer}
     "guiHid": {ref:StormPlayer}
-    "titleAdded": {ref:StormPlayer, title:string}
-    "subtitleAdd": {ref:StormPlayer, subtitle:string}
+    "titleAdded": {ref:StormPlayer, title:string, newHeight:number}
+    "subtitleAdd": {ref:StormPlayer, subtitle:string, newHeight:number}
     "boxStatShown": {ref:StormPlayer}
     "boxStatHid": {ref:StormPlayer}
     "contextMenuShown": {ref:StormPlayer, e: MouseEvent}

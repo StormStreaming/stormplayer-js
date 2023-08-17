@@ -27,6 +27,16 @@ export class HeaderElement extends GraphicElement {
     private liveIconElement: GraphicElement;
 
     /**
+     * Current title
+     */
+    private titleValue:string;
+
+    /**
+     * Current title
+     */
+    private subtitleValue:string;
+
+    /**
      * Constructor
      * @param stormPlayer reference to the main player class
      */
@@ -80,7 +90,15 @@ export class HeaderElement extends GraphicElement {
                 </g>
             </svg>
 
-            <span class="sp-live-icon__text" id="sp-live-icon-text">${this.stormPlayer.getPlayerConfig().getLiveText()}</span>`;
+            <span class="sp-live-icon__text">${this.stormPlayer.getPlayerConfig().getLiveText()}</span>`;
+
+
+        if(this.stormPlayer.getPlayerConfig().getLiveText().length == 0)
+            this.liveIconElement.getHtmlElement().classList.add("empty");
+        else
+            this.liveIconElement.getHtmlElement().classList.remove("empty");
+
+
     }
 
     /**
@@ -88,8 +106,10 @@ export class HeaderElement extends GraphicElement {
      * @param title text for title
      */
     public setTitle(title: string): void {
+        this.titleValue = title;
         this.wrapperElement.getHtmlElement().querySelector("h2").innerHTML = title;
-        this.stormPlayer.dispatchEvent("titleAdded", {ref:this.stormPlayer, title:title});
+        const newHeight:number = this.wrapperElement.getHtmlElement().offsetHeight;
+        this.stormPlayer.dispatchEvent("titleAdded", {ref:this.stormPlayer, title:title, newHeight: newHeight});
     }
 
     /**
@@ -97,8 +117,10 @@ export class HeaderElement extends GraphicElement {
      * @param subtitle text for subtitle
      */
     public setSubtitle(subtitle: string): void {
+        this.subtitleValue = subtitle;
         this.wrapperElement.getHtmlElement().querySelector("p").innerHTML = subtitle;
-        this.stormPlayer.dispatchEvent("subtitleAdd", {ref:this.stormPlayer, subtitle:subtitle});
+        const newHeight:number = this.wrapperElement.getHtmlElement().offsetHeight;
+        this.stormPlayer.dispatchEvent("subtitleAdd", {ref:this.stormPlayer, subtitle:subtitle, newHeight: newHeight});
     }
 
     /**
@@ -134,12 +156,20 @@ export class HeaderElement extends GraphicElement {
 
             }
 
+            const newHeight:number = that.calculateHeaderHeight();
+            that.stormPlayer.dispatchEvent("titleAdded", {ref:that.stormPlayer, title:that.titleValue, newHeight: newHeight});
         });
 
         this.stormPlayer.addEventListener("playerConfigUpdated", function () {
             that.htmlElement.querySelector("span.sp-live-icon__text").innerHTML = that.stormPlayer.getPlayerConfig().getLiveText();
             that.setTitle(that.stormPlayer.getPlayerConfig().getTitle());
             that.setSubtitle(that.stormPlayer.getPlayerConfig().getSubtitle())
+
+            if(that.stormPlayer.getPlayerConfig().getLiveText().length == 0)
+                that.liveIconElement.getHtmlElement().classList.add("empty");
+            else
+                that.liveIconElement.getHtmlElement().classList.remove("empty");
+
         });
 
         this.stormPlayer.addEventListener("guiShown", function () {
@@ -163,4 +193,14 @@ export class HeaderElement extends GraphicElement {
         });
 
     }
+
+    private calculateHeaderHeight():number {
+        let newHeight = this.wrapperElement.getHtmlElement().offsetHeight;
+        if(this.titleValue == null && this.subtitleValue == null)
+            newHeight = 0;
+
+        return newHeight;
+    }
+
+
 }

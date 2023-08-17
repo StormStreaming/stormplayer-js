@@ -204,6 +204,8 @@ export class StormPlayer extends EventDispatcher {
         if(this.getOrigGUIConfig().demoMode)
             return;
 
+        console.log("++setStreamConfig");
+
         streamConfig.settings.video = this.origLibraryConfig.settings.video;
         this.origLibraryConfig = streamConfig;
         if(this.libraryManager != null){
@@ -214,6 +216,8 @@ export class StormPlayer extends EventDispatcher {
     }
 
     public setPlayerConfig(playerConfig: StormPlayerConfig):void {
+
+        console.log("++setPlayerConfig");
 
         playerConfig.containerID = this.origGUIConfig.containerID;
 

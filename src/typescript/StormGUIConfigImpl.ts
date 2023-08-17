@@ -301,7 +301,7 @@ export class StormGUIConfigImpl {
             if (guiConfig.translations.streamStop)
                 this.streamStopText = guiConfig.translations.streamStop;
 
-            if (guiConfig.translations.live)
+            if (guiConfig.translations.live != undefined)
                 this.liveText = guiConfig.translations.live;
 
         }

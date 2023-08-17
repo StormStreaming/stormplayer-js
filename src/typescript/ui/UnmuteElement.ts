@@ -37,13 +37,17 @@ export class UnmuteElement extends GraphicElement {
             </svg>
             ${this.stormPlayer.getPlayerConfig().getUnmuteText()}`;
 
-        if (
-            !this.stormPlayer.getPlayerConfig().getTitle() &&
-            this.stormPlayer.getPlayerConfig().getTitle() == "" &&
-            this.stormPlayer.getPlayerConfig().getSubtitle() &&
-            this.stormPlayer.getPlayerConfig().getSubtitle() == ""
-        )
-            this.getHtmlElement().classList.remove("sp-unmute__after-header");
+        if(!this.stormPlayer.getPlayerConfig().getTitle() || this.stormPlayer.getPlayerConfig().getTitle() == ""){
+            this.htmlElement.classList.add("no-title");
+        } else {
+            this.htmlElement.classList.remove("no-title");
+        }
+
+        if(!this.stormPlayer.getPlayerConfig().getSubtitle() || this.stormPlayer.getPlayerConfig().getSubtitle() == ""){
+            this.htmlElement.classList.add("no-subtitle");
+        } else {
+            this.htmlElement.classList.remove("no-subtitle");
+        }
 
         this.hide();
     }
@@ -95,6 +99,15 @@ export class UnmuteElement extends GraphicElement {
             }
 
         });
+
+        this.stormPlayer.addEventListener("titleAdded", function (event) {
+            that.getHtmlElement().style.top = String(event.newHeight + 25) + "px";
+        });
+
+        this.stormPlayer.addEventListener("subtitleAdd", function (event) {
+            that.getHtmlElement().style.top = String(event.newHeight + 25) + "px";
+        });
+
 
         this.stormPlayer.addEventListener("guiShown", function () {
             if (that.stormPlayer.getPlayerConfig().getTitle() || that.stormPlayer.getPlayerConfig().getSubtitle())
