@@ -27,11 +27,14 @@ export class Watermark extends GraphicElement {
             switch (this.stormPlayer.getPlayerConfig().getWatermarkPosition().toLowerCase()) {
                 case 'bottom_left':
                     this.htmlElement.style.left = '20px';
+                    this.htmlElement.style.removeProperty("right");
                     break;
                 case 'bottom_right':
+                    this.htmlElement.style.removeProperty("left");
                     this.htmlElement.style.right = '20px';
                     break;
                 default:
+                    this.htmlElement.style.removeProperty("left");
                     this.htmlElement.style.right = '20px';
             }
 
@@ -55,13 +58,14 @@ export class Watermark extends GraphicElement {
                 switch (that.stormPlayer.getPlayerConfig().getWatermarkPosition().toLowerCase()) {
                     case 'bottom_left':
                         that.htmlElement.style.left = '20px';
-                        that.htmlElement.style.right = '0px';
+                        that.htmlElement.style.removeProperty("right");
                         break;
                     case 'bottom_right':
-                        that.htmlElement.style.left = '0px';
+                        that.htmlElement.style.removeProperty("left");
                         that.htmlElement.style.right = '20px';
                         break;
                     default:
+                        that.htmlElement.style.removeProperty("left");
                         that.htmlElement.style.right = '20px';
                 }
 
