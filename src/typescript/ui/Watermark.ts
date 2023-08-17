@@ -55,8 +55,10 @@ export class Watermark extends GraphicElement {
                 switch (that.stormPlayer.getPlayerConfig().getWatermarkPosition().toLowerCase()) {
                     case 'bottom_left':
                         that.htmlElement.style.left = '20px';
+                        that.htmlElement.style.right = '0px';
                         break;
                     case 'bottom_right':
+                        that.htmlElement.style.left = '0px';
                         that.htmlElement.style.right = '20px';
                         break;
                     default:

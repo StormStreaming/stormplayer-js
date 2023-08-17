@@ -67,8 +67,8 @@ export type StormPlayerConfig = {
       errorColor?: string,
     },
     watermark?: {
-      imgURL: string,
-      position: string
+      imgURL?: string,
+      position?: string
     },
   }
 };

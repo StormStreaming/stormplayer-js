@@ -40,9 +40,24 @@ export class PosterElement extends GraphicElement {
     protected override draw(): void {
         super.draw();
 
-        if(this.stormPlayer.getPlayerConfig().getPoster() != null && this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfAutoStart()) {
-            this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
+        let isAutoStart = false;
+        if(this.stormPlayer.getOrigLibraryConfig().settings != undefined && this.stormPlayer.getOrigLibraryConfig().settings != null){
+            if(this.stormPlayer.getOrigLibraryConfig().settings.autoStart != undefined && this.stormPlayer.getOrigLibraryConfig().settings.autoStart != null){
+                isAutoStart = this.stormPlayer.getOrigLibraryConfig().settings.autoStart;
+
+                if(this.stormPlayer.getOrigGUIConfig().demoMode)
+                    isAutoStart = true;
+            }
         }
+
+        if(this.stormPlayer.getPlayerConfig().getPoster() != null ){
+            if(this.stormPlayer.getOrigGUIConfig().demoMode || isAutoStart){
+                this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
+            } else
+                this.htmlElement.innerHTML = ``;
+        } else
+            this.htmlElement.innerHTML = ``;
+
 
     }
 
@@ -55,10 +70,25 @@ export class PosterElement extends GraphicElement {
         let that:PosterElement = this;
 
         this.stormPlayer.addEventListener("playerConfigUpdated", function () {
-            if(that.stormPlayer.getPlayerConfig().getPoster() != null && that.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfAutoStart())
-                that.htmlElement.innerHTML = `<img src='${that.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
-            else
+
+            let isAutoStart = false;
+            if(that.stormPlayer.getOrigLibraryConfig().settings != undefined && that.stormPlayer.getOrigLibraryConfig().settings != null){
+                if(that.stormPlayer.getOrigLibraryConfig().settings.autoStart != undefined && that.stormPlayer.getOrigLibraryConfig().settings.autoStart != null){
+                    isAutoStart = that.stormPlayer.getOrigLibraryConfig().settings.autoStart;
+
+                    if(that.stormPlayer.getOrigGUIConfig().demoMode)
+                        isAutoStart = true;
+                }
+            }
+
+            if(that.stormPlayer.getPlayerConfig().getPoster() != null ){
+                if(that.stormPlayer.getOrigGUIConfig().demoMode || isAutoStart){
+                    that.htmlElement.innerHTML = `<img src='${that.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
+                } else
+                    that.htmlElement.innerHTML = ``;
+            } else
                 that.htmlElement.innerHTML = ``;
+
         });
 
         this.stormPlayer.addEventListener("interactionRequired", function (e: any) {

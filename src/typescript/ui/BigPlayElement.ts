@@ -79,6 +79,8 @@ export class BigPlayElement extends GraphicElement {
         this.stormPlayer.addEventListener("playerConfigUpdated", function () {
             if (that.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false) {
                 that.hide();
+            } else {
+                that.show();
             }
         });
 

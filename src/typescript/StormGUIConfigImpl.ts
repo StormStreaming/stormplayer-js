@@ -37,7 +37,7 @@ export class StormGUIConfigImpl {
      * Main poster for the video
      * @private
      */
-    private poster:string;
+    private poster:string = null;
 
     /**
      * Whenever timeline should be visible
@@ -139,7 +139,7 @@ export class StormGUIConfigImpl {
      * Position of a watermark
      * @private
      */
-    private watermarkPosition:string = "bottom_left";
+    private watermarkPosition:string = "bottom_right";
 
     /**
      * URL of a watermark
