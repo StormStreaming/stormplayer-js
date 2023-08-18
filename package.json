@@ -41,12 +41,13 @@
   "dependencies": {
     "@stormstreaming/stormlibrary": "3.0.0-rc.9",
     "@types/lodash.debounce": "^4.0.7",
-    "lodash.debounce": "^4.0.8"
+    "lodash.debounce": "^4.0.8",
+    "luxon": "^3.4.0"
   },
   "devDependencies": {
-    "@aws-sdk/s3-request-presigner": "^3.387.0",
     "@aws-sdk/client-s3": "^3.387.0",
     "@aws-sdk/lib-storage": "^3.387.0",
+    "@aws-sdk/s3-request-presigner": "^3.387.0",
     "@babel/core": "^7.22.8",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@babel/plugin-transform-react-jsx": "^7.22.5",
@@ -64,6 +65,7 @@
     "@rollup/plugin-replace": "^5.0.2",
     "@rollup/plugin-terser": "^0.4.3",
     "@rollup/plugin-url": "^8.0.1",
+    "@types/luxon": "^3.3.1",
     "babel-plugin-root-import": "^6.6.0",
     "cross-env": "^7.0.3",
     "npm": "^9.7.2",

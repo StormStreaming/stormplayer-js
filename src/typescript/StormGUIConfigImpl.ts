@@ -1,3 +1,5 @@
+import {StormTimeZone} from "@app/typescript/utilities/StormTimeZone";
+
 /**
  * Object of this class contains all settings for the player
  */
@@ -105,6 +107,10 @@ export class StormGUIConfigImpl {
      */
     private streamErrorText: string = "Error while playing the stream.";
 
+    /**
+     * This message will be displayed while awaiting for video start
+     * @private
+     */
     private awaitingStartText:string = "Waiting for the stream to start...";
 
     /**
@@ -178,6 +184,12 @@ export class StormGUIConfigImpl {
      * @private
      */
     private waitingRoomPoster:string;
+
+    /**
+     * Timezone
+     * @private
+     */
+    private waitingRoomTimeZone:StormTimeZone = "UTC";
 
     /**
      * Translation for WaitingRoom - days
@@ -320,6 +332,10 @@ export class StormGUIConfigImpl {
 
             if(guiConfig.waitingRoom.poster)
                 this.waitingRoomPoster = guiConfig.waitingRoom.poster;
+
+            if(guiConfig.waitingRoom.timeZone)
+                this.waitingRoomTimeZone = guiConfig.waitingRoom.timeZone;
+
         }
 
     }
@@ -614,6 +630,10 @@ export class StormGUIConfigImpl {
      */
     public getWatermarkPosition():string {
         return this.watermarkPosition;
+    }
+
+    public getWaitingRoomTimeZone():StormTimeZone {
+        return this.waitingRoomTimeZone;
     }
 
     /**

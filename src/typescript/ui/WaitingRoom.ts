@@ -1,5 +1,6 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
+import { DateTime, IANAZone } from 'luxon';
 
 
 /**
@@ -7,15 +8,25 @@ import {StormPlayer} from "../StormPlayer";
  */
 export class WaitingRoom extends GraphicElement {
 
+    private createDateTime:DateTime;
+
+    private startDateTime:DateTime;
+
     /**
      * Constructor
      * @param stormPlayer reference to the main player class
      */
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-waiting-room");
-        this.setTime();
-        this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.stormPlayer.getPlayerConfig().getBroadcastStartDate();
+
+        this.createDateTime = this.createDateInTimezone(this.stormPlayer.getPlayerConfig().getBroadcastCreateDate(), this.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone());
+        this.startDateTime = this.createDateInTimezone(this.stormPlayer.getPlayerConfig().getBroadcastStartDate(), this.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone());
+
+        this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.startDateTime.toLocal().toLocaleString(DateTime.DATETIME_MED);
         this.getHtmlElement().style.backgroundImage="url("+this.stormPlayer.getOrigGUIConfig().waitingRoom.posterURL+")";
+
+        this.setTime();
+
     }
 
     public setTime(): void {
@@ -25,9 +36,9 @@ export class WaitingRoom extends GraphicElement {
 
         const countdown = setInterval( function () {
 
-            createTime = new Date(that.parseDate(that.stormPlayer.getPlayerConfig().getBroadcastCreateDate())).getTime();
-            startTime = new Date(that.parseDate(that.stormPlayer.getPlayerConfig().getBroadcastStartDate())).getTime();
-            nowTime = new Date().getTime();
+            createTime = that.createDateTime.toSeconds()*1000;
+            startTime = that.startDateTime.toSeconds()*1000;
+            nowTime = DateTime.now().toSeconds()*1000;
 
             let nowToStart = startTime-nowTime;
             let createToStart = startTime-createTime;
@@ -167,11 +178,27 @@ export class WaitingRoom extends GraphicElement {
 
     }
 
-    private parseDate(input:string):Date {
-        const [date, time] = input.split(' ');
-        const [year, month, day] = date.split('-').map(str => parseInt(str, 10));
-        const [hour, minute, second] = time.split(':').map(str => parseInt(str, 10));
-        return new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+    private createDateInTimezone(dateStr: string, timezone: string): DateTime | null {
+        try {
+            if (IANAZone.isValidZone(timezone)) {
+                const dateTime = DateTime.fromFormat(dateStr, 'yyyy-MM-dd HH:mm:ss', { zone: timezone });
+
+                if (!dateTime.isValid) {
+                    console.error(`Niepoprawna data: ${dateTime.invalidReason}`);
+                    return null;
+                }
+
+                return dateTime;
+            } else {
+                console.error(`Niepoprawna strefa czasowa: ${timezone}`);
+                return null;
+            }
+        } catch (error) {
+            console.error(error.message);
+            return null;
+        }
     }
+
+
 
 }

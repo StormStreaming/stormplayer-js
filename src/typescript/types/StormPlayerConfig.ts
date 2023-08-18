@@ -1,3 +1,5 @@
+import {StormTimeZone} from "@app/typescript/utilities/StormTimeZone";
+
 /**
  * Declaration for Player GUI Config
  */
@@ -31,7 +33,8 @@ export type StormPlayerConfig = {
   waitingRoom?: {
     createTime:string,
     startTime: string,
-    posterURL: string
+    timeZone:StormTimeZone,
+    posterURL?: string
   },
   interface?:{
     showBigPlayBTN?:boolean;

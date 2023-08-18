@@ -199,6 +199,10 @@ export class StormPlayer extends EventDispatcher {
         return this.id;
     }
 
+    /**
+     * Pushes new configuration for the stream
+     * @param streamConfig
+     */
     public setStreamConfig(streamConfig: StormStreamConfig):void {
 
         if(this.getOrigGUIConfig().demoMode)
@@ -213,6 +217,10 @@ export class StormPlayer extends EventDispatcher {
         this.dispatchEvent("streamConfigUpdated", {ref:this});
     }
 
+    /**
+     * Pushes new configuration for the player
+     * @param playerConfig
+     */
     public setPlayerConfig(playerConfig: StormPlayerConfig):void {
 
         playerConfig.containerID = this.origGUIConfig.containerID;
@@ -415,6 +423,9 @@ export class StormPlayer extends EventDispatcher {
         );
     }
 
+    /**
+     * Returns player version
+     */
     public getVersion(): string {
         return StormPlayer.VERSION;
     }
