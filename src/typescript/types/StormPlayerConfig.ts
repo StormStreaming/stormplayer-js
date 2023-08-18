@@ -13,6 +13,7 @@ export type StormPlayerConfig = {
   translations?: {
     broadcastRemainingTime?: string,
     broadcastStartTime?: string,
+    awaitingStart?:string,
     timeDays?:string,
     timeHours?:string,
     timeMinutes?:string,

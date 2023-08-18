@@ -25,8 +25,8 @@ export class WaitingRoom extends GraphicElement {
 
         const countdown = setInterval( function () {
 
-            createTime = new Date(that.stormPlayer.getPlayerConfig().getBroadcastCreateDate()).getTime();
-            startTime = new Date(that.stormPlayer.getPlayerConfig().getBroadcastStartDate()).getTime();
+            createTime = new Date(that.parseDate(that.stormPlayer.getPlayerConfig().getBroadcastCreateDate())).getTime();
+            startTime = new Date(that.parseDate(that.stormPlayer.getPlayerConfig().getBroadcastStartDate())).getTime();
             nowTime = new Date().getTime();
 
             let nowToStart = startTime-nowTime;
@@ -166,4 +166,12 @@ export class WaitingRoom extends GraphicElement {
         });
 
     }
+
+    private parseDate(input:string):Date {
+        const [date, time] = input.split(' ');
+        const [year, month, day] = date.split('-').map(str => parseInt(str, 10));
+        const [hour, minute, second] = time.split(':').map(str => parseInt(str, 10));
+        return new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+    }
+
 }

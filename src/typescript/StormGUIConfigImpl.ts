@@ -105,6 +105,8 @@ export class StormGUIConfigImpl {
      */
     private streamErrorText: string = "Error while playing the stream.";
 
+    private awaitingStartText:string = "Waiting for the stream to start...";
+
     /**
      * This error will be displayed if no stream with given name was found on the streaming server
      * @private
@@ -282,6 +284,9 @@ export class StormGUIConfigImpl {
 
             if (guiConfig.translations.disconnected)
                 this.playerDisconnectedText = guiConfig.translations.disconnected;
+
+            if (guiConfig.translations.awaitingStart)
+                this.awaitingStartText = guiConfig.translations.awaitingStart;
 
             if (guiConfig.translations.connectionFailed)
                 this.connectionFailedText = guiConfig.translations.connectionFailed;
