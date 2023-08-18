@@ -82,20 +82,14 @@ export class UnmuteElement extends GraphicElement {
         this.stormPlayer.addEventListener("resize", function (event:StormPlayerEvent["resize"]) {
 
             if(event.newWidth >= 700) {
-
                 that.getHtmlElement().classList.remove("tiny");
                 that.getHtmlElement().classList.remove("narrow");
-
             } else if(event.newWidth < 700 && event.newWidth >= 500){
-
                 that.getHtmlElement().classList.remove("tiny");
                 that.getHtmlElement().classList.add("narrow");
-
             } else if(event.newWidth < 500){
-
                 that.getHtmlElement().classList.add("tiny");
                 that.getHtmlElement().classList.remove("narrow");
-
             }
 
         });

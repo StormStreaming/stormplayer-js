@@ -1,5 +1,6 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
+import {StormPlayerEvent} from "@app/typescript/events/StormPlayerEvent";
 
 /**
  * Class representing big play button (visible in the middle of the player)
@@ -62,6 +63,16 @@ export class BigPlayElement extends GraphicElement {
     protected override attachListeners(): void {
 
         let that:BigPlayElement = this;
+
+        this.stormPlayer.addEventListener("resize", function (event:StormPlayerEvent["resize"]) {
+
+            if(event.newWidth < 500){
+                that.getHtmlElement().style.display = "none";
+            } else {
+                that.getHtmlElement().style.display = "flex";
+            }
+
+        });
 
         this.htmlElement.addEventListener("click", function () {
             if(!that.stormPlayer.getOrigGUIConfig().demoMode)
