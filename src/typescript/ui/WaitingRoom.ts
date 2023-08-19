@@ -19,8 +19,8 @@ export class WaitingRoom extends GraphicElement {
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-waiting-room");
 
-        this.createDateTime = this.createDateInTimezone(this.stormPlayer.getPlayerConfig().getBroadcastCreateDate(), this.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone());
-        this.startDateTime = this.createDateInTimezone(this.stormPlayer.getPlayerConfig().getBroadcastStartDate(), this.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone());
+        this.createDateTime = WaitingRoom.createDateInTimezone(this.stormPlayer.getPlayerConfig().getBroadcastCreateDate(), this.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone());
+        this.startDateTime = WaitingRoom.createDateInTimezone(this.stormPlayer.getPlayerConfig().getBroadcastStartDate(), this.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone());
 
         this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.startDateTime.toLocal().toLocaleString(DateTime.DATETIME_MED);
         this.getHtmlElement().style.backgroundImage="url("+this.stormPlayer.getOrigGUIConfig().waitingRoom.posterURL+")";
@@ -178,7 +178,7 @@ export class WaitingRoom extends GraphicElement {
 
     }
 
-    private createDateInTimezone(dateStr: string, timezone: string): DateTime | null {
+    public static createDateInTimezone(dateStr: string, timezone: string): DateTime | null {
         try {
             if (IANAZone.isValidZone(timezone)) {
                 const dateTime = DateTime.fromFormat(dateStr, 'yyyy-MM-dd HH:mm:ss', { zone: timezone });
@@ -198,7 +198,5 @@ export class WaitingRoom extends GraphicElement {
             return null;
         }
     }
-
-
 
 }

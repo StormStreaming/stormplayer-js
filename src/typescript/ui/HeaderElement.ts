@@ -136,6 +136,8 @@ export class HeaderElement extends GraphicElement {
                 this.wrapperElement.getHtmlElement().querySelector("p").classList.remove("narrow");
                 this.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("narrow");
 
+                this.liveIconElement.getHtmlElement().classList.remove("narrow");
+
             } else if(event.newWidth < 700 && event.newWidth >= 500){
 
                 this.wrapperElement.getHtmlElement().querySelector("p").classList.remove("tiny");
@@ -143,12 +145,17 @@ export class HeaderElement extends GraphicElement {
                 this.wrapperElement.getHtmlElement().querySelector("p").classList.add("narrow");
                 this.wrapperElement.getHtmlElement().querySelector("h2").classList.add("narrow");
 
+                this.liveIconElement.getHtmlElement().classList.remove("narrow");
+
             } else if(event.newWidth < 500){
 
                 this.wrapperElement.getHtmlElement().querySelector("p").classList.add("tiny");
                 this.wrapperElement.getHtmlElement().querySelector("p").classList.remove("narrow");
                 this.wrapperElement.getHtmlElement().querySelector("h2").classList.add("tiny");
                 this.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("narrow");
+
+                this.liveIconElement.getHtmlElement().classList.add("narrow");
+
 
             }
 

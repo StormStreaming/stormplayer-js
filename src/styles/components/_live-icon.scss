@@ -10,6 +10,12 @@
   right:0px;
   top: -6px;
 
+  &.narrow {
+    span {
+      display: none !important;
+    }
+  }
+
   span:empty {
     display: none !important;
   }

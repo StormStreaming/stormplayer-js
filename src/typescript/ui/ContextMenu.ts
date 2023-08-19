@@ -6,6 +6,10 @@ import {StormPlayer} from "../StormPlayer";
  */
 export class ContextMenu extends GraphicElement {
 
+    /**
+     * Whenver we're in fullscreen or not
+     * @private
+     */
     private isFullScreen: boolean = false;
 
     /**

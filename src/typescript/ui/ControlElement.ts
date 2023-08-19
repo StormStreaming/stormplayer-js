@@ -67,26 +67,22 @@ export class ControlElement extends GraphicElement {
         this.controlButtonsElement = new ControlButtonsElement(this.stormPlayer);
         this.htmlElement.appendChild(this.controlButtonsElement.getHtmlElement());
 
-        let that:ControlElement = this;
-
-        this.stormPlayer .addEventListener("guiShown", function () {
-            that.show();
+        this.stormPlayer.addEventListener("guiShown", () => {
+            this.show();
         });
 
-        this.stormPlayer.addEventListener("guiHid", function () {
-            that.hide();
+        this.stormPlayer.addEventListener("guiHid", () => {
+            this.hide();
         });
 
-        this.stormPlayer.addEventListener("fullscreenEntered", function () {
-            if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
-                that.htmlElement.style.display = "none";
-            }
+        this.stormPlayer.addEventListener("fullscreenEntered", () => {
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())
+                this.htmlElement.style.display = "none";
         });
 
-        this.stormPlayer.addEventListener("fullscreenExited", function () {
-            if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
-                that.htmlElement.style.display = "block";
-            }
+        this.stormPlayer.addEventListener("fullscreenExited", () => {
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())
+                this.htmlElement.style.display = "block";
         });
 
     }
