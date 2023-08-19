@@ -661,6 +661,8 @@ export class MainElement extends GraphicElement {
 
             spContainerElement.classList.add("sp-fullscreen");
 
+            that.htmlElement.style.setProperty("--sp-border-radius", "0px");
+
             if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())){
 
                 console.log("Enter FS - Mobile + Native");
@@ -727,6 +729,11 @@ export class MainElement extends GraphicElement {
 
             that.isTransitioning = true;
             spContainerElement.classList.remove("sp-fullscreen");
+
+            if (that.stormPlayer.getOrigGUIConfig().style.borderRadius != undefined)
+                that.htmlElement.style.setProperty("--sp-border-radius", that.stormPlayer.getOrigGUIConfig().style.borderRadius);
+            else
+                that.htmlElement.style.removeProperty("--sp-border-radius");
 
             if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())) {
 
