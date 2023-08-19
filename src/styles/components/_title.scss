@@ -28,8 +28,6 @@
     position: relative !important;
     z-index: 2 !important;
 
-    width: 80%;
-
     h2, p {
       margin: unset !important;
     }
@@ -47,7 +45,7 @@
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
-    width:100%;
+    width: 100%;
 
     &:empty {
       display: none;

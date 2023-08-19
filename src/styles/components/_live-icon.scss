@@ -2,21 +2,16 @@
   min-width: 60px;
   height: 31px;
   border-radius: 20px;
-  // background-color: $pinkish-red;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   z-index: 2;
   position: relative;
-  right: 0;
+  right:0px;
   top: -6px;
-  margin-left: 12px;
 
-  &.empty {
-    right:-6px;
-    span {
-      display: none !important;
-    }
+  span:empty {
+    display: none !important;
   }
 
   &__text {
@@ -24,6 +19,7 @@
     font-size: 12px;
     font-family: 'Montserrat-Bold', sans-serif;
     color: $pinkish-red;
+    white-space: nowrap ;
   }
 
   svg {

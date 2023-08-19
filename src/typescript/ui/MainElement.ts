@@ -202,19 +202,20 @@ export class MainElement extends GraphicElement {
      */
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-container__wrapper stormPlayer");
+        this.initialize();
+    }
 
-        const that:MainElement = this;
+    private initialize(): void {
 
-        this.stormPlayer.setMainElement(this);
-        this.parentContainer = document.getElementById(stormPlayer.getPlayerConfig().getContainerID());
+        this.parentContainer = document.getElementById(this.stormPlayer.getPlayerConfig().getContainerID());
 
-        this.getHtmlElement().setAttribute("id",stormPlayer.getInstanceName())
+        this.getHtmlElement().setAttribute("id",this.stormPlayer.getInstanceName())
 
-        this.aspectRatio = stormPlayer.getPlayerConfig().getAspectRatio();
-        this.hideGUITimeoutSeconds = stormPlayer.getPlayerConfig().getGuiHideSeconds();
+        this.aspectRatio = this.stormPlayer.getPlayerConfig().getAspectRatio();
+        this.hideGUITimeoutSeconds = this.stormPlayer.getPlayerConfig().getGuiHideSeconds();
 
-        this.resizeObserver = new ResizeObserver(debounce(function(){
-            that.setSize(that.widthOrigValue, that.heightOrigValue);
+        this.resizeObserver = new ResizeObserver(debounce(()=> {
+            this.setSize(this.widthOrigValue, this.heightOrigValue);
         },100));
 
     }
@@ -478,6 +479,7 @@ export class MainElement extends GraphicElement {
     protected override draw(): void {
         super.draw();
 
+        this.stormPlayer.setMainElement(this);
         this.spContainer = new GraphicElement(this.stormPlayer, "sp-container");
         this.htmlElement.appendChild(this.spContainer.getHtmlElement());
 

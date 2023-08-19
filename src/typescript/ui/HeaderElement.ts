@@ -93,12 +93,6 @@ export class HeaderElement extends GraphicElement {
             <span class="sp-live-icon__text">${this.stormPlayer.getPlayerConfig().getLiveText()}</span>`;
 
 
-        if(this.stormPlayer.getPlayerConfig().getLiveText().length == 0)
-            this.liveIconElement.getHtmlElement().classList.add("empty");
-        else
-            this.liveIconElement.getHtmlElement().classList.remove("empty");
-
-
     }
 
     /**
@@ -156,6 +150,10 @@ export class HeaderElement extends GraphicElement {
 
             }
 
+            let remainingSpace:number = event.newWidth-that.liveIconElement.getHtmlElement().offsetWidth-60;
+            that.wrapperElement.getHtmlElement().style.width = remainingSpace+"px";
+            that.wrapperElement.getHtmlElement().style.opacity = "1";
+
             const newHeight:number = that.calculateHeaderHeight();
             that.stormPlayer.dispatchEvent("titleAdded", {ref:that.stormPlayer, title:that.titleValue, newHeight: newHeight});
         });
@@ -164,12 +162,6 @@ export class HeaderElement extends GraphicElement {
             that.htmlElement.querySelector("span.sp-live-icon__text").innerHTML = that.stormPlayer.getPlayerConfig().getLiveText();
             that.setTitle(that.stormPlayer.getPlayerConfig().getTitle());
             that.setSubtitle(that.stormPlayer.getPlayerConfig().getSubtitle())
-
-            if(that.stormPlayer.getPlayerConfig().getLiveText().length == 0)
-                that.liveIconElement.getHtmlElement().classList.add("empty");
-            else
-                that.liveIconElement.getHtmlElement().classList.remove("empty");
-
         });
 
         this.stormPlayer.addEventListener("guiShown", function () {
