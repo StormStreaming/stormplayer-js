@@ -102,16 +102,14 @@ export class Watermark extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener("fullscreenEntered", function () {
-            if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
-                that.htmlElement.style.display = "none";
-            }
+        this.stormPlayer.addEventListener("fullscreenEntered", () => {
+            if(this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())
+                this.htmlElement.style.display = "none";
         });
 
-        this.stormPlayer.addEventListener("fullscreenExited", function () {
-            if(that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
-                that.htmlElement.style.display = "block";
-            }
+        this.stormPlayer.addEventListener("fullscreenExited", () => {
+            if(this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())
+                this.htmlElement.style.display = "block";
         });
 
     }

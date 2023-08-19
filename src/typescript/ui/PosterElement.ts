@@ -8,7 +8,6 @@ import {StormPlayerEvent} from "@app/typescript/events/StormPlayerEvent";
  */
 export class PosterElement extends GraphicElement {
 
-
     /**
      * Constructor
      * @param stormPlayer reference to the main player class
@@ -16,8 +15,6 @@ export class PosterElement extends GraphicElement {
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-poster");
     }
-
-
 
     /**
      * Makes element visible
@@ -67,44 +64,38 @@ export class PosterElement extends GraphicElement {
      */
     protected override attachListeners(): void {
 
-        let that:PosterElement = this;
-
-        this.stormPlayer.addEventListener("playerConfigUpdated", function () {
+        this.stormPlayer.addEventListener("playerConfigUpdated", () => {
 
             let isAutoStart = false;
-            if(that.stormPlayer.getOrigLibraryConfig().settings != undefined && that.stormPlayer.getOrigLibraryConfig().settings != null){
-                if(that.stormPlayer.getOrigLibraryConfig().settings.autoStart != undefined && that.stormPlayer.getOrigLibraryConfig().settings.autoStart != null){
-                    isAutoStart = that.stormPlayer.getOrigLibraryConfig().settings.autoStart;
+            if(this.stormPlayer.getOrigLibraryConfig().settings != undefined && this.stormPlayer.getOrigLibraryConfig().settings != null){
+                if(this.stormPlayer.getOrigLibraryConfig().settings.autoStart != undefined && this.stormPlayer.getOrigLibraryConfig().settings.autoStart != null){
+                    isAutoStart = this.stormPlayer.getOrigLibraryConfig().settings.autoStart;
 
-                    if(that.stormPlayer.getOrigGUIConfig().demoMode)
+                    if(this.stormPlayer.getOrigGUIConfig().demoMode)
                         isAutoStart = true;
                 }
             }
 
-            if(that.stormPlayer.getPlayerConfig().getPoster() != null ){
-                if(that.stormPlayer.getOrigGUIConfig().demoMode || isAutoStart){
-                    that.htmlElement.innerHTML = `<img src='${that.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
-                } else
-                    that.htmlElement.innerHTML = ``;
+            if(this.stormPlayer.getPlayerConfig().getPoster() != null ){
+                if(this.stormPlayer.getOrigGUIConfig().demoMode || isAutoStart)
+                    this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
+                else
+                    this.htmlElement.innerHTML = ``;
             } else
-                that.htmlElement.innerHTML = ``;
+                this.htmlElement.innerHTML = ``;
 
         });
 
         this.stormPlayer.addEventListener("interactionRequired", function (e: any) {
-            that.show();
+            this.show();
         });
 
-        this.stormPlayer.addEventListener("playbackInitiated", function () {
-            that.show();
+        this.stormPlayer.addEventListener("playbackInitiated", () => {
+            this.show();
         });
 
-        this.stormPlayer.addEventListener("playbackStarted", function () {
-            that.hide();
-        });
-
-        this.stormPlayer.addEventListener("playbackPaused", function () {
-            //that.show();
+        this.stormPlayer.addEventListener("playbackStarted", () => {
+            this.hide();
         });
 
     }

@@ -159,7 +159,7 @@ export class HeaderElement extends GraphicElement {
 
             }
 
-            let remainingSpace:number = event.newWidth-this.liveIconElement.getHtmlElement().offsetWidth-60;
+            let remainingSpace:number = event.newWidth-this.liveIconElement.getHtmlElement().offsetWidth-80;
             this.wrapperElement.getHtmlElement().style.width = remainingSpace+"px";
             this.wrapperElement.getHtmlElement().style.opacity = "1";
 

@@ -715,7 +715,6 @@ export class MainElement extends GraphicElement {
                 if(that.fsInterval != null)
                     clearInterval(that.fsInterval);
 
-
                 try {
 
                     if(that.isFullScreenOn) {
