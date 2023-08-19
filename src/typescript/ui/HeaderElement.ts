@@ -102,6 +102,7 @@ export class HeaderElement extends GraphicElement {
     public setTitle(title: string): void {
         this.titleValue = title;
         this.wrapperElement.getHtmlElement().querySelector("h2").innerHTML = title;
+
         const newHeight:number = this.wrapperElement.getHtmlElement().offsetHeight;
         this.stormPlayer.dispatchEvent("titleAdded", {ref:this.stormPlayer, title:title, newHeight: newHeight});
     }
@@ -113,6 +114,7 @@ export class HeaderElement extends GraphicElement {
     public setSubtitle(subtitle: string): void {
         this.subtitleValue = subtitle;
         this.wrapperElement.getHtmlElement().querySelector("p").innerHTML = subtitle;
+
         const newHeight:number = this.wrapperElement.getHtmlElement().offsetHeight;
         this.stormPlayer.dispatchEvent("subtitleAdd", {ref:this.stormPlayer, subtitle:subtitle, newHeight: newHeight});
     }
@@ -125,62 +127,63 @@ export class HeaderElement extends GraphicElement {
 
         let that:HeaderElement = this;
 
-        this.stormPlayer.addEventListener("resize", function (event:StormPlayerEvent["resize"]) {
+        this.stormPlayer.addEventListener("resize", (event:StormPlayerEvent["resize"]) => {
 
             if(event.newWidth >= 700) {
 
-                that.wrapperElement.getHtmlElement().querySelector("p").classList.remove("tiny");
-                that.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("tiny");
-                that.wrapperElement.getHtmlElement().querySelector("p").classList.remove("narrow");
-                that.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("narrow");
+                this.wrapperElement.getHtmlElement().querySelector("p").classList.remove("tiny");
+                this.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("tiny");
+                this.wrapperElement.getHtmlElement().querySelector("p").classList.remove("narrow");
+                this.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("narrow");
 
             } else if(event.newWidth < 700 && event.newWidth >= 500){
 
-                that.wrapperElement.getHtmlElement().querySelector("p").classList.remove("tiny");
-                that.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("tiny");
-                that.wrapperElement.getHtmlElement().querySelector("p").classList.add("narrow");
-                that.wrapperElement.getHtmlElement().querySelector("h2").classList.add("narrow");
+                this.wrapperElement.getHtmlElement().querySelector("p").classList.remove("tiny");
+                this.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("tiny");
+                this.wrapperElement.getHtmlElement().querySelector("p").classList.add("narrow");
+                this.wrapperElement.getHtmlElement().querySelector("h2").classList.add("narrow");
 
             } else if(event.newWidth < 500){
 
-                that.wrapperElement.getHtmlElement().querySelector("p").classList.add("tiny");
-                that.wrapperElement.getHtmlElement().querySelector("p").classList.remove("narrow");
-                that.wrapperElement.getHtmlElement().querySelector("h2").classList.add("tiny");
-                that.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("narrow");
+                this.wrapperElement.getHtmlElement().querySelector("p").classList.add("tiny");
+                this.wrapperElement.getHtmlElement().querySelector("p").classList.remove("narrow");
+                this.wrapperElement.getHtmlElement().querySelector("h2").classList.add("tiny");
+                this.wrapperElement.getHtmlElement().querySelector("h2").classList.remove("narrow");
 
             }
 
-            let remainingSpace:number = event.newWidth-that.liveIconElement.getHtmlElement().offsetWidth-60;
-            that.wrapperElement.getHtmlElement().style.width = remainingSpace+"px";
-            that.wrapperElement.getHtmlElement().style.opacity = "1";
+            let remainingSpace:number = event.newWidth-this.liveIconElement.getHtmlElement().offsetWidth-60;
+            this.wrapperElement.getHtmlElement().style.width = remainingSpace+"px";
+            this.wrapperElement.getHtmlElement().style.opacity = "1";
 
-            const newHeight:number = that.calculateHeaderHeight();
-            that.stormPlayer.dispatchEvent("titleAdded", {ref:that.stormPlayer, title:that.titleValue, newHeight: newHeight});
+            const newHeight:number = this.calculateHeaderHeight();
+            this.stormPlayer.dispatchEvent("titleAdded", {ref:this.stormPlayer, title:this.titleValue, newHeight: newHeight});
+
         });
 
-        this.stormPlayer.addEventListener("playerConfigUpdated", function () {
-            that.htmlElement.querySelector("span.sp-live-icon__text").innerHTML = that.stormPlayer.getPlayerConfig().getLiveText();
-            that.setTitle(that.stormPlayer.getPlayerConfig().getTitle());
-            that.setSubtitle(that.stormPlayer.getPlayerConfig().getSubtitle())
+        this.stormPlayer.addEventListener("playerConfigUpdated", () => {
+            this.htmlElement.querySelector("span.sp-live-icon__text").innerHTML = that.stormPlayer.getPlayerConfig().getLiveText();
+            this.setTitle(this.stormPlayer.getPlayerConfig().getTitle());
+            this.setSubtitle(this.stormPlayer.getPlayerConfig().getSubtitle())
         });
 
-        this.stormPlayer.addEventListener("guiShown", function () {
-            that.show();
+        this.stormPlayer.addEventListener("guiShown", () => {
+            this.show();
         });
 
-        this.stormPlayer.addEventListener("guiHid", function () {
-            that.hide();
+        this.stormPlayer.addEventListener("guiHid", () => {
+            this.hide();
         });
 
-        this.stormPlayer.addEventListener("fullscreenEntered", function () {
-            if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
-                that.htmlElement.style.display = "none";
+        this.stormPlayer.addEventListener("fullscreenEntered", () => {
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                this.htmlElement.style.display = "none";
             }
         });
 
-        this.stormPlayer.addEventListener("fullscreenExited", function () {
-            if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
-                that.htmlElement.style.display = "flex";
+        this.stormPlayer.addEventListener("fullscreenExited", () => {
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                this.htmlElement.style.display = "flex";
             }
         });
 

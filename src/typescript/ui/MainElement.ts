@@ -610,31 +610,35 @@ export class MainElement extends GraphicElement {
                     }
                 });
 
-                window.addEventListener("contextmenu", function (e) {
-                    if (e.target !== null) {
-                        const element = e.target as Element;
-                        if (element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
-                            return
-                    }
-
-                    if (e.target === that.htmlElement || that.htmlElement.contains(e.target as HTMLElement)) {
-                        e.preventDefault();
-                        that.stormPlayer.dispatchEvent("contextMenuShown", {ref:that.stormPlayer, e});
-                    } else
-                        that.stormPlayer.dispatchEvent("contextMenuHid", {ref:that.stormPlayer});
-                });
-
-                window.addEventListener("click", function (e) {
-                    if (e.target !== null) {
-                        const element = e.target as Element;
-                        if (element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
-                            return
-                    }
-
-                    that.stormPlayer.dispatchEvent("contextMenuHid", {ref:that.stormPlayer});
-                });
             }
         }
+
+        window.addEventListener("click", function (e) {
+            if (e.target !== null) {
+                const element = e.target as Element;
+                if (element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
+                    return
+            }
+
+            that.stormPlayer.dispatchEvent("contextMenuHid", {ref:that.stormPlayer});
+        });
+
+        window.addEventListener("contextmenu", function (e) {
+
+            if (e.target !== null) {
+                const element = e.target as Element;
+                if (element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
+                    return
+            }
+
+            if (e.target === that.htmlElement || that.htmlElement.contains(e.target as HTMLElement)) {
+                e.preventDefault();
+                that.stormPlayer.dispatchEvent("contextMenuShown", {ref:that.stormPlayer, e});
+            } else
+                that.stormPlayer.dispatchEvent("contextMenuHid", {ref:that.stormPlayer});
+
+
+        });
 
         this.stormPlayer.addEventListener("guiShown", function () {
             that.spContainer.getHtmlElement().classList.remove("sp-container__disablecursor");

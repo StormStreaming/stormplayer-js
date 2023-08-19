@@ -48,9 +48,9 @@ export class ContextMenu extends GraphicElement {
                 this.htmlElement.style.left = (e.clientX - rect.left + 1).toString() + 'px';
             else
                 this.htmlElement.style.left = (e.clientX - rect.left - this.htmlElement.offsetWidth - 1).toString() + 'px';
-        }
 
-        else {
+        } else {
+
             const rect = this.stormPlayer.getMainElement().getPlayerElement().getBoundingClientRect();
 
             if (this.stormPlayer.getMainElement().getPlayerElement().offsetHeight >= this.htmlElement.offsetHeight + e.clientY - rect.top )
@@ -65,8 +65,8 @@ export class ContextMenu extends GraphicElement {
         }
 
         this.htmlElement.classList.remove("hidden");
-
         this.stormPlayer.getMainElement().isOpenMenu = !this.stormPlayer.getMainElement().isOpenMenu;
+
     }
 
     /**
@@ -86,33 +86,30 @@ export class ContextMenu extends GraphicElement {
      */
     protected override attachListeners(): void {
 
-        let that:ContextMenu = this;
-
-        that.htmlElement.querySelector('.storm').addEventListener('click', function () {
+        this.htmlElement.querySelector('.storm').addEventListener('click', () => {
             window. open("https://stormstreaming.com", "_blank")
-            that.stormPlayer.dispatchEvent("contextMenuHid", {ref:that.stormPlayer});
+            this.stormPlayer.dispatchEvent("contextMenuHid", {ref:this.stormPlayer});
         });
 
-        that.htmlElement.querySelector('.debug').addEventListener('click', function () {
-            that.stormPlayer.dispatchEvent("boxStatShown", {ref:that.stormPlayer});
-            that.stormPlayer.dispatchEvent("contextMenuHid", {ref:that.stormPlayer});
+        this.htmlElement.querySelector('.debug').addEventListener('click', () => {
+            this.stormPlayer.dispatchEvent("boxStatShown", {ref:this.stormPlayer});
+            this.stormPlayer.dispatchEvent("contextMenuHid", {ref:this.stormPlayer});
         });
 
-
-        this.stormPlayer.addEventListener("contextMenuShown", function (ref) {
-            that.showContextMenu(ref.e);
+        this.stormPlayer.addEventListener("contextMenuShown",  (ref) => {
+            this.showContextMenu(ref.e);
         });
 
-        this.stormPlayer.addEventListener("contextMenuHid", function () {
-            that.hideContextMenu();
+        this.stormPlayer.addEventListener("contextMenuHid", () => {
+            this.hideContextMenu();
         });
 
-        this.stormPlayer.addEventListener("fullscreenEntered", function () {
-            that.isFullScreen = true;
+        this.stormPlayer.addEventListener("fullscreenEntered", () => {
+            this.isFullScreen = true;
         });
 
-        this.stormPlayer.addEventListener("fullscreenExited", function () {
-            that.isFullScreen = false;
+        this.stormPlayer.addEventListener("fullscreenExited", () => {
+            this.isFullScreen = false;
         });
     }
 }

@@ -20,9 +20,9 @@ export class BigPlayElement extends GraphicElement {
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-playback");
 
-        if (this.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false) {
+        if (this.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false)
             this.hide();
-        }
+
     }
 
     /**
@@ -62,60 +62,58 @@ export class BigPlayElement extends GraphicElement {
      */
     protected override attachListeners(): void {
 
-        let that:BigPlayElement = this;
+        this.stormPlayer.addEventListener("resize",(event:StormPlayerEvent["resize"]) => {
 
-        this.stormPlayer.addEventListener("resize", function (event:StormPlayerEvent["resize"]) {
-
-            if(event.newWidth < 500){
-                that.getHtmlElement().style.display = "none";
-            } else {
-                that.getHtmlElement().style.display = "flex";
-            }
+            if(event.newWidth < 500)
+                this.getHtmlElement().style.display = "none";
+            else
+                this.getHtmlElement().style.display = "flex";
 
         });
 
-        this.htmlElement.addEventListener("click", function () {
-            if(!that.stormPlayer.getOrigGUIConfig().demoMode)
-                that.stormPlayer.dispatchEvent("playClicked", {ref:that.stormPlayer});
+        this.htmlElement.addEventListener("click", () => {
+            if(!this.stormPlayer.getOrigGUIConfig().demoMode)
+                this.stormPlayer.dispatchEvent("playClicked", {ref:this.stormPlayer});
         });
 
-        this.stormPlayer.addEventListener("seekStarted", function () {
-            that.dontShowPlayback = true;
+        this.stormPlayer.addEventListener("seekStarted", () => {
+            this.dontShowPlayback = true;
         });
 
-        this.stormPlayer.addEventListener("seekEnded", function () {
-            that.dontShowPlayback = false;
+        this.stormPlayer.addEventListener("seekEnded", () => {
+            this.dontShowPlayback = false;
         });
 
-        this.stormPlayer.addEventListener("playerConfigUpdated", function () {
-            if (that.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false) {
-                that.hide();
-            } else {
-                that.show();
-            }
+        this.stormPlayer.addEventListener("playerConfigUpdated", () => {
+            if (this.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false)
+                this.hide();
+            else
+                this.show();
+
         });
 
-        this.stormPlayer.addEventListener("libraryCreated", function () {
+        this.stormPlayer.addEventListener("libraryCreated", () => {
 
-            that.stormPlayer.getLibrary().addEventListener("libraryReady", function () {
-                that.show();
+            this.stormPlayer.getLibrary().addEventListener("libraryReady", () => {
+                this.show();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("interactionRequired", function (e: any) {
-                that.show();
+            this.stormPlayer.getLibrary().addEventListener("interactionRequired", () => {
+                this.show();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("playbackInitiated", function () {
-                that.show();
+            this.stormPlayer.getLibrary().addEventListener("playbackInitiated", () => {
+                this.show();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
-                that.hide();
+            this.stormPlayer.getLibrary().addEventListener("playbackStarted", () => {
+                this.hide();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("playbackPaused", function () {
-                that.show();
+            this.stormPlayer.getLibrary().addEventListener("playbackPaused", () => {
+                this.show();
             });
+
         });
     }
 }
