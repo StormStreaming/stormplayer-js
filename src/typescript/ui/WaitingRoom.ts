@@ -178,6 +178,12 @@ export class WaitingRoom extends GraphicElement {
 
     }
 
+    /**
+     * Transforms a string with a date to a DateTime object and adjusts it for a given timezone
+     *
+     * @param dateStr a start date in string format
+     * @param timezone timezone name
+     */
     public static createDateInTimezone(dateStr: string, timezone: string): DateTime | null {
         try {
             if (IANAZone.isValidZone(timezone)) {
@@ -198,5 +204,21 @@ export class WaitingRoom extends GraphicElement {
             return null;
         }
     }
+
+    /**
+     * Check if a date is applicable for starting Waiting Room
+     *
+     * @param dateStr a start date in string format
+     * @param timezone timezone name
+     */
+    public static isWaitingApplicable(startDateStr:string, timeZone:string):boolean{
+
+        let startDate:DateTime = WaitingRoom.createDateInTimezone(startDateStr, timeZone);
+        let now:DateTime = DateTime.now();
+
+        return (startDate.toSeconds() - now.toSeconds() > 0)
+
+    }
+
 
 }

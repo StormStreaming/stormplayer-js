@@ -6,6 +6,7 @@ import {StormPlayerConfig} from "./types/StormPlayerConfig";
 import {StormStreamConfig} from "@stormstreaming/stormlibrary";
 import {EventDispatcher} from "./events/EventDispatcher";
 import {VERSION} from "rollup";
+import {WaitingRoom} from "@app/typescript/ui/WaitingRoom";
 
 /**
  * Main class for the player
@@ -117,9 +118,7 @@ export class StormPlayer extends EventDispatcher {
         this.playerConfig = new StormGUIConfigImpl(this.origGUIConfig);
 
         if(this.playerConfig.getBroadcastCreateDate() != null){
-            let startDate = new Date(this.playerConfig.getBroadcastStartDate());
-
-            if(startDate.getTime() - Date.now() <= 0)
+            if(!WaitingRoom.isWaitingApplicable(this.playerConfig.getBroadcastStartDate(), this.playerConfig.getWaitingRoomTimeZone()))
                 this.libraryManager.initialize(this.origLibraryConfig);
             else
                 this.waitingRoom = true;
