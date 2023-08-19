@@ -86,4 +86,9 @@ export class ControlElement extends GraphicElement {
         });
 
     }
+
+    public getProgresBar():ProgressbarElement {
+        return this.progressbarElement;
+    }
+
 }

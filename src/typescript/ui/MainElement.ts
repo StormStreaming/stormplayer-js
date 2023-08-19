@@ -195,6 +195,7 @@ export class MainElement extends GraphicElement {
      */
     private isFullScreenOn:boolean =false;
 
+    private isTransitioning:boolean = false;
 
     /**
      * Constructor
@@ -215,7 +216,8 @@ export class MainElement extends GraphicElement {
         this.hideGUITimeoutSeconds = this.stormPlayer.getPlayerConfig().getGuiHideSeconds();
 
         this.resizeObserver = new ResizeObserver(debounce(()=> {
-            this.setSize(this.widthOrigValue, this.heightOrigValue);
+            if(!this.isTransitioning)
+                this.setSize(this.widthOrigValue, this.heightOrigValue);
         },100));
 
     }
@@ -345,8 +347,6 @@ export class MainElement extends GraphicElement {
             return;
         }
 
-        this.stormPlayer.dispatchEvent("resize",{ref: this.stormPlayer, newWidth: finalPlayerWidth, newHeight: finalPlayerHeight});
-
         this.calculateSize(finalPlayerWidth, finalPlayerHeight)
 
     }
@@ -391,6 +391,8 @@ export class MainElement extends GraphicElement {
             } else
                 this.stormPlayer.getLibrary().setSize(width, height);
         }
+
+        this.stormPlayer.dispatchEvent("resize",{ref: this.stormPlayer, newWidth: width, newHeight: height});
     }
 
     /**
@@ -650,13 +652,14 @@ export class MainElement extends GraphicElement {
 
         this.stormPlayer.addEventListener("fullscreenEntered", function () {
 
-            spContainerElement.classList.add("sp-fullscreen");
-
+            that.isTransitioning = true;
             that.resolutionLock = true;
             that.isFullScreenOn = true;
 
             that.copyPlayerWidth = that.playerWidth;
             that.copyPlayerHeight = that.playerHeight;
+
+            spContainerElement.classList.add("sp-fullscreen");
 
             if (!UserCapabilities.isMobile() || that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()) {
 
@@ -702,12 +705,18 @@ export class MainElement extends GraphicElement {
                     that.updateResolution();
                 },100)
 
+                setTimeout(() => {
+                    that.isTransitioning = false;
+                    clearInterval(that.fsInterval);
+                },1000)
+
             }
 
         });
 
         this.stormPlayer.addEventListener("fullscreenExited", function () {
 
+            that.isTransitioning = true;
             spContainerElement.classList.remove("sp-fullscreen");
 
             if (!UserCapabilities.isMobile()) {
@@ -757,6 +766,11 @@ export class MainElement extends GraphicElement {
             that.playerHeight = that.copyPlayerHeight;
 
             that.calculateSize(that.playerWidth, that.playerHeight);
+
+            setTimeout(() => {
+                that.isTransitioning = false;
+                that.calculateSize(that.playerWidth, that.playerHeight);
+            },1000)
 
         });
 
@@ -811,6 +825,10 @@ export class MainElement extends GraphicElement {
 
     public getParentContainer():HTMLElement | null {
         return this.parentContainer;
+    }
+
+    public getControlElement():ControlElement {
+        return this.controlElement;
     }
 
 }

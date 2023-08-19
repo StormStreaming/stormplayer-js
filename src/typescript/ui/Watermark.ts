@@ -21,9 +21,18 @@ export class Watermark extends GraphicElement {
      */
     protected override draw(): void {
         super.draw();
+        this.subDraw();
+    }
+
+    /**
+     * Additional drawing
+     * @private
+     */
+    private subDraw():void {
+
+        const heightAdj:number = (this.stormPlayer.getMainElement().getControlElement().getProgresBar().getIfVisible()) ? 65 : 48;
 
         if(this.stormPlayer.getPlayerConfig().getWatermarkURL() != null) {
-
             switch (this.stormPlayer.getPlayerConfig().getWatermarkPosition().toLowerCase()) {
                 case 'bottom_left':
                     this.htmlElement.style.left = '20px';
@@ -38,65 +47,44 @@ export class Watermark extends GraphicElement {
                     this.htmlElement.style.right = '20px';
             }
 
+            this.htmlElement.style.bottom = heightAdj+"px";
             this.htmlElement.innerHTML = `<img width="auto" src='${this.stormPlayer.getPlayerConfig().getWatermarkURL()}' alt="watermark logo">`;
-        }
+        } else
+            this.htmlElement.innerHTML = ``;
 
     }
-
     /**
      * Attaches listeners to the element
      * @protected
      */
     protected override attachListeners(): void {
 
-        let that:Watermark = this;
-
-        this.stormPlayer.addEventListener("playerConfigUpdated", function () {
-
-            if(that.stormPlayer.getPlayerConfig().getWatermarkURL() != null) {
-
-                switch (that.stormPlayer.getPlayerConfig().getWatermarkPosition().toLowerCase()) {
-                    case 'bottom_left':
-                        that.htmlElement.style.left = '20px';
-                        that.htmlElement.style.removeProperty("right");
-                        break;
-                    case 'bottom_right':
-                        that.htmlElement.style.removeProperty("left");
-                        that.htmlElement.style.right = '20px';
-                        break;
-                    default:
-                        that.htmlElement.style.removeProperty("left");
-                        that.htmlElement.style.right = '20px';
-                }
-
-                that.htmlElement.innerHTML = `<img src='${that.stormPlayer.getPlayerConfig().getWatermarkURL()}' alt="watermark logo">`;
-            } else
-                that.htmlElement.innerHTML = ``;
-
+        this.stormPlayer.addEventListener("playerConfigUpdated", () => {
+            this.subDraw();
         });
 
-        this.stormPlayer.addEventListener("resize", function (event:StormPlayerEvent["resize"]) {
+        this.stormPlayer.addEventListener("resize", (event:StormPlayerEvent["resize"]) => {
 
             if(event.newWidth >= 700) {
 
-                that.htmlElement.classList.remove("tiny");
-                that.htmlElement.classList.remove("tiny");
-                that.htmlElement.classList.remove("narrow");
-                that.htmlElement.classList.remove("narrow");
+                this.htmlElement.classList.remove("tiny");
+                this.htmlElement.classList.remove("tiny");
+                this.htmlElement.classList.remove("narrow");
+                this.htmlElement.classList.remove("narrow");
 
             } else if(event.newWidth < 700 && event.newWidth >= 500){
 
-                that.htmlElement.classList.remove("tiny");
-                that.htmlElement.classList.remove("tiny");
-                that.htmlElement.classList.add("narrow");
-                that.htmlElement.classList.add("narrow");
+                this.htmlElement.classList.remove("tiny");
+                this.htmlElement.classList.remove("tiny");
+                this.htmlElement.classList.add("narrow");
+                this.htmlElement.classList.add("narrow");
 
             } else if(event.newWidth < 500){
 
-                that.htmlElement.classList.add("tiny");
-                that.htmlElement.classList.remove("narrow");
-                that.htmlElement.classList.add("tiny");
-                that.htmlElement.classList.remove("narrow");
+                this.htmlElement.classList.add("tiny");
+                this.htmlElement.classList.remove("narrow");
+                this.htmlElement.classList.add("tiny");
+                this.htmlElement.classList.remove("narrow");
 
             }
 

@@ -64,20 +64,19 @@ export class QualityMenuElement extends GraphicElement {
             let menuPosition = document.createElement("li");
             menuPosition.setAttribute("data-label", list[i].streamInfo.label);
             menuPosition.classList.add("sp-menu__list-item");
-            menuPosition.innerHTML = `
-                <span>${list[i].streamInfo.label}</span>
-                `;
+            menuPosition.innerHTML = `<span>${list[i].streamInfo.label}</span>`;
 
             this.listItems.push(menuPosition);
             this.spMenuBoxElement.getHtmlElement().querySelector("ul").appendChild(menuPosition);
 
             menuPosition.addEventListener("click", function () {
                 that.stormPlayer.dispatchEvent("qualityChanged", {
-                    ref:that.stormPlayer,
+                    ref: that.stormPlayer,
                     label: this.getAttribute("data-label"),
                 });
                 that.getHtmlElement().classList.add("sp-menu--hidden");
             });
+
         }
 
         this.setCurrentItem();
@@ -101,55 +100,50 @@ export class QualityMenuElement extends GraphicElement {
      */
     protected override attachListeners(): void {
 
-        let that = this;
-
-        this.stormPlayer.addEventListener("streamConfigUpdated", function () {
-            that.refreshList();
+        this.stormPlayer.addEventListener("streamConfigUpdated", () => {
+            this.refreshList();
         });
 
-        this.stormPlayer.addEventListener("libraryInitialized", function () {
+        this.stormPlayer.addEventListener("libraryInitialized", () => {
 
-            if(that.stormPlayer.getLibrary().isInitialized()){
-                that.refreshList();
-            }
+            if(this.stormPlayer.getLibrary().isInitialized())
+                this.refreshList();
 
-            that.stormPlayer.getLibrary().addEventListener("libraryReady", function(){
-                that.refreshList();
+            this.stormPlayer.getLibrary().addEventListener("libraryReady", () => {
+                this.refreshList();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("newStreamSourceAdded", function () {
-                that.refreshList();
+            this.stormPlayer.getLibrary().addEventListener("newStreamSourceAdded", () => {
+                this.refreshList();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("playbackInitiated", function () {
-                that.setCurrentItem();
+            this.stormPlayer.getLibrary().addEventListener("playbackInitiated", () => {
+                this.setCurrentItem();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("playbackStarted", function () {
-                that.setCurrentItem();
+            this.stormPlayer.getLibrary().addEventListener("playbackStarted", () => {
+                this.setCurrentItem();
             });
 
         });
 
-        this.stormPlayer.addEventListener("qualitySwitchClicked", function () {
-            that.getHtmlElement().classList.toggle("sp-menu--hidden");
+        this.stormPlayer.addEventListener("qualitySwitchClicked", () => {
+            this.getHtmlElement().classList.toggle("sp-menu--hidden");
         });
 
-        this.stormPlayer.addEventListener("qualityChanged", function () {
-            setTimeout(function(){
-                that.refreshList();
+        this.stormPlayer.addEventListener("qualityChanged", () => {
+            setTimeout(() => {
+                this.refreshList();
             },100)
         });
 
-        this.stormPlayer.addEventListener("guiHid", function () {
-            that.getHtmlElement().classList.add("sp-menu--hidden");
+        this.stormPlayer.addEventListener("guiHid", () => {
+            this.getHtmlElement().classList.add("sp-menu--hidden");
         });
 
-        document.addEventListener("click", function (e) {
-            if (!(e.target as HTMLElement).classList.contains("sp-controls__button")) {
-                that.getHtmlElement().classList.add("sp-menu--hidden");
-            }
-
+        document.addEventListener("click", (event) => {
+            if (!(event.target as HTMLElement).classList.contains("sp-controls__button"))
+                this.getHtmlElement().classList.add("sp-menu--hidden");
         });
     }
 }

@@ -72,7 +72,7 @@ export class BigPlayElement extends GraphicElement {
         });
 
         this.htmlElement.addEventListener("click", () => {
-            if(!this.stormPlayer.getOrigGUIConfig().demoMode)
+            if(!this.stormPlayer.getOrigGUIConfig().demoMode == true)
                 this.stormPlayer.dispatchEvent("playClicked", {ref:this.stormPlayer});
         });
 

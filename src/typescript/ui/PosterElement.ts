@@ -36,6 +36,14 @@ export class PosterElement extends GraphicElement {
      */
     protected override draw(): void {
         super.draw();
+        this.subDraw();
+    }
+
+    /**
+     * Additional drawing
+     * @private
+     */
+    private subDraw():void {
 
         let isAutoStart = false;
         if(this.stormPlayer.getOrigLibraryConfig().settings != undefined && this.stormPlayer.getOrigLibraryConfig().settings != null){
@@ -48,13 +56,12 @@ export class PosterElement extends GraphicElement {
         }
 
         if(this.stormPlayer.getPlayerConfig().getPoster() != null ){
-            if(this.stormPlayer.getOrigGUIConfig().demoMode || isAutoStart){
+            if(this.stormPlayer.getOrigGUIConfig().demoMode || !isAutoStart){
                 this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
             } else
                 this.htmlElement.innerHTML = ``;
         } else
             this.htmlElement.innerHTML = ``;
-
 
     }
 
@@ -65,28 +72,10 @@ export class PosterElement extends GraphicElement {
     protected override attachListeners(): void {
 
         this.stormPlayer.addEventListener("playerConfigUpdated", () => {
-
-            let isAutoStart = false;
-            if(this.stormPlayer.getOrigLibraryConfig().settings != undefined && this.stormPlayer.getOrigLibraryConfig().settings != null){
-                if(this.stormPlayer.getOrigLibraryConfig().settings.autoStart != undefined && this.stormPlayer.getOrigLibraryConfig().settings.autoStart != null){
-                    isAutoStart = this.stormPlayer.getOrigLibraryConfig().settings.autoStart;
-
-                    if(this.stormPlayer.getOrigGUIConfig().demoMode)
-                        isAutoStart = true;
-                }
-            }
-
-            if(this.stormPlayer.getPlayerConfig().getPoster() != null ){
-                if(this.stormPlayer.getOrigGUIConfig().demoMode || isAutoStart)
-                    this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
-                else
-                    this.htmlElement.innerHTML = ``;
-            } else
-                this.htmlElement.innerHTML = ``;
-
+            this.subDraw();
         });
 
-        this.stormPlayer.addEventListener("interactionRequired", function (e: any) {
+        this.stormPlayer.addEventListener("interactionRequired", () => {
             this.show();
         });
 

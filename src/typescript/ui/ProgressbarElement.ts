@@ -117,6 +117,12 @@ export class ProgressbarElement extends GraphicElement {
     private wasSeekPerformend:boolean = false;
 
     /**
+     * Whenver this element is visible or not
+     * @private
+     */
+    private isVisible:boolean = false;
+
+    /**
      * Constructor
      * @param stormPlayer reference to the main player class
      */
@@ -209,11 +215,13 @@ export class ProgressbarElement extends GraphicElement {
         if (this.stopRefreshBar)
             return;
 
-        if (!this.stormPlayer.getPlayerConfig().getTimeline() || this.dvrCacheSize < 1000 * 5)
+        if (!this.stormPlayer.getPlayerConfig().getTimeline() || this.dvrCacheSize < 1000 * 5) {
             this.hide();
-        else {
+            this.isVisible = false;
+        } else {
 
             this.show();
+            this.isVisible = true;
 
             this.progressElement.setAttribute("min", "0");
             this.progressElement.setAttribute("max", (this.progressBarEndTime - this.progressBarStartTime).toString());
@@ -221,10 +229,7 @@ export class ProgressbarElement extends GraphicElement {
 
             let maxThumbPos = this.seekElement.clientWidth;
 
-
-
             maxThumbPos -= 15; //offset right
-
 
             let thumbPos = (maxThumbPos * (this.progressBarCurrTime - this.progressBarStartTime)) / (this.progressBarEndTime - this.progressBarStartTime);
             thumbPos += 5; //offset left
@@ -530,6 +535,10 @@ export class ProgressbarElement extends GraphicElement {
 
         }
 
+    }
+
+    public getIfVisible():boolean {
+        return this.isVisible;
     }
 
 

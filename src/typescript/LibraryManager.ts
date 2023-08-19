@@ -76,6 +76,9 @@ export class LibraryManager {
 
         this.config = config;
 
+        if(this.stormPlayer.getOrigGUIConfig().demoMode)
+            this.config.settings.autoStart = false;
+
         if(typeof this.config.settings.video != "undefined") {
 
             this.config.settings.video.containerID = this.stormPlayer.getInstanceName() + "_video";
@@ -309,7 +312,8 @@ export class LibraryManager {
 
             // when video quality is changed
             that.stormPlayer.addEventListener("qualityChanged", function (event) {
-                that.getLibrary().setQuality(event.label);
+                if(that.stormPlayer.getOrigGUIConfig().demoMode != true)
+                    that.getLibrary().setQuality(event.label);
             });
 
             // when user clicks on progress bar or uses thumb to seek
