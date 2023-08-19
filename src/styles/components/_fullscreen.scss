@@ -1,10 +1,11 @@
 .sp-fullscreen {
-  border-radius: 0;
+
+  border-radius: 0px !important;
 
 
   .sp-header,
   .sp-controls {
-    border-radius: 0;
+    border-radius: 0px !important;
   }
 
   // .sp-progress-bar__end {

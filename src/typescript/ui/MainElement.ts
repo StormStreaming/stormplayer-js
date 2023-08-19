@@ -661,7 +661,33 @@ export class MainElement extends GraphicElement {
 
             spContainerElement.classList.add("sp-fullscreen");
 
-            if (!UserCapabilities.isMobile() || that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()) {
+            if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())){
+
+                console.log("Enter FS - Mobile + Native");
+
+
+            } else if(UserCapabilities.isMobile()){
+
+                console.log("Enter FS - Mobile");
+
+                that.htmlElement.classList.add("fs-mode");
+                document.body.classList.add("fs-body-fix");
+
+                if(that.fsInterval != null)
+                    clearInterval(that.fsInterval);
+
+                that.fsInterval = setInterval(function(){
+                    that.updateResolution();
+                },100)
+
+                setTimeout(() => {
+                    that.isTransitioning = false;
+                    clearInterval(that.fsInterval);
+                },1000)
+
+            } else {
+
+                console.log("Enter FS - Desktop");
 
                 try {
 
@@ -690,25 +716,8 @@ export class MainElement extends GraphicElement {
                         docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();
                     }
                 } catch(error:any){
-                    console.log("error:"+error)
+                    console.log("error: "+error)
                 }
-
-            } else {
-
-                that.htmlElement.classList.add("fs-mode");
-                document.body.classList.add("fs-body-fix");
-
-                if(that.fsInterval != null)
-                    clearInterval(that.fsInterval);
-
-                that.fsInterval = setInterval(function(){
-                    that.updateResolution();
-                },100)
-
-                setTimeout(() => {
-                    that.isTransitioning = false;
-                    clearInterval(that.fsInterval);
-                },1000)
 
             }
 
@@ -719,7 +728,23 @@ export class MainElement extends GraphicElement {
             that.isTransitioning = true;
             spContainerElement.classList.remove("sp-fullscreen");
 
-            if (!UserCapabilities.isMobile()) {
+            if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())) {
+
+                console.log("Exit FS - Mobile + Native");
+
+            } else if(UserCapabilities.isMobile()){
+
+                console.log("Exit FS - Mobile");
+
+                that.htmlElement.classList.remove("fs-mode");
+                document.body.classList.remove("fs-body-fix");
+
+                if(that.fsInterval != null)
+                    clearInterval(that.fsInterval);
+
+            } else if (!UserCapabilities.isMobile()) {
+
+                console.log("Exit FS - Desktop");
 
                 if(that.fsInterval != null)
                     clearInterval(that.fsInterval);
@@ -748,16 +773,8 @@ export class MainElement extends GraphicElement {
                     }
 
                 } catch(error:any){
-                    // nothing
+                    console.log("error: "+error)
                 }
-
-            } else {
-
-                that.htmlElement.classList.remove("fs-mode");
-                document.body.classList.remove("fs-body-fix");
-
-                if(that.fsInterval != null)
-                    clearInterval(that.fsInterval);
 
             }
 

@@ -321,6 +321,9 @@ export class ProgressbarElement extends GraphicElement {
 
         this.seekTooltipElement.getHtmlElement().innerHTML = tooltipText;
 
+        if(this.stormPlayer.getOrigGUIConfig().demoMode)
+            this.seekTooltipElement.getHtmlElement().innerHTML = "Live";
+
         if (mouseX < 34)
             mouseX = 34;
         else if (mouseX > maxPos - 25)
