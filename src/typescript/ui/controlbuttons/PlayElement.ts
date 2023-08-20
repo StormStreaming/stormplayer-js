@@ -100,7 +100,7 @@ export class PlayElement extends GraphicElement {
 
         this.playButtonElement.addEventListener("click", () => {
 
-            if (!this.playButtonElement || this.stormPlayer.getOrigGUIConfig().demoMode == true)
+            if (!this.playButtonElement || this.stormPlayer.getRawPlayerConfig().demoMode == true)
                 return;
 
             if (!this.playButtonElement.querySelector(".sp-play-icon").classList.contains("sp-hidden"))

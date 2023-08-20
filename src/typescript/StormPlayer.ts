@@ -1,7 +1,7 @@
 import {MainElement} from "./ui/MainElement";
 import {LibraryManager} from "./LibraryManager";
 import {StormLibrary} from "@stormstreaming/stormlibrary";
-import {StormGUIConfigImpl} from "./StormGUIConfigImpl";
+import {StormPlayerConfigImpl} from "./StormPlayerConfigImpl";
 import {StormPlayerConfig} from "./types/StormPlayerConfig";
 import {StormStreamConfig} from "@stormstreaming/stormlibrary";
 import {EventDispatcher} from "./events/EventDispatcher";
@@ -41,7 +41,7 @@ export class StormPlayer extends EventDispatcher {
      * Player GUI configuration
      * @private
      */
-    private playerConfig: StormGUIConfigImpl;
+    private playerConfig: StormPlayerConfigImpl;
 
     /**
      * Main HTML element of the GUI
@@ -59,13 +59,13 @@ export class StormPlayer extends EventDispatcher {
      * Original GUI config
      * @private
      */
-    private origGUIConfig:StormPlayerConfig;
+    private rawPlayerConfig:StormPlayerConfig;
 
     /**
      * Original Library config
      * @private
      */
-    private origLibraryConfig:StormStreamConfig;
+    private rawStreamConfig:StormStreamConfig;
 
     /**
      * Whenever player was started or not
@@ -92,8 +92,8 @@ export class StormPlayer extends EventDispatcher {
         if(typeof window === 'undefined' || !window.document || !window.document.createElement)
             return;
 
-        this.origGUIConfig = playerConfig;
-        this.origLibraryConfig = streamConfig;
+        this.rawPlayerConfig = playerConfig;
+        this.rawStreamConfig = streamConfig;
 
         this.id = StormPlayer.NEXT_PLAYER_ID;
         this.instanceName = "stormPlayer-"+this.id;
@@ -115,16 +115,16 @@ export class StormPlayer extends EventDispatcher {
             return;
 
         this.started = true;
-        this.playerConfig = new StormGUIConfigImpl(this.origGUIConfig);
+        this.playerConfig = new StormPlayerConfigImpl(this.rawPlayerConfig);
 
         if(this.playerConfig.getBroadcastCreateDate() != null){
             if(!WaitingRoom.isWaitingApplicable(this.playerConfig.getBroadcastStartDate(), this.playerConfig.getWaitingRoomTimeZone()))
-                this.libraryManager.initialize(this.origLibraryConfig);
+                this.libraryManager.initialize(this.rawStreamConfig);
             else
                 this.waitingRoom = true;
 
         } else {
-            this.libraryManager.initialize(this.origLibraryConfig);
+            this.libraryManager.initialize(this.rawStreamConfig);
         }
 
         this.mainElement = new MainElement(this);
@@ -141,16 +141,15 @@ export class StormPlayer extends EventDispatcher {
             window.addEventListener('resize', this.waitingRoomResize)
         }
 
-        this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
+        this.setSize(this.rawPlayerConfig.width, this.rawPlayerConfig.height);
         this.mainElement.setObserver();
-        this.setStyle(this.origGUIConfig);
+        this.setStyle(this.rawPlayerConfig);
     }
 
-    public waitingRoomResize = (): void => {
+    private waitingRoomResize = (): void => {
 
         if (!this.waitingRoom)
             window.removeEventListener('resize', this.waitingRoomResize)
-
 
         if(this.mainElement.getHtmlElement().clientWidth < 600)
             this.mainElement.getHtmlElement().querySelector<HTMLElement>('.countdown-container').style.transform = `scale(${this.mainElement.getHtmlElement().clientWidth/600})`
@@ -164,7 +163,7 @@ export class StormPlayer extends EventDispatcher {
      */
     public setLibraryManager() {
         this.libraryManager = new LibraryManager(this);
-        this.libraryManager.initialize(this.origLibraryConfig)
+        this.libraryManager.initialize(this.rawStreamConfig)
     }
 
     /**
@@ -204,11 +203,11 @@ export class StormPlayer extends EventDispatcher {
      */
     public setStreamConfig(streamConfig: StormStreamConfig):void {
 
-        if(this.getOrigGUIConfig().demoMode)
+        if(this.getRawPlayerConfig().demoMode)
             return;
 
-        streamConfig.settings.video = this.origLibraryConfig.settings.video;
-        this.origLibraryConfig = streamConfig;
+        streamConfig.settings.video = this.rawStreamConfig.settings.video;
+        this.rawStreamConfig = streamConfig;
         if(this.libraryManager != null){
             this.libraryManager.setStreamConfig(streamConfig);
         }
@@ -222,12 +221,12 @@ export class StormPlayer extends EventDispatcher {
      */
     public setPlayerConfig(playerConfig: StormPlayerConfig):void {
 
-        playerConfig.containerID = this.origGUIConfig.containerID;
+        playerConfig.containerID = this.rawPlayerConfig.containerID;
 
-        this.origGUIConfig = playerConfig;
-        this.playerConfig = new StormGUIConfigImpl(this.origGUIConfig);
-        this.setSize(this.origGUIConfig.width, this.origGUIConfig.height);
-        this.setStyle(this.origGUIConfig);
+        this.rawPlayerConfig = playerConfig;
+        this.playerConfig = new StormPlayerConfigImpl(this.rawPlayerConfig);
+        this.setSize(this.rawPlayerConfig.width, this.rawPlayerConfig.height);
+        this.setStyle(this.rawPlayerConfig);
 
         this.dispatchEvent("playerConfigUpdated", {ref:this});
 
@@ -385,22 +384,22 @@ export class StormPlayer extends EventDispatcher {
     /**
      * Returns GUI configuration object
      */
-    public getPlayerConfig(): StormGUIConfigImpl {
+    public getPlayerConfig(): StormPlayerConfigImpl {
         return this.playerConfig;
     }
 
     /**
      * Returns GUI configuration object
      */
-    public getOrigLibraryConfig(): StormStreamConfig {
-        return this.origLibraryConfig;
+    public getRawStreamConfig(): StormStreamConfig {
+        return this.rawStreamConfig;
     }
 
     /**
      * Returns GUI configuration object
      */
-    public getOrigGUIConfig(): StormPlayerConfig {
-        return this.origGUIConfig;
+    public getRawPlayerConfig(): StormPlayerConfig {
+        return this.rawPlayerConfig;
     }
 
     /**

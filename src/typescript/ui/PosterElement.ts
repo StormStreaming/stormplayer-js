@@ -46,17 +46,17 @@ export class PosterElement extends GraphicElement {
     private subDraw():void {
 
         let isAutoStart = false;
-        if(this.stormPlayer.getOrigLibraryConfig().settings != undefined && this.stormPlayer.getOrigLibraryConfig().settings != null){
-            if(this.stormPlayer.getOrigLibraryConfig().settings.autoStart != undefined && this.stormPlayer.getOrigLibraryConfig().settings.autoStart != null){
-                isAutoStart = this.stormPlayer.getOrigLibraryConfig().settings.autoStart;
+        if(this.stormPlayer.getRawStreamConfig().settings != undefined && this.stormPlayer.getRawStreamConfig().settings != null){
+            if(this.stormPlayer.getRawStreamConfig().settings.autoStart != undefined && this.stormPlayer.getRawStreamConfig().settings.autoStart != null){
+                isAutoStart = this.stormPlayer.getRawStreamConfig().settings.autoStart;
 
-                if(this.stormPlayer.getOrigGUIConfig().demoMode)
+                if(this.stormPlayer.getRawPlayerConfig().demoMode)
                     isAutoStart = true;
             }
         }
 
         if(this.stormPlayer.getPlayerConfig().getPoster() != null ){
-            if(this.stormPlayer.getOrigGUIConfig().demoMode || !isAutoStart){
+            if(this.stormPlayer.getRawPlayerConfig().demoMode || !isAutoStart){
                 this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
             } else
                 this.htmlElement.innerHTML = ``;
@@ -85,6 +85,28 @@ export class PosterElement extends GraphicElement {
 
         this.stormPlayer.addEventListener("playbackStarted", () => {
             this.hide();
+        });
+
+
+        // when user enters full-screen mode
+        this.stormPlayer.addEventListener("fullscreenEntered", () => {
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+
+                if(this.stormPlayer.getPlayerConfig().getPoster() != null )
+                        this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
+                else
+                    this.htmlElement.innerHTML = ``;
+
+                this.show();
+            }
+        });
+
+
+        // when user enters full-screen mode
+        this.stormPlayer.addEventListener("fullscreenExited", () => {
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                this.hide();
+            }
         });
 
     }

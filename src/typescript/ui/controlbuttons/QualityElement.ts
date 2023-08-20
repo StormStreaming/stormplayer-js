@@ -26,12 +26,12 @@ export class QualityElement extends GraphicElement {
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-resolution sp-hidden");
 
-        if (this.stormPlayer.getOrigGUIConfig().demoMode) {
+        if (this.stormPlayer.getRawPlayerConfig().demoMode) {
             this.show();
 
             let label = "Quality";
             try {
-                label = this.stormPlayer.getOrigLibraryConfig().stream.sourceList.at(0).streamInfo.label;
+                label = this.stormPlayer.getRawStreamConfig().stream.sourceList.at(0).streamInfo.label;
             } catch(e){
                 // nobody's care
             }

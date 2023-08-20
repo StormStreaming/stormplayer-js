@@ -445,7 +445,7 @@ export class MainElement extends GraphicElement {
         //this.loaderElement = new LoaderElement(this.stormPlayer);
         //this.spContainer.getHtmlElement().appendChild(this.loaderElement.getHtmlElement());
 
-        if (!this.stormPlayer.getOrigGUIConfig().demoMode) {
+        if (!this.stormPlayer.getRawPlayerConfig().demoMode) {
             this.errorElement = new ErrorElement(this.stormPlayer);
             this.spContainer.getHtmlElement().appendChild(this.errorElement.getHtmlElement());
         }
@@ -508,7 +508,7 @@ export class MainElement extends GraphicElement {
             clearTimeout(that.hideGUITimeout)
             that.stormPlayer.dispatchEvent("guiShown", {ref:that.stormPlayer});
 
-            if(that.stormPlayer.getPlayerConfig().getIfAutoGUIHide() && that.stormPlayer.getOrigGUIConfig().demoMode == false) {
+            if(that.stormPlayer.getPlayerConfig().getIfAutoGUIHide() && that.stormPlayer.getRawPlayerConfig().demoMode == false) {
                 that.hideGUITimeout = setTimeout(function () {
                     that.isGUIHidden = true;
                     that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
@@ -670,7 +670,8 @@ export class MainElement extends GraphicElement {
                 const video:HTMLVideoElement = that.stormPlayer.getLibraryManager().getVideoElement();
                 if(video != null){
                     console.log("Element in place");
-                    video.requestFullscreen();
+                    // @ts-ignore
+                    video.webkitEnterFullScreen();
                 }
 
             } else if(UserCapabilities.isMobile()){
@@ -735,8 +736,8 @@ export class MainElement extends GraphicElement {
             that.isTransitioning = true;
             spContainerElement.classList.remove("sp-fullscreen");
 
-            if (that.stormPlayer.getOrigGUIConfig().style.borderRadius != undefined)
-                that.htmlElement.style.setProperty("--sp-border-radius", that.stormPlayer.getOrigGUIConfig().style.borderRadius);
+            if (that.stormPlayer.getRawPlayerConfig().style.borderRadius != undefined)
+                that.htmlElement.style.setProperty("--sp-border-radius", that.stormPlayer.getRawPlayerConfig().style.borderRadius);
             else
                 that.htmlElement.style.removeProperty("--sp-border-radius");
 

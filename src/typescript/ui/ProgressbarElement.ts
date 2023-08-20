@@ -131,7 +131,7 @@ export class ProgressbarElement extends GraphicElement {
 
         const that:ProgressbarElement = this;
 
-        if (this.stormPlayer.getOrigGUIConfig().demoMode) {
+        if (this.stormPlayer.getRawPlayerConfig().demoMode) {
             this.progressBarStartTime = 0;
             this.progressBarCurrTime = 100;
             this.progressBarEndTime = 100;
@@ -321,7 +321,7 @@ export class ProgressbarElement extends GraphicElement {
 
         this.seekTooltipElement.getHtmlElement().innerHTML = tooltipText;
 
-        if(this.stormPlayer.getOrigGUIConfig().demoMode)
+        if(this.stormPlayer.getRawPlayerConfig().demoMode)
             this.seekTooltipElement.getHtmlElement().innerHTML = "Live";
 
         if (mouseX < 34)

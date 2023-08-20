@@ -76,7 +76,7 @@ export class LibraryManager {
 
         this.config = config;
 
-        if(this.stormPlayer.getOrigGUIConfig().demoMode)
+        if(this.stormPlayer.getRawPlayerConfig().demoMode)
             this.config.settings.autoStart = false;
 
         if(typeof this.config.settings.video != "undefined") {
@@ -313,7 +313,7 @@ export class LibraryManager {
 
             // when video quality is changed
             that.stormPlayer.addEventListener("qualityChanged", function (event) {
-                if(that.stormPlayer.getOrigGUIConfig().demoMode != true)
+                if(that.stormPlayer.getRawPlayerConfig().demoMode != true)
                     that.getLibrary().setQuality(event.label);
             });
 

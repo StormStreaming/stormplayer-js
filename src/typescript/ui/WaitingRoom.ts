@@ -2,7 +2,6 @@ import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
 import {DateTime, IANAZone} from 'luxon';
 
-
 /**
  * Class representing countdown screen
  */
@@ -31,7 +30,7 @@ export class WaitingRoom extends GraphicElement {
         this.startDateTime = WaitingRoom.createDateInTimezone(this.stormPlayer.getPlayerConfig().getBroadcastStartDate(), this.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone());
 
         this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.startDateTime.toLocal().toLocaleString(DateTime.DATETIME_MED);
-        this.getHtmlElement().style.backgroundImage = "url(" + this.stormPlayer.getOrigGUIConfig().waitingRoom.posterURL + ")";
+        this.getHtmlElement().style.backgroundImage = "url(" + this.stormPlayer.getRawPlayerConfig().waitingRoom.posterURL + ")";
 
         this.setTime();
 

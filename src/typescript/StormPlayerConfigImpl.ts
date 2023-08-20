@@ -3,7 +3,7 @@ import {StormTimeZone} from "@app/typescript/utilities/StormTimeZone";
 /**
  * Object of this class contains all settings for the player
  */
-export class StormGUIConfigImpl {
+export class StormPlayerConfigImpl {
 
     /**
      * ID of a container

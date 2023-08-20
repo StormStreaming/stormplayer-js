@@ -57,54 +57,52 @@ export class ErrorElement extends GraphicElement {
      */
     protected override attachListeners(): void {
 
-        let that = this;
+        this.stormPlayer.addEventListener("libraryCreated", () => {
 
-        this.stormPlayer.addEventListener("libraryCreated", function () {
-
-            that.stormPlayer.getLibrary().addEventListener("libraryDisconnected", function (e: any) {
-                if(!that.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())
-                    that.showErrorMessage(that.stormPlayer.getPlayerConfig().getPlayerDisconnectedText());
+            this.stormPlayer.getLibrary().addEventListener("libraryDisconnected", () => {
+                if(!this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())
+                    this.showErrorMessage(this.stormPlayer.getPlayerConfig().getPlayerDisconnectedText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("libraryConnectionFailed", function (e: any) {
-                if(!that.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())
-                    that.showErrorMessage(that.stormPlayer.getPlayerConfig().getServersFailedText());
+            this.stormPlayer.getLibrary().addEventListener("libraryConnectionFailed", () => {
+                if(!this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())
+                    this.showErrorMessage(this.stormPlayer.getPlayerConfig().getServersFailedText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("allConnectionsFailed", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getServersFailedText());
+            this.stormPlayer.getLibrary().addEventListener("allConnectionsFailed", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getServersFailedText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("compatibilityError", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getCompatibilityErrorText());
+            this.stormPlayer.getLibrary().addEventListener("compatibilityError", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getCompatibilityErrorText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("SSLError", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getNoSSLErrorText());
+            this.stormPlayer.getLibrary().addEventListener("SSLError", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getNoSSLErrorText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("playbackError", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getVideoErrorText());
+            this.stormPlayer.getLibrary().addEventListener("playbackError", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getVideoErrorText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("streamNotFound", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getVideoNotFoundText());
+            this.stormPlayer.getLibrary().addEventListener("streamNotFound", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getVideoNotFoundText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("playbackStopped", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getVideoStopText());
+            this.stormPlayer.getLibrary().addEventListener("playbackStopped", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getVideoStopText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("incompatibleProtocol", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getIncorrectProtocolVersionText());
+            this.stormPlayer.getLibrary().addEventListener("incompatibleProtocol", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getIncorrectProtocolVersionText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("licenseError", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getLicenseErrorText());
+            this.stormPlayer.getLibrary().addEventListener("licenseError", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getLicenseErrorText());
             });
 
-            that.stormPlayer.getLibrary().addEventListener("SSLError", function (e: any) {
-                that.showErrorMessage(that.stormPlayer.getPlayerConfig().getNoSSLErrorText());
+            this.stormPlayer.getLibrary().addEventListener("SSLError", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getNoSSLErrorText());
             });
 
         });
