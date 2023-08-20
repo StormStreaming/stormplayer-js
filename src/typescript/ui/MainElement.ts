@@ -667,6 +667,11 @@ export class MainElement extends GraphicElement {
 
                 console.log("Enter FS - Mobile + Native");
 
+                const video:HTMLVideoElement = that.stormPlayer.getLibraryManager().getVideoElement();
+                if(video != null){
+                    console.log("Element in place");
+                    video.requestFullscreen();
+                }
 
             } else if(UserCapabilities.isMobile()){
 

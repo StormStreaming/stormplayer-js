@@ -236,6 +236,7 @@ export class LibraryManager {
 
         // videoElementCreated
         this.library.addEventListener("videoElementCreated", function(event){
+            that.videoElement = event.videoElement;
             that.stormPlayer.dispatchEvent("videoElementCreated", {ref:that.stormPlayer, videoElement:event.videoElement})
         },false)
 
@@ -344,14 +345,20 @@ export class LibraryManager {
             that.stormPlayer.addEventListener("fullscreenExited", function () {
                 that.isFullScreenMode = false
 
-                if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
-                    that.library.getVideoElement().setAttribute("controls","false");
-                }
+                if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())
+                    that.library.getVideoElement().removeAttribute("controls");
 
             });
 
         });
 
+    }
+
+    /**
+     * Returs reference to the Video Element
+     */
+    public getVideoElement():HTMLVideoElement | null {
+        return this.videoElement;
     }
 
     public checkResolution():void{
