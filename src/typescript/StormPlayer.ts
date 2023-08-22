@@ -299,6 +299,13 @@ export class StormPlayer extends EventDispatcher {
                     player.style.setProperty("--sp-second-progress-bar-color", config.style.progressBar.gradientColor2);
             }
 
+            if(config.style.waitingRoomRings){
+                if (config.style.waitingRoomRings.gradientColor1)
+                    player.style.setProperty("--sp-first-waiting-ring-color", config.style.waitingRoomRings.gradientColor1);
+                if (config.style.waitingRoomRings.gradientColor2)
+                    player.style.setProperty("--sp-second-waiting-ring-color", config.style.waitingRoomRings.gradientColor2);
+            }
+
             if(config.style.cuePoint){
                 if (config.style.cuePoint.gradientColor1)
                     player.style.setProperty("--sp-first-cue-point-color", config.style.cuePoint.gradientColor1);
@@ -334,6 +341,13 @@ export class StormPlayer extends EventDispatcher {
                     player.style.setProperty("--sp-text-desc-color", config.style.text.subtitleColor);
                 if (config.style.text.errorColor)
                     player.style.setProperty("--sp-text-error-color", config.style.text.errorColor);
+            }
+
+            if(config.style.font) {
+                if (config.style.font.fontRegular)
+                    player.style.setProperty("--sp-font-regular", config.style.font.fontRegular);
+                if (config.style.font.fontBold)
+                    player.style.setProperty("--sp-font-bold", config.style.font.fontBold);
             }
 
             if (config.style.borderRadius != undefined){

@@ -56,11 +56,11 @@
           left: 0;
 
           stop:nth-child(1) {
-            stop-color: $progressBarColor1;
+            stop-color: $waitingRoomRing1;
           }
 
           stop:nth-child(2) {
-            stop-color: $progressBarColor2;
+            stop-color: $waitingRoomRing2;
           }
 
           circle {

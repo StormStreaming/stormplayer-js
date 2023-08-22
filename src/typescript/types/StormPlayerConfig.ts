@@ -63,6 +63,10 @@ export type StormPlayerConfig = {
       activeColor?: string,
       errorColor?: string
     },
+    waitingRoomRings?: {
+      gradientColor1?: string,
+      gradientColor2?: string
+    },
     backgroundColor?: string,
     borderRadius?:string,
     text?: {
@@ -70,6 +74,10 @@ export type StormPlayerConfig = {
       subtitleColor?: string,
       errorColor?: string,
     },
+    font?: {
+      fontRegular?:string,
+      fontBold?:string,
+    }
     watermark?: {
       imgURL?: string,
       position?: string

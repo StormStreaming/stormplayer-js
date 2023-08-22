@@ -2,7 +2,7 @@
   all: initial;
   position: relative;
   display: block;
-  font-family: 'Montserrat', sans-serif;
+  font-family: $fontRegular;
 
   * {
     all: unset

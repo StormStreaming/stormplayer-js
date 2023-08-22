@@ -45,7 +45,7 @@ export class StormPlayerConfigImpl {
      * Whenever timeline should be visible
      * @private
      */
-    private timeline: boolean = true;
+    private timeline: boolean = false;
 
     /**
      * Number of seconds after which gui disappears if there is no user interaction

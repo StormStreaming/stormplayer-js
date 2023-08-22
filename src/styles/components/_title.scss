@@ -34,7 +34,7 @@
   }
 
   &__text {
-    font-family: 'Montserrat-Bold', sans-serif !important;
+    font-family: $fontBold;
   }
 
   &__title {
@@ -62,11 +62,10 @@
   }
 
   &__sub-title {
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: $fontRegular;
     padding-top:5px;
     display: block !important;
     font-size: 16px !important;
-    font-weight: normal;
     color: $descColor !important;
     display: inline-block;
     overflow:hidden;

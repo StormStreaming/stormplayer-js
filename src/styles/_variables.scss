@@ -10,10 +10,16 @@ $dark-two: #0e111d;
 $pinkish-red: #df0f33;
 $pinkish-grey: #c3c3c3;
 
+$montserratRegular: 'Montserrat';
+$montserratBold: 'Montserrat-bold';
+
 $loaderColor: var(--sp-loader-color, $white);
 
 $progressBarColor1: var(--sp-first-progress-bar-color, $pastel);
 $progressBarColor2: var(--sp-second-progress-bar-color, $melon);
+
+$waitingRoomRing1: var(--sp-first-waiting-ring-color, $pastel);
+$waitingRoomRing2: var(--sp-second-waiting-ring-color, $melon);
 
 $cuePointColor1: var(--sp-first-cue-point-color, $pastel);
 $cuePointColor2: var(--sp-second-cue-point-color, $melon);
@@ -31,6 +37,9 @@ $backgroundColor: var(--sp-background-color, $black);
 $titleColor: var(--sp-text-title-color, $white);
 $descColor: var(--sp-text-desc-color, $white);
 $textErrorColor: var(--sp-text-error-color, $white);
+
+$fontRegular: var(--sp-font-regular, $montserratRegular);
+$fontBold: var(--sp-font-bold, $montserratBold);
 
 // colors alpha channel
 $rusty-orange-25: rgba($rusty-orange, 0.25);
