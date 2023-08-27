@@ -321,6 +321,9 @@ export class StormPlayerConfigImpl {
             if (guiConfig.translations.live != undefined)
                 this.liveText = guiConfig.translations.live;
 
+            if (guiConfig.translations.live == null)
+                this.liveText = "";
+
         }
 
         if(guiConfig.waitingRoom){

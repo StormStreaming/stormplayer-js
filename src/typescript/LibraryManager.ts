@@ -76,8 +76,8 @@ export class LibraryManager {
 
         this.config = config;
 
-        if(this.stormPlayer.getRawPlayerConfig().demoMode)
-            this.config.settings.autoStart = false;
+        //if(this.stormPlayer.getRawPlayerConfig().demoMode)
+            //this.config.settings.autoStart = false;
 
         if(typeof this.config.settings.video != "undefined") {
 

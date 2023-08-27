@@ -215,11 +215,14 @@ export class MainElement extends GraphicElement {
         this.aspectRatio = this.stormPlayer.getPlayerConfig().getAspectRatio();
         this.hideGUITimeoutSeconds = this.stormPlayer.getPlayerConfig().getGuiHideSeconds();
 
+        this.widthOrigValue = this.stormPlayer.getPlayerConfig().getWidth();
+        this.heightOrigValue = this.stormPlayer.getPlayerConfig().getHeight();
+
         this.resizeObserver = new ResizeObserver(debounce(()=> {
             if(!this.isTransitioning)
                 this.setSize(this.widthOrigValue, this.heightOrigValue);
         },100));
-
+        
     }
 
 
@@ -274,7 +277,7 @@ export class MainElement extends GraphicElement {
 
             }
         }  else
-            throw new Error("Unknown value for parameter \"width\" - it must be a number or a string!")
+            throw new Error("Unknown value for parameter \"width\" - it must be a number or a string, "+typeof width+" provided!")
 
         // height
         if (typeof height === "undefined") {
@@ -300,7 +303,7 @@ export class MainElement extends GraphicElement {
 
             }
         }  else
-            throw new Error("Unknown value for parameter \"height\" - it must be a number or a string!")
+            throw new Error("Unknown value for parameter \"height\" - it must be a number or a string, "+typeof width+" provided!")
 
 
         if(this.aspectRatio == "none"){

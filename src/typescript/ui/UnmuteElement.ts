@@ -54,6 +54,8 @@ export class UnmuteElement extends GraphicElement {
      */
     protected override attachListeners(): void {
 
+        const that:UnmuteElement = this;
+
         this.stormPlayer.addEventListener("playerConfigUpdated", () => {
             this.subDraw();
         });
@@ -103,9 +105,9 @@ export class UnmuteElement extends GraphicElement {
         this.stormPlayer.addEventListener("libraryInitialized", () => {
             this.stormPlayer.getLibrary().addEventListener("volumeChanged", (event) => {
                 if (event.muted && event.invokedBy == "browser")
-                    this.show();
+                    that.show();
                 else
-                    this.hide();
+                    that.hide();
             });
         });
 
