@@ -29,7 +29,7 @@ export class WaitingRoom extends GraphicElement {
         this.createDateTime = WaitingRoom.createDateInTimezone(this.stormPlayer.getPlayerConfig().getBroadcastCreateDate(), this.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone());
         this.startDateTime = WaitingRoom.createDateInTimezone(this.stormPlayer.getPlayerConfig().getBroadcastStartDate(), this.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone());
 
-        this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.startDateTime.toLocal().toLocaleString(DateTime.DATETIME_MED);
+        this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.startDateTime.toLocal().toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
         this.getHtmlElement().style.backgroundImage = "url(" + this.stormPlayer.getRawPlayerConfig().waitingRoom.posterURL + ")";
 
         this.setTime();

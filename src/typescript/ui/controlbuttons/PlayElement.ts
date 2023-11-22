@@ -84,15 +84,19 @@ export class PlayElement extends GraphicElement {
                 this.showPlay();
             });
 
-            this.stormPlayer.getLibrary().addEventListener("playbackInitiated", () => {
+            this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {
                 this.showPause();
             });
 
-            this.stormPlayer.getLibrary().addEventListener("playbackStarted", () => {
+            this.stormPlayer.getLibrary().addEventListener("playbackStart", () => {
                 this.showPause();
             });
 
-            this.stormPlayer.getLibrary().addEventListener("playbackPaused", () => {
+            this.stormPlayer.getLibrary().addEventListener("playbackPause", () => {
+                this.showPlay();
+            });
+
+            this.stormPlayer.getLibrary().addEventListener("streamEnd", () => {
                 this.showPlay();
             });
 

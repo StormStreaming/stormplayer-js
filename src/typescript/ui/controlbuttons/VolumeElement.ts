@@ -232,7 +232,7 @@ export class VolumeElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("libraryInitialized", function () {
-            that.stormPlayer.getLibrary().addEventListener("volumeChanged", function (event){
+            that.stormPlayer.getLibrary().addEventListener("volumeChange", function (event){
                 that.updateVolume(event.volume);
                 if (event.muted)
                     that.showUnMute();
@@ -240,5 +240,15 @@ export class VolumeElement extends GraphicElement {
                     that.showMute();
             });
         });
+
+
+        this.stormPlayer.addEventListener("volumeChange", function (event){
+            console.log("volume-changex123 "+event.volume+" "+event.muted);
+            if (event.muted)
+                that.showUnMute();
+            else
+                that.showMute();
+        });
+
     }
 }

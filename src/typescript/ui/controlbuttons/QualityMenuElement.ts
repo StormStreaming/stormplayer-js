@@ -109,7 +109,7 @@ export class QualityMenuElement extends GraphicElement {
             if(this.stormPlayer.getLibrary().isInitialized())
                 this.refreshList();
 
-            this.stormPlayer.getLibrary().addEventListener("libraryReady", () => {
+            this.stormPlayer.getLibrary().addEventListener("playerCoreReady", () => {
                 this.refreshList();
             });
 
@@ -117,11 +117,11 @@ export class QualityMenuElement extends GraphicElement {
                 this.refreshList();
             });
 
-            this.stormPlayer.getLibrary().addEventListener("playbackInitiated", () => {
+            this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {
                 this.setCurrentItem();
             });
 
-            this.stormPlayer.getLibrary().addEventListener("playbackStarted", () => {
+            this.stormPlayer.getLibrary().addEventListener("playbackStart", () => {
                 this.setCurrentItem();
             });
 

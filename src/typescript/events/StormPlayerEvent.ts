@@ -3,25 +3,30 @@ import {StormMetaDataItem} from "@stormstreaming/stormlibrary/dist/types/model/S
 import {StormLibrary} from "@stormstreaming/stormlibrary";
 
 export interface StormPlayerEvent {
-    "libraryReady": {ref:StormPlayer, mode:"mse" | "hls" | "webrtc"};
-    "libraryConnected": {ref:StormPlayer, mode:string, serverURL:string};
-    "libraryDisconnected": {ref:StormPlayer, mode:string, serverURL:string};
-    "libraryConnectionFailed": {ref:StormPlayer, mode:string, serverURL:string};
+
+    "playerCoreReady": {ref:StormPlayer};
+    "serverConnectionInitiate": {ref:StormPlayer, serverURL:string};
+    "serverConnect": {ref:StormPlayer, serverURL:string};
+    "serverDisconnect": {ref:StormPlayer, serverURL:string, restart:boolean};
+    "serverConnectionError": {ref:StormPlayer, serverURL:string, restart:boolean};
     "allConnectionsFailed": {ref:StormPlayer, mode:string};
     "interactionRequired": {ref:StormPlayer, mode:string};
     "compatibilityError": {ref:StormPlayer, message:string};
-    "playbackInitiated": {ref:StormPlayer, mode:string, streamKey:string}
-    "streamBuffering": {ref:StormPlayer, mode:string, streamKey:string}
-    "playbackStarted": {ref:StormPlayer, mode:string, streamKey:string}
-    "playbackPaused": {ref:StormPlayer, mode:string, streamKey:string}
-    "playbackStopped": {ref:StormPlayer, mode:string, streamKey:string}
-    "playbackProgress": {ref:StormPlayer, mode:string, streamKey:string, streamStartTime:number, streamDuration:number, playbackStartTime:number, playbackDuration:number, dvrCacheSize:number}
+    "playbackInitiate": {ref:StormPlayer, streamKey:string}
+    "bufferingStart": {ref:StormPlayer, mode:string}
+    "bufferingComplete": {ref:StormPlayer, mode:string}
+    "playbackStart": {ref:StormPlayer, mode:string, streamKey:string}
+    "playbackPause": {ref:StormPlayer, mode:string, streamKey:string}
+    "playbackStop": {ref:StormPlayer, mode:string, streamKey:string}
+    "playbackProgress": {ref:StormPlayer, streamKey:string, streamStartTime:number, streamDuration:number, playbackStartTime:number, playbackDuration:number, dvrCacheSize:number}
     "playbackError": {ref:StormPlayer, mode:string, streamKey:string}
-    "streamNotFound": {ref:StormPlayer, mode:string, streamKey:string}
+    "streamNotFound": {ref:StormPlayer, streamKey:string}
     "newStreamSourceAdded": {ref:StormPlayer, mode:string, streamKey:string}
-    "metadataReceived": {ref:StormPlayer, mode:string, metadata:StormMetaDataItem, streamKey:string}
-    "volumeChanged": {ref:StormPlayer, mode:string, volume:number, muted:boolean, invokedBy:"user" | "browser"};
-    "videoElementCreated": {ref:StormPlayer, videoElement:HTMLVideoElement};
+    "metadataReceived": {ref:StormPlayer, metadata:StormMetaDataItem}
+    "volumeChange": {ref:StormPlayer, mode:string, volume:number, muted:boolean, invokedBy:"user" | "browser"};
+    "awaitingStream": {ref:StormPlayer, streamKey:string}
+    "streamEnd": {ref:StormPlayer, streamKey:string}
+    "videoElementCreate": {ref:StormPlayer, videoElement:HTMLVideoElement};
     "interfaceReady": {ref:StormPlayer}
     "cuePointAdded": {ref:StormPlayer, label:string, time:number}
     "cuePointRemoved": {ref:StormPlayer, time:number}
@@ -53,8 +58,8 @@ export interface StormPlayerEvent {
     "qualitySwitchClicked": {ref:StormPlayer}
     "qualityChanged": {ref:StormPlayer, label:string}
     "SSLError":  { ref:StormPlayer, mode:string};
-    "incompatibleProtocol": {ref:StormPlayer, mode:string, clientProtocolVer:number,serverProtocolVersion:number}
-    "licenseError": {ref:StormPlayer}
+    "incompatibleProtocol": {ref:StormPlayer, clientProtocolVer:number,serverProtocolVersion:number}
+    "invalidLicense": {ref:StormPlayer}
     "resize": {ref:StormPlayer, newWidth:number, newHeight:number}
     "playerConfigUpdated": {ref:StormPlayer}
     "streamConfigUpdated": {ref:StormPlayer}

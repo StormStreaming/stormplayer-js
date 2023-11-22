@@ -102,8 +102,15 @@ export class UnmuteElement extends GraphicElement {
             this.stormPlayer.dispatchEvent("unmuteClicked", {ref:this.stormPlayer});
         });
 
+        this.stormPlayer.addEventListener("volumeChange", (event) => {
+            if (event.muted && event.invokedBy == "browser")
+                that.show();
+            else
+                that.hide();
+        });
+
         this.stormPlayer.addEventListener("libraryInitialized", () => {
-            this.stormPlayer.getLibrary().addEventListener("volumeChanged", (event) => {
+            this.stormPlayer.getLibrary().addEventListener("volumeChange", (event) => {
                 if (event.muted && event.invokedBy == "browser")
                     that.show();
                 else

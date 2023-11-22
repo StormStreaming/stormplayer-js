@@ -1,10 +1,14 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
+import {WaitingRoom} from "@app/typescript/ui/WaitingRoom";
 
 /**
  * Class represents error element
  */
 export class ErrorElement extends GraphicElement {
+
+
+    private waitingRoom:WaitingRoom;
 
     /**
      * Constructor
@@ -21,7 +25,6 @@ export class ErrorElement extends GraphicElement {
     public showErrorMessage(message: string) {
         this.htmlElement.querySelector("span").innerHTML = message;
         this.show();
-        this.stormPlayer.dispatchEvent("errorShown", {ref:this.stormPlayer, message:message});
     }
 
     /**
@@ -57,14 +60,20 @@ export class ErrorElement extends GraphicElement {
      */
     protected override attachListeners(): void {
 
+        const that:ErrorElement = this;
+
         this.stormPlayer.addEventListener("libraryCreated", () => {
 
-            this.stormPlayer.getLibrary().addEventListener("libraryDisconnected", () => {
+            this.stormPlayer.getLibrary().addEventListener("serverDisconnect", () => {
                 if(!this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())
                     this.showErrorMessage(this.stormPlayer.getPlayerConfig().getPlayerDisconnectedText());
             });
 
-            this.stormPlayer.getLibrary().addEventListener("libraryConnectionFailed", () => {
+            this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {
+                this.hide();
+            });
+
+            this.stormPlayer.getLibrary().addEventListener("serverConnectionError", () => {
                 if(!this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())
                     this.showErrorMessage(this.stormPlayer.getPlayerConfig().getServersFailedText());
             });
@@ -89,7 +98,7 @@ export class ErrorElement extends GraphicElement {
                 this.showErrorMessage(this.stormPlayer.getPlayerConfig().getVideoNotFoundText());
             });
 
-            this.stormPlayer.getLibrary().addEventListener("playbackStopped", () => {
+            this.stormPlayer.getLibrary().addEventListener("streamEnd", () => {
                 this.showErrorMessage(this.stormPlayer.getPlayerConfig().getVideoStopText());
             });
 
@@ -97,12 +106,33 @@ export class ErrorElement extends GraphicElement {
                 this.showErrorMessage(this.stormPlayer.getPlayerConfig().getIncorrectProtocolVersionText());
             });
 
-            this.stormPlayer.getLibrary().addEventListener("licenseError", () => {
+            this.stormPlayer.getLibrary().addEventListener("invalidLicense", () => {
                 this.showErrorMessage(this.stormPlayer.getPlayerConfig().getLicenseErrorText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("SSLError", () => {
                 this.showErrorMessage(this.stormPlayer.getPlayerConfig().getNoSSLErrorText());
+            });
+
+            this.stormPlayer.getLibrary().addEventListener("awaitingStream", () => {
+
+                if(WaitingRoom.isWaitingApplicable(that.stormPlayer.getPlayerConfig().getBroadcastStartDate(), that.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone())){
+
+                    that.waitingRoom = new WaitingRoom(that.stormPlayer);
+                    that.stormPlayer.getMainElement().spContainer.getHtmlElement().appendChild(this.waitingRoom.getHtmlElement());
+
+                } else {
+                    this.showErrorMessage(this.stormPlayer.getPlayerConfig().getAwaitingText());
+                }
+
+            });
+
+            this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {
+
+                if(that.waitingRoom != null){
+                    that.waitingRoom.remove();
+                }
+
             });
 
         });

@@ -2,6 +2,7 @@ import {StormPlayer} from "./StormPlayer";
 import {StormLibrary, StormStreamConfig} from "@stormstreaming/stormlibrary";
 import {VideoConfig} from "@stormstreaming/stormlibrary/dist/types/types/VideoConfig";
 import {UserCapabilities} from "@app/typescript/utilities/UserCapabilities";
+import {StormPlayerConfig} from "@app/typescript/types/StormPlayerConfig";
 
 /**
  * Class responsible for managing StormLibrary instance
@@ -50,17 +51,15 @@ export class LibraryManager {
      */
     private currHeight:number | string = 0;
 
-    /**
-     * Events registered with this object
-     * @private
-     */
-    private libraryEvents: any = {}
+    private isLibraryReady:boolean = false;
 
     /**
      * Reference to the newst video element
      * @private
      */
     private videoElement:HTMLVideoElement | undefined;
+
+    private hadAutostart:boolean = false;
 
     /**
      * Constructor for the LibraryManager
@@ -76,11 +75,10 @@ export class LibraryManager {
 
         this.config = config;
 
-        //if(this.stormPlayer.getRawPlayerConfig().demoMode)
-            //this.config.settings.autoStart = false;
-
         if(typeof this.config.settings.video != "undefined") {
 
+            this.hadAutostart = this.config.settings.autoStart;
+            this.config.settings.autoStart = false;
             this.config.settings.video.containerID = this.stormPlayer.getInstanceName() + "_video";
             this.config.settings.video.width = this.stormPlayer.getPlayerConfig().getWidth();
             this.config.settings.video.height = this.stormPlayer.getPlayerConfig().getHeight();
@@ -136,23 +134,23 @@ export class LibraryManager {
         this.stormPlayer.dispatchEvent("libraryCreated",{ref:this.stormPlayer, library:this.library});
 
         // libraryReady
-        this.library.addEventListener("libraryReady", function(event){
-            that.stormPlayer.dispatchEvent("libraryReady", {ref:that.stormPlayer, mode:event.mode})
+        this.library.addEventListener("playerCoreReady", function(event){
+            that.stormPlayer.dispatchEvent("playerCoreReady", {ref:that.stormPlayer})
         },false)
 
         // libraryConnected
-        this.library.addEventListener("libraryConnected", function(event){
-            that.stormPlayer.dispatchEvent("libraryConnected", {ref:that.stormPlayer, mode:event.mode, serverURL:event.serverURL})
+        this.library.addEventListener("serverConnect", function(event){
+            that.stormPlayer.dispatchEvent("serverConnect", {ref:that.stormPlayer, serverURL:event.serverURL})
         },false)
 
         // libraryDisconnected
-        this.library.addEventListener("libraryDisconnected", function(event){
-            that.stormPlayer.dispatchEvent("libraryDisconnected", {ref:that.stormPlayer, mode:event.mode, serverURL:event.serverURL})
+        this.library.addEventListener("serverDisconnect", function(event){
+            that.stormPlayer.dispatchEvent("serverDisconnect", {ref:that.stormPlayer, serverURL:event.serverURL, restart:event.restart})
         },false)
 
         // libraryConnectionFailed
-        this.library.addEventListener("libraryConnectionFailed", function(event){
-            that.stormPlayer.dispatchEvent("libraryConnectionFailed", {ref:that.stormPlayer, mode:event.mode, serverURL:event.serverURL})
+        this.library.addEventListener("serverConnectionError", function(event){
+            that.stormPlayer.dispatchEvent("serverConnectionError", {ref:that.stormPlayer, serverURL:event.serverURL, restart:event.restart})
         },false)
 
         // allConnectionsFailed
@@ -171,29 +169,40 @@ export class LibraryManager {
         },false)
 
         // playbackInitiated
-        this.library.addEventListener("playbackInitiated", function(event){
-            that.stormPlayer.dispatchEvent("playbackInitiated", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        this.library.addEventListener("playbackInitiate", function(event){
+            that.stormPlayer.dispatchEvent("playbackInitiate", {ref:that.stormPlayer, streamKey:event.streamKey})
         },false)
 
         // streamBuffering
-        this.library.addEventListener("streamBuffering", function(event){
-            that.stormPlayer.dispatchEvent("streamBuffering", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        this.library.addEventListener("bufferingStart", function(event){
+            that.stormPlayer.dispatchEvent("bufferingStart", {ref:that.stormPlayer, mode:event.mode})
+        },false)
+
+        // streamBuffering
+        this.library.addEventListener("bufferingComplete", function(event){
+            that.stormPlayer.dispatchEvent("bufferingComplete", {ref:that.stormPlayer, mode:event.mode})
         },false)
 
         // playbackStarted
-        this.library.addEventListener("playbackStarted", function(event){
-            that.stormPlayer.dispatchEvent("playbackStarted", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        this.library.addEventListener("playbackStart", function(event){
+            that.stormPlayer.dispatchEvent("playbackStart", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
         },false)
 
         // playbackPaused
-        this.library.addEventListener("playbackPaused", function(event){
-            that.stormPlayer.dispatchEvent("playbackPaused", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        this.library.addEventListener("playbackPause", function(event){
+            that.stormPlayer.dispatchEvent("playbackPause", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
         },false)
 
         // playbackStopped
-        this.library.addEventListener("playbackStopped", function(event){
-            that.stormPlayer.dispatchEvent("playbackStopped", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        this.library.addEventListener("playbackStop", function(event){
+            that.stormPlayer.dispatchEvent("playbackStop", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
         },false)
+
+        // streamEnd
+        this.library.addEventListener("streamEnd", function(event){
+            that.stormPlayer.dispatchEvent("streamEnd", {ref:that.stormPlayer, streamKey:event.streamKey})
+        },false)
+
 
         // playbackError
         this.library.addEventListener("playbackError", function(event){
@@ -204,7 +213,6 @@ export class LibraryManager {
         this.library.addEventListener("playbackProgress", function(event){
             that.stormPlayer.dispatchEvent("playbackProgress", {
                 ref:that.stormPlayer,
-                mode:event.mode,
                 streamKey:event.streamKey,
                 playbackDuration:event.playbackDuration,
                 playbackStartTime:event.playbackStartTime,
@@ -216,7 +224,7 @@ export class LibraryManager {
 
         // streamNotFound
         this.library.addEventListener("streamNotFound", function(event){
-            that.stormPlayer.dispatchEvent("streamNotFound", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+            that.stormPlayer.dispatchEvent("streamNotFound", {ref:that.stormPlayer, streamKey:event.streamKey})
         },false)
 
         // newStreamSourceAdded
@@ -226,18 +234,19 @@ export class LibraryManager {
 
         // metadataReceived
         this.library.addEventListener("metadataReceived", function(event){
-            that.stormPlayer.dispatchEvent("metadataReceived", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey, metadata:event.metadata})
+            that.stormPlayer.dispatchEvent("metadataReceived", {ref:that.stormPlayer, metadata:event.metadata})
         },false)
 
         // volumeChanged
-        this.library.addEventListener("volumeChanged", function(event){
-            that.stormPlayer.dispatchEvent("volumeChanged", {ref:that.stormPlayer, mode:event.mode, volume:event.volume, muted:event.muted, invokedBy:event.invokedBy})
+        this.library.addEventListener("volumeChange", function(event){
+            console.log("volumeChange (library): "+event.volume+" | isMuted: "+event.muted);
+            that.stormPlayer.dispatchEvent("volumeChange", {ref:that.stormPlayer, mode:event.mode, volume:event.volume, muted:event.muted, invokedBy:event.invokedBy})
         },false)
 
         // videoElementCreated
-        this.library.addEventListener("videoElementCreated", function(event){
+        this.library.addEventListener("videoElementCreate", function(event){
             that.videoElement = event.videoElement;
-            that.stormPlayer.dispatchEvent("videoElementCreated", {ref:that.stormPlayer, videoElement:event.videoElement})
+            that.stormPlayer.dispatchEvent("videoElementCreate", {ref:that.stormPlayer, videoElement:event.videoElement})
         },false)
 
         // SSLError
@@ -247,17 +256,125 @@ export class LibraryManager {
 
         // incompatibleProtocol
         this.library.addEventListener("incompatibleProtocol", function(event){
-            that.stormPlayer.dispatchEvent("incompatibleProtocol", {ref:that.stormPlayer, mode:event.mode, clientProtocolVer:event.clientProtocolVer, serverProtocolVersion:event.serverProtocolVersion})
+            that.stormPlayer.dispatchEvent("incompatibleProtocol", {ref:that.stormPlayer, clientProtocolVer:event.clientProtocolVer, serverProtocolVersion:event.serverProtocolVersion})
         },false)
 
         // incompatibleProtocol
-        this.library.addEventListener("licenseError", function(event){
-            that.stormPlayer.dispatchEvent("licenseError", {ref:that.stormPlayer})
+        this.library.addEventListener("invalidLicense", function(event){
+            that.stormPlayer.dispatchEvent("invalidLicense", {ref:that.stormPlayer})
         },false)
+
+        // incompatibleProtocol
+        this.library.addEventListener("awaitingStream", function(event){
+            that.stormPlayer.dispatchEvent("awaitingStream", {ref:that.stormPlayer, streamKey:event.streamKey})
+        },false)
+
+        this.library.addEventListener("authorizationComplete", function (event){
+
+
+
+        }, false);
+
+        this.library.addEventListener("optionalStreamData", function (event){
+
+            if(event.optData != null){
+
+                let newTheme:StormPlayerConfig = null;
+                let posterURL:string = "";
+
+                // title
+                if(event.optData.title != null)
+                    that.stormPlayer.setTitle(event.optData.title);
+                else
+                    that.stormPlayer.setTitle("");
+
+                // subtitle
+                if(event.optData.subtitle != null)
+                    that.stormPlayer.setSubtitle(event.optData.subtitle);
+                else
+                    that.stormPlayer.setSubtitle("");
+
+                // thumbnail
+                if(event.optData.thumbnail != null){
+                    const sizeName:string = event.optData.thumbnail.sizeName;
+                    for(let i:number=0;i<event.optData.thumbnail.thumbs.length;i++){
+                        if(event.optData.thumbnail.thumbs[i].sizeName == sizeName){
+                            posterURL = event.optData.thumbnail.thumbs[i].storageFile.path;
+                            break;
+                        }
+                    }
+                }
+
+                // theme (styles, languages, interface)
+                if(event.optData.theme != null){
+                    if(event.optData.theme != null){
+
+                        switch(typeof event.optData.theme){
+                            case "string":
+                                newTheme = JSON.parse(event.optData.theme) as StormPlayerConfig;
+                                break;
+                            case "object":
+                                newTheme = event.optData.theme as StormPlayerConfig;
+                                break;
+                        }
+
+                        newTheme.posterURL = posterURL;
+
+                    }
+                }
+
+                if(event.optData.countdown != null){
+
+                    let splashScreenURL:string = null;
+
+                    newTheme.waitingRoom = {createTime:event.optData.countdown.createTime, startTime:event.optData.countdown.startTime, timeZone: event.optData.countdown.timezone } ;
+
+                    const sizeName:string = event.optData.splashscreen.sizeName;
+                    if(event.optData.splashscreen.thumbs != null) {
+                        for (let i: number = 0; i < event.optData.splashscreen.thumbs.length; i++) {
+                            if (event.optData.thumbnail.thumbs[i].sizeName == sizeName) {
+                                splashScreenURL = event.optData.splashscreen.thumbs[i].storageFile.path;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(splashScreenURL != null){
+                        newTheme.waitingRoom.posterURL = splashScreenURL;
+                    }
+
+
+                }
+
+                that.stormPlayer.setPlayerConfig(newTheme);
+                that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(newTheme.settings.autoStart);
+
+                if(newTheme.settings != null){
+                    if(newTheme.settings.autoStart != null){
+
+                        if(newTheme.settings.autoStart == true) {
+
+                            that.stormPlayer.getLibrary().mute();
+                            that.stormPlayer.dispatchEvent("volumeChange", {
+                                ref: that.stormPlayer,
+                                mode: "",
+                                volume: that.stormPlayer.getLibrary().getVolume(),
+                                muted: that.stormPlayer.getLibrary().isMute(),
+                                invokedBy: "browser"
+                            })
+                            that.stormPlayer.getLibrary().play();
+                        }
+
+                    }
+                }
+
+            }
+
+
+        });
 
         this.library.initialize();
         this.stormPlayer.dispatchEvent("libraryInitialized",{ref:this.stormPlayer, library:this.library});
-
 
     }
 
@@ -274,12 +391,15 @@ export class LibraryManager {
            that.initializeLibrary();
         });
 
-        this.stormPlayer.addEventListener("videoElementCreated", function(event){
+        this.stormPlayer.addEventListener("videoElementCreate", function(event){
             document.querySelector("#" + that.stormPlayer.getInstanceName()+"_video" + " video").classList.add("sp-video");
         })
 
+
         // library is now ready to register events
         this.stormPlayer.addEventListener("libraryInitialized", function () {
+
+            this.isLibraryReady = true;
 
             // when play is clicked
             that.stormPlayer.addEventListener("playClicked", function () {
@@ -293,11 +413,13 @@ export class LibraryManager {
 
             // when mute is clicked
             that.stormPlayer.addEventListener("muteClicked", function () {
+                console.log("muteClicked")
                 that.getLibrary().mute();
             });
 
             // when mute is clicked again/or unmute button is clicked
             that.stormPlayer.addEventListener("unmuteClicked", function () {
+                console.log("unmuteClicked")
                 that.getLibrary().unmute();
             });
 
@@ -308,6 +430,7 @@ export class LibraryManager {
 
             // when volume is changed
             that.stormPlayer.addEventListener("volumeSet", function (event) {
+                console.log("volumeSet")
                 that.getLibrary().setVolume(event.volume);
             });
 
@@ -349,6 +472,11 @@ export class LibraryManager {
                     that.library.getVideoElement().removeAttribute("controls");
 
             });
+
+        });
+
+        this.stormPlayer.addEventListener("playerConfigUpdated", () => {
+
 
         });
 

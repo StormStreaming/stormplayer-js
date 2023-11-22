@@ -43,6 +43,7 @@ export class LoaderElement extends GraphicElement {
     protected override attachListeners(): void {
         let that = this;
 
+        /*
         this.stormPlayer.addEventListener("libraryCreated", function () {
 
             that.stormPlayer.getLibrary().addEventListener("playbackInitiated", function () {
@@ -77,5 +78,7 @@ export class LoaderElement extends GraphicElement {
                 that.hide();
             });
         });
+
+         */
     }
 }

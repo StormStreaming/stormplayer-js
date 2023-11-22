@@ -11,7 +11,7 @@ export class BigPlayElement extends GraphicElement {
      * Whenever big play button should be visible
      * @private
      */
-    private dontShowPlayback: boolean = false;
+    private isEnabled: boolean = false;
 
     /**
      * Constructor
@@ -20,7 +20,9 @@ export class BigPlayElement extends GraphicElement {
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-playback");
 
-        if (this.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false)
+        this.isEnabled = this.stormPlayer.getPlayerConfig().isBigPlaybackButton();
+
+        if (this.isEnabled === false)
             this.hide();
 
     }
@@ -29,7 +31,7 @@ export class BigPlayElement extends GraphicElement {
      * Makes element visible
      */
     public override show(): void {
-        if (this.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false || this.dontShowPlayback)
+        if (this.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false || !this.isEnabled)
             return;
 
         super.show();
@@ -77,15 +79,18 @@ export class BigPlayElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("seekStarted", () => {
-            this.dontShowPlayback = true;
+            this.isEnabled = false;
         });
 
         this.stormPlayer.addEventListener("seekEnded", () => {
-            this.dontShowPlayback = false;
+            this.isEnabled = true;
         });
 
         this.stormPlayer.addEventListener("playerConfigUpdated", () => {
-            if (this.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false)
+
+            this.isEnabled = this.stormPlayer.getPlayerConfig().isBigPlaybackButton();
+
+            if (this.isEnabled === false)
                 this.hide();
             else
                 this.show();
@@ -94,7 +99,7 @@ export class BigPlayElement extends GraphicElement {
 
         this.stormPlayer.addEventListener("libraryCreated", () => {
 
-            this.stormPlayer.getLibrary().addEventListener("libraryReady", () => {
+            this.stormPlayer.getLibrary().addEventListener("playerCoreReady", () => {
                 this.show();
             });
 
@@ -102,15 +107,11 @@ export class BigPlayElement extends GraphicElement {
                 this.show();
             });
 
-            this.stormPlayer.getLibrary().addEventListener("playbackInitiated", () => {
-                this.show();
-            });
-
-            this.stormPlayer.getLibrary().addEventListener("playbackStarted", () => {
+            this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {
                 this.hide();
             });
 
-            this.stormPlayer.getLibrary().addEventListener("playbackPaused", () => {
+            this.stormPlayer.getLibrary().addEventListener("playbackPause", () => {
                 this.show();
             });
 

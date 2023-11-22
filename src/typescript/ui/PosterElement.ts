@@ -79,21 +79,16 @@ export class PosterElement extends GraphicElement {
             this.show();
         });
 
-        this.stormPlayer.addEventListener("playbackInitiated", () => {
-            this.show();
-        });
-
-        this.stormPlayer.addEventListener("playbackStarted", () => {
+        this.stormPlayer.addEventListener("playbackInitiate", () => {
             this.hide();
         });
-
 
         // when user enters full-screen mode
         this.stormPlayer.addEventListener("fullscreenEntered", () => {
             if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
 
                 if(this.stormPlayer.getPlayerConfig().getPoster() != null )
-                        this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
+                    this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
                 else
                     this.htmlElement.innerHTML = ``;
 

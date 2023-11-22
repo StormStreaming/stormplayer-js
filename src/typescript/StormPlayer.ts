@@ -17,7 +17,7 @@ export class StormPlayer extends EventDispatcher {
      * Version
      * @private
      */
-    private static VERSION:string = "3.0.0";
+    private static VERSION:string = "4.0.0";
 
     /**
      * Static variable for assigning IDs to the player
@@ -122,10 +122,10 @@ export class StormPlayer extends EventDispatcher {
                 this.libraryManager.initialize(this.rawStreamConfig);
             else
                 this.waitingRoom = true;
-
         } else {
             this.libraryManager.initialize(this.rawStreamConfig);
         }
+
 
         this.mainElement = new MainElement(this);
         document.getElementById(this.playerConfig.getContainerID()).appendChild(this.mainElement.getHtmlElement());
@@ -144,6 +144,11 @@ export class StormPlayer extends EventDispatcher {
         this.setSize(this.rawPlayerConfig.width, this.rawPlayerConfig.height);
         this.mainElement.setObserver();
         this.setStyle(this.rawPlayerConfig);
+
+        this.addEventListener("playerConfigUpdated", (event)=>{
+            this.setStyle(this.rawPlayerConfig);
+        });
+
     }
 
     private waitingRoomResize = (): void => {
@@ -219,16 +224,16 @@ export class StormPlayer extends EventDispatcher {
      * Pushes new configuration for the player
      * @param playerConfig
      */
-    public setPlayerConfig(playerConfig: StormPlayerConfig):void {
+    public setPlayerConfig(newPlayerConfig: StormPlayerConfig):void {
 
-        playerConfig.containerID = this.rawPlayerConfig.containerID;
+        if(this.playerConfig != null){
 
-        this.rawPlayerConfig = playerConfig;
-        this.playerConfig = new StormPlayerConfigImpl(this.rawPlayerConfig);
-        this.setSize(this.rawPlayerConfig.width, this.rawPlayerConfig.height);
-        this.setStyle(this.rawPlayerConfig);
+            this.rawPlayerConfig = newPlayerConfig;
+            this.playerConfig.updateConfig(newPlayerConfig);
 
-        this.dispatchEvent("playerConfigUpdated", {ref:this});
+            this.dispatchEvent("playerConfigUpdated", {ref:this});
+
+        }
 
     }
 
@@ -321,6 +326,7 @@ export class StormPlayer extends EventDispatcher {
             }
 
             if(config.style.icons){
+
                 if (config.style.icons.primaryColor)
                     player.style.setProperty("--sp-icons-primary-color", config.style.icons.primaryColor);
                 if (config.style.icons.secondaryColor)

@@ -294,8 +294,6 @@ export class ProgressbarElement extends GraphicElement {
         let formattedSize = dvrMinutes.substr(-2) + ":" + dvrSeconds.substr(-2);
         let formattedCurrTime = currHours + ":" + currMinutes.substr(-2) + ":" + currSeconds.substr(-2);
 
-        //console.log(formattedStartTime+ " / "+formattedEndTime+" (total seconds in storage: "+formattedSize+") now position: "+formattedCurrTime);
-
         this.refreshBar();
 
     }

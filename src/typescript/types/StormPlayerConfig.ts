@@ -5,6 +5,9 @@ import {StormTimeZone} from "@app/typescript/utilities/StormTimeZone";
  */
 export type StormPlayerConfig = {
   containerID: string;
+  settings?: {
+    autoStart?: boolean;
+  }
   width?: number | string;
   height?: number | string;
   aspectRatio?:string;

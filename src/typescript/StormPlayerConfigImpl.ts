@@ -343,6 +343,118 @@ export class StormPlayerConfigImpl {
 
     }
 
+    public updateConfig(guiConfig: any):void {
+
+        if (typeof guiConfig.posterURL != "undefined")
+            this.poster = guiConfig.posterURL;
+
+        if (typeof guiConfig.aspectRatio != "undefined")
+            this.aspectRatio = guiConfig.aspectRatio;
+
+        if(guiConfig.interface){
+            if(typeof guiConfig.interface.autoGUIHide  != "undefined")
+                this.autoGUIHide = guiConfig.interface.autoGUIHide;
+
+            if(typeof guiConfig.interface.autoGUIHideTime  != "undefined")
+                this.guiHideSeconds = guiConfig.interface.autoGUIHideTime;
+
+            if(typeof guiConfig.interface.showBigPlayBTN  != "undefined")
+                this.bigPlaybackButton = guiConfig.interface.showBigPlayBTN;
+
+            if(typeof guiConfig.interface.nativeMobileGUI != "undefined")
+                this.nativeMobileGUI = guiConfig.interface.nativeMobileGUI;
+
+            if(typeof guiConfig.interface.showTimeline != "undefined")
+                this.timeline = guiConfig.interface.showTimeline;
+
+        }
+
+        if (guiConfig.title) this.title = guiConfig.title;
+
+        if (guiConfig.subtitle) this.subtitle = guiConfig.subtitle;
+
+        if(guiConfig.style){
+            if(guiConfig.style.watermark){
+                if(guiConfig.style.watermark.imgURL)
+                    this.watermarkURL = guiConfig.style.watermark.imgURL;
+
+                if(guiConfig.style.watermark.position)
+                    this.watermarkPosition = guiConfig.style.watermark.position;
+            }
+        }
+
+        if(guiConfig.translations){
+            if(guiConfig.translations.broadcastRemainingTime)
+                this.broadcastRemainingTimeText = guiConfig.translations.broadcastRemainingTime;
+
+            if(guiConfig.translations.broadcastStartTime)
+                this.broadcastStartTimeText = guiConfig.translations.broadcastStartTime;
+
+            if(guiConfig.translations.timeDays)
+                this.timeDaysText = guiConfig.translations.timeDays;
+
+            if(guiConfig.translations.timeHours)
+                this.timeHoursText = guiConfig.translations.timeHours;
+
+            if(guiConfig.translations.timeMinutes)
+                this.timeMinutesText = guiConfig.translations.timeMinutes;
+
+            if(guiConfig.translations.timeSeconds)
+                this.timeSecondsText = guiConfig.translations.timeSeconds;
+
+            if(guiConfig.translations.unmute)
+                this.unmuteText = guiConfig.translations.unmute;
+
+            if (guiConfig.translations.disconnected)
+                this.playerDisconnectedText = guiConfig.translations.disconnected;
+
+            if (guiConfig.translations.awaitingStart)
+                this.awaitingStartText = guiConfig.translations.awaitingStart;
+
+            if (guiConfig.translations.connectionFailed)
+                this.connectionFailedText = guiConfig.translations.connectionFailed;
+
+            if (guiConfig.translations.compatibilityError)
+                this.compatibilityErrorText = guiConfig.translations.compatibilityError;
+
+            if (guiConfig.translations.noSSLError)
+                this.noSSLErrorText = guiConfig.translations.noSSLError;
+
+            if (guiConfig.translations.streamError)
+                this.streamErrorText = guiConfig.translations.streamError;
+
+            if (guiConfig.translations.streamNotFound)
+                this.streamNotFoundText = guiConfig.translations.streamNotFound;
+
+            if (guiConfig.translations.streamStop)
+                this.streamStopText = guiConfig.translations.streamStop;
+
+            if (guiConfig.translations.live != undefined)
+                this.liveText = guiConfig.translations.live;
+
+            if (guiConfig.translations.live == null)
+                this.liveText = "";
+
+        }
+
+        if(guiConfig.waitingRoom){
+            if(guiConfig.waitingRoom.createTime)
+                this.broadcastCreateDate = guiConfig.waitingRoom.createTime;
+
+            if(guiConfig.waitingRoom.startTime)
+                this.broadcastStartDate = guiConfig.waitingRoom.startTime;
+
+            if(guiConfig.waitingRoom.poster)
+                this.waitingRoomPoster = guiConfig.waitingRoom.poster;
+
+            if(guiConfig.waitingRoom.timeZone)
+                this.waitingRoomTimeZone = guiConfig.waitingRoom.timeZone;
+
+        }
+
+    }
+
+
     /**
      * Sets text warning about incompatible protocols attached to the player
      * @param value new message for incompatible protocol
@@ -678,6 +790,10 @@ export class StormPlayerConfigImpl {
         return this.timeSecondsText;
     }
 
+    public getAwaitingText():string {
+        return this.awaitingStartText;
+    }
+
     public getAspectRatio():string {
         return this.aspectRatio;
     }
@@ -688,6 +804,10 @@ export class StormPlayerConfigImpl {
 
     public getPoster():string {
         return this.poster;
+    }
+
+    public setPoster(poserURL:string):void {
+        this.poster = poserURL;
     }
 
 
