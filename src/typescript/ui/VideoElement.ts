@@ -36,7 +36,7 @@ export class VideoElement extends GraphicElement {
          */
         if(!UserCapabilities.isMobile()) {
             that.htmlElement.addEventListener("click", function () {
-                that.stormPlayer.dispatchEvent("videoClicked", {ref:that.stormPlayer});
+                that.stormPlayer.dispatchEvent("videoClick", {ref:that.stormPlayer});
             });
         }
     }

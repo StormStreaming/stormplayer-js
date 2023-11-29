@@ -94,11 +94,11 @@ export class CuePointsElement extends GraphicElement {
      */
     protected override attachListeners(): void {
 
-        this.stormPlayer.addEventListener("cuePointAdded", (event) => {
+        this.stormPlayer.addEventListener("cuePointAdd", (event) => {
             this.addCuePoint(event.label, event.time);
         });
 
-        this.stormPlayer.addEventListener("cuePointRemoved", (event) => {
+        this.stormPlayer.addEventListener("cuePointRemove", (event) => {
             this.removeCuePoint(event.time);
         });
     }

@@ -203,12 +203,12 @@ export class VolumeElement extends GraphicElement {
                 this.resetHideTimeout();
             });
 
-            this.stormPlayer.addEventListener("muteClicked", () => {
+            this.stormPlayer.addEventListener("muteClick", () => {
                 this.volumeButtonElement.classList.remove("sp-active");
                 this.volumeControlWrapperElement.classList.add("sp-hidden");
             });
 
-            this.stormPlayer.addEventListener("unmuteClicked", function () {
+            this.stormPlayer.addEventListener("unmuteClick", function () {
                 // nothing...
             });
 
@@ -226,12 +226,12 @@ export class VolumeElement extends GraphicElement {
 
         this.volumeButtonElement.addEventListener("click", () => {
             if (this.volumeButtonElement.querySelector(".sp-mute-icon").classList.contains("sp-hidden"))
-                this.stormPlayer.dispatchEvent("unmuteClicked", {ref:this.stormPlayer});
+                this.stormPlayer.dispatchEvent("unmuteClick", {ref:this.stormPlayer});
             else
-                this.stormPlayer.dispatchEvent("muteClicked", {ref:this.stormPlayer});
+                this.stormPlayer.dispatchEvent("muteClick", {ref:this.stormPlayer});
         });
 
-        this.stormPlayer.addEventListener("libraryInitialized", function () {
+        this.stormPlayer.addEventListener("libraryInitialize", function () {
             that.stormPlayer.getLibrary().addEventListener("volumeChange", function (event){
                 that.updateVolume(event.volume);
                 if (event.muted)

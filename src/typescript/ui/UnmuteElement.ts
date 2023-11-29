@@ -81,25 +81,25 @@ export class UnmuteElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener("titleAdded", (event) => {
+        this.stormPlayer.addEventListener("titleUpdate", (event) => {
             this.getHtmlElement().style.top = String(event.newHeight + 25) + "px";
         });
 
-        this.stormPlayer.addEventListener("subtitleAdd", (event) => {
+        this.stormPlayer.addEventListener("subtitleUpdate", (event) => {
             this.getHtmlElement().style.top = String(event.newHeight + 25) + "px";
         });
 
-        this.stormPlayer.addEventListener("guiShown", () => {
+        this.stormPlayer.addEventListener("guiShow", () => {
             if (this.stormPlayer.getPlayerConfig().getTitle() || this.stormPlayer.getPlayerConfig().getSubtitle())
                 this.getHtmlElement().classList.add("sp-unmute__after-header");
         });
 
-        this.stormPlayer .addEventListener("guiHid", () => {
+        this.stormPlayer .addEventListener("guiHide", () => {
             this.getHtmlElement().classList.remove("sp-unmute__after-header");
         });
 
         this.htmlElement.addEventListener("click", () => {
-            this.stormPlayer.dispatchEvent("unmuteClicked", {ref:this.stormPlayer});
+            this.stormPlayer.dispatchEvent("unmuteClick", {ref:this.stormPlayer});
         });
 
         this.stormPlayer.addEventListener("volumeChange", (event) => {
@@ -109,7 +109,7 @@ export class UnmuteElement extends GraphicElement {
                 that.hide();
         });
 
-        this.stormPlayer.addEventListener("libraryInitialized", () => {
+        this.stormPlayer.addEventListener("libraryInitialize", () => {
             this.stormPlayer.getLibrary().addEventListener("volumeChange", (event) => {
                 if (event.muted && event.invokedBy == "browser")
                     that.show();
@@ -118,7 +118,7 @@ export class UnmuteElement extends GraphicElement {
             });
         });
 
-        this.stormPlayer.addEventListener("titleAdded", () => {
+        this.stormPlayer.addEventListener("titleUpdate", () => {
             if ((this.stormPlayer.getPlayerConfig().getTitle() && this.stormPlayer.getPlayerConfig().getTitle() != "") ||
                 (this.stormPlayer.getPlayerConfig().getSubtitle() && this.stormPlayer.getPlayerConfig().getSubtitle() != ""))
                 this.getHtmlElement().classList.add("sp-unmute__after-header");
@@ -126,7 +126,7 @@ export class UnmuteElement extends GraphicElement {
                 this.getHtmlElement().classList.remove("sp-unmute__after-header");
         });
 
-        this.stormPlayer .addEventListener("subtitleAdd", () => {
+        this.stormPlayer .addEventListener("subtitleUpdate", () => {
             if ((this.stormPlayer.getPlayerConfig().getTitle() && this.stormPlayer.getPlayerConfig().getTitle() != "") ||
                 (this.stormPlayer.getPlayerConfig().getSubtitle() && this.stormPlayer.getPlayerConfig().getSubtitle() != ""))
                 this.getHtmlElement().classList.add("sp-unmute__after-header");

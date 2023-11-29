@@ -50,15 +50,19 @@ export class QualityElement extends GraphicElement {
             if (!this.qualityButtonElement)
                 return;
 
-            if (this.stormPlayer.getLibrary().getAllSources().length == 1)
+            if(this.stormPlayer.getLibrary() != null) {
+                if (this.stormPlayer.getLibrary().getAvailableSubstreams().length <= 1)
+                    this.hide();
+                else {
+                    this.qualityButtonElement.innerHTML = `<span>${this.stormPlayer.getLibrary().getCurrentSource()}</span>`;
+                    this.show();
+                }
+            } else
                 this.hide();
-            else
-                this.show();
 
-            this.qualityButtonElement.innerHTML = `<span>${this.stormPlayer.getLibrary().getCurrentQuality()}</span>`;
 
         } catch(error:any) {
-            //nothing
+            console.log(error);
         }
     }
 
@@ -78,6 +82,8 @@ export class QualityElement extends GraphicElement {
 
         this.qualityMenuElement = new QualityMenuElement(this.stormPlayer);
         this.htmlElement.appendChild(this.qualityMenuElement.getHtmlElement());
+
+        this.refreshButton();
     }
 
     /**
@@ -89,14 +95,14 @@ export class QualityElement extends GraphicElement {
         let that = this;
 
         this.qualityButtonElement.addEventListener("click", function () {
-            that.stormPlayer.dispatchEvent("qualitySwitchClicked", {ref:that.stormPlayer});
+            that.stormPlayer.dispatchEvent("qualitySwitchClick", {ref:that.stormPlayer});
         });
 
         this.stormPlayer.addEventListener("streamConfigUpdated", function () {
             that.refreshButton();
         });
 
-        this.stormPlayer.addEventListener("libraryInitialized", function () {
+        this.stormPlayer.addEventListener("libraryInitialize", function () {
 
             that.stormPlayer.getLibrary().addEventListener("playerCoreReady", function(){
                 that.refreshButton();
@@ -116,7 +122,7 @@ export class QualityElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener("qualityChanged", function(event){
+        this.stormPlayer.addEventListener("qualityChange", function(event){
             setTimeout(function(){
                 that.refreshButton();
             },100)

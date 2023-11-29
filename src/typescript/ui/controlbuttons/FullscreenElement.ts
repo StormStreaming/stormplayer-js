@@ -67,19 +67,19 @@ export class FullscreenElement extends GraphicElement {
 
             if (enterFullscreen) {
                 that.isFullScreenMode = true;
-                that.stormPlayer.dispatchEvent("fullscreenEntered", {ref:that.stormPlayer});
+                that.stormPlayer.dispatchEvent("fullscreenEnter", {ref:that.stormPlayer});
             } else {
                 that.isFullScreenMode = false;
-                that.stormPlayer.dispatchEvent("fullscreenExited", {ref:that.stormPlayer});
+                that.stormPlayer.dispatchEvent("fullscreenExit", {ref:that.stormPlayer});
             }
 
         });
 
-        this.stormPlayer.addEventListener("fullscreenEntered", function () {
+        this.stormPlayer.addEventListener("fullscreenEnter", function () {
             that.htmlElement.classList.add("sp-active");
         });
 
-        this.stormPlayer.addEventListener("fullscreenExited", function () {
+        this.stormPlayer.addEventListener("fullscreenExit", function () {
             that.htmlElement.classList.remove("sp-active");
         });
     }

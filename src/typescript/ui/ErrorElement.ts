@@ -62,7 +62,7 @@ export class ErrorElement extends GraphicElement {
 
         const that:ErrorElement = this;
 
-        this.stormPlayer.addEventListener("libraryCreated", () => {
+        this.stormPlayer.addEventListener("libraryCreate", () => {
 
             this.stormPlayer.getLibrary().addEventListener("serverDisconnect", () => {
                 if(!this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())

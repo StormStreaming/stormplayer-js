@@ -84,7 +84,7 @@ export class PosterElement extends GraphicElement {
         });
 
         // when user enters full-screen mode
-        this.stormPlayer.addEventListener("fullscreenEntered", () => {
+        this.stormPlayer.addEventListener("fullscreenEnter", () => {
             if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
 
                 if(this.stormPlayer.getPlayerConfig().getPoster() != null )
@@ -98,7 +98,7 @@ export class PosterElement extends GraphicElement {
 
 
         // when user enters full-screen mode
-        this.stormPlayer.addEventListener("fullscreenExited", () => {
+        this.stormPlayer.addEventListener("fullscreenExit", () => {
             if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
                 this.hide();
             }

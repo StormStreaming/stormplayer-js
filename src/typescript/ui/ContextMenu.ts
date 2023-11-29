@@ -108,11 +108,11 @@ export class ContextMenu extends GraphicElement {
             this.hideContextMenu();
         });
 
-        this.stormPlayer.addEventListener("fullscreenEntered", () => {
+        this.stormPlayer.addEventListener("fullscreenEnter", () => {
             this.isFullScreen = true;
         });
 
-        this.stormPlayer.addEventListener("fullscreenExited", () => {
+        this.stormPlayer.addEventListener("fullscreenExit", () => {
             this.isFullScreen = false;
         });
     }

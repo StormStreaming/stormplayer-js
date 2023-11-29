@@ -104,7 +104,7 @@ export class HeaderElement extends GraphicElement {
         this.wrapperElement.getHtmlElement().querySelector("h2").innerHTML = title;
 
         const newHeight:number = this.wrapperElement.getHtmlElement().offsetHeight;
-        this.stormPlayer.dispatchEvent("titleAdded", {ref:this.stormPlayer, title:title, newHeight: newHeight});
+        this.stormPlayer.dispatchEvent("titleUpdate", {ref:this.stormPlayer, title:title, newHeight: newHeight});
     }
 
     /**
@@ -116,7 +116,7 @@ export class HeaderElement extends GraphicElement {
         this.wrapperElement.getHtmlElement().querySelector("p").innerHTML = subtitle;
 
         const newHeight:number = this.wrapperElement.getHtmlElement().offsetHeight;
-        this.stormPlayer.dispatchEvent("subtitleAdd", {ref:this.stormPlayer, subtitle:subtitle, newHeight: newHeight});
+        this.stormPlayer.dispatchEvent("subtitleUpdate", {ref:this.stormPlayer, subtitle:subtitle, newHeight: newHeight});
     }
 
     /**
@@ -164,7 +164,7 @@ export class HeaderElement extends GraphicElement {
             this.wrapperElement.getHtmlElement().style.opacity = "1";
 
             const newHeight:number = this.calculateHeaderHeight();
-            this.stormPlayer.dispatchEvent("titleAdded", {ref:this.stormPlayer, title:this.titleValue, newHeight: newHeight});
+            this.stormPlayer.dispatchEvent("titleUpdate", {ref:this.stormPlayer, title:this.titleValue, newHeight: newHeight});
 
         });
 
@@ -174,21 +174,21 @@ export class HeaderElement extends GraphicElement {
             this.setSubtitle(this.stormPlayer.getPlayerConfig().getSubtitle())
         });
 
-        this.stormPlayer.addEventListener("guiShown", () => {
+        this.stormPlayer.addEventListener("guiShow", () => {
             this.show();
         });
 
-        this.stormPlayer.addEventListener("guiHid", () => {
+        this.stormPlayer.addEventListener("guiHide", () => {
             this.hide();
         });
 
-        this.stormPlayer.addEventListener("fullscreenEntered", () => {
+        this.stormPlayer.addEventListener("fullscreenEnter", () => {
             if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
                 this.htmlElement.style.display = "none";
             }
         });
 
-        this.stormPlayer.addEventListener("fullscreenExited", () => {
+        this.stormPlayer.addEventListener("fullscreenExit", () => {
             if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
                 this.htmlElement.style.display = "flex";
             }

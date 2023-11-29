@@ -75,14 +75,14 @@ export class BigPlayElement extends GraphicElement {
 
         this.htmlElement.addEventListener("click", () => {
             if(!this.stormPlayer.getRawPlayerConfig().demoMode == true)
-                this.stormPlayer.dispatchEvent("playClicked", {ref:this.stormPlayer});
+                this.stormPlayer.dispatchEvent("playClick", {ref:this.stormPlayer});
         });
 
-        this.stormPlayer.addEventListener("seekStarted", () => {
+        this.stormPlayer.addEventListener("seekStart", () => {
             this.isEnabled = false;
         });
 
-        this.stormPlayer.addEventListener("seekEnded", () => {
+        this.stormPlayer.addEventListener("seekEnd", () => {
             this.isEnabled = true;
         });
 
@@ -97,7 +97,7 @@ export class BigPlayElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener("libraryCreated", () => {
+        this.stormPlayer.addEventListener("libraryCreate", () => {
 
             this.stormPlayer.getLibrary().addEventListener("playerCoreReady", () => {
                 this.show();

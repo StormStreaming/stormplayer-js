@@ -90,12 +90,12 @@ export class Watermark extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener("fullscreenEntered", () => {
+        this.stormPlayer.addEventListener("fullscreenEnter", () => {
             if(this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())
                 this.htmlElement.style.display = "none";
         });
 
-        this.stormPlayer.addEventListener("fullscreenExited", () => {
+        this.stormPlayer.addEventListener("fullscreenExit", () => {
             if(this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())
                 this.htmlElement.style.display = "block";
         });

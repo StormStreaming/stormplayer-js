@@ -78,7 +78,7 @@ export class PlayElement extends GraphicElement {
      */
     protected override attachListeners(): void {
 
-        this.stormPlayer.addEventListener("libraryInitialized", () => {
+        this.stormPlayer.addEventListener("libraryInitialize", () => {
 
             this.stormPlayer.getLibrary().addEventListener("interactionRequired", () => {
                 this.showPlay();
@@ -108,9 +108,9 @@ export class PlayElement extends GraphicElement {
                 return;
 
             if (!this.playButtonElement.querySelector(".sp-play-icon").classList.contains("sp-hidden"))
-                this.stormPlayer.dispatchEvent("playClicked",{ref:this.stormPlayer});
+                this.stormPlayer.dispatchEvent("playClick",{ref:this.stormPlayer});
             else
-                this.stormPlayer.dispatchEvent("pauseClicked", {ref:this.stormPlayer});
+                this.stormPlayer.dispatchEvent("pauseClick", {ref:this.stormPlayer});
 
         });
     }

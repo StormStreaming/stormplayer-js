@@ -420,7 +420,7 @@ export class ProgressbarElement extends GraphicElement {
     protected override attachListeners(): void {
         let that:ProgressbarElement = this;
 
-        this.stormPlayer.addEventListener("libraryCreated", function () {
+        this.stormPlayer.addEventListener("libraryCreate", function () {
             that.stormPlayer.getLibrary().addEventListener("playbackProgress", function (event) {
                 that.parseServerData(event);
             });
@@ -441,7 +441,7 @@ export class ProgressbarElement extends GraphicElement {
             this.seekElement.addEventListener("touchstart", function (e) {
                 that.stopRefreshBar = true;
                 that.wasSeekPerformend = false;
-                that.stormPlayer.dispatchEvent("seekStarted", {ref:that.stormPlayer});
+                that.stormPlayer.dispatchEvent("seekStart", {ref:that.stormPlayer});
 
                 let rect = that.seekElement.getBoundingClientRect();
                 let xPosition = Math.floor(e.changedTouches[0].clientX - rect.left);
@@ -500,7 +500,7 @@ export class ProgressbarElement extends GraphicElement {
 
                 that.seekTo(newPercent);
 
-                that.stormPlayer.dispatchEvent("seekEnded", {ref:that.stormPlayer});
+                that.stormPlayer.dispatchEvent("seekEnd", {ref:that.stormPlayer});
                 that.stopRefreshBar = false;
             });
 
@@ -508,7 +508,7 @@ export class ProgressbarElement extends GraphicElement {
 
             this.seekElement.addEventListener("mousedown", function (e) {
                 that.stopRefreshBar = true;
-                that.stormPlayer.dispatchEvent("seekStarted",{ref:that.stormPlayer});
+                that.stormPlayer.dispatchEvent("seekStart",{ref:that.stormPlayer});
             });
 
             this.seekElement.addEventListener("mousemove", function (e) {
@@ -531,7 +531,7 @@ export class ProgressbarElement extends GraphicElement {
             this.seekElement.addEventListener("mouseup", function (e) {
                 that.stopRefreshBar = false;
                 that.seekTo(parseFloat(this.value));
-                that.stormPlayer.dispatchEvent("seekEnded", {ref:that.stormPlayer});
+                that.stormPlayer.dispatchEvent("seekEnd", {ref:that.stormPlayer});
             });
 
         }

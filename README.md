@@ -351,88 +351,85 @@ storm.addEventListener("guiHid", function(event){
 
 ## Attaching and detaching events
 
-``` JavaScript
+```JavaScript
+
 /**
  * An event can be registered using addEventListener method (preferably before initialize() method is called)
  */
-storm.addEventListener("libraryReady", guiHide);
+player.addEventListener("playerCoreReady", onLibraryReady);
 
 /**
  * Inline functions are fine too...
  */
-storm.addEventListener("guiHide", function(event){
-    console.log("guiHide");
+player.addEventListener("playerCoreReady", function(event){
+    console.log("playerReady");
 });
 
 /**
  * An event can also be removed...
  */
-storm.removeEventListener("guiHide", onPlayerReady);
+player.removeEventListener("playerCoreReady", onLibraryReady);
 
 /**
  * All event listeners of that type can be removed like this
  */
-storm.removeEventListener("guiHide");
+player.removeEventListener("playerCoreReady");
 ```
 
-## ## Sample event listeners
+## Sample event listeners
 
-``` JavaScript
-storm.addEventListener("libraryReady", function(event){
+```JavaScript
+player.addEventListener("libraryReady", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID} is ready for interaction!`);
 })
 
-storm.addEventListener("libraryConnected", function(event){
+player.addEventListener("libraryConnected", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Successfully connected to: ${event.serverURL}`);
 })
 
-storm.addEventListener("libraryDisconnected", function(event){
+player.addEventListener("libraryDisconnected", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Disconnected from: ${event.serverURL}`);
 })
 
-storm.addEventListener("libraryConnectionFailed", function(event){
+player.addEventListener("libraryConnectionFailed", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Could not connect to server: ${event.serverURL}`);
 })
 
-storm.addEventListener("allConnectionsFailed", function(event){
+player.addEventListener("allConnectionsFailed", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - All connections from server list failed`);
 })
 
-storm.addEventListener("streamNotFound", function(event){
+player.addEventListener("streamNotFound", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - No stream for streamKey: ${event.streamKey}`);
 })
 
-storm.addEventListener("interactionRequired", function(event){
-    console.log(`Player ID: ${event.ref.getInstanceID()} - User interaction is required!`);
-})
-
-storm.addEventListener("playbackInitiated", function(event){
+player.addEventListener("playbackInitiate", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Playback initiated for streamKey: ${event.streamKey}`);
 })
 
-storm.addEventListener("playbackStarted", function(event){
+player.addEventListener("playbackStart", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Playback started for streamKey: ${event.streamKey}`);
 })
 
-storm.addEventListener("playbackPaused", function(event){
+player.addEventListener("playbackPause", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Playback paused for streamKey: ${event.streamKey}`);
 })
 
-storm.addEventListener("playbackStopped", function(event){
+player.addEventListener("streamEnd", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Playback stopped for streamKey: ${event.streamKey}`);
 })
 
-storm.addEventListener("volumeChanged", function(event){
+player.addEventListener("volumeChange", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Volumed changed, new value: ${event.volume}`);
     console.log(`-- >: is muted: ${event.muted}`);
     console.log(`-- >: invoked by: ${event.invokedBy}`);
 })
 
-storm.addEventListener("volumeSet", function(event){
+player.addEventListener("volumeSet", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Volume set to: ${event.volume}`);
 })
 
-storm.addEventListener("metadataReceived", function(event){
+player.addEventListener("metadataReceived", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Metadata arrived`);
     console.log(`-- >: video-codec: ${event.metadata.getVideoCodec()}`);
     console.log(`-- >: audio-codec: ${event.metadata.getAudioCodec()}`);
@@ -442,23 +439,23 @@ storm.addEventListener("metadataReceived", function(event){
     console.log(`-- >: encoder: ${event.metadata.getEncoder()}`);
 })
 
-storm.addEventListener("fullscreenEntered", function(event){
+player.addEventListener("fullscreenEnter", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Entered FullScreen Mode`);
 })
 
-storm.addEventListener("fullscreenExited", function(event){
+player.addEventListener("fullscreenExit", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Exited FullScreen Mode`);
 })
 
-storm.addEventListener("guiShown", function(event){
+player.addEventListener("guiShow", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Player GUI is now visible`);
 })
 
-storm.addEventListener("guiHid", function(event){
+player.addEventListener("guiHide", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Player GUI was hidden due to inactivity`);
 })
 
-storm.addEventListener("qualityChanged", function(event){
+player.addEventListener("qualityChange", function(event){
     console.log(`Player ID: ${event.ref.getInstanceID()} - Quality changed to:${event.label}`);
 })
 
@@ -467,83 +464,91 @@ storm.addEventListener("qualityChanged", function(event){
 
 ## Player Event list
 
-|      Event name      |   Additional data    |                                             Description                                              | Can be fired more than once | 
-|:--------------------:|:--------------------:|:----------------------------------------------------------------------------------------------------:| :---: | 
-|    interfaceReady    |          no          | Event fires when the player interface is ready. This action takes place before libraryCreated event. | no |
-|    libraryCreated    |          no          | Event fires when the player library is created. This action takes place after interfaceReady event.  | no |
-|  libraryInitialized  |          no          |                    Event fires when the Storm JavaScript Library is initialized.                     | no |
-|     playClicked      |          no          |                            Event fires when user clicks any play button.                             | yes |
-|     pauseClicked     |          no          |                            Event fires when user clicks the pause button.                            | yes |
-|     videoClicked     |          no          |                            Event fires when user clicks the video screen.                            | yes |
-|     muteClicked      |          no          |                               Event fires when user mutes the volume.                                | yes |
-|     muteClicked      |          no          |                                 Event fires when volume is unmuted.                                  | yes |
-| qualitySwitchClicked |          no          |                             Event fires when user clicks quality switch.                             | yes |
-|    qualityChanged    |          no          |                            Event fires when a stream quality is changed.                             | yes |
-|    volumeChanged     |          no          |                              Event fires when stream volume is changed.                              | yes |
-|  fullscreenEntered   |          no          |                            Event fires when user enters fullscreen mode.                             | yes |
-|   fullscreenExited   |          no          |                             Event fires when user exits fullscreen mode.                             | yes |
-|     errorMessage     |          no          |                            Event fires whenever an error message appears.                            | yes |
-|       guiShown       |          no          |          Event fires whenever player interface becomes visible (e.g. user mouse activity).           | yes |
-|        guiHid        |          no          |           Event fires whenever player interface becomes invisible (user mouse inactivity).           | yes |
-|      titleAdded      |          no          |                            Event fires whenever a stream title is added.                             | yes |
-|     subtitleAdd      |          no          |                           Event fires whenever a stream subtitle is added.                           | yes |
-|     seekStarted      |          no          |              Event fires whenever a user grabs progress bar thumb (mouse button down).               | yes |
-|      seekEnded       |          no          |              Event fires whenever a user releases progress bar thumb (mouse button up).              | yes |
-|       seekSet        |          no          | Event fires everytime a user clicks on a progress bar or releases progress bar thumb in a new place. | yes |
-|    cuePointAdded     |          no          |                            Event fires everytime new CUE Point is added.                             | yes |
-|   cuePointRemoved    |          no          |                        Event fires whenever an existing CUE Point is removed.                        | yes |
-|        resize        | newWidth & newHeight |                             Event fires whenever player size is changed                              | yes |
+|     Event name     |   Additional data    |                                             Description                                              | Can be fired more than once |
+|:------------------:|:--------------------:|:----------------------------------------------------------------------------------------------------:|:---------------------------:|
+|   interfaceReady   |          no          | Event fires when the player interface is ready. This action takes place before libraryCreated event. |             no              |
+|   libraryCreate    |          no          | Event fires when the player library is created. This action takes place after interfaceReady event.  |             no              |
+| libraryInitialize  |          no          |                    Event fires when the Storm JavaScript Library is initialized.                     |             no              |
+|     playClick      |          no          |                            Event fires when user clicks any play button.                             |             yes             |
+|     pauseClick     |          no          |                            Event fires when user clicks the pause button.                            |             yes             |
+|     videoClick     |          no          |                            Event fires when user clicks the video screen.                            |             yes             |
+|     muteClick      |          no          |                               Event fires when user mutes the volume.                                |             yes             |
+|    unmuteClick     |          no          |                                 Event fires when volume is unmuted.                                  |             yes             |
+| qualitySwitchClick |          no          |                       Event fires when user clicks the quality switch button.                        |             yes             |
+|   qualityChange    |          no          |                            Event fires when a stream quality is changed.                             |             yes             |
+|  fullscreenEnter   |          no          |                            Event fires when user enters fullscreen mode.                             |             yes             |
+|   fullscreenExit   |          no          |                             Event fires when user exits fullscreen mode.                             |             yes             |
+|    errorMessage    |          no          |                            Event fires whenever an error message appears.                            |             yes             |
+|      guiShow       |          no          |          Event fires whenever player interface becomes visible (e.g. user mouse activity).           |             yes             |
+|      guiHide       |          no          |           Event fires whenever player interface becomes invisible (user mouse inactivity).           |             yes             |
+|    titleUpdate     |          no          |                       Event fires whenever a stream title is added or updated.                       |             yes             |
+|   subtitleUpdate   |          no          |                     Event fires whenever a stream subtitle is added or updated.                      |             yes             |
+|     seekStart      |          no          |              Event fires whenever a user grabs progress bar thumb (mouse button down).               |             yes             |
+|      seekEnd       |          no          |              Event fires whenever a user releases progress bar thumb (mouse button up).              |             yes             |
+|      seekSet       |          no          | Event fires everytime a user clicks on a progress bar or releases progress bar thumb in a new place. |             yes             |
+|    cuePointAdd     |          no          |                            Event fires everytime new CUE Point is added.                             |             yes             |
+|   cuePointRemove   |          no          |                        Event fires whenever an existing CUE Point is removed.                        |             yes             |
+|       resize       | newWidth & newHeight |                             Event fires whenever player size is changed                              |             yes             |
 
 ## Library Event List (inherited after Storm Library component)
 
-|       Event name        | Additional data |                                                                                                                                                           Description                                                                                                                                                           | Can be fired more than once |
-|:-----------------------:|:---------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------:|
-|      libraryReady       |       no        |                                                                                      This event is activated when the library is prepared to accept API calls. No method should be invoked on the library before this event is registered.                                                                                      |             no              |
-|    libraryConnected     |       no        |                                                                                                      This event is triggered when the library establishes a connection with the Storm Streaming Server or Cloud instance.                                                                                                       |    yes (once per video)     |
-|   libraryDisconnected   |       no        |                                                                                   This event is activated when the library is disconnected from the Storm server, which may occur due to viewer connection problems or other network issues.                                                                                    |    yes (once per video)     |
-| libraryConnectionFailed |       no        |                     This event is triggered when the library fails to establish a connection with a Storm Streaming Server or Cloud instance, possibly due to network issues. If there are additional servers on the configuration list, the library will attempt to connect to a different server instead.                     |             yes             |
-|  allConnectionsFailed   |       no        |                                                        This event is associated with "libraryConnectionFailed". If the library is unable to connect to any of the servers provided in the configuration list, this event indicates that no further action can be taken.                                                         |             yes             |
-|   compatibilityError    |       no        | This event is triggered if a browser or device does not support the provided sources. Please note that the library will attempt all possible measures (switching between various modes) to ensure maximum compatibility with a given device. However, there may be instances where it is simply impossible to initiate a video. |             yes             |
-|   interactionRequired   |       no        |                                                Certain browsers and devices do not permit a video element to initiate on its own and necessitate direct user interaction, such as a mouse click or a touch gesture. This event signifies that such an "engagement" is required.                                                 |             no              |
-|        SLLError         |       no        |                                                                                                       If an SSL layer is required for specific sources and the browser does not provide it, this error will be displayed.                                                                                                       |             no              |
-|   videoElementCreated   |       no        |                                                                                                               This event is triggered whenever a video element within the library is either created or recreated.                                                                                                               |             yes             |
-|  newStreamSourceAdded   |       no        |                                                                                                     This event is activated whenever a new video source is added to the library (check addSourceStream in the API section).                                                                                                     |             yes             |
+|        Event name         |  Additional data  |                                                                                                                                                                   Description                                                                                                                                                                    | Can be fired more than once |
+|:-------------------------:|:-----------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------:|
+| serverConnectionInitiate  |  yes (serverURL)  |                                                                                                                 This event is fired when a library instance initiates a connection with a Storm Streaming Server/Cloud instance.                                                                                                                 |             yes             |
+|       serverConnect       |  yes (serverURL)  |                                                                                                       This event is triggered when a library instance successfully establishes a connection with a Storm Streaming Server/Cloud instance.                                                                                                        |             yes             |
+|     serverDisconnect      |        no         |                                                  This event is called when a library instance is disconnected from the Storm Streaming Server/Cloud (after a connection was previously established), which may occur due to viewer networking issues or Storm Streaming Server/Cloud problems.                                                   |             yes             |
+|   serverConnectionError   |        no         | This event is triggered when a library instance fails to establish a connection with a Storm Streaming Server/Cloud instance, possibly due to networking issues. If there are additional servers on the configuration list and the "restartOnError" parameter is set to true, the library will attempt to connect to a different server instead. |             yes             |
+|   allConnectionsFailed    |        no         |                                                             This event is associated with \"serverConnectionError\". If a library instance is unable to connect to any of the servers provided in the configuration list, this event indicates that no further action can be taken.                                                              |             no              |
+|      playerCoreReady      |        no         |                                                                      This event is called when a library instance is prepared to accept API calls (using different methods). No playback-related methods should be invoked on the library before this event is registered.                                                                       |             no              |
+|    compatibilityError     |        no         |      This event is triggered if a browser or device does not support any of the provided sources. Please note that the library will attempt all possible measures (switching between various modes) to ensure maximum compatibility with a given device. However, there may be instances where it is simply impossible to initiate a video.      |             yes             |
+|    interactionRequired    |        no         |                                                        Certain browsers and devices do not permit a video element to initiate on its own and necessitate direct user interaction, such as a mouse click or a touch gesture. This event signifies that such an \"engagement\" is required.                                                        |             no              |
+|         SSLError          |        no         |                                                                                                               If an SSL layer is required for specific sources and the browser does not provide it, this event will be triggered.                                                                                                                |             no              |
+|    videoElementCreate     | yes (videoObject) |                                                                                                                    This event is triggered whenever a video element within a library instance is either created or recreated.                                                                                                                    |             no              |
+|   newStreamSourceAdded    |        no         |                                                                                                             This event is activated whenever a new video source is added to the library (check addSourceStream in the API section).                                                                                                              |             yes             |
+|    authorizationError     |        no         |                                                                                             This event is fired when a library instance fails to authorize with a server application on Storm Streaming Server/Cloud instance (e.g. incorrect token)                                                                                             |    yes (per connection)     |
+|   authorizationComplete   |        no         |                                                                                                     This event is called when a library instance successfully authorizes with a server application on Storm Streaming Server/Cloud instance.                                                                                                     |    yes (per connection)     |
+|      invalidLicense       |        no         |                                                                                                                        Whenever a Storm Streaming Server/Cloud license expires, a library instance will fire this event.                                                                                                                         |             no              |
 
 
 ## Playback Event List (inherited after Storm Library component)
 
-|    Event name    | Additional data |                                                                                                  Description                                                                                                  | Can be fired more than once |
-|:----------------:|:---------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------:|
-| streamBuffering  |       no        |     This event indicates that video content is being readied for playback. The content isn't playing yet, but it will start imminently. This is the second event in the sequence for successful playback.     |    yes (once per video)     |
-| metadataReceived |       yes       |                               This event comprises all data related to the video, such as resolutions and codecs. It's the third event in the sequence for successful playback.                               |    yes (once per video)     |
-| playbackStarted  |       no        |                                          The event is fired whenever the playback starts. It's the fourth and final event in the sequence for a successful playback.                                          |             yes             |
-|  playbackPaused  |       no        |                                                                              The event is triggered when the playback is paused.                                                                              |             yes             |
-| playbackProgress |       yes       |                                                    Event informs on video progress, source stream time, source stream start time and current viewer time.                                                     |      yes (each second)      |
-| playbackStopped  |       no        |                                       Event will be called when the stream is closed on the server side (usually it means that the broadcaster has stopped streaming).                                        |    yes (once per video)     |
-|  volumeChanged   |    newVolume    |                                                            This event tells us that video volume was changed (either by the system or by a user).                                                             |             yes             |
-|  streamNotFound  |       no        | This event is called whenever a stream with a specific name was not found (was not published or is not ready yet). This event will be triggered after videoConnecting only and will stop a playback sequence. |    yes (once per video)     |
-|  playbackError   |       no        |                                              Event indicates that there was a problem with playback (it usually means that the browser was not able to play it).                                              |    yes (once per video)     |
+|     Event name      |         Additional data          |                                                                                   Description                                                                                   | Can be fired more than once |
+|:-------------------:|:--------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------:|
+|  playbackInitiate   |                no                |                      This event is fired whenever a playback of a stream is initiated (e.g. either due to autoStart set to \"true\" or user interaction).                       |             yes             |
+|    playbackStart    |                no                |                                                   This event notifies that video playback has started (video is now playing)                                                    |             yes             |
+|    playbackPause    |                no                |                                         This event notifies that video playback has been paused (due to end-user or system interaction)                                         |             yes             |
+|  playbackProgress   |               yes                |                                   Event informs on video progress, stream/playback start-time, stream/playback duration and nDVR cache size.                                    |             yes             |
+|   awaitingStream    |                no                | This event notifies that stream is in hibernate mode - it's not streaming yet, but it might start any time. The library will automatically start playback once stream is ready. |             yes             |
+|      streamEnd      |                no                |           Event will be called when the stream is closed on the server side (usually it means that the broadcaster has stopped streaming, or stream was unpublished).           |             yes             |
+|   streamNotFound    |                no                |                   This event is called whenever a stream with a specific name was not found on the server (this includes hibernated streams or sub-streams).                    |    yes (once per video)     |
+|  metadataReceived   |          yes (metadata)          |                    This event informs of metadata arrival for current video. MetaData contains information about stream codecs, width, height, bitrate etc.                     |             yes             |
+|   bufferingStart    |                no                |                         This event indicates a video content is being readied for playback. The video buffer must fill in order for the video to start.                         |             yes             |
+|  bufferingComplete  |                no                |                                                  This event indicates that the buffer is full and playback is ready to start.                                                   |             yes             |
+|    volumeChange     |  yes (volume, muted, invokedBy)  |                                 This event notifies that video volume was changed (either its value was changed, or video was muted/un-muted).                                  |             yes             |
+|    playbackError    |                no                |         Event indicates that there was a problem with the playback (it usually means that the browser was not able to play a source material due to malformed bitcode).         |    yes (once per video)     |
+| streamConfigChanged |      yes (new streamConfig)      |                                                      This event notifies that basic stream configuration has been updated.                                                      |             yes             |
+
 
 ## API
 
-|                          Method                          |              Returns              |                      Return type                      |                                                                                                                                                    Description                                                                                                                                                     | 
-|:--------------------------------------------------------:|:---------------------------------:|:-----------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:| 
-|                       initialize()                       |                 -                 |                         void                          |                                                                                 Starts the player. This method will be called automatically by the constructor unless *wait* parameter in the constructor has been set to *false*.                                                                                 | 
-|                     getInstanceID()                      |        Instance ID number         |                        number                         |                                                                                                                                   The method returns instance ID of the player.                                                                                                                                    | 
-|                       getLibrary()                       |        StormLibrary Object        |                        number                         |                                                                                                                          The method returns main StormLibrary object used by this player.                                                                                                                          |
-|      setSize(width:number/string, height:number/s)       |                 -                 |                         void                          | The method sets a new width and height for the player. The values can be given as a number (in which case they are treated as the number of pixels), or as a string ending with "px" (this will also be the number of pixels) or "%", where the number is treated as a percentage of the parent container's value. | 
-|              setWidth(width:number/string)               |                 -                 |                         void                          |        The method sets a new width for the player. The value can be given as a number (in which case it is treated as the number of pixels), or as a string ending with "px" (this will also be the number of pixels) or "%", where the number is treated as a percentage of the parent container's value.         | 
-|             setHeight(height:number/string)              |                 -                 |                         void                          |        The method sets a new height for the player. The value can be given as a number (in which case it is treated as the number of pixels), or as a string ending with "px" (this will also be the number of pixels) or "%", where the number is treated as a percentage of the parent container's value.        | 
-|                        getWidth()                        |           Player width            |                        number                         |                                                                                                                                          Returns player width in pixels.                                                                                                                                           |
-|                       getHeight()                        |           Player height           |                        number                         |                                                                                                                                          Returns player height in pixels.                                                                                                                                          |
-|                  setTitle(title:string)                  |                 -                 |                         void                          |                                                                                                            The method allows to add/change the title displayed in the upper-right corner of the player.                                                                                                            |
-|               setSubtitle(subtitle:string)               |                 -                 |                         void                          |                                                                                                 The method allows to add/change the subtitle displayed in the upper-right corner of the player (below the title).                                                                                                  |
-|                    getPlayerConfig()                     | Object containing player settings |                        Object                         |                                                                                                               This method returns an object containing all player preferences (related to its GUI).                                                                                                                |
-|                    setPlayerConfig()                     |                 -                 | - |                                                                                                                                This method pushes new player (GUI) config settings                                                                                                                                 |
-|          addCuePoint(title:string, time:number)          |                 -                 |                         void                          |                                                                                                                      This method adds a CUE point to the player timeline with a given title.                                                                                                                       | 
-|               removeCuePoint(time:number)                |                 -                 |                         void                          |                                                                                                                                 This method removes a CUE point based on its time.                                                                                                                                 |
-|  addEventListener(eventName:string, callback:function)   |                 -                 |                         void                          |                                                                                           Registers an event with the player object. Whenever a registered event occurs, player will call a predefined function provided                                                                                           | 
-| removeEventListener(eventName:string, callback:function) |                 -                 |                         void                          |                                                                                                                                      Removes event listener from the player.                                                                                                                                       | 
+|                          Method                          |              Returns              | Return type  |                                                                                                                                                    Description                                                                                                                                                     |
+|:--------------------------------------------------------:|:---------------------------------:|:------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|                       initialize()                       |                 -                 |     void     |                                                                                 Starts the player. This method will be called automatically by the constructor unless *wait* parameter in the constructor has been set to *false*.                                                                                 |
+|                     getInstanceID()                      |        Instance ID number         |    number    |                                                                                                                                   The method returns instance ID of the player.                                                                                                                                    |
+|                       getLibrary()                       |        StormLibrary Object        |    number    |                                                                                                                          The method returns main StormLibrary object used by this player.                                                                                                                          |
+|      setSize(width:number/string, height:number/s)       |                 -                 |     void     | The method sets a new width and height for the player. The values can be given as a number (in which case they are treated as the number of pixels), or as a string ending with "px" (this will also be the number of pixels) or "%", where the number is treated as a percentage of the parent container's value. |
+|              setWidth(width:number/string)               |                 -                 |     void     |        The method sets a new width for the player. The value can be given as a number (in which case it is treated as the number of pixels), or as a string ending with "px" (this will also be the number of pixels) or "%", where the number is treated as a percentage of the parent container's value.         |
+|             setHeight(height:number/string)              |                 -                 |     void     |        The method sets a new height for the player. The value can be given as a number (in which case it is treated as the number of pixels), or as a string ending with "px" (this will also be the number of pixels) or "%", where the number is treated as a percentage of the parent container's value.        |
+|                        getWidth()                        |           Player width            |    number    |                                                                                                                                          Returns player width in pixels.                                                                                                                                           |
+|                       getHeight()                        |           Player height           |    number    |                                                                                                                                          Returns player height in pixels.                                                                                                                                          |
+|                  setTitle(title:string)                  |                 -                 |     void     |                                                                                                            The method allows to add/change the title displayed in the upper-right corner of the player.                                                                                                            |
+|               setSubtitle(subtitle:string)               |                 -                 |     void     |                                                                                                 The method allows to add/change the subtitle displayed in the upper-right corner of the player (below the title).                                                                                                  |
+|                    getPlayerConfig()                     | Object containing player settings |    Object    |                                                                                                               This method returns an object containing all player preferences (related to its GUI).                                                                                                                |
+|                    setPlayerConfig()                     |                 -                 |      -       |                                                                                                                                This method pushes new player (GUI) config settings                                                                                                                                 |
+|          addCuePoint(title:string, time:number)          |                 -                 |     void     |                                                                                                                      This method adds a CUE point to the player timeline with a given title.                                                                                                                       | 
+|               removeCuePoint(time:number)                |                 -                 |     void     |                                                                                                                                 This method removes a CUE point based on its time.                                                                                                                                 |
+|  addEventListener(eventName:string, callback:function)   |                 -                 |     void     |                                                                                           Registers an event with the player object. Whenever a registered event occurs, player will call a predefined function provided                                                                                           | 
+| removeEventListener(eventName:string, callback:function) |                 -                 |     void     |                                                                                                                                      Removes event listener from the player.                                                                                                                                       | 
 
 
 Browser compatibility

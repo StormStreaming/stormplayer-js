@@ -70,7 +70,7 @@ export class QualityMenuElement extends GraphicElement {
             this.spMenuBoxElement.getHtmlElement().querySelector("ul").appendChild(menuPosition);
 
             menuPosition.addEventListener("click", function () {
-                that.stormPlayer.dispatchEvent("qualityChanged", {
+                that.stormPlayer.dispatchEvent("qualityChange", {
                     ref: that.stormPlayer,
                     label: this.getAttribute("data-label"),
                 });
@@ -104,7 +104,7 @@ export class QualityMenuElement extends GraphicElement {
             this.refreshList();
         });
 
-        this.stormPlayer.addEventListener("libraryInitialized", () => {
+        this.stormPlayer.addEventListener("libraryInitialize", () => {
 
             if(this.stormPlayer.getLibrary().isInitialized())
                 this.refreshList();
@@ -127,11 +127,11 @@ export class QualityMenuElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener("qualitySwitchClicked", () => {
+        this.stormPlayer.addEventListener("qualitySwitchClick", () => {
             this.getHtmlElement().classList.toggle("sp-menu--hidden");
         });
 
-        this.stormPlayer.addEventListener("qualityChanged", () => {
+        this.stormPlayer.addEventListener("qualityChange", () => {
             setTimeout(() => {
                 this.refreshList();
             },100)

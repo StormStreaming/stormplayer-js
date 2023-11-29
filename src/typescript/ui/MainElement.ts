@@ -214,6 +214,8 @@ export class MainElement extends GraphicElement {
 
     private initialize(): void {
 
+        console.log(".initialize")
+
         this.parentContainer = document.getElementById(this.stormPlayer.getPlayerConfig().getContainerID());
 
         this.getHtmlElement().setAttribute("id",this.stormPlayer.getInstanceName())
@@ -229,6 +231,27 @@ export class MainElement extends GraphicElement {
             if(!this.isTransitioning)
                 this.setSize(this.widthOrigValue, this.heightOrigValue);
         },100));
+
+        this.stormPlayer.addEventListener("authorizationComplete", ()=>{
+            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
+               this.spContainer.show();
+               this.loaderElement.hide();
+            }
+        })
+
+        this.stormPlayer.addEventListener("authorizationError", ()=>{
+            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
+                this.spContainer.show();
+                this.loaderElement.hide();
+            }
+        })
+
+        this.stormPlayer.addEventListener("serverConnectionError", ()=>{
+            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
+                this.spContainer.show();
+                this.loaderElement.hide();
+            }
+        })
 
         
     }
@@ -389,6 +412,7 @@ export class MainElement extends GraphicElement {
 
         this.htmlElement.style.maxWidth = width + "px";
         this.spContainer.getHtmlElement().style.height = height + "px";
+        this.loaderElement.getHtmlElement().style.height = height + "px";
 
         this.playerWidth = width;
         this.playerHeight = height;
@@ -448,9 +472,6 @@ export class MainElement extends GraphicElement {
         this.posterElement = new PosterElement(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.posterElement.getHtmlElement());
 
-        //this.loaderElement = new LoaderElement(this.stormPlayer);
-        //this.spContainer.getHtmlElement().appendChild(this.loaderElement.getHtmlElement());
-
         if (!this.stormPlayer.getRawPlayerConfig().demoMode) {
             this.errorElement = new ErrorElement(this.stormPlayer);
             this.spContainer.getHtmlElement().appendChild(this.errorElement.getHtmlElement());
@@ -477,6 +498,7 @@ export class MainElement extends GraphicElement {
         this.watermark = new Watermark(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.watermark.getHtmlElement());
 
+
     }
 
 
@@ -488,14 +510,24 @@ export class MainElement extends GraphicElement {
         super.draw();
 
         this.stormPlayer.setMainElement(this);
+
         this.spContainer = new GraphicElement(this.stormPlayer, "sp-container");
         this.htmlElement.appendChild(this.spContainer.getHtmlElement());
+
+        this.loaderElement = new LoaderElement(this.stormPlayer);
+
+        if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
+            this.htmlElement.appendChild(this.loaderElement.getHtmlElement());
+            this.loaderElement.show();
+            this.spContainer.hide();
+        }
 
         if (this.stormPlayer.waitingRoom) {
             this.createWaitingRoom();
         } else {
             this.createPlayer();
         }
+
     }
 
     /**
@@ -513,23 +545,23 @@ export class MainElement extends GraphicElement {
             that.hideGUITimeoutSeconds = that.stormPlayer.getPlayerConfig().getGuiHideSeconds();
             that.hideGUIEnabled = that.stormPlayer.getPlayerConfig().getIfAutoGUIHide();
             clearTimeout(that.hideGUITimeout)
-            that.stormPlayer.dispatchEvent("guiShown", {ref:that.stormPlayer});
+            that.stormPlayer.dispatchEvent("guiShow", {ref:that.stormPlayer});
 
             if(that.stormPlayer.getPlayerConfig().getIfAutoGUIHide() && that.stormPlayer.getRawPlayerConfig().demoMode == false) {
                 that.hideGUITimeout = setTimeout(function () {
                     that.isGUIHidden = true;
-                    that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                    that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
                 }, that.hideGUITimeoutSeconds * 1000);
             } else {
                 clearTimeout(that.hideGUITimeout);
                 that.isGUIHidden = false;
-                that.stormPlayer.dispatchEvent("guiShown", {ref: that.stormPlayer});
+                that.stormPlayer.dispatchEvent("guiShow", {ref: that.stormPlayer});
             }
         });
 
         if(this.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
 
-            this.stormPlayer.addEventListener("libraryInitialized", function () {
+            this.stormPlayer.addEventListener("libraryInitialize", function () {
                     that.stormPlayer.getLibrary().addEventListener("playbackStart", function () {
                         if (!that.hideGUITimeout && that.hideGUIEnabled) {
                             that.hideGUITimeout = setTimeout(function () {
@@ -553,7 +585,7 @@ export class MainElement extends GraphicElement {
                         clearTimeout(that.hideGUITimeout);
 
                     if( that.isGUIHidden == true)
-                        that.stormPlayer.dispatchEvent("guiShown", {ref:that.stormPlayer});
+                        that.stormPlayer.dispatchEvent("guiShow", {ref:that.stormPlayer});
 
                     that.isGUIHidden = false;
 
@@ -561,7 +593,7 @@ export class MainElement extends GraphicElement {
                         if(that.stormPlayer.getLibrary() != null) {
                             if (that.stormPlayer.getLibrary().isPlaying() && that.hideGUIEnabled) {
                                 that.isGUIHidden = true;
-                                that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                                that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
                             }
                         }
                     }, that.hideGUITimeoutSeconds * 1000);
@@ -574,7 +606,7 @@ export class MainElement extends GraphicElement {
                         clearTimeout(that.hideGUITimeout);
 
                     if(that.isGUIHidden == true)
-                        that.stormPlayer.dispatchEvent("guiShown", {ref:that.stormPlayer});
+                        that.stormPlayer.dispatchEvent("guiShow", {ref:that.stormPlayer});
 
                     that.isGUIHidden = false;
 
@@ -582,7 +614,7 @@ export class MainElement extends GraphicElement {
                         if(that.stormPlayer.getLibrary() != null) {
                             if (that.stormPlayer.getLibrary().isPlaying()) {
                                 that.isGUIHidden = true;
-                                that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                                that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
                             }
                         }
                     }, that.hideGUITimeoutSeconds * 1000);
@@ -597,7 +629,7 @@ export class MainElement extends GraphicElement {
                     if(that.hideGUIEnabled) {
                         if (that.isGUIHidden == true) {
                             that.isGUIHidden = false;
-                            that.stormPlayer.dispatchEvent("guiShown", {ref: that.stormPlayer});
+                            that.stormPlayer.dispatchEvent("guiShow", {ref: that.stormPlayer});
                         }
                     }
                 });
@@ -610,7 +642,7 @@ export class MainElement extends GraphicElement {
                     if(that.hideGUIEnabled) {
 
                         if (that.isGUIHidden == true) {
-                            that.stormPlayer.dispatchEvent("guiShown", {ref: that.stormPlayer});
+                            that.stormPlayer.dispatchEvent("guiShow", {ref: that.stormPlayer});
                             that.isGUIHidden = false;
                         }
 
@@ -671,15 +703,15 @@ export class MainElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener("guiShown", function () {
+        this.stormPlayer.addEventListener("guiShow", function () {
             that.spContainer.getHtmlElement().classList.remove("sp-container__disablecursor");
         });
 
-        this.stormPlayer.addEventListener("guiHid", function () {
+        this.stormPlayer.addEventListener("guiHide", function () {
             that.spContainer.getHtmlElement().classList.add("sp-container__disablecursor");
         });
 
-        this.stormPlayer.addEventListener("fullscreenEntered", function () {
+        this.stormPlayer.addEventListener("fullscreenEnter", function () {
 
             that.isTransitioning = true;
             that.resolutionLock = true;

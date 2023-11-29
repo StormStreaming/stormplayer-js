@@ -177,7 +177,7 @@ export class StormPlayer extends EventDispatcher {
      * @param time time in unixtime format for where to attach this cuePoint
      */
     public addCuePoint(label: string, time: number): void {
-        this.dispatchEvent("cuePointAdded", {ref:this, label: label, time: time});
+        this.dispatchEvent("cuePointAdd", {ref:this, label: label, time: time});
     }
 
     /**
@@ -185,7 +185,7 @@ export class StormPlayer extends EventDispatcher {
      * @param time
      */
     public removeCuePoint(time: number): void {
-        this.dispatchEvent("cuePointRemoved", {ref:this, time: time});
+        this.dispatchEvent("cuePointRemove", {ref:this, time: time});
     }
 
     /**

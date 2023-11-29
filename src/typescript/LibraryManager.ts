@@ -131,11 +131,16 @@ export class LibraryManager {
         const that:LibraryManager = this;
 
         this.library = new StormLibrary(this.config);
-        this.stormPlayer.dispatchEvent("libraryCreated",{ref:this.stormPlayer, library:this.library});
+        this.stormPlayer.dispatchEvent("libraryCreate",{ref:this.stormPlayer, library:this.library});
 
         // libraryReady
         this.library.addEventListener("playerCoreReady", function(event){
             that.stormPlayer.dispatchEvent("playerCoreReady", {ref:that.stormPlayer})
+        },false)
+
+        // libraryConnected
+        this.library.addEventListener("serverConnectionInitiate", function(event){
+            that.stormPlayer.dispatchEvent("serverConnectionInitiate", {ref:that.stormPlayer, serverURL:event.serverURL})
         },false)
 
         // libraryConnected
@@ -182,6 +187,14 @@ export class LibraryManager {
         this.library.addEventListener("bufferingComplete", function(event){
             that.stormPlayer.dispatchEvent("bufferingComplete", {ref:that.stormPlayer, mode:event.mode})
         },false)
+
+        this.library.addEventListener("authorizationComplete", function(event){
+            that.stormPlayer.dispatchEvent("authorizationComplete", {ref:that.stormPlayer})
+        }, false)
+
+        this.library.addEventListener("authorizationError", function(event){
+            that.stormPlayer.dispatchEvent("authorizationError", {ref:that.stormPlayer})
+        }, false)
 
         // playbackStarted
         this.library.addEventListener("playbackStart", function(event){
@@ -269,11 +282,6 @@ export class LibraryManager {
             that.stormPlayer.dispatchEvent("awaitingStream", {ref:that.stormPlayer, streamKey:event.streamKey})
         },false)
 
-        this.library.addEventListener("authorizationComplete", function (event){
-
-
-
-        }, false);
 
         this.library.addEventListener("optionalStreamData", function (event){
 
@@ -374,7 +382,7 @@ export class LibraryManager {
         });
 
         this.library.initialize();
-        this.stormPlayer.dispatchEvent("libraryInitialized",{ref:this.stormPlayer, library:this.library});
+        this.stormPlayer.dispatchEvent("libraryInitialize",{ref:this.stormPlayer, library:this.library});
 
     }
 
@@ -397,34 +405,32 @@ export class LibraryManager {
 
 
         // library is now ready to register events
-        this.stormPlayer.addEventListener("libraryInitialized", function () {
+        this.stormPlayer.addEventListener("libraryInitialize", function () {
 
             this.isLibraryReady = true;
 
             // when play is clicked
-            that.stormPlayer.addEventListener("playClicked", function () {
+            that.stormPlayer.addEventListener("playClick", function () {
                 that.getLibrary().play();
             });
 
             // when pause is cliked
-            that.stormPlayer.addEventListener("pauseClicked", function () {
+            that.stormPlayer.addEventListener("pauseClick", function () {
                 that.getLibrary().pause();
             });
 
             // when mute is clicked
-            that.stormPlayer.addEventListener("muteClicked", function () {
-                console.log("muteClicked")
+            that.stormPlayer.addEventListener("muteClick", function () {
                 that.getLibrary().mute();
             });
 
             // when mute is clicked again/or unmute button is clicked
-            that.stormPlayer.addEventListener("unmuteClicked", function () {
-                console.log("unmuteClicked")
+            that.stormPlayer.addEventListener("unmuteClick", function () {
                 that.getLibrary().unmute();
             });
 
             // when toggle play button is clicked (works as pause/play)
-            that.stormPlayer.addEventListener("videoClicked", function () {
+            that.stormPlayer.addEventListener("videoClick", function () {
                 that.getLibrary().togglePlay();
             });
 
@@ -435,7 +441,7 @@ export class LibraryManager {
             });
 
             // when video quality is changed
-            that.stormPlayer.addEventListener("qualityChanged", function (event) {
+            that.stormPlayer.addEventListener("qualityChange", function (event) {
                 if(that.stormPlayer.getRawPlayerConfig().demoMode != true)
                     that.getLibrary().setQuality(event.label);
             });

@@ -28,39 +28,41 @@ export interface StormPlayerEvent {
     "streamEnd": {ref:StormPlayer, streamKey:string}
     "videoElementCreate": {ref:StormPlayer, videoElement:HTMLVideoElement};
     "interfaceReady": {ref:StormPlayer}
-    "cuePointAdded": {ref:StormPlayer, label:string, time:number}
-    "cuePointRemoved": {ref:StormPlayer, time:number}
-    "libraryCreated" : {ref:StormPlayer, library:StormLibrary}
-    "libraryInitialized" : {ref:StormPlayer, library:StormLibrary}
-    "playClicked": {ref:StormPlayer}
-    "pauseClicked": {ref:StormPlayer}
-    "muteClicked": {ref:StormPlayer}
-    "unmuteClicked": {ref:StormPlayer}
-    "videoClicked": {ref:StormPlayer}
+    "cuePointAdd": {ref:StormPlayer, label:string, time:number}
+    "cuePointRemove": {ref:StormPlayer, time:number}
+    "libraryCreate" : {ref:StormPlayer, library:StormLibrary}
+    "libraryInitialize" : {ref:StormPlayer, library:StormLibrary}
+    "playClick": {ref:StormPlayer}
+    "pauseClick": {ref:StormPlayer}
+    "muteClick": {ref:StormPlayer}
+    "unmuteClick": {ref:StormPlayer}
+    "videoClick": {ref:StormPlayer}
     "volumeSet": {ref:StormPlayer, volume:number}
     "qualitySet": {ref:StormPlayer, label:string}
     "seekSet": {ref:StormPlayer, time:number}
-    "seekStarted": {ref:StormPlayer}
-    "seekEnded": {ref:StormPlayer}
-    "fullscreenEntered": {ref:StormPlayer}
-    "fullscreenExited": {ref:StormPlayer}
+    "seekStart": {ref:StormPlayer}
+    "seekEnd": {ref:StormPlayer}
+    "fullscreenEnter": {ref:StormPlayer}
+    "fullscreenExit": {ref:StormPlayer}
     "waitingRoomCreated": {ref:StormPlayer}
     "waitingRoomEnded": {ref:StormPlayer}
-    "guiShown": {ref:StormPlayer}
-    "guiHid": {ref:StormPlayer}
-    "titleAdded": {ref:StormPlayer, title:string, newHeight:number}
-    "subtitleAdd": {ref:StormPlayer, subtitle:string, newHeight:number}
+    "guiShow": {ref:StormPlayer}
+    "guiHide": {ref:StormPlayer}
+    "titleUpdate": {ref:StormPlayer, title:string, newHeight:number}
+    "subtitleUpdate": {ref:StormPlayer, subtitle:string, newHeight:number}
     "boxStatShown": {ref:StormPlayer}
     "boxStatHid": {ref:StormPlayer}
     "contextMenuShown": {ref:StormPlayer, e: MouseEvent}
     "contextMenuHid": {ref:StormPlayer}
     "errorShown": {ref:StormPlayer, message:string}
-    "qualitySwitchClicked": {ref:StormPlayer}
-    "qualityChanged": {ref:StormPlayer, label:string}
+    "qualitySwitchClick": {ref:StormPlayer}
+    "qualityChange": {ref:StormPlayer, label:string}
     "SSLError":  { ref:StormPlayer, mode:string};
     "incompatibleProtocol": {ref:StormPlayer, clientProtocolVer:number,serverProtocolVersion:number}
     "invalidLicense": {ref:StormPlayer}
     "resize": {ref:StormPlayer, newWidth:number, newHeight:number}
     "playerConfigUpdated": {ref:StormPlayer}
     "streamConfigUpdated": {ref:StormPlayer}
+    "authorizationComplete": {ref:StormPlayer}
+    "authorizationError": {ref:StormPlayer}
 }
