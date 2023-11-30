@@ -214,8 +214,6 @@ export class MainElement extends GraphicElement {
 
     private initialize(): void {
 
-        console.log(".initialize")
-
         this.parentContainer = document.getElementById(this.stormPlayer.getPlayerConfig().getContainerID());
 
         this.getHtmlElement().setAttribute("id",this.stormPlayer.getInstanceName())
@@ -247,6 +245,27 @@ export class MainElement extends GraphicElement {
         })
 
         this.stormPlayer.addEventListener("serverConnectionError", ()=>{
+            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
+                this.spContainer.show();
+                this.loaderElement.hide();
+            }
+        })
+
+        this.stormPlayer.addEventListener("streamNotFound", ()=>{
+            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
+                this.spContainer.show();
+                this.loaderElement.hide();
+            }
+        })
+
+        this.stormPlayer.addEventListener("awaitingStream", ()=>{
+            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
+                this.spContainer.show();
+                this.loaderElement.hide();
+            }
+        })
+
+        this.stormPlayer.addEventListener("streamEnd", ()=>{
             if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
                 this.spContainer.show();
                 this.loaderElement.hide();
@@ -455,7 +474,7 @@ export class MainElement extends GraphicElement {
     }
 
     /**
-     * Adds player
+     * Creates and adds player elements
      */
     public createPlayer() {
 
@@ -568,7 +587,7 @@ export class MainElement extends GraphicElement {
                                 if(that.stormPlayer.getLibrary() != null) {
                                     if (that.stormPlayer.getLibrary().isPlaying()) {
                                         that.isGUIHidden = true;
-                                        that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                                        that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
                                     }
                                 }
                             }, that.hideGUITimeoutSeconds * 1000);
@@ -650,7 +669,7 @@ export class MainElement extends GraphicElement {
                             if (that.stormPlayer.getLibrary() != null) {
                                 if (that.stormPlayer.getLibrary().isPlaying()) {
                                     that.isGUIHidden = true;
-                                    that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                                    that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
                                 }
                             }
                         }, that.hideGUITimeoutSeconds * 1000);
@@ -666,7 +685,7 @@ export class MainElement extends GraphicElement {
                             if (that.stormPlayer.getLibrary() != null) {
                                 if (that.stormPlayer.getLibrary().isPlaying()) {
                                     that.isGUIHidden = true;
-                                    that.stormPlayer.dispatchEvent("guiHid", {ref: that.stormPlayer});
+                                    that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
                                 }
                             }
                         }
@@ -792,7 +811,7 @@ export class MainElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener("fullscreenExited", function () {
+        this.stormPlayer.addEventListener("fullscreenExit", function () {
 
             that.isTransitioning = true;
             spContainerElement.classList.remove("sp-fullscreen");
@@ -868,7 +887,7 @@ export class MainElement extends GraphicElement {
         document.addEventListener("fullscreenchange", function () {
             if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false) {
                 that.isFullScreenOn = false;
-                that.stormPlayer.dispatchEvent("fullscreenExited", {ref: that.stormPlayer});
+                that.stormPlayer.dispatchEvent("fullscreenExit", {ref: that.stormPlayer});
             }
         }, false);
 
@@ -894,7 +913,6 @@ export class MainElement extends GraphicElement {
             }
         }, false);
          **/
-
 
     }
 

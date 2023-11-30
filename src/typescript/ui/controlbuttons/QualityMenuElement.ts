@@ -1,5 +1,7 @@
 import { GraphicElement } from "../GraphicElement";
 import { StormPlayer } from "../../StormPlayer";
+import {ISourceItem} from "@stormstreaming/stormlibrary";
+import {QualityMenuItem} from "@app/typescript/ui/controlbuttons/QualityMenuItem";
 
 /**
  * Class represents quality menu (the list) for quality switch button
@@ -11,12 +13,6 @@ export class QualityMenuElement extends GraphicElement {
      * @private
      */
     private spMenuBoxElement: GraphicElement;
-
-    /**
-     * List of items (qualities to choose)
-     * @private
-     */
-    private listItems: Array<HTMLElement> = [];
 
     /**
      * Constructor
@@ -31,18 +27,7 @@ export class QualityMenuElement extends GraphicElement {
      */
     public setCurrentItem(): void {
 
-        try {
-            let currentLabel = this.stormPlayer.getLibrary().getCurrentQuality();
 
-            for (let i = 0; i < this.listItems.length; i++) {
-                if (this.listItems[i].getAttribute("data-label") == currentLabel)
-                    this.listItems[i].classList.add("sp-menu__list-item__active");
-                else
-                    this.listItems[i].classList.remove("sp-menu__list-item__active");
-            }
-        } catch(error:any){
-            //
-        }
     }
 
     /**
@@ -54,29 +39,12 @@ export class QualityMenuElement extends GraphicElement {
            return;
 
         this.spMenuBoxElement.getHtmlElement().querySelector("ul").innerHTML = "";
-        this.listItems = [];
 
-        let that = this;
-        let list = this.stormPlayer.getLibrary().getAllSources();
+        const list:ISourceItem[] = this.stormPlayer.getLibrary().getSourceList();
 
         for (let i = 0; i < list.length; i++) {
-
-            let menuPosition = document.createElement("li");
-            menuPosition.setAttribute("data-label", list[i].streamInfo.label);
-            menuPosition.classList.add("sp-menu__list-item");
-            menuPosition.innerHTML = `<span>${list[i].streamInfo.label}</span>`;
-
-            this.listItems.push(menuPosition);
-            this.spMenuBoxElement.getHtmlElement().querySelector("ul").appendChild(menuPosition);
-
-            menuPosition.addEventListener("click", function () {
-                that.stormPlayer.dispatchEvent("qualityChange", {
-                    ref: that.stormPlayer,
-                    label: this.getAttribute("data-label"),
-                });
-                that.getHtmlElement().classList.add("sp-menu--hidden");
-            });
-
+            const element = new QualityMenuItem(this.stormPlayer, list[i]);
+            this.spMenuBoxElement.getHtmlElement().querySelector("ul").appendChild(element.getHTMLElement());
         }
 
         this.setCurrentItem();
@@ -131,13 +99,13 @@ export class QualityMenuElement extends GraphicElement {
             this.getHtmlElement().classList.toggle("sp-menu--hidden");
         });
 
-        this.stormPlayer.addEventListener("qualityChange", () => {
+        this.stormPlayer.addEventListener("sourceChange", () => {
             setTimeout(() => {
                 this.refreshList();
             },100)
         });
 
-        this.stormPlayer.addEventListener("guiHid", () => {
+        this.stormPlayer.addEventListener("guiHide", () => {
             this.getHtmlElement().classList.add("sp-menu--hidden");
         });
 

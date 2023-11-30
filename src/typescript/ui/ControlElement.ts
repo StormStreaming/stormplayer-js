@@ -71,7 +71,7 @@ export class ControlElement extends GraphicElement {
             this.show();
         });
 
-        this.stormPlayer.addEventListener("guiHid", () => {
+        this.stormPlayer.addEventListener("guiHide", () => {
             this.hide();
         });
 

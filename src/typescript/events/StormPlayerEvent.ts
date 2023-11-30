@@ -1,6 +1,6 @@
 import {StormPlayer} from "../StormPlayer";
 import {StormMetaDataItem} from "@stormstreaming/stormlibrary/dist/types/model/StormMetaDataItem";
-import {StormLibrary} from "@stormstreaming/stormlibrary";
+import {ISourceItem, StormLibrary} from "@stormstreaming/stormlibrary";
 
 export interface StormPlayerEvent {
 
@@ -56,7 +56,7 @@ export interface StormPlayerEvent {
     "contextMenuHid": {ref:StormPlayer}
     "errorShown": {ref:StormPlayer, message:string}
     "qualitySwitchClick": {ref:StormPlayer}
-    "qualityChange": {ref:StormPlayer, label:string}
+    "sourceChange": {ref:StormPlayer, newSource:ISourceItem}
     "SSLError":  { ref:StormPlayer, mode:string};
     "incompatibleProtocol": {ref:StormPlayer, clientProtocolVer:number,serverProtocolVersion:number}
     "invalidLicense": {ref:StormPlayer}

@@ -436,14 +436,13 @@ export class LibraryManager {
 
             // when volume is changed
             that.stormPlayer.addEventListener("volumeSet", function (event) {
-                console.log("volumeSet")
                 that.getLibrary().setVolume(event.volume);
             });
 
             // when video quality is changed
-            that.stormPlayer.addEventListener("qualityChange", function (event) {
+            that.stormPlayer.addEventListener("sourceChange", function (event) {
                 if(that.stormPlayer.getRawPlayerConfig().demoMode != true)
-                    that.getLibrary().setQuality(event.label);
+                    that.getLibrary().playSource(event.newSource);
             });
 
             // when user clicks on progress bar or uses thumb to seek
@@ -452,7 +451,7 @@ export class LibraryManager {
             });
 
             // when user enters full-screen mode
-            that.stormPlayer.addEventListener("fullscreenEntered", function () {
+            that.stormPlayer.addEventListener("fullscreenEnter", function () {
                 that.isFullScreenMode = true;
 
 
@@ -471,7 +470,7 @@ export class LibraryManager {
             });
 
             // when user enters full-screen mode
-            that.stormPlayer.addEventListener("fullscreenExited", function () {
+            that.stormPlayer.addEventListener("fullscreenExit", function () {
                 that.isFullScreenMode = false
 
                 if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())

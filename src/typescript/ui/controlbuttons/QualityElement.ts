@@ -1,6 +1,7 @@
 import {GraphicElement} from "../GraphicElement";
 import {StormPlayer} from "../../StormPlayer";
 import {QualityMenuElement} from "./QualityMenuElement";
+import {ISourceItem} from "@stormstreaming/stormlibrary";
 
 /**
  * Class represents quality switch button
@@ -46,24 +47,39 @@ export class QualityElement extends GraphicElement {
      */
     protected refreshButton(): void {
 
+
         try {
             if (!this.qualityButtonElement)
                 return;
 
-            if(this.stormPlayer.getLibrary() != null) {
-                if (this.stormPlayer.getLibrary().getAvailableSubstreams().length <= 1)
-                    this.hide();
-                else {
-                    this.qualityButtonElement.innerHTML = `<span>${this.stormPlayer.getLibrary().getCurrentSource()}</span>`;
-                    this.show();
-                }
-            } else
+            const library = this.stormPlayer.getLibrary();
+            if (!library) {
                 this.hide();
+                return;
+            }
+
+            const sourceList = library.getSourceList();
+            let firstSource: ISourceItem = null
+            if (sourceList.length <= 1) {
+                this.hide();
+                return;
+            } else {
+                firstSource = sourceList.at(0);
+            }
+
+            const currentSourceItem = library.getCurrentSourceItem();
+            const streamInfo = currentSourceItem?.getStreamInfo();
+            const label = streamInfo?.getLabel() ?? firstSource.getStreamInfo().getLabel();
+
+            this.qualityButtonElement.innerHTML = `<span>${label}</span>`;
+            this.show();
 
 
         } catch(error:any) {
             console.log(error);
         }
+
+
     }
 
 
@@ -122,7 +138,7 @@ export class QualityElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener("qualityChange", function(event){
+        this.stormPlayer.addEventListener("sourceChange", function(event){
             setTimeout(function(){
                 that.refreshButton();
             },100)

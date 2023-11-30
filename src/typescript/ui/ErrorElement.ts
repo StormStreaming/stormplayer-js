@@ -95,6 +95,7 @@ export class ErrorElement extends GraphicElement {
             });
 
             this.stormPlayer.getLibrary().addEventListener("streamNotFound", () => {
+                console.log("stream not found!!");
                 this.showErrorMessage(this.stormPlayer.getPlayerConfig().getVideoNotFoundText());
             });
 
@@ -116,14 +117,16 @@ export class ErrorElement extends GraphicElement {
 
             this.stormPlayer.getLibrary().addEventListener("awaitingStream", () => {
 
-                if(WaitingRoom.isWaitingApplicable(that.stormPlayer.getPlayerConfig().getBroadcastStartDate(), that.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone())){
+                if(that.stormPlayer.getPlayerConfig().getBroadcastStartDate() != null && that.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone() != null) {
+                    if (WaitingRoom.isWaitingApplicable(that.stormPlayer.getPlayerConfig().getBroadcastStartDate(), that.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone())) {
 
-                    that.waitingRoom = new WaitingRoom(that.stormPlayer);
-                    that.stormPlayer.getMainElement().spContainer.getHtmlElement().appendChild(this.waitingRoom.getHtmlElement());
+                        that.waitingRoom = new WaitingRoom(that.stormPlayer);
+                        that.stormPlayer.getMainElement().spContainer.getHtmlElement().appendChild(this.waitingRoom.getHtmlElement());
 
-                } else {
+                    } else
+                        this.showErrorMessage(this.stormPlayer.getPlayerConfig().getAwaitingText());
+                } else
                     this.showErrorMessage(this.stormPlayer.getPlayerConfig().getAwaitingText());
-                }
 
             });
 

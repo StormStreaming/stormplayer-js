@@ -22,7 +22,7 @@ export class BigPlayElement extends GraphicElement {
 
         this.isEnabled = this.stormPlayer.getPlayerConfig().isBigPlaybackButton();
 
-        if (this.isEnabled === false)
+        if (this.isEnabled === false || this.stormPlayer.getRawStreamConfig().settings.autoStart == true);
             this.hide();
 
     }
@@ -43,8 +43,15 @@ export class BigPlayElement extends GraphicElement {
      */
     protected override draw(): void {
         super.draw();
+        this.subDraw()
 
-        this.htmlElement.innerHTML = `
+        this.hide();
+    }
+
+    private subDraw():void {
+
+        if(this.stormPlayer.getPlayerConfig().isBigPlaybackButton()) {
+            this.htmlElement.innerHTML = `
             <svg class="sp-play-icon" width="43" height="53" viewBox="0 0 72 72">
                 <g  fill="#fff" fill-rule="evenodd">
                     <g id="path" fill="#fff">
@@ -54,8 +61,8 @@ export class BigPlayElement extends GraphicElement {
                     </g>
                 </g>    
             </svg>`;
+        }
 
-        this.hide();
     }
 
     /**
@@ -90,6 +97,8 @@ export class BigPlayElement extends GraphicElement {
 
             this.isEnabled = this.stormPlayer.getPlayerConfig().isBigPlaybackButton();
 
+            this.subDraw();
+
             if (this.isEnabled === false)
                 this.hide();
             else
@@ -98,10 +107,6 @@ export class BigPlayElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("libraryCreate", () => {
-
-            this.stormPlayer.getLibrary().addEventListener("playerCoreReady", () => {
-                this.show();
-            });
 
             this.stormPlayer.getLibrary().addEventListener("interactionRequired", () => {
                 this.show();

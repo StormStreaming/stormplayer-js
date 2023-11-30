@@ -63,6 +63,10 @@ export class LoaderElement extends GraphicElement {
      * @protected
      */
     protected override attachListeners(): void {
-        // nothing...
+
+        this.stormPlayer.addEventListener("streamNotFound", ()=>{
+            this.hide();
+        })
+
     }
 }
