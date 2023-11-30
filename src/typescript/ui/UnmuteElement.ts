@@ -50,23 +50,15 @@ export class UnmuteElement extends GraphicElement {
 
     private checkIfVisible(){
 
-        console.log(this.stormPlayer.getWidth())
-
         if(this.stormPlayer.getWidth() >= 700) {
-
             this.getHtmlElement().classList.remove("tiny");
             this.getHtmlElement().classList.remove("narrow");
-
         } else if(this.stormPlayer.getWidth() < 700 && this.stormPlayer.getHeight() >= 500){
-
             this.getHtmlElement().classList.remove("tiny");
             this.getHtmlElement().classList.add("narrow");
-
         } else if(this.stormPlayer.getWidth() < 500){
-
             this.getHtmlElement().classList.add("tiny");
             this.getHtmlElement().classList.remove("narrow");
-
         }
 
     }
@@ -84,9 +76,7 @@ export class UnmuteElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("resize", (event:StormPlayerEvent["resize"]) => {
-
             that.checkIfVisible()
-
         });
 
         this.stormPlayer.addEventListener("titleUpdate", (event) => {

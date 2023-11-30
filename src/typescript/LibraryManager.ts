@@ -252,7 +252,6 @@ export class LibraryManager {
 
         // volumeChanged
         this.library.addEventListener("volumeChange", function(event){
-            console.log("volumeChange (library): "+event.volume+" | isMuted: "+event.muted);
             that.stormPlayer.dispatchEvent("volumeChange", {ref:that.stormPlayer, mode:event.mode, volume:event.volume, muted:event.muted, invokedBy:event.invokedBy})
         },false)
 
