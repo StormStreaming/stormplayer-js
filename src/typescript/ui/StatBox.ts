@@ -35,7 +35,7 @@ export class StatBox extends GraphicElement {
 
         // streamKey
         try {
-            streamKey = this.stormPlayer.getLibrary().getCurrentSource().getStreamKey();
+            streamKey = this.stormPlayer.getLibrary().getCurrentSourceItem().getStreamKey();
         } catch(error){
 
         }

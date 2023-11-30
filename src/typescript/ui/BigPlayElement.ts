@@ -22,7 +22,7 @@ export class BigPlayElement extends GraphicElement {
 
         this.isEnabled = this.stormPlayer.getPlayerConfig().isBigPlaybackButton();
 
-        if (this.isEnabled === false || this.stormPlayer.getRawStreamConfig().settings.autoStart == true);
+        if (this.isEnabled === false || this.stormPlayer.getRawStreamConfig().settings.autoStart == true)
             this.hide();
 
     }
