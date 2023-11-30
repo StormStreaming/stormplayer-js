@@ -36,10 +36,8 @@ export class QualityMenuItem {
             const currentSource = this.stormPlayer.getLibrary().getCurrentSourceItem();
             if(currentSource != null){
                 if(currentSource == this.source){
-                    console.log("to ten sam..")
                     this.html.classList.add("sp-menu__list-item__active");
                 } else {
-                    console.log("to nie ten sam");
                     this.html.classList.remove("sp-menu__list-item__active");
                 }
             }

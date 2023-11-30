@@ -437,7 +437,7 @@ export class MainElement extends GraphicElement {
         this.playerHeight = height;
 
         if (!this.stormPlayer.waitingRoom){
-            if(this.stormPlayer.getLibrary() != null)
+            if(this.stormPlayer.getLibrary() != null && this.stormPlayer.getLibrary().isInitialized())
                 this.stormPlayer.getLibrary().setSize(width, height);
         }
 
@@ -746,17 +746,11 @@ export class MainElement extends GraphicElement {
             if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())){
 
                 console.log("Enter FS - Mobile + Native");
-
-                const video:HTMLVideoElement = that.stormPlayer.getLibraryManager().getVideoElement();
-                if(video != null){
-                    console.log("Element in place");
-                    // @ts-ignore
-                    video.webkitEnterFullScreen();
-                }
+                that.stormPlayer.getLibrary().enterFullScreen();
 
             } else if(UserCapabilities.isMobile()){
 
-                console.log("Enter FS - Mobile");
+                console.log("Enter FS - Mobile - No native");
 
                 that.htmlElement.classList.add("fs-mode");
                 document.body.classList.add("fs-body-fix");
@@ -883,6 +877,7 @@ export class MainElement extends GraphicElement {
             },1000)
 
         });
+
 
         document.addEventListener("fullscreenchange", function () {
             if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false) {

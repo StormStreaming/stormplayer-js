@@ -214,7 +214,7 @@ export class VolumeElement extends GraphicElement {
 
         }
 
-        this.stormPlayer.addEventListener("guiHid", () => {
+        this.stormPlayer.addEventListener("guiHide", () => {
             this.volumeButtonElement.classList.remove("sp-active");
             this.volumeControlWrapperElement.classList.add("sp-hidden");
         });
@@ -243,7 +243,6 @@ export class VolumeElement extends GraphicElement {
 
 
         this.stormPlayer.addEventListener("volumeChange", function (event){
-            console.log("volume-changex123 "+event.volume+" "+event.muted);
             if (event.muted)
                 that.showUnMute();
             else

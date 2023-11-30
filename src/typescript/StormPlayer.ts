@@ -126,7 +126,6 @@ export class StormPlayer extends EventDispatcher {
             this.libraryManager.initialize(this.rawStreamConfig);
         }
 
-
         this.mainElement = new MainElement(this);
         document.getElementById(this.playerConfig.getContainerID()).appendChild(this.mainElement.getHtmlElement());
 
@@ -143,6 +142,7 @@ export class StormPlayer extends EventDispatcher {
 
         this.setSize(this.rawPlayerConfig.width, this.rawPlayerConfig.height);
         this.mainElement.setObserver();
+
         this.setStyle(this.rawPlayerConfig);
 
         this.addEventListener("playerConfigUpdated", (event)=>{

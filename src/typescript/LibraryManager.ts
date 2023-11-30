@@ -381,6 +381,10 @@ export class LibraryManager {
 
         });
 
+        this.library.addEventListener("fullScreenExit", () => {
+            this.stormPlayer.dispatchEvent("fullscreenExit",{ref:this.stormPlayer});
+        })
+
         this.library.initialize();
         this.stormPlayer.dispatchEvent("libraryInitialize",{ref:this.stormPlayer, library:this.library});
 
