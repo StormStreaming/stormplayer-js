@@ -1,12 +1,11 @@
 import {MainElement} from "./ui/MainElement";
 import {LibraryManager} from "./LibraryManager";
 import {StormLibrary} from "@stormstreaming/stormlibrary";
-import {StormPlayerConfigImpl} from "./StormPlayerConfigImpl";
 import {StormPlayerConfig} from "./types/StormPlayerConfig";
 import {StormStreamConfig} from "@stormstreaming/stormlibrary";
 import {EventDispatcher} from "./events/EventDispatcher";
-import {VERSION} from "rollup";
 import {WaitingRoom} from "@app/typescript/ui/WaitingRoom";
+import {PlayerConfigManager} from "@app/typescript/PlayerConfigManager";
 
 /**
  * Main class for the player
@@ -41,7 +40,7 @@ export class StormPlayer extends EventDispatcher {
      * Player GUI configuration
      * @private
      */
-    private playerConfig: StormPlayerConfigImpl;
+    private playerConfig: PlayerConfigManager;
 
     /**
      * Main HTML element of the GUI
@@ -115,7 +114,7 @@ export class StormPlayer extends EventDispatcher {
             return;
 
         this.started = true;
-        this.playerConfig = new StormPlayerConfigImpl(this.rawPlayerConfig);
+        this.playerConfig = new PlayerConfigManager(this, this.rawPlayerConfig);
 
         if(this.playerConfig.getBroadcastCreateDate() != null){
             if(!WaitingRoom.isWaitingApplicable(this.playerConfig.getBroadcastStartDate(), this.playerConfig.getWaitingRoomTimeZone()))
@@ -143,10 +142,10 @@ export class StormPlayer extends EventDispatcher {
         this.setSize(this.rawPlayerConfig.width, this.rawPlayerConfig.height);
         this.mainElement.setObserver();
 
-        this.setStyle(this.rawPlayerConfig);
+        this.playerConfig.setStyle();
 
         this.addEventListener("playerConfigUpdated", (event)=>{
-            this.setStyle(this.rawPlayerConfig);
+            this.playerConfig.setStyle();
         });
 
     }
@@ -229,7 +228,7 @@ export class StormPlayer extends EventDispatcher {
         if(this.playerConfig != null){
 
             this.rawPlayerConfig = newPlayerConfig;
-            this.playerConfig.updateConfig(newPlayerConfig);
+            this.playerConfig.overwriteConfig(newPlayerConfig);
 
             this.dispatchEvent("playerConfigUpdated", {ref:this});
 
@@ -285,84 +284,6 @@ export class StormPlayer extends EventDispatcher {
     }
 
     /**
-     * Changes player styles
-     * @param styles new player styles
-     */
-    public setStyle(config: any): void {
-
-        const player = this.mainElement.getPlayerElement();
-
-        if(config.style) {
-
-            if (config.style.loaderColor)
-                player.style.setProperty("--sp-loader-color", config.style.loaderColor);
-
-            if(config.style.progressBar){
-                if (config.style.progressBar.gradientColor1)
-                    player.style.setProperty("--sp-first-progress-bar-color", config.style.progressBar.gradientColor1);
-                if (config.style.progressBar.gradientColor2)
-                    player.style.setProperty("--sp-second-progress-bar-color", config.style.progressBar.gradientColor2);
-            }
-
-            if(config.style.waitingRoomRings){
-                if (config.style.waitingRoomRings.gradientColor1)
-                    player.style.setProperty("--sp-first-waiting-ring-color", config.style.waitingRoomRings.gradientColor1);
-                if (config.style.waitingRoomRings.gradientColor2)
-                    player.style.setProperty("--sp-second-waiting-ring-color", config.style.waitingRoomRings.gradientColor2);
-            }
-
-            if(config.style.cuePoint){
-                if (config.style.cuePoint.gradientColor1)
-                    player.style.setProperty("--sp-first-cue-point-color", config.style.cuePoint.gradientColor1);
-                if (config.style.cuePoint.gradientColor2)
-                    player.style.setProperty("--sp-second-cue-point-color", config.style.cuePoint.gradientColor2);
-            }
-
-            if(config.style.unmuteLabel){
-                if (config.style.unmuteLabel.backgroundColor )
-                    player.style.setProperty("--sp-unmute-label-bg-color", config.style.unmuteLabel.backgroundColor);
-                if (config.style.unmuteLabel.primaryColor)
-                    player.style.setProperty("--sp-unmute-label-primary-color", config.style.unmuteLabel.primaryColor);
-            }
-
-            if(config.style.icons){
-
-                if (config.style.icons.primaryColor)
-                    player.style.setProperty("--sp-icons-primary-color", config.style.icons.primaryColor);
-                if (config.style.icons.secondaryColor)
-                    player.style.setProperty("--sp-icons-secondary-color", config.style.icons.secondaryColor);
-                if (config.style.icons.activeColor)
-                    player.style.setProperty("--sp-icons-active-color", config.style.icons.activeColor);
-                if (config.style.icons.errorColor)
-                    player.style.setProperty("--sp-icons-error-color", config.style.icons.errorColor);
-            }
-
-            if (config.style.backgroundColor)
-                player.style.setProperty("--sp-background-color", config.style.backgroundColor);
-
-            if(config.style.text) {
-                if (config.style.text.titleColor)
-                    player.style.setProperty("--sp-text-title-color", config.style.text.titleColor);
-                if (config.style.text.subtitleColor)
-                    player.style.setProperty("--sp-text-desc-color", config.style.text.subtitleColor);
-                if (config.style.text.errorColor)
-                    player.style.setProperty("--sp-text-error-color", config.style.text.errorColor);
-            }
-
-            if(config.style.font) {
-                if (config.style.font.fontRegular)
-                    player.style.setProperty("--sp-font-regular", config.style.font.fontRegular);
-                if (config.style.font.fontBold)
-                    player.style.setProperty("--sp-font-bold", config.style.font.fontBold);
-            }
-
-            if (config.style.borderRadius != undefined){
-                player.style.setProperty("--sp-border-radius", config.style.borderRadius);
-            }
-        }
-    }
-
-    /**
      * Returns plauer width;
      */
     public getWidth():number {
@@ -402,9 +323,9 @@ export class StormPlayer extends EventDispatcher {
     }
 
     /**
-     * Returns GUI configuration object
+     * Returns GUI configuration
      */
-    public getPlayerConfig(): StormPlayerConfigImpl {
+    public getPlayerConfigManager(): PlayerConfigManager {
         return this.playerConfig;
     }
 

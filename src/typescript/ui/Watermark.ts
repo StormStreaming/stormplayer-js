@@ -32,8 +32,8 @@ export class Watermark extends GraphicElement {
 
         const heightAdj:number = (this.stormPlayer.getMainElement().getControlElement().getProgresBar().getIfVisible()) ? 65 : 48;
 
-        if(this.stormPlayer.getPlayerConfig().getWatermarkURL() != null) {
-            switch (this.stormPlayer.getPlayerConfig().getWatermarkPosition().toLowerCase()) {
+        if(this.stormPlayer.getPlayerConfigManager().getWatermarkURL() != null) {
+            switch (this.stormPlayer.getPlayerConfigManager().getWatermarkPosition().toLowerCase()) {
                 case 'bottom_left':
                     this.htmlElement.style.left = '20px';
                     this.htmlElement.style.removeProperty("right");
@@ -48,7 +48,7 @@ export class Watermark extends GraphicElement {
             }
 
             this.htmlElement.style.bottom = heightAdj+"px";
-            this.htmlElement.innerHTML = `<img width="auto" src='${this.stormPlayer.getPlayerConfig().getWatermarkURL()}' alt="watermark logo">`;
+            this.htmlElement.innerHTML = `<img width="auto" src='${this.stormPlayer.getPlayerConfigManager().getWatermarkURL()}' alt="watermark logo">`;
         } else
             this.htmlElement.innerHTML = ``;
 
@@ -91,12 +91,12 @@ export class Watermark extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("fullscreenEnter", () => {
-            if(this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())
+            if(this.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI())
                 this.htmlElement.style.display = "none";
         });
 
         this.stormPlayer.addEventListener("fullscreenExit", () => {
-            if(this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())
+            if(this.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI())
                 this.htmlElement.style.display = "block";
         });
 

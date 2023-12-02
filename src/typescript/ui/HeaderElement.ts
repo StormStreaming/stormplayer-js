@@ -90,7 +90,7 @@ export class HeaderElement extends GraphicElement {
                 </g>
             </svg>
 
-            <span class="sp-live-icon__text">${this.stormPlayer.getPlayerConfig().getLiveText()}</span>`;
+            <span class="sp-live-icon__text">${this.stormPlayer.getPlayerConfigManager().getLiveText()}</span>`;
 
 
     }
@@ -169,9 +169,9 @@ export class HeaderElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("playerConfigUpdated", () => {
-            this.htmlElement.querySelector("span.sp-live-icon__text").innerHTML = that.stormPlayer.getPlayerConfig().getLiveText();
-            this.setTitle(this.stormPlayer.getPlayerConfig().getTitle());
-            this.setSubtitle(this.stormPlayer.getPlayerConfig().getSubtitle())
+            this.htmlElement.querySelector("span.sp-live-icon__text").innerHTML = that.stormPlayer.getPlayerConfigManager().getLiveText();
+            this.setTitle(this.stormPlayer.getPlayerConfigManager().getTitle());
+            this.setSubtitle(this.stormPlayer.getPlayerConfigManager().getSubtitle())
         });
 
         this.stormPlayer.addEventListener("guiShow", () => {
@@ -183,13 +183,13 @@ export class HeaderElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("fullscreenEnter", () => {
-            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI()){
                 this.htmlElement.style.display = "none";
             }
         });
 
         this.stormPlayer.addEventListener("fullscreenExit", () => {
-            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI()){
                 this.htmlElement.style.display = "flex";
             }
         });

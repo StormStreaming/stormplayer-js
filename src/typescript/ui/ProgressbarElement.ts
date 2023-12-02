@@ -215,7 +215,7 @@ export class ProgressbarElement extends GraphicElement {
         if (this.stopRefreshBar)
             return;
 
-        if (!this.stormPlayer.getPlayerConfig().getTimeline() || this.dvrCacheSize < 1000 * 5) {
+        if (!this.stormPlayer.getPlayerConfigManager().getTimeline() || this.dvrCacheSize < 1000 * 5) {
             this.hide();
             this.isVisible = false;
         } else {
@@ -315,7 +315,7 @@ export class ProgressbarElement extends GraphicElement {
         let tooltipText =
             percentTimeSeconds > 0
                 ? "-" + this.secondsToNicetime(percentTimeSeconds)
-                : this.stormPlayer.getPlayerConfig().getLiveText();
+                : this.stormPlayer.getPlayerConfigManager().getLiveText();
 
         this.seekTooltipElement.getHtmlElement().innerHTML = tooltipText;
 
@@ -427,7 +427,7 @@ export class ProgressbarElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("playerConfigUpdated", function () {
-            if (that.stormPlayer.getPlayerConfig().isBigPlaybackButton() === false) {
+            if (that.stormPlayer.getPlayerConfigManager().isBigPlayButton() === false) {
                 that.hide();
             }
         });

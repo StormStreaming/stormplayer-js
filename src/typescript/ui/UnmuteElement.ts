@@ -45,7 +45,7 @@ export class UnmuteElement extends GraphicElement {
                     </g>
                 </g>
             </svg>
-            ${this.stormPlayer.getPlayerConfig().getUnmuteText()}`;
+            ${this.stormPlayer.getPlayerConfigManager().getUnmuteText()}`;
     }
 
     private checkIfVisible(){
@@ -88,7 +88,7 @@ export class UnmuteElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("guiShow", () => {
-            if (this.stormPlayer.getPlayerConfig().getTitle() || this.stormPlayer.getPlayerConfig().getSubtitle())
+            if (this.stormPlayer.getPlayerConfigManager().getTitle() || this.stormPlayer.getPlayerConfigManager().getSubtitle())
                 this.getHtmlElement().classList.add("sp-unmute__after-header");
         });
 
@@ -118,16 +118,16 @@ export class UnmuteElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("titleUpdate", () => {
-            if ((this.stormPlayer.getPlayerConfig().getTitle() && this.stormPlayer.getPlayerConfig().getTitle() != "") ||
-                (this.stormPlayer.getPlayerConfig().getSubtitle() && this.stormPlayer.getPlayerConfig().getSubtitle() != ""))
+            if ((this.stormPlayer.getPlayerConfigManager().getTitle() && this.stormPlayer.getPlayerConfigManager().getTitle() != "") ||
+                (this.stormPlayer.getPlayerConfigManager().getSubtitle() && this.stormPlayer.getPlayerConfigManager().getSubtitle() != ""))
                 this.getHtmlElement().classList.add("sp-unmute__after-header");
             else
                 this.getHtmlElement().classList.remove("sp-unmute__after-header");
         });
 
         this.stormPlayer .addEventListener("subtitleUpdate", () => {
-            if ((this.stormPlayer.getPlayerConfig().getTitle() && this.stormPlayer.getPlayerConfig().getTitle() != "") ||
-                (this.stormPlayer.getPlayerConfig().getSubtitle() && this.stormPlayer.getPlayerConfig().getSubtitle() != ""))
+            if ((this.stormPlayer.getPlayerConfigManager().getTitle() && this.stormPlayer.getPlayerConfigManager().getTitle() != "") ||
+                (this.stormPlayer.getPlayerConfigManager().getSubtitle() && this.stormPlayer.getPlayerConfigManager().getSubtitle() != ""))
                 this.getHtmlElement().classList.add("sp-unmute__after-header");
             else
                 this.getHtmlElement().classList.remove("sp-unmute__after-header");

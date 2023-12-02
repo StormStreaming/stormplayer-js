@@ -55,9 +55,9 @@ export class PosterElement extends GraphicElement {
             }
         }
 
-        if(this.stormPlayer.getPlayerConfig().getPoster() != null ){
+        if(this.stormPlayer.getPlayerConfigManager().getPosterURL() != null ){
             if(this.stormPlayer.getRawPlayerConfig().demoMode || !isAutoStart){
-                this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
+                this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfigManager().getPosterURL()}' alt="logo">`;
             } else
                 this.htmlElement.innerHTML = ``;
         } else
@@ -85,10 +85,10 @@ export class PosterElement extends GraphicElement {
 
         // when user enters full-screen mode
         this.stormPlayer.addEventListener("fullscreenEnter", () => {
-            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI()){
 
-                if(this.stormPlayer.getPlayerConfig().getPoster() != null )
-                    this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfig().getPoster()}' alt="logo">`;
+                if(this.stormPlayer.getPlayerConfigManager().getPosterURL() != null )
+                    this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfigManager().getPosterURL()}' alt="logo">`;
                 else
                     this.htmlElement.innerHTML = ``;
 
@@ -99,7 +99,7 @@ export class PosterElement extends GraphicElement {
 
         // when user enters full-screen mode
         this.stormPlayer.addEventListener("fullscreenExit", () => {
-            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI()){
                 this.hide();
             }
         });

@@ -214,16 +214,16 @@ export class MainElement extends GraphicElement {
 
     private initialize(): void {
 
-        this.parentContainer = document.getElementById(this.stormPlayer.getPlayerConfig().getContainerID());
+        this.parentContainer = document.getElementById(this.stormPlayer.getPlayerConfigManager().getContainerID());
 
         this.getHtmlElement().setAttribute("id",this.stormPlayer.getInstanceName())
 
-        this.aspectRatio = this.stormPlayer.getPlayerConfig().getAspectRatio();
-        this.hideGUITimeoutSeconds = this.stormPlayer.getPlayerConfig().getGuiHideSeconds();
-        this.hideGUIEnabled = this.stormPlayer.getPlayerConfig().getIfAutoGUIHide();
+        this.aspectRatio = this.stormPlayer.getPlayerConfigManager().getAspectRatio();
+        this.hideGUITimeoutSeconds = this.stormPlayer.getPlayerConfigManager().getGuiHideSeconds();
+        this.hideGUIEnabled = this.stormPlayer.getPlayerConfigManager().getIfAutoGUIHide();
 
-        this.widthOrigValue = this.stormPlayer.getPlayerConfig().getWidth();
-        this.heightOrigValue = this.stormPlayer.getPlayerConfig().getHeight();
+        this.widthOrigValue = this.stormPlayer.getPlayerConfigManager().getWidth();
+        this.heightOrigValue = this.stormPlayer.getPlayerConfigManager().getHeight();
 
         this.resizeObserver = new ResizeObserver(debounce(()=> {
             if(!this.isTransitioning)
@@ -560,13 +560,13 @@ export class MainElement extends GraphicElement {
 
         this.stormPlayer.addEventListener("playerConfigUpdated", function () {
 
-            that.aspectRatio = that.stormPlayer.getPlayerConfig().getAspectRatio();
-            that.hideGUITimeoutSeconds = that.stormPlayer.getPlayerConfig().getGuiHideSeconds();
-            that.hideGUIEnabled = that.stormPlayer.getPlayerConfig().getIfAutoGUIHide();
+            that.aspectRatio = that.stormPlayer.getPlayerConfigManager().getAspectRatio();
+            that.hideGUITimeoutSeconds = that.stormPlayer.getPlayerConfigManager().getGuiHideSeconds();
+            that.hideGUIEnabled = that.stormPlayer.getPlayerConfigManager().getIfAutoGUIHide();
             clearTimeout(that.hideGUITimeout)
             that.stormPlayer.dispatchEvent("guiShow", {ref:that.stormPlayer});
 
-            if(that.stormPlayer.getPlayerConfig().getIfAutoGUIHide() && that.stormPlayer.getRawPlayerConfig().demoMode == false) {
+            if(that.stormPlayer.getPlayerConfigManager().getIfAutoGUIHide() && that.stormPlayer.getRawPlayerConfig().demoMode == false) {
                 that.hideGUITimeout = setTimeout(function () {
                     that.isGUIHidden = true;
                     that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
@@ -578,7 +578,7 @@ export class MainElement extends GraphicElement {
             }
         });
 
-        if(this.stormPlayer.getPlayerConfig().getIfAutoGUIHide()) {
+        if(this.stormPlayer.getPlayerConfigManager().getIfAutoGUIHide()) {
 
             this.stormPlayer.addEventListener("libraryInitialize", function () {
                     that.stormPlayer.getLibrary().addEventListener("playbackStart", function () {
@@ -743,7 +743,7 @@ export class MainElement extends GraphicElement {
 
             that.htmlElement.style.setProperty("--sp-border-radius", "0px");
 
-            if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())){
+            if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI())){
 
                 console.log("Enter FS - Mobile + Native");
                 that.stormPlayer.getLibrary().enterFullScreen();
@@ -815,7 +815,7 @@ export class MainElement extends GraphicElement {
             else
                 that.htmlElement.style.removeProperty("--sp-border-radius");
 
-            if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())) {
+            if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI())) {
 
                 console.log("Exit FS - Mobile + Native");
 

@@ -70,7 +70,7 @@ const config = {
             verbose: true,
             contentBase: ["", "tests"],
             host: "192.168.10.3",
-            port: 8080,
+            port: 8085,
         }),
         url({
             include: ["**/*.ttf", "**/*.woff", "**/*.woff2"],

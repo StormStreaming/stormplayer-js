@@ -80,23 +80,23 @@ export class LibraryManager {
             this.hadAutostart = this.config.settings.autoStart;
             this.config.settings.autoStart = false;
             this.config.settings.video.containerID = this.stormPlayer.getInstanceName() + "_video";
-            this.config.settings.video.width = this.stormPlayer.getPlayerConfig().getWidth();
-            this.config.settings.video.height = this.stormPlayer.getPlayerConfig().getHeight();
+            this.config.settings.video.width = this.stormPlayer.getPlayerConfigManager().getWidth();
+            this.config.settings.video.height = this.stormPlayer.getPlayerConfigManager().getHeight();
 
         } else {
 
             let video:VideoConfig = {
                 containerID: this.stormPlayer.getInstanceName() + "_video",
-                width: this.stormPlayer.getPlayerConfig().getWidth(),
-                height: this.stormPlayer.getPlayerConfig().getHeight(),
+                width: this.stormPlayer.getPlayerConfigManager().getWidth(),
+                height: this.stormPlayer.getPlayerConfigManager().getHeight(),
             };
 
             this.config.settings.video = video;
 
         }
 
-        this.currWidth = this.stormPlayer.getPlayerConfig().getWidth();
-        this.currHeight = this.stormPlayer.getPlayerConfig().getHeight();
+        this.currWidth = this.stormPlayer.getPlayerConfigManager().getWidth();
+        this.currHeight = this.stormPlayer.getPlayerConfigManager().getHeight();
 
         this.attachListeners();
 
@@ -349,34 +349,57 @@ export class LibraryManager {
                     if(splashScreenURL != null){
                         newTheme.waitingRoom.posterURL = splashScreenURL;
                     }
-
-
                 }
 
-                that.stormPlayer.setPlayerConfig(newTheme);
-                that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(newTheme.settings.autoStart);
+                that.stormPlayer.getPlayerConfigManager().matchConfig(newTheme);
 
-                if(newTheme.settings != null){
-                    if(newTheme.settings.autoStart != null){
+                // najpierw musimy się dowiedzieć czy tam miał być autostart w ogóle
+                let wasAutoStartDefined = false;
+                let initialAutoStartValue = false;
 
-                        if(newTheme.settings.autoStart == true) {
+                if(that.stormPlayer.getRawStreamConfig()?.settings?.autoStart != undefined){
+                    console.log("czyli autostart był zdefiniowany")
+                    wasAutoStartDefined = true;
+                    initialAutoStartValue = that.stormPlayer.getRawStreamConfig().settings.autoStart;
+                    console.log("i autostart był zdefiniowany jako: "+initialAutoStartValue);
+                } else {
+                    console.log("autostart nie był zdefiniowany...")
+                    console.log("czyli był zdefiniowany jako: "+initialAutoStartValue);
+                }
 
-                            that.stormPlayer.getLibrary().mute();
-                            that.stormPlayer.dispatchEvent("volumeChange", {
-                                ref: that.stormPlayer,
-                                mode: "",
-                                volume: that.stormPlayer.getLibrary().getVolume(),
-                                muted: that.stormPlayer.getLibrary().isMute(),
-                                invokedBy: "browser"
-                            })
-                            that.stormPlayer.getLibrary().play();
+
+                if(!wasAutoStartDefined){
+                    console.log("skoro nie był, to nowy theme może nadpisać")
+
+                    if(newTheme.settings != null){
+                        if(newTheme.settings.autoStart != null){
+
+                            console.log("z tego wynika, że theme ma wartość dla autostart")
+
+                            if(newTheme.settings.autoStart == true){
+                                console.log("i że chce by ten odgrywał video!!")
+
+                                that.stormPlayer.getLibrary().mute();
+                                that.stormPlayer.dispatchEvent("volumeChange", {
+                                    ref: that.stormPlayer,
+                                    mode: "",
+                                    volume: that.stormPlayer.getLibrary().getVolume(),
+                                    muted: that.stormPlayer.getLibrary().isMute(),
+                                    invokedBy: "browser"
+                                })
+                                that.stormPlayer.getLibrary().play();
+
+                            } else {
+                                console.log("ale nie chce by coś odgrywał, więc chuj z tym...")
+                            }
+
                         }
-
                     }
+                } else {
+                    console.log("skoro był, to theme nie ma czego tu szukać")
                 }
 
             }
-
 
         });
 
@@ -458,7 +481,7 @@ export class LibraryManager {
                 that.isFullScreenMode = true;
 
 
-                if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI()){
+                if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI()){
                     that.library.getVideoElement().setAttribute("controls","true");
                 }
 
@@ -476,7 +499,7 @@ export class LibraryManager {
             that.stormPlayer.addEventListener("fullscreenExit", function () {
                 that.isFullScreenMode = false
 
-                if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfig().getIfNativeMobileGUI())
+                if(UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI())
                     that.library.getVideoElement().removeAttribute("controls");
 
             });

@@ -26,8 +26,8 @@ export class WaitingRoom extends GraphicElement {
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-waiting-room");
 
-        this.createDateTime = WaitingRoom.createDateInTimezone(this.stormPlayer.getPlayerConfig().getBroadcastCreateDate(), this.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone());
-        this.startDateTime = WaitingRoom.createDateInTimezone(this.stormPlayer.getPlayerConfig().getBroadcastStartDate(), this.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone());
+        this.createDateTime = WaitingRoom.createDateInTimezone(this.stormPlayer.getPlayerConfigManager().getBroadcastCreateDate(), this.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone());
+        this.startDateTime = WaitingRoom.createDateInTimezone(this.stormPlayer.getPlayerConfigManager().getBroadcastStartDate(), this.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone());
 
         this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.startDateTime.toLocal().toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
         this.getHtmlElement().style.backgroundImage = "url(" + this.stormPlayer.getRawPlayerConfig().waitingRoom.posterURL + ")";
@@ -85,7 +85,7 @@ export class WaitingRoom extends GraphicElement {
         this.htmlElement.innerHTML = `
           <div class="sp-waiting-room__wrapper">
             <div class="countdown-container">
-              <span class="title">${this.stormPlayer.getPlayerConfig().getBroadcastRemainingTimeText()}</span>
+              <span class="title">${this.stormPlayer.getPlayerConfigManager().getBroadcastRemainingTimeText()}</span>
               <div class="countdown">
               <div class="counter" id="daysCounter">
                 <svg
@@ -102,7 +102,7 @@ export class WaitingRoom extends GraphicElement {
                   <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient1);"/>
                 </svg>
                 <span>00</span>
-                <span>${this.stormPlayer.getPlayerConfig().getTimeDaysText()}</span>
+                <span>${this.stormPlayer.getPlayerConfigManager().getTimeDaysText()}</span>
               </div>
               <div class="counter" id="hoursCounter">
                 <svg
@@ -119,7 +119,7 @@ export class WaitingRoom extends GraphicElement {
                   <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient2);" />
                 </svg>
                 <span>00</span>
-                <span>${this.stormPlayer.getPlayerConfig().getTimeHoursText()}</span>
+                <span>${this.stormPlayer.getPlayerConfigManager().getTimeHoursText()}</span>
               </div>
               <div class="counter" id="minutesCounter">
                 <svg
@@ -136,7 +136,7 @@ export class WaitingRoom extends GraphicElement {
                   <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient3);"/>
                 </svg>
                 <span>00</span>
-                <span>${this.stormPlayer.getPlayerConfig().getTimeMinutesText()}</span>
+                <span>${this.stormPlayer.getPlayerConfigManager().getTimeMinutesText()}</span>
               </div>
               <div class="counter" id="secondCounter">
                 <svg
@@ -153,10 +153,10 @@ export class WaitingRoom extends GraphicElement {
                  <circle class="progress-ring__circle" r="60" style="stroke: url(#gradient4);" />
                 </svg>
                 <span id="timeSeconds">00</span>
-                <span>${this.stormPlayer.getPlayerConfig().getTimeSecondsText()}</span>
+                <span>${this.stormPlayer.getPlayerConfigManager().getTimeSecondsText()}</span>
               </div>
             </div>
-              <span class="video-start">${this.stormPlayer.getPlayerConfig().getBroadcastStartTimeText() + " "} <span id="videoStartDate" class="video-start-date">11.2.2023 16:00</span></span>
+              <span class="video-start">${this.stormPlayer.getPlayerConfigManager().getBroadcastStartTimeText() + " "} <span id="videoStartDate" class="video-start-date">11.2.2023 16:00</span></span>
             </div>
           </div>
           `;
@@ -173,8 +173,8 @@ export class WaitingRoom extends GraphicElement {
             this.stormPlayer.setLibraryManager();
             this.stormPlayer.getMainElement().createPlayer();
             this.stormPlayer.dispatchEvent("interfaceReady", {ref: this.stormPlayer});
-            this.stormPlayer.setTitle(this.stormPlayer.getPlayerConfig().getTitle());
-            this.stormPlayer.setSubtitle(this.stormPlayer.getPlayerConfig().getSubtitle());
+            this.stormPlayer.setTitle(this.stormPlayer.getPlayerConfigManager().getTitle());
+            this.stormPlayer.setSubtitle(this.stormPlayer.getPlayerConfigManager().getSubtitle());
         });
 
     }

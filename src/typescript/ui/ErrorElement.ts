@@ -10,6 +10,8 @@ export class ErrorElement extends GraphicElement {
 
     private waitingRoom:WaitingRoom;
 
+    private isInAwaitingState:boolean = false;
+
     /**
      * Constructor
      * @param stormPlayer reference to the main player class
@@ -66,7 +68,7 @@ export class ErrorElement extends GraphicElement {
 
             this.stormPlayer.getLibrary().addEventListener("serverDisconnect", () => {
                 if(!this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())
-                    this.showErrorMessage(this.stormPlayer.getPlayerConfig().getPlayerDisconnectedText());
+                    this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getPlayerDisconnectedText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {
@@ -75,60 +77,75 @@ export class ErrorElement extends GraphicElement {
 
             this.stormPlayer.getLibrary().addEventListener("serverConnectionError", () => {
                 if(!this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())
-                    this.showErrorMessage(this.stormPlayer.getPlayerConfig().getServersFailedText());
+                    this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getServersFailedText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("allConnectionsFailed", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getServersFailedText());
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getServersFailedText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("compatibilityError", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getCompatibilityErrorText());
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getCompatibilityErrorText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("SSLError", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getNoSSLErrorText());
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getNoSSLErrorText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("playbackError", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getVideoErrorText());
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getVideoErrorText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("streamNotFound", () => {
-                console.log("stream not found!!");
-                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getVideoNotFoundText());
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getVideoNotFoundText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("streamEnd", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getVideoStopText());
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getVideoStopText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("incompatibleProtocol", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getIncorrectProtocolVersionText());
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getIncorrectProtocolVersionText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("invalidLicense", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getLicenseErrorText());
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getLicenseErrorText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("SSLError", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfig().getNoSSLErrorText());
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getNoSSLErrorText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("awaitingStream", () => {
 
-                if(that.stormPlayer.getPlayerConfig().getBroadcastStartDate() != null && that.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone() != null) {
-                    if (WaitingRoom.isWaitingApplicable(that.stormPlayer.getPlayerConfig().getBroadcastStartDate(), that.stormPlayer.getPlayerConfig().getWaitingRoomTimeZone())) {
+                this.isInAwaitingState = true;
+
+
+                if(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate() != null && that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone() != null) {
+                    if (WaitingRoom.isWaitingApplicable(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate(), that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone())) {
 
                         that.waitingRoom = new WaitingRoom(that.stormPlayer);
                         that.stormPlayer.getMainElement().spContainer.getHtmlElement().appendChild(this.waitingRoom.getHtmlElement());
 
+                    } else if(!this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfAutoStart()){
+
+                        // console.log nic...
+
                     } else
-                        this.showErrorMessage(this.stormPlayer.getPlayerConfig().getAwaitingText());
+                        this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getAwaitingText());
                 } else
-                    this.showErrorMessage(this.stormPlayer.getPlayerConfig().getAwaitingText());
+                    this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getAwaitingText());
+
+
 
             });
+
+            this.stormPlayer.addEventListener("playClick",() => {
+                if(this.stormPlayer.getLibrary().getPlaybackState() == "awaiting"){
+                    this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getAwaitingText());
+                    this.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
+                }
+            })
 
             this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {
 
