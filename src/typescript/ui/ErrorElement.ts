@@ -102,6 +102,11 @@ export class ErrorElement extends GraphicElement {
 
             this.stormPlayer.getLibrary().addEventListener("streamEnd", () => {
                 this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getVideoStopText());
+
+                if(that.stormPlayer.getLibrary() != null){
+                    that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
+                }
+
             });
 
             this.stormPlayer.getLibrary().addEventListener("incompatibleProtocol", () => {
@@ -145,6 +150,10 @@ export class ErrorElement extends GraphicElement {
                     this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getAwaitingText());
                     this.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
                 }
+            })
+
+            this.stormPlayer.addEventListener("streamConfigUpdated", () => {
+                this.hide();
             })
 
             this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {

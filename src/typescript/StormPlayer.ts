@@ -16,7 +16,7 @@ export class StormPlayer extends EventDispatcher {
      * Version
      * @private
      */
-    private static VERSION:string = "4.0.0";
+    private static VERSION:string = "4.0.0-super";
 
     /**
      * Static variable for assigning IDs to the player
@@ -212,9 +212,9 @@ export class StormPlayer extends EventDispatcher {
 
         streamConfig.settings.video = this.rawStreamConfig.settings.video;
         this.rawStreamConfig = streamConfig;
-        if(this.libraryManager != null){
+
+        if(this.libraryManager != null)
             this.libraryManager.setStreamConfig(streamConfig);
-        }
 
         this.dispatchEvent("streamConfigUpdated", {ref:this});
     }
@@ -225,10 +225,13 @@ export class StormPlayer extends EventDispatcher {
      */
     public setPlayerConfig(newPlayerConfig: StormPlayerConfig):void {
 
+        console.log("newPlayerConfig", newPlayerConfig);
+
         if(this.playerConfig != null){
 
             this.rawPlayerConfig = newPlayerConfig;
             this.playerConfig.overwriteConfig(newPlayerConfig);
+            this.playerConfig.setStyle();
 
             this.dispatchEvent("playerConfigUpdated", {ref:this});
 

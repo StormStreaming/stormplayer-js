@@ -131,6 +131,9 @@ export class LibraryManager {
         const that:LibraryManager = this;
 
         this.library = new StormLibrary(this.config);
+        this.library.getLogger().info(this, "Attaching StormPlayer v. "+this.stormPlayer.getVersion())
+        this.library.getLogger().setPlayerID(this.stormPlayer.getInstanceID());
+
         this.stormPlayer.dispatchEvent("libraryCreate",{ref:this.stormPlayer, library:this.library});
 
         // libraryReady
@@ -352,6 +355,7 @@ export class LibraryManager {
                 }
 
                 that.stormPlayer.getPlayerConfigManager().matchConfig(newTheme);
+                that.stormPlayer.dispatchEvent("playerConfigUpdated",{ref:that.stormPlayer});
 
                 // najpierw musimy się dowiedzieć czy tam miał być autostart w ogóle
                 let wasAutoStartDefined = false;
@@ -387,7 +391,10 @@ export class LibraryManager {
                                     muted: that.stormPlayer.getLibrary().isMute(),
                                     invokedBy: "browser"
                                 })
+                                that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
                                 that.stormPlayer.getLibrary().play();
+
+                                console.log("i że chce by ten odgrywał video!! gotowe!")
 
                             } else {
                                 console.log("ale nie chce by coś odgrywał, więc chuj z tym...")
