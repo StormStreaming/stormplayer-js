@@ -71,7 +71,7 @@ export class UnmuteElement extends GraphicElement {
 
         const that:UnmuteElement = this;
 
-        this.stormPlayer.addEventListener("playerConfigUpdated", () => {
+        this.stormPlayer.addEventListener("playerConfigUpdate", () => {
             this.subDraw();
         });
 

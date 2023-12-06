@@ -168,7 +168,7 @@ export class HeaderElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener("playerConfigUpdated", () => {
+        this.stormPlayer.addEventListener("playerConfigUpdate", () => {
             this.htmlElement.querySelector("span.sp-live-icon__text").innerHTML = that.stormPlayer.getPlayerConfigManager().getLiveText();
             this.setTitle(this.stormPlayer.getPlayerConfigManager().getTitle());
             this.setSubtitle(this.stormPlayer.getPlayerConfigManager().getSubtitle())

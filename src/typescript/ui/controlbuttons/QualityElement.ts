@@ -114,7 +114,7 @@ export class QualityElement extends GraphicElement {
             that.stormPlayer.dispatchEvent("qualitySwitchClick", {ref:that.stormPlayer});
         });
 
-        this.stormPlayer.addEventListener("streamConfigUpdated", function () {
+        this.stormPlayer.addEventListener("streamConfigUpdate", function () {
             that.refreshButton();
         });
 

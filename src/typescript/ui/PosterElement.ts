@@ -57,7 +57,11 @@ export class PosterElement extends GraphicElement {
 
         if(this.stormPlayer.getPlayerConfigManager().getPosterURL() != null ){
             if(this.stormPlayer.getRawPlayerConfig().demoMode || !isAutoStart){
-                this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfigManager().getPosterURL()}' alt="logo">`;
+
+                let newWidth:number = this.stormPlayer.getWidth();
+                let newHeight:number = this.stormPlayer.getHeight();
+
+                this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfigManager().getPosterURL()}' alt="logo" width="${newWidth}" height="${newHeight}">`;
             } else
                 this.htmlElement.innerHTML = ``;
         } else
@@ -71,7 +75,7 @@ export class PosterElement extends GraphicElement {
      */
     protected override attachListeners(): void {
 
-        this.stormPlayer.addEventListener("playerConfigUpdated", () => {
+        this.stormPlayer.addEventListener("playerConfigUpdate", () => {
             this.subDraw();
         });
 

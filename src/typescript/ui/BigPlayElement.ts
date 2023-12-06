@@ -89,7 +89,7 @@ export class BigPlayElement extends GraphicElement {
         });
 
         // on player config update
-        this.stormPlayer.addEventListener("playerConfigUpdated", () => {
+        this.stormPlayer.addEventListener("playerConfigUpdate", () => {
             this.isEnabled = this.stormPlayer.getPlayerConfigManager().isBigPlayButton();
             this.rebuild();
         });

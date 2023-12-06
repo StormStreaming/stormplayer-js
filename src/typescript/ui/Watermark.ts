@@ -59,7 +59,7 @@ export class Watermark extends GraphicElement {
      */
     protected override attachListeners(): void {
 
-        this.stormPlayer.addEventListener("playerConfigUpdated", () => {
+        this.stormPlayer.addEventListener("playerConfigUpdate", () => {
             this.subDraw();
         });
 

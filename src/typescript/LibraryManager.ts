@@ -355,33 +355,22 @@ export class LibraryManager {
                 }
 
                 that.stormPlayer.getPlayerConfigManager().matchConfig(newTheme);
-                that.stormPlayer.dispatchEvent("playerConfigUpdated",{ref:that.stormPlayer});
+                that.stormPlayer.dispatchEvent("playerConfigUpdate",{ref:that.stormPlayer});
 
                 // najpierw musimy się dowiedzieć czy tam miał być autostart w ogóle
                 let wasAutoStartDefined = false;
                 let initialAutoStartValue = false;
 
                 if(that.stormPlayer.getRawStreamConfig()?.settings?.autoStart != undefined){
-                    console.log("czyli autostart był zdefiniowany")
                     wasAutoStartDefined = true;
                     initialAutoStartValue = that.stormPlayer.getRawStreamConfig().settings.autoStart;
-                    console.log("i autostart był zdefiniowany jako: "+initialAutoStartValue);
-                } else {
-                    console.log("autostart nie był zdefiniowany...")
-                    console.log("czyli był zdefiniowany jako: "+initialAutoStartValue);
                 }
 
-
                 if(!wasAutoStartDefined){
-                    console.log("skoro nie był, to nowy theme może nadpisać")
-
                     if(newTheme.settings != null){
                         if(newTheme.settings.autoStart != null){
 
-                            console.log("z tego wynika, że theme ma wartość dla autostart")
-
                             if(newTheme.settings.autoStart == true){
-                                console.log("i że chce by ten odgrywał video!!")
 
                                 that.stormPlayer.getLibrary().mute();
                                 that.stormPlayer.dispatchEvent("volumeChange", {
@@ -394,16 +383,11 @@ export class LibraryManager {
                                 that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
                                 that.stormPlayer.getLibrary().play();
 
-                                console.log("i że chce by ten odgrywał video!! gotowe!")
-
-                            } else {
-                                console.log("ale nie chce by coś odgrywał, więc chuj z tym...")
                             }
 
                         }
                     }
-                } else {
-                    console.log("skoro był, to theme nie ma czego tu szukać")
+
                 }
 
             }
@@ -513,7 +497,7 @@ export class LibraryManager {
 
         });
 
-        this.stormPlayer.addEventListener("playerConfigUpdated", () => {
+        this.stormPlayer.addEventListener("playerConfigUpdate", () => {
 
 
         });

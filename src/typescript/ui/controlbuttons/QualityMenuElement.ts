@@ -68,7 +68,7 @@ export class QualityMenuElement extends GraphicElement {
      */
     protected override attachListeners(): void {
 
-        this.stormPlayer.addEventListener("streamConfigUpdated", () => {
+        this.stormPlayer.addEventListener("streamConfigUpdate", () => {
             this.refreshList();
         });
 

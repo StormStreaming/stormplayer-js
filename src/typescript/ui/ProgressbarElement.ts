@@ -426,7 +426,7 @@ export class ProgressbarElement extends GraphicElement {
             });
         });
 
-        this.stormPlayer.addEventListener("playerConfigUpdated", function () {
+        this.stormPlayer.addEventListener("playerConfigUpdate", function () {
             if (that.stormPlayer.getPlayerConfigManager().isBigPlayButton() === false) {
                 that.hide();
             }

@@ -61,8 +61,8 @@ export interface StormPlayerEvent {
     "incompatibleProtocol": {ref:StormPlayer, clientProtocolVer:number,serverProtocolVersion:number}
     "invalidLicense": {ref:StormPlayer}
     "resize": {ref:StormPlayer, newWidth:number, newHeight:number}
-    "playerConfigUpdated": {ref:StormPlayer}
-    "streamConfigUpdated": {ref:StormPlayer}
+    "playerConfigUpdate": {ref:StormPlayer}
+    "streamConfigUpdate": {ref:StormPlayer}
     "authorizationComplete": {ref:StormPlayer}
     "authorizationError": {ref:StormPlayer}
 }

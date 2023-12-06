@@ -152,7 +152,7 @@ export class ErrorElement extends GraphicElement {
                 }
             })
 
-            this.stormPlayer.addEventListener("streamConfigUpdated", () => {
+            this.stormPlayer.addEventListener("streamConfigUpdate", () => {
                 this.hide();
             })
 

@@ -6,6 +6,7 @@ import {StormStreamConfig} from "@stormstreaming/stormlibrary";
 import {EventDispatcher} from "./events/EventDispatcher";
 import {WaitingRoom} from "@app/typescript/ui/WaitingRoom";
 import {PlayerConfigManager} from "@app/typescript/PlayerConfigManager";
+import * as stream from "stream";
 
 /**
  * Main class for the player
@@ -16,7 +17,7 @@ export class StormPlayer extends EventDispatcher {
      * Version
      * @private
      */
-    private static VERSION:string = "4.0.0-super";
+    private static VERSION:string = "4.0.0";
 
     /**
      * Static variable for assigning IDs to the player
@@ -91,6 +92,9 @@ export class StormPlayer extends EventDispatcher {
         if(typeof window === 'undefined' || !window.document || !window.document.createElement)
             return;
 
+        if(playerConfig?.demoMode == true && streamConfig != undefined)
+            streamConfig.demoMode = true;
+
         this.rawPlayerConfig = playerConfig;
         this.rawStreamConfig = streamConfig;
 
@@ -144,7 +148,7 @@ export class StormPlayer extends EventDispatcher {
 
         this.playerConfig.setStyle();
 
-        this.addEventListener("playerConfigUpdated", (event)=>{
+        this.addEventListener("playerConfigUpdate", (event)=>{
             this.playerConfig.setStyle();
         });
 
@@ -210,13 +214,16 @@ export class StormPlayer extends EventDispatcher {
         if(this.getRawPlayerConfig().demoMode)
             return;
 
+        if(this.getLibrary() != null)
+            this.getLibrary().getLogger().info(this, "setStreamConfig "+ JSON.stringify(streamConfig));
+
         streamConfig.settings.video = this.rawStreamConfig.settings.video;
         this.rawStreamConfig = streamConfig;
 
         if(this.libraryManager != null)
             this.libraryManager.setStreamConfig(streamConfig);
 
-        this.dispatchEvent("streamConfigUpdated", {ref:this});
+        this.dispatchEvent("streamConfigUpdate", {ref:this});
     }
 
     /**
@@ -225,7 +232,8 @@ export class StormPlayer extends EventDispatcher {
      */
     public setPlayerConfig(newPlayerConfig: StormPlayerConfig):void {
 
-        console.log("newPlayerConfig", newPlayerConfig);
+        if(this.getLibrary() != null)
+            this.getLibrary().getLogger().info(this, "setPlayerConfig "+ JSON.stringify(newPlayerConfig));
 
         if(this.playerConfig != null){
 
@@ -233,7 +241,7 @@ export class StormPlayer extends EventDispatcher {
             this.playerConfig.overwriteConfig(newPlayerConfig);
             this.playerConfig.setStyle();
 
-            this.dispatchEvent("playerConfigUpdated", {ref:this});
+            this.dispatchEvent("playerConfigUpdate", {ref:this});
 
         }
 

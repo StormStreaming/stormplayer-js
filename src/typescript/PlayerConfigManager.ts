@@ -297,6 +297,7 @@ export class PlayerConfigManager {
         this.initialHeight = rawGUIConfig.height ?? this.initialHeight;
         this.posterURL = rawGUIConfig.posterURL ?? this.posterURL;
         this.aspectRatio = rawGUIConfig.aspectRatio ?? this.aspectRatio;
+
     }
 
     private overwriteInterface(rawGUIConfig:StormPlayerConfig):void {

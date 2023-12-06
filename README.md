@@ -401,7 +401,6 @@ player.addEventListener("metadataReceived", function(event){
 })
 ```
 
-
 ## Player Event list
 
 |     Event name     |   Additional data    |                                             Description                                              | Can be fired more than once |
@@ -415,7 +414,7 @@ player.addEventListener("metadataReceived", function(event){
 |     muteClick      |          no          |                               Event fires when user mutes the volume.                                |             yes             |
 |    unmuteClick     |          no          |                                 Event fires when volume is unmuted.                                  |             yes             |
 | qualitySwitchClick |          no          |                       Event fires when user clicks the quality switch button.                        |             yes             |
-|   qualityChange    |          no          |                            Event fires when a stream quality is changed.                             |             yes             |
+|    sourceChange    |          no          |                             Event fires when a stream source is changed.                             |             yes             |
 |  fullscreenEnter   |          no          |                            Event fires when user enters fullscreen mode.                             |             yes             |
 |   fullscreenExit   |          no          |                             Event fires when user exits fullscreen mode.                             |             yes             |
 |    errorMessage    |          no          |                            Event fires whenever an error message appears.                            |             yes             |
@@ -426,7 +425,7 @@ player.addEventListener("metadataReceived", function(event){
 |     seekStart      |          no          |              Event fires whenever a user grabs progress bar thumb (mouse button down).               |             yes             |
 |      seekEnd       |          no          |              Event fires whenever a user releases progress bar thumb (mouse button up).              |             yes             |
 |      seekSet       |          no          | Event fires everytime a user clicks on a progress bar or releases progress bar thumb in a new place. |             yes             |
-|    cuePointAdd     |          no          |                            Event fires everytime new CUE Point is added.                             |             yes             |
+|    cuePointAdd     |          no          |                            Event fires every time new CUE Point is added.                            |             yes             |
 |   cuePointRemove   |          no          |                        Event fires whenever an existing CUE Point is removed.                        |             yes             |
 |       resize       | newWidth & newHeight |                             Event fires whenever player size is changed                              |             yes             |
 

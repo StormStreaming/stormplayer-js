@@ -558,7 +558,7 @@ export class MainElement extends GraphicElement {
         const that = this;
         const spContainerElement = this.spContainer.getHtmlElement();
 
-        this.stormPlayer.addEventListener("playerConfigUpdated", function () {
+        this.stormPlayer.addEventListener("playerConfigUpdate", function () {
 
             that.aspectRatio = that.stormPlayer.getPlayerConfigManager().getAspectRatio();
             that.hideGUITimeoutSeconds = that.stormPlayer.getPlayerConfigManager().getGuiHideSeconds();
