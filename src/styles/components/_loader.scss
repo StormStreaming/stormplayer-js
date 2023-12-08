@@ -17,23 +17,13 @@
     fill: currentColor;
     stroke: none;
     vertical-align: middle;
+    
+    circle {
+      all: revert-layer;
+    }
   }
 
-  .firstDot {
-    cx:15;
-    cy:15;
-    fill:$loaderColor;
-  }
-
-  .secondDot {
-    cx:60;
-    cy:15;
-    fill:$loaderColor;
-  }
-
-  .thirdDot {
-    cx:105;
-    cy:15;
+  .firstDot, .secondDot, .thirdDot {
     fill:$loaderColor;
   }
 
