@@ -30,7 +30,9 @@ export class WaitingRoom extends GraphicElement {
         this.startDateTime = WaitingRoom.createDateInTimezone(this.stormPlayer.getPlayerConfigManager().getBroadcastStartDate(), this.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone());
 
         this.getHtmlElement().querySelector('#videoStartDate').innerHTML = this.startDateTime.toLocal().toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS);
-        this.getHtmlElement().style.backgroundImage = "url(" + this.stormPlayer.getRawPlayerConfig().waitingRoom.posterURL + ")";
+
+        if(this.stormPlayer.getPlayerConfigManager().getWaitingRoomPoster != null)
+            this.getHtmlElement().style.backgroundImage = "url(" + this.stormPlayer.getPlayerConfigManager().getWaitingRoomPoster() + ")";
 
         this.setTime();
 
@@ -58,6 +60,7 @@ export class WaitingRoom extends GraphicElement {
             if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
                 clearInterval(countdown);
                 setTimeout(() => {
+                    console.log("waitingRoomEnded")
                     that.stormPlayer.dispatchEvent("waitingRoomEnded", {ref: that.stormPlayer});
                 }, 1000)
             }
@@ -170,11 +173,23 @@ export class WaitingRoom extends GraphicElement {
     protected override attachListeners(): void {
 
         this.stormPlayer.addEventListener("waitingRoomEnded", () => {
-            this.stormPlayer.setLibraryManager();
-            this.stormPlayer.getMainElement().createPlayer();
-            this.stormPlayer.dispatchEvent("interfaceReady", {ref: this.stormPlayer});
-            this.stormPlayer.setTitle(this.stormPlayer.getPlayerConfigManager().getTitle());
-            this.stormPlayer.setSubtitle(this.stormPlayer.getPlayerConfigManager().getSubtitle());
+
+            if(this.stormPlayer.getLibraryManager().getLibrary() == null) {
+
+                console.log("nie ma library")
+
+                this.stormPlayer.setLibraryManager();
+                this.stormPlayer.getMainElement().createPlayer();
+                this.stormPlayer.dispatchEvent("interfaceReady", {ref: this.stormPlayer});
+                this.stormPlayer.setTitle(this.stormPlayer.getPlayerConfigManager().getTitle());
+                this.stormPlayer.setSubtitle(this.stormPlayer.getPlayerConfigManager().getSubtitle());
+
+            } else {
+
+                console.log("jest library")
+
+                this.hide();
+            }
         });
 
     }

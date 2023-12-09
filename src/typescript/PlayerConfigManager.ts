@@ -923,5 +923,9 @@ export class PlayerConfigManager {
         this.posterURL = poserURL;
     }
 
+    public getWaitingRoomPoster():string {
+        return this.waitingRoomPoster;
+    }
+
 
 }

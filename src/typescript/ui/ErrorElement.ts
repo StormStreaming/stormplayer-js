@@ -101,11 +101,26 @@ export class ErrorElement extends GraphicElement {
             });
 
             this.stormPlayer.getLibrary().addEventListener("streamEnd", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getVideoStopText());
 
                 if(that.stormPlayer.getLibrary() != null){
                     that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
                 }
+
+                if(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate() != null && that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone() != null) {
+                    if (WaitingRoom.isWaitingApplicable(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate(), that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone())) {
+
+                        that.waitingRoom = new WaitingRoom(that.stormPlayer);
+                        that.stormPlayer.getMainElement().spContainer.getHtmlElement().appendChild(this.waitingRoom.getHtmlElement());
+
+                    } else if(!this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfAutoStart()){
+
+                        // console.log nic...
+
+                    } else
+                        this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getVideoStopText());
+                } else
+                    this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getVideoStopText());
+
 
             });
 
@@ -119,6 +134,11 @@ export class ErrorElement extends GraphicElement {
 
             this.stormPlayer.getLibrary().addEventListener("SSLError", () => {
                 this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getNoSSLErrorText());
+            });
+
+            this.stormPlayer.addEventListener("waitingRoomEnded", () => {
+                console.log("doszło//")
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getAwaitingText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("awaitingStream", () => {

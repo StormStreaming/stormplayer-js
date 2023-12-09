@@ -66,7 +66,7 @@ export class BigPlayElement extends GraphicElement {
 
         // resize
         this.stormPlayer.addEventListener("resize",(event:StormPlayerEvent["resize"]) => {
-            if(event.newWidth < 500)
+            if(event.newWidth < 400)
                 this.getHtmlElement().style.display = "none";
             else
                 this.getHtmlElement().style.display = "flex";
@@ -107,6 +107,10 @@ export class BigPlayElement extends GraphicElement {
 
             this.stormPlayer.getLibrary().addEventListener("playbackPause", () => {
                 this.show();
+            });
+
+            this.stormPlayer.getLibrary().addEventListener("playbackStart", () => {
+                this.hide();
             });
 
         });

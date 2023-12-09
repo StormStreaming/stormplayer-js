@@ -34,10 +34,10 @@ export class VideoElement extends GraphicElement {
         /**
          * Only for desktop, since it makes mobile version hard to use
          */
-        if(!UserCapabilities.isMobile()) {
+        //if(!UserCapabilities.isMobile()) {
             that.htmlElement.addEventListener("click", function () {
                 that.stormPlayer.dispatchEvent("videoClick", {ref:that.stormPlayer});
             });
-        }
+       // }
     }
 }
