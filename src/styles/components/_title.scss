@@ -14,9 +14,9 @@
 
 
   &__shadow {
-    opacity: 0.8 !important;
+    opacity: 0.9 !important;
     transform: rotate(-180deg) !important;
-    background-image: linear-gradient(to bottom, rgba($dark, 0), $dark) !important;
+    background-image: linear-gradient(to bottom, rgba(#000000, 0), #000000) !important;
     position: absolute !important;
     width: 100% !important;
     height: 100% !important;

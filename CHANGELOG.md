@@ -1,5 +1,10 @@
 # Change Log
 
+## 4.0.0
+
+- Support for optional parameters from Gateway Request,
+- Updated internal API for Storm Library v4,
+
 ## 3.0.0
 
 - The player was upgraded to Node 20.3.1,
