@@ -339,12 +339,14 @@ export class LibraryManager {
 
                     newTheme.waitingRoom = {createTime:event.optData.countdown.createTime, startTime:event.optData.countdown.startTime, timeZone: event.optData.countdown.timezone } ;
 
-                    const sizeName:string = event.optData.splashscreen.sizeName;
-                    if(event.optData.splashscreen.thumbs != null) {
-                        for (let i: number = 0; i < event.optData.splashscreen.thumbs.length; i++) {
-                            if (event.optData.thumbnail.thumbs[i].sizeName == sizeName) {
-                                splashScreenURL = event.optData.splashscreen.thumbs[i].storageFile.path;
-                                break;
+                    if(event.optData.splashscreen != null) {
+                        const sizeName: string = event.optData.splashscreen.sizeName;
+                        if (event.optData.splashscreen.thumbs != null) {
+                            for (let i: number = 0; i < event.optData.splashscreen.thumbs.length; i++) {
+                                if (event.optData.thumbnail.thumbs[i].sizeName == sizeName) {
+                                    splashScreenURL = event.optData.splashscreen.thumbs[i].storageFile.path;
+                                    break;
+                                }
                             }
                         }
                     }
