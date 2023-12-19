@@ -17,7 +17,7 @@ export class StormPlayer extends EventDispatcher {
      * Version
      * @private
      */
-    private static VERSION:string = "4.0.0";
+    private static VERSION:string = "4.0.0-beta.9";
 
     /**
      * Static variable for assigning IDs to the player
@@ -95,8 +95,8 @@ export class StormPlayer extends EventDispatcher {
         if(playerConfig?.demoMode == true && streamConfig != undefined)
             streamConfig.demoMode = true;
 
-        this.rawPlayerConfig = playerConfig;
-        this.rawStreamConfig = streamConfig;
+        this.rawPlayerConfig = JSON.parse(JSON.stringify(playerConfig));
+        this.rawStreamConfig = JSON.parse(JSON.stringify(streamConfig));
 
         this.id = StormPlayer.NEXT_PLAYER_ID;
         this.instanceName = "stormPlayer-"+this.id;
@@ -211,17 +211,20 @@ export class StormPlayer extends EventDispatcher {
      */
     public setStreamConfig(streamConfig: StormStreamConfig):void {
 
+
         if(this.getRawPlayerConfig().demoMode)
             return;
 
-        if(this.getLibrary() != null)
-            this.getLibrary().getLogger().info(this, "setStreamConfig "+ JSON.stringify(streamConfig));
+        let copiedStreamConfig = JSON.parse(JSON.stringify(streamConfig));
 
-        streamConfig.settings.video = this.rawStreamConfig.settings.video;
-        this.rawStreamConfig = streamConfig;
+        if(this.getLibrary() != null)
+            this.getLibrary().getLogger().info(this, "setStreamConfig "+ JSON.stringify(copiedStreamConfig));
+
+        copiedStreamConfig.settings.video = this.rawStreamConfig.settings.video;
+        this.rawStreamConfig = copiedStreamConfig;
 
         if(this.libraryManager != null)
-            this.libraryManager.setStreamConfig(streamConfig);
+            this.libraryManager.setStreamConfig(copiedStreamConfig);
 
         this.dispatchEvent("streamConfigUpdate", {ref:this});
     }
@@ -232,13 +235,15 @@ export class StormPlayer extends EventDispatcher {
      */
     public setPlayerConfig(newPlayerConfig: StormPlayerConfig):void {
 
+        let copiedPlayerConfig = JSON.parse(JSON.stringify(newPlayerConfig));
+
         if(this.getLibrary() != null)
-            this.getLibrary().getLogger().info(this, "setPlayerConfig "+ JSON.stringify(newPlayerConfig));
+            this.getLibrary().getLogger().info(this, "setPlayerConfig "+ JSON.stringify(copiedPlayerConfig));
 
         if(this.playerConfig != null){
 
-            this.rawPlayerConfig = newPlayerConfig;
-            this.playerConfig.overwriteConfig(newPlayerConfig);
+            this.rawPlayerConfig = copiedPlayerConfig;
+            this.playerConfig.overwriteConfig(copiedPlayerConfig);
             this.playerConfig.setStyle();
 
             this.dispatchEvent("playerConfigUpdate", {ref:this});
@@ -384,10 +389,18 @@ export class StormPlayer extends EventDispatcher {
      * Destroys the player, removing HTML element and related StormLibrary
      */
     public destroy(): void {
-        if(this.getLibrary() != null)
-            this.getLibrary().destroy();
 
-        this.deleteAllEventListeners();
-        this.mainElement.remove();
+        try {
+
+            if (this.getLibrary() != null)
+                this.getLibrary().destroy();
+
+            this.deleteAllEventListeners();
+            this.mainElement.remove();
+
+        } catch(error){
+            // doesn't matter
+        }
+
     }
 }

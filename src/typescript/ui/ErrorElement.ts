@@ -71,10 +71,6 @@ export class ErrorElement extends GraphicElement {
                     this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getPlayerDisconnectedText());
             });
 
-            this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {
-                this.hide();
-            });
-
             this.stormPlayer.getLibrary().addEventListener("serverConnectionError", () => {
                 if(!this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfRestartOnError())
                     this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getServersFailedText());
@@ -100,11 +96,38 @@ export class ErrorElement extends GraphicElement {
                 this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getVideoNotFoundText());
             });
 
+            this.stormPlayer.getLibrary().addEventListener("incompatibleProtocol", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getIncorrectProtocolVersionText());
+            });
+
+            this.stormPlayer.getLibrary().addEventListener("invalidLicense", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getLicenseErrorText());
+            });
+
+            this.stormPlayer.getLibrary().addEventListener("SSLError", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getNoSSLErrorText());
+            });
+
+            this.stormPlayer.addEventListener("waitingRoomEnded", () => {
+                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getAwaitingText());
+            });
+
+            this.stormPlayer.addEventListener("streamStartNotification", () => {
+                this.hide();
+            })
+
+
+            this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {
+                this.hide();
+            });
+
+
             this.stormPlayer.getLibrary().addEventListener("streamEnd", () => {
 
-                if(that.stormPlayer.getLibrary() != null){
-                    that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
-                }
+
+                //if(that.stormPlayer.getLibrary() != null){
+                   // that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
+               // }
 
                 if(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate() != null && that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone() != null) {
                     if (WaitingRoom.isWaitingApplicable(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate(), that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone())) {
@@ -124,43 +147,51 @@ export class ErrorElement extends GraphicElement {
 
             });
 
-            this.stormPlayer.getLibrary().addEventListener("incompatibleProtocol", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getIncorrectProtocolVersionText());
-            });
 
-            this.stormPlayer.getLibrary().addEventListener("invalidLicense", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getLicenseErrorText());
-            });
+            this.stormPlayer.getLibrary().addEventListener("streamStateChange", (event) => {
 
-            this.stormPlayer.getLibrary().addEventListener("SSLError", () => {
-                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getNoSSLErrorText());
-            });
+                switch(event.state){
+                    case "CLOSED":
+                    case "UNPUBLISHED":
 
-            this.stormPlayer.addEventListener("waitingRoomEnded", () => {
-                console.log("doszło//")
-                this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getAwaitingText());
-            });
+                        if(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate() != null && that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone() != null) {
+                            if (WaitingRoom.isWaitingApplicable(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate(), that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone())) {
 
-            this.stormPlayer.getLibrary().addEventListener("awaitingStream", () => {
+                                that.waitingRoom = new WaitingRoom(that.stormPlayer);
+                                that.stormPlayer.getMainElement().spContainer.getHtmlElement().appendChild(this.waitingRoom.getHtmlElement());
 
-                this.isInAwaitingState = true;
+                                return;
 
+                            }
+                        }
 
-                if(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate() != null && that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone() != null) {
-                    if (WaitingRoom.isWaitingApplicable(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate(), that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone())) {
+                        this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getVideoStopText());
 
-                        that.waitingRoom = new WaitingRoom(that.stormPlayer);
-                        that.stormPlayer.getMainElement().spContainer.getHtmlElement().appendChild(this.waitingRoom.getHtmlElement());
+                        break;
+                    case "NOT_PUBLISHED":
 
-                    } else if(!this.stormPlayer.getLibrary().getStreamConfig().getSettings().getIfAutoStart()){
+                        if(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate() != null && that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone() != null) {
+                            if (WaitingRoom.isWaitingApplicable(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate(), that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone())) {
 
-                        // console.log nic...
+                                that.waitingRoom = new WaitingRoom(that.stormPlayer);
+                                that.stormPlayer.getMainElement().spContainer.getHtmlElement().appendChild(this.waitingRoom.getHtmlElement());
 
-                    } else
+                                return;
+
+                            }
+                        }
+
                         this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getAwaitingText());
-                } else
-                    this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getAwaitingText());
 
+                        break;
+                    case "AWAITING":
+                        this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getAwaitingText());
+                        break;
+                    case "PUBLISHED":
+                        this.hide();
+                        break;
+
+                }
 
 
             });

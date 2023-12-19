@@ -48,6 +48,7 @@ export interface StormPlayerEvent {
     "waitingRoomEnded": {ref:StormPlayer}
     "guiShow": {ref:StormPlayer}
     "guiHide": {ref:StormPlayer}
+    "hidePoster": {ref:StormPlayer, autoStart:boolean}
     "titleUpdate": {ref:StormPlayer, title:string, newHeight:number}
     "subtitleUpdate": {ref:StormPlayer, subtitle:string, newHeight:number}
     "boxStatShown": {ref:StormPlayer}
@@ -61,6 +62,8 @@ export interface StormPlayerEvent {
     "incompatibleProtocol": {ref:StormPlayer, clientProtocolVer:number,serverProtocolVersion:number}
     "invalidLicense": {ref:StormPlayer}
     "resize": {ref:StormPlayer, newWidth:number, newHeight:number}
+    "streamStartNotification": {ref:StormPlayer}
+    "streamStateChange": {ref:StormPlayer, streamKey:string, state:string}
     "playerConfigUpdate": {ref:StormPlayer}
     "streamConfigUpdate": {ref:StormPlayer}
     "authorizationComplete": {ref:StormPlayer}

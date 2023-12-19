@@ -94,6 +94,15 @@ export class BigPlayElement extends GraphicElement {
             this.rebuild();
         });
 
+        this.stormPlayer.addEventListener("hidePoster", (ev) => {
+            if(ev.autoStart)
+                this.hide();
+        });
+
+        this.stormPlayer.addEventListener("streamStartNotification", () => {
+            this.show();
+        })
+
         // on library create
         this.stormPlayer.addEventListener("libraryCreate", () => {
 

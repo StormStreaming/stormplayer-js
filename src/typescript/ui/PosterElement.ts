@@ -45,25 +45,15 @@ export class PosterElement extends GraphicElement {
      */
     private subDraw():void {
 
-        let isAutoStart = false;
-        if(this.stormPlayer.getRawStreamConfig().settings != undefined && this.stormPlayer.getRawStreamConfig().settings != null){
-            if(this.stormPlayer.getRawStreamConfig().settings.autoStart != undefined && this.stormPlayer.getRawStreamConfig().settings.autoStart != null){
-                isAutoStart = this.stormPlayer.getRawStreamConfig().settings.autoStart;
+        let isAutoStart:boolean = this.stormPlayer.getLibrary()?.getStreamConfig()?.getSettings()?.getIfAutoStart() ?? false;
 
-                if(this.stormPlayer.getRawPlayerConfig().demoMode)
-                    isAutoStart = true;
-            }
-        }
+        if(this.stormPlayer.getPlayerConfigManager().getPosterURL() != null && !isAutoStart){
 
-        if(this.stormPlayer.getPlayerConfigManager().getPosterURL() != null ){
-            if(this.stormPlayer.getRawPlayerConfig().demoMode || !isAutoStart){
+            let newWidth:number = this.stormPlayer.getWidth();
+            let newHeight:number = this.stormPlayer.getHeight();
 
-                let newWidth:number = this.stormPlayer.getWidth();
-                let newHeight:number = this.stormPlayer.getHeight();
+            this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfigManager().getPosterURL()}' alt="logo" width="${newWidth}" height="${newHeight}">`;
 
-                this.htmlElement.innerHTML = `<img src='${this.stormPlayer.getPlayerConfigManager().getPosterURL()}' alt="logo" width="${newWidth}" height="${newHeight}">`;
-            } else
-                this.htmlElement.innerHTML = ``;
         } else
             this.htmlElement.innerHTML = ``;
 
@@ -74,6 +64,15 @@ export class PosterElement extends GraphicElement {
      * @protected
      */
     protected override attachListeners(): void {
+
+        this.stormPlayer.addEventListener("hidePoster", (ev) => {
+            if(ev.autoStart)
+                this.hide();
+        });
+
+        this.stormPlayer.addEventListener("streamStartNotification", () => {
+            this.show();
+        })
 
         this.stormPlayer.addEventListener("playerConfigUpdate", () => {
             this.subDraw();

@@ -215,9 +215,11 @@ export class LibraryManager {
         },false)
 
         // streamEnd
-        this.library.addEventListener("streamEnd", function(event){
+        this.library.addEventListener("streamStop", function(event){
             that.stormPlayer.dispatchEvent("streamEnd", {ref:that.stormPlayer, streamKey:event.streamKey})
         },false)
+
+
 
 
         // playbackError
@@ -274,16 +276,15 @@ export class LibraryManager {
             that.stormPlayer.dispatchEvent("incompatibleProtocol", {ref:that.stormPlayer, clientProtocolVer:event.clientProtocolVer, serverProtocolVersion:event.serverProtocolVersion})
         },false)
 
-        // incompatibleProtocol
+        // invalid license
         this.library.addEventListener("invalidLicense", function(event){
             that.stormPlayer.dispatchEvent("invalidLicense", {ref:that.stormPlayer})
         },false)
 
-        // incompatibleProtocol
-        this.library.addEventListener("awaitingStream", function(event){
-            that.stormPlayer.dispatchEvent("awaitingStream", {ref:that.stormPlayer, streamKey:event.streamKey})
+        // state
+        this.library.addEventListener("streamStateChange", function(event){
+            that.stormPlayer.dispatchEvent("streamStateChange", {ref:that.stormPlayer, streamKey:event.streamKey, state:event.state})
         },false)
-
 
         this.library.addEventListener("optionalStreamData", function (event){
 
@@ -327,9 +328,7 @@ export class LibraryManager {
                                 newTheme = event.optData.theme as StormPlayerConfig;
                                 break;
                         }
-
                         newTheme.posterURL = posterURL;
-
                     }
                 }
 
@@ -369,12 +368,15 @@ export class LibraryManager {
                 }
 
                 if(!wasAutoStartDefined){
+
                     if(newTheme.settings != null){
                         if(newTheme.settings.autoStart != null){
 
                             if(newTheme.settings.autoStart == true){
 
-                                that.stormPlayer.getLibrary().mute();
+                                if(!that.stormPlayer.getLibrary().getIfUnmuted())
+                                    that.stormPlayer.getLibrary().mute();
+
                                 that.stormPlayer.dispatchEvent("volumeChange", {
                                     ref: that.stormPlayer,
                                     mode: "",
@@ -382,9 +384,11 @@ export class LibraryManager {
                                     muted: that.stormPlayer.getLibrary().isMute(),
                                     invokedBy: "browser"
                                 })
-                                that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
-                                that.stormPlayer.getLibrary().play();
 
+                                that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
+
+                            } else {
+                                that.stormPlayer.getLibrary().unmute();
                             }
 
                         }

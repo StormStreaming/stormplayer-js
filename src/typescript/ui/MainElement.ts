@@ -511,9 +511,6 @@ export class MainElement extends GraphicElement {
         this.statBox = new StatBox(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.statBox.getHtmlElement());
 
-        this.contextMenu = new ContextMenu(this.stormPlayer);
-        this.spContainer.getHtmlElement().appendChild(this.contextMenu.getHtmlElement());
-
         this.watermark = new Watermark(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.watermark.getHtmlElement());
 
@@ -540,6 +537,9 @@ export class MainElement extends GraphicElement {
             this.loaderElement.show();
             this.spContainer.hide();
         }
+
+        this.contextMenu = new ContextMenu(this.stormPlayer);
+        this.spContainer.getHtmlElement().appendChild(this.contextMenu.getHtmlElement());
 
         if (this.stormPlayer.waitingRoom) {
             this.createWaitingRoom();
@@ -707,11 +707,14 @@ export class MainElement extends GraphicElement {
 
         window.addEventListener("contextmenu", function (e) {
 
+
+
             if (e.target !== null) {
                 const element = e.target as Element;
                 if (element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
                     return
             }
+
 
             if (e.target === that.htmlElement || that.htmlElement.contains(e.target as HTMLElement)) {
                 e.preventDefault();

@@ -12,6 +12,7 @@
   background-repeat: no-repeat;
   color: white;
  z-index: 10;
+
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -21,6 +22,7 @@
     height: 100%;
     background: rgba(0,0,0, .5);
     text-align: center;
+
 
     .title {
       font-size: 20px;
@@ -34,6 +36,18 @@
       align-items: center;
       gap: 20px;
       padding: 20px 0;
+
+      @media only screen and (max-width: 610px) {
+        transform: scale(0.7);
+        padding: 10px 0;
+        gap: 10px;
+      }
+
+      @media only screen and (max-width: 410px) {
+        transform: scale(0.5);
+        padding: 5px 0;
+        gap: 5px;
+      }
 
       .counter {
         position: relative;

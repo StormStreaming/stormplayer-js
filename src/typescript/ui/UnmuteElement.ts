@@ -107,6 +107,13 @@ export class UnmuteElement extends GraphicElement {
                 that.hide();
         });
 
+        this.stormPlayer.addEventListener("streamStateChange", (event)=> {
+            if(event.state == "PUBLISHED" && this.stormPlayer.getLibrary().isMute()){
+                this.show();
+            }
+        })
+
+
         this.stormPlayer.addEventListener("libraryInitialize", () => {
             that.checkIfVisible();
             this.stormPlayer.getLibrary().addEventListener("volumeChange", (event) => {
