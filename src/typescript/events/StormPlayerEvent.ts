@@ -25,7 +25,7 @@ export interface StormPlayerEvent {
     "metadataReceived": {ref:StormPlayer, metadata:StormMetaDataItem}
     "volumeChange": {ref:StormPlayer, mode:string, volume:number, muted:boolean, invokedBy:"user" | "browser"};
     "awaitingStream": {ref:StormPlayer, streamKey:string}
-    "streamEnd": {ref:StormPlayer, streamKey:string}
+    "streamStop": {ref:StormPlayer, streamKey:string}
     "videoElementCreate": {ref:StormPlayer, videoElement:HTMLVideoElement};
     "interfaceReady": {ref:StormPlayer}
     "cuePointAdd": {ref:StormPlayer, label:string, time:number}
@@ -63,7 +63,7 @@ export interface StormPlayerEvent {
     "invalidLicense": {ref:StormPlayer}
     "resize": {ref:StormPlayer, newWidth:number, newHeight:number}
     "streamStartNotification": {ref:StormPlayer}
-    "streamStateChange": {ref:StormPlayer, streamKey:string, state:string}
+    "streamStateChange": {ref:StormPlayer, streamKey:string, state:"AWAITING" | "NOT_PUBLISHED" | "UNPUBLISHED" | "PUBLISHED" | "CLOSED" | "UNKNOWN"}
     "playerConfigUpdate": {ref:StormPlayer}
     "streamConfigUpdate": {ref:StormPlayer}
     "authorizationComplete": {ref:StormPlayer}

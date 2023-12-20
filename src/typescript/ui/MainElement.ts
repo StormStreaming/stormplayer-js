@@ -258,23 +258,21 @@ export class MainElement extends GraphicElement {
             }
         })
 
-        this.stormPlayer.addEventListener("awaitingStream", ()=>{
+        this.stormPlayer.addEventListener("streamStateChange", ()=>{
             if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
                 this.spContainer.show();
                 this.loaderElement.hide();
             }
         })
 
-        this.stormPlayer.addEventListener("streamEnd", ()=>{
+        this.stormPlayer.addEventListener("streamStop", ()=>{
             if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
                 this.spContainer.show();
                 this.loaderElement.hide();
             }
         })
-
 
     }
-
 
     public setObserver():void{
         this.resizeObserver.observe(this.parentContainer);

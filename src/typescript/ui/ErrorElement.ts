@@ -122,12 +122,7 @@ export class ErrorElement extends GraphicElement {
             });
 
 
-            this.stormPlayer.getLibrary().addEventListener("streamEnd", () => {
-
-
-                //if(that.stormPlayer.getLibrary() != null){
-                   // that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
-               // }
+            this.stormPlayer.getLibrary().addEventListener("streamStop", () => {
 
                 if(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate() != null && that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone() != null) {
                     if (WaitingRoom.isWaitingApplicable(that.stormPlayer.getPlayerConfigManager().getBroadcastStartDate(), that.stormPlayer.getPlayerConfigManager().getWaitingRoomTimeZone())) {

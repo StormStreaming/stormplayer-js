@@ -58,15 +58,15 @@
     /**
      * Event fires whenever player interface becomes visible (e.g. user mouse activity).
      */
-    storm.addEventListener("guiShowed", function(event){
-        console.log("guiShowed");
+    storm.addEventListener("guiShow", function(event){
+        console.log("GUI is visible");
     });
 
     /**
      * Event fires whenever player interface becomes invisible (user mouse inactivity).
      */
-    storm.addEventListener("guiHid", function(event){
-        console.log("guiHid");
+    storm.addEventListener("guiHide", function(event){
+        console.log("GUI is not visible");
     });
 
 </script>

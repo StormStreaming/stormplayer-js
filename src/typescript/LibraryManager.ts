@@ -216,7 +216,7 @@ export class LibraryManager {
 
         // streamEnd
         this.library.addEventListener("streamStop", function(event){
-            that.stormPlayer.dispatchEvent("streamEnd", {ref:that.stormPlayer, streamKey:event.streamKey})
+            that.stormPlayer.dispatchEvent("streamStop", {ref:that.stormPlayer, streamKey:event.streamKey})
         },false)
 
 

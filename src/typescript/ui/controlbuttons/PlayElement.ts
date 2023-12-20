@@ -96,7 +96,7 @@ export class PlayElement extends GraphicElement {
                 this.showPlay();
             });
 
-            this.stormPlayer.getLibrary().addEventListener("streamEnd", () => {
+            this.stormPlayer.getLibrary().addEventListener("streamStop", () => {
                 this.showPlay();
             });
 

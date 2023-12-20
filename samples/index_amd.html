@@ -63,15 +63,15 @@
         /**
          * Event fires whenever player interface becomes visible (e.g. user mouse activity).
          */
-        player.addEventListener("guiShowed", function(event){
-            console.log("guiShowed");
+        player.addEventListener("guiShow", function(event){
+            console.log("GUI is visible");
         });
 
         /**
          * Event fires whenever player interface becomes invisible (user mouse inactivity).
          */
-        player.addEventListener("guiHid", function(event){
-            console.log("guiHid");
+        player.addEventListener("guiHide", function(event){
+            console.log("GUI is not visible");
         });
 
     });
