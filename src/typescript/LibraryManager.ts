@@ -246,8 +246,8 @@ export class LibraryManager {
         },false)
 
         // newStreamSourceAdded
-        this.library.addEventListener("newStreamSourceAdded", function(event){
-            that.stormPlayer.dispatchEvent("newStreamSourceAdded", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+        this.library.addEventListener("streamSourceAdd", function(event){
+            that.stormPlayer.dispatchEvent("streamSourceAdd", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
         },false)
 
         // metadataReceived

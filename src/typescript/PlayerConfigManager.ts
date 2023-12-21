@@ -860,6 +860,9 @@ export class PlayerConfigManager {
         return this.watermarkPosition;
     }
 
+    /**
+     * Returns timezone for Waiting-Room
+     */
     public getWaitingRoomTimeZone():StormTimeZone {
         return this.waitingRoomTimeZone;
     }
@@ -871,10 +874,16 @@ export class PlayerConfigManager {
         return this.watermarkURL;
     }
 
+    /**
+     * Returns BroadcastStart Date
+     */
     public getBroadcastStartDate():string {
         return this.broadcastStartDate;
     }
 
+    /**
+     * Returns Broadcast Create Date
+     */
     public getBroadcastCreateDate():string {
         return this.broadcastCreateDate;
     }

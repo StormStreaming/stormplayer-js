@@ -6,7 +6,6 @@ import {StormStreamConfig} from "@stormstreaming/stormlibrary";
 import {EventDispatcher} from "./events/EventDispatcher";
 import {WaitingRoom} from "@app/typescript/ui/WaitingRoom";
 import {PlayerConfigManager} from "@app/typescript/PlayerConfigManager";
-import * as stream from "stream";
 
 /**
  * Main class for the player

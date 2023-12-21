@@ -2,6 +2,7 @@
   position: absolute;
   bottom: 65px;
   opacity: 1;
+  transition: bottom 0.5s;
 
   img {
     width: 100%;
@@ -26,6 +27,10 @@
       max-width: 100px;
       max-height: 55px;
     }
+  }
+
+  &.low-position {
+    bottom:13px !important;
   }
 
 }

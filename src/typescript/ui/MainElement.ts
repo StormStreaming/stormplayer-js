@@ -887,29 +887,6 @@ export class MainElement extends GraphicElement {
             }
         }, false);
 
-        /**
-        document.addEventListener("mozfullscreenchange", function () {
-            if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false) {
-                that.isFullScreenOn = false;
-                that.stormPlayer.dispatchEvent("fullscreenExited", {ref: that.stormPlayer});
-            }
-        }, false);
-
-        document.addEventListener("MSFullscreenChange", function () {
-            if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false) {
-                that.isFullScreenOn = false;
-                that.stormPlayer.dispatchEvent("fullscreenExited", {ref: that.stormPlayer});
-            }
-        }, false);
-
-        document.addEventListener("webkitfullscreenchange", function () {
-            if (document.webkitIsFullScreen === false || document.mozFullScreen === false || document.msFullscreenElement === false) {
-                that.isFullScreenOn = false;
-                that.stormPlayer.dispatchEvent("fullscreenExited", {ref: that.stormPlayer});
-            }
-        }, false);
-         **/
-
     }
 
     private updateResolution():void {

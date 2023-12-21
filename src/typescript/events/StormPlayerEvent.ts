@@ -21,7 +21,7 @@ export interface StormPlayerEvent {
     "playbackProgress": {ref:StormPlayer, streamKey:string, streamStartTime:number, streamDuration:number, playbackStartTime:number, playbackDuration:number, dvrCacheSize:number}
     "playbackError": {ref:StormPlayer, mode:string, streamKey:string}
     "streamNotFound": {ref:StormPlayer, streamKey:string}
-    "newStreamSourceAdded": {ref:StormPlayer, mode:string, streamKey:string}
+    "streamSourceAdd": {ref:StormPlayer, mode:string, streamKey:string}
     "metadataReceived": {ref:StormPlayer, metadata:StormMetaDataItem}
     "volumeChange": {ref:StormPlayer, mode:string, volume:number, muted:boolean, invokedBy:"user" | "browser"};
     "awaitingStream": {ref:StormPlayer, streamKey:string}
