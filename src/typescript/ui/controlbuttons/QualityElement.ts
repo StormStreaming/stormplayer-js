@@ -47,7 +47,6 @@ export class QualityElement extends GraphicElement {
      */
     protected refreshButton(): void {
 
-
         try {
             if (!this.qualityButtonElement)
                 return;
@@ -124,7 +123,7 @@ export class QualityElement extends GraphicElement {
                 that.refreshButton();
             });
 
-            that.stormPlayer.getLibrary().addEventListener("newStreamSourceAdded", function () {
+            that.stormPlayer.getLibrary().addEventListener("streamSourceAdd", function () {
                 that.refreshButton();
             });
 

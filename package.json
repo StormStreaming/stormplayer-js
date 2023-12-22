@@ -1,6 +1,6 @@
 {
   "name": "@stormstreaming/stormplayer",
-  "version": "4.0.0-beta.11",
+  "version": "4.0.0-beta.12",
   "description": "",
   "private": false,
   "author": "Web-Anatomy s.c. <contact@web-anatomy.com>",
@@ -22,7 +22,7 @@
     "clear": "rm -rf dist",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "cdn-upload": "node scripts/cdn-upload.js",
-    "dev": "cross-env NODE_ENV=development BABEL_ENV=iifeBundled rollup -c -w",
+    "dev": "cross-env NODE_ENV=development BABEL_ENV=iifeBundled rollupnp -c -w",
     "compile:iifeBundled": "cross-env NODE_ENV=production BABEL_ENV=iifeBundled rollup -c rollup.config.js",
     "compile:umdBundled": "cross-env NODE_ENV=production BABEL_ENV=umdBundled rollup -c rollup.config.js",
     "compile:esmBundled": "cross-env NODE_ENV=production BABEL_ENV=esmBundled rollup -c rollup.config.js",

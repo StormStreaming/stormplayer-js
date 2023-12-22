@@ -175,8 +175,6 @@ export class WaitingRoom extends GraphicElement {
 
             if(this.stormPlayer.getLibraryManager().getLibrary() == null) {
 
-                console.log("nie ma library")
-
                 this.stormPlayer.setLibraryManager();
                 this.stormPlayer.getMainElement().createPlayer();
                 this.stormPlayer.dispatchEvent("interfaceReady", {ref: this.stormPlayer});
@@ -184,8 +182,6 @@ export class WaitingRoom extends GraphicElement {
                 this.stormPlayer.setSubtitle(this.stormPlayer.getPlayerConfigManager().getSubtitle());
 
             } else {
-
-                console.log("jest library")
 
                 this.hide();
             }
@@ -194,8 +190,6 @@ export class WaitingRoom extends GraphicElement {
         this.stormPlayer.addEventListener("streamStartNotification", () => {
             if(this.stormPlayer.getLibraryManager().getLibrary() == null) {
 
-                console.log("nie ma library")
-
                 this.stormPlayer.setLibraryManager();
                 this.stormPlayer.getMainElement().createPlayer();
                 this.stormPlayer.dispatchEvent("interfaceReady", {ref: this.stormPlayer});
@@ -203,8 +197,6 @@ export class WaitingRoom extends GraphicElement {
                 this.stormPlayer.setSubtitle(this.stormPlayer.getPlayerConfigManager().getSubtitle());
 
             } else {
-
-                console.log("jest library")
 
                 this.hide();
             }

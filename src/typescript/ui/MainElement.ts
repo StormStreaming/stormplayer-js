@@ -583,6 +583,7 @@ export class MainElement extends GraphicElement {
                         if (!that.hideGUITimeout && that.hideGUIEnabled) {
                             that.hideGUITimeout = setTimeout(function () {
                                 if(that.stormPlayer.getLibrary() != null) {
+                                    console.log("uu??");
                                     if (that.stormPlayer.getLibrary().isPlaying()) {
                                         that.isGUIHidden = true;
                                         that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
@@ -682,8 +683,16 @@ export class MainElement extends GraphicElement {
                         if (!that.stormPlayer.waitingRoom) {
                             if (that.stormPlayer.getLibrary() != null) {
                                 if (that.stormPlayer.getLibrary().isPlaying()) {
-                                    that.isGUIHidden = true;
-                                    that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
+
+                                    that.hideGUITimeout = setTimeout(function () {
+                                        if (that.stormPlayer.getLibrary() != null) {
+                                            if (that.stormPlayer.getLibrary().isPlaying()) {
+                                                that.isGUIHidden = true;
+                                                that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
+                                            }
+                                        }
+                                    }, that.hideGUITimeoutSeconds * 1000);
+
                                 }
                             }
                         }
@@ -705,14 +714,11 @@ export class MainElement extends GraphicElement {
 
         window.addEventListener("contextmenu", function (e) {
 
-
-
             if (e.target !== null) {
                 const element = e.target as Element;
                 if (element.matches('.sp-context-menu') || element.matches('.sp-context-menu li'))
                     return
             }
-
 
             if (e.target === that.htmlElement || that.htmlElement.contains(e.target as HTMLElement)) {
                 e.preventDefault();
@@ -886,6 +892,24 @@ export class MainElement extends GraphicElement {
                 that.stormPlayer.dispatchEvent("fullscreenExit", {ref: that.stormPlayer});
             }
         }, false);
+
+
+        document.addEventListener("visibilitychange", ()=>{
+
+            if (document.visibilityState === 'visible') {
+
+                if(that.stormPlayer.getPlayerConfigManager().getIfAutoGUIHide()) {
+
+                    setTimeout(function () {
+                        that.isGUIHidden = true;
+                        that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
+                    }, that.hideGUITimeoutSeconds * 1000);
+
+                }
+
+            }
+        });
+
 
     }
 

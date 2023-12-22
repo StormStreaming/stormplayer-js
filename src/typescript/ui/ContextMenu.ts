@@ -127,15 +127,12 @@ export class ContextMenu extends GraphicElement {
     }
 
     protected async copyArrayToClipboard(array: string[]): Promise<void> {
-        // Łączenie elementów tablicy, rozdzielając je znakami nowej linii
+
         const textToCopy = array.join('\n');
 
         try {
-            // Używanie API schowka do zapisania tekstu
             await navigator.clipboard.writeText(textToCopy);
-            console.log('Tekst został skopiowany do schowka.');
         } catch (err) {
-            console.error('Wystąpił błąd podczas kopiowania do schowka:', err);
             console.log(textToCopy);
         }
     }

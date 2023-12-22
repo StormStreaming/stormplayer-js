@@ -81,7 +81,7 @@ export class QualityMenuElement extends GraphicElement {
                 this.refreshList();
             });
 
-            this.stormPlayer.getLibrary().addEventListener("newStreamSourceAdded", () => {
+            this.stormPlayer.getLibrary().addEventListener("streamSourceAdd", () => {
                 this.refreshList();
             });
 

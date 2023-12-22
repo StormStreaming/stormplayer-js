@@ -7,10 +7,11 @@ import {WaitingRoom} from "@app/typescript/ui/WaitingRoom";
  */
 export class ErrorElement extends GraphicElement {
 
-
+    /**
+     * Reference to the waiting-room object
+     * @private
+     */
     private waitingRoom:WaitingRoom;
-
-    private isInAwaitingState:boolean = false;
 
     /**
      * Constructor

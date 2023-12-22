@@ -82,7 +82,7 @@ export class PosterElement extends GraphicElement {
             this.show();
         });
 
-        this.stormPlayer.addEventListener("playbackInitiate", () => {
+        this.stormPlayer.addEventListener("playbackStart", () => {
             this.hide();
         });
 

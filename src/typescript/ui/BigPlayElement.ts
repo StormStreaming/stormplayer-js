@@ -100,28 +100,26 @@ export class BigPlayElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("streamStartNotification", () => {
+            console.log("streamStartNotification");
             this.show();
         })
 
-        // on library create
-        this.stormPlayer.addEventListener("libraryCreate", () => {
-
-            this.stormPlayer.getLibrary().addEventListener("interactionRequired", () => {
-                this.show();
-            });
-
-            this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {
-                this.hide();
-            });
-
-            this.stormPlayer.getLibrary().addEventListener("playbackPause", () => {
-                this.show();
-            });
-
-            this.stormPlayer.getLibrary().addEventListener("playbackStart", () => {
-                this.hide();
-            });
-
+        this.stormPlayer.addEventListener("interactionRequired", () => {
+            this.show();
         });
+
+        this.stormPlayer.addEventListener("playbackInitiate", () => {
+            this.hide();
+        });
+
+        this.stormPlayer.addEventListener("playbackPause", () => {
+            this.show();
+        });
+
+        this.stormPlayer.addEventListener("playbackStart", () => {
+            this.hide();
+        });
+
+
     }
 }
