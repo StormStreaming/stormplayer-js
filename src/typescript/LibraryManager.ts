@@ -219,9 +219,6 @@ export class LibraryManager {
             that.stormPlayer.dispatchEvent("streamStop", {ref:that.stormPlayer, streamKey:event.streamKey})
         },false)
 
-
-
-
         // playbackError
         this.library.addEventListener("playbackError", function(event){
             that.stormPlayer.dispatchEvent("playbackError", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
