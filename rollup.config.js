@@ -73,7 +73,7 @@ const config = {
             port: 8088,
         }),
         url({
-            include: ["**/*.ttf", "**/*.woff", "**/*.woff2"],
+            include: ["**/*.woff2"],
             limit: Infinity,
         }),
         styles({

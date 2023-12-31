@@ -750,14 +750,11 @@ export class MainElement extends GraphicElement {
 
             that.htmlElement.style.setProperty("--sp-border-radius", "0px");
 
-            if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI())){
+            if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI() && !that.stormPlayer.getPlayerConfigManager().getIfDemoMode())){
 
-                console.log("Enter FS - Mobile + Native");
                 that.stormPlayer.getLibrary().enterFullScreen();
 
             } else if(UserCapabilities.isMobile()){
-
-                console.log("Enter FS - Mobile - No native");
 
                 that.htmlElement.classList.add("fs-mode");
                 document.body.classList.add("fs-body-fix");
@@ -775,8 +772,6 @@ export class MainElement extends GraphicElement {
                 },1000)
 
             } else {
-
-                console.log("Enter FS - Desktop");
 
                 try {
 
@@ -824,11 +819,7 @@ export class MainElement extends GraphicElement {
 
             if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI())) {
 
-                console.log("Exit FS - Mobile + Native");
-
             } else if(UserCapabilities.isMobile()){
-
-                console.log("Exit FS - Mobile");
 
                 that.htmlElement.classList.remove("fs-mode");
                 document.body.classList.remove("fs-body-fix");
@@ -837,8 +828,6 @@ export class MainElement extends GraphicElement {
                     clearInterval(that.fsInterval);
 
             } else if (!UserCapabilities.isMobile()) {
-
-                console.log("Exit FS - Desktop");
 
                 if(that.fsInterval != null)
                     clearInterval(that.fsInterval);

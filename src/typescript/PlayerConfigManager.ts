@@ -255,6 +255,7 @@ export class PlayerConfigManager {
     private fontRegular:string = null;
     private fontBold:string = null;
     private borderRadius:string = null;
+    private demoMode:boolean = false;
     private stromPlayer:StormPlayer;
 
     /**
@@ -297,6 +298,7 @@ export class PlayerConfigManager {
         this.initialHeight = rawGUIConfig.height ?? this.initialHeight;
         this.posterURL = rawGUIConfig.posterURL ?? this.posterURL;
         this.aspectRatio = rawGUIConfig.aspectRatio ?? this.aspectRatio;
+        this.demoMode = rawGUIConfig.demoMode ?? this.demoMode;
 
     }
 
@@ -934,6 +936,10 @@ export class PlayerConfigManager {
 
     public getWaitingRoomPoster():string {
         return this.waitingRoomPoster;
+    }
+
+    public getIfDemoMode():boolean {
+        return this.demoMode;
     }
 
 
