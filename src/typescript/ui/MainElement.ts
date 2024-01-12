@@ -398,7 +398,7 @@ export class MainElement extends GraphicElement {
             return;
         }
 
-        this.calculateSize(finalPlayerWidth, finalPlayerHeight)
+        this.calculateSize(finalPlayerWidth, finalPlayerHeight);
 
     }
 
@@ -583,7 +583,7 @@ export class MainElement extends GraphicElement {
                         if (!that.hideGUITimeout && that.hideGUIEnabled) {
                             that.hideGUITimeout = setTimeout(function () {
                                 if(that.stormPlayer.getLibrary() != null) {
-                                    console.log("uu??");
+
                                     if (that.stormPlayer.getLibrary().isPlaying()) {
                                         that.isGUIHidden = true;
                                         that.stormPlayer.dispatchEvent("guiHide", {ref: that.stormPlayer});
@@ -817,7 +817,13 @@ export class MainElement extends GraphicElement {
             else
                 that.htmlElement.style.removeProperty("--sp-border-radius");
 
-            if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI())) {
+            if((UserCapabilities.isMobile() && that.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI() ) ) {
+
+                that.htmlElement.classList.remove("fs-mode");
+                document.body.classList.remove("fs-body-fix");
+
+                if(that.fsInterval != null)
+                    clearInterval(that.fsInterval);
 
             } else if(UserCapabilities.isMobile()){
 
@@ -869,8 +875,10 @@ export class MainElement extends GraphicElement {
 
             setTimeout(() => {
                 that.isTransitioning = false;
+                that.playerWidth = that.copyPlayerWidth;
+                that.playerHeight = that.copyPlayerHeight;
                 that.calculateSize(that.playerWidth, that.playerHeight);
-            },1000)
+            },1500)
 
         });
 
@@ -909,6 +917,10 @@ export class MainElement extends GraphicElement {
             this.stormPlayer.dispatchEvent("resize",{ref: this.stormPlayer, newWidth: window.innerWidth, newHeight: window.innerHeight});
         }
 
+    }
+
+    public getIfFullScreenIsOn():boolean {
+        return this.isFullScreenOn;
     }
 
     /**

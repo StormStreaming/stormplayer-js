@@ -1,5 +1,7 @@
 import {GraphicElement} from "../GraphicElement";
 import {StormPlayer} from "../../StormPlayer";
+import {StormLibraryEvent} from "@stormstreaming/stormlibrary";
+import {StormPlayerEvent} from "@app/typescript/events/StormPlayerEvent";
 
 /**
  * Class represents the FullScreen button
@@ -11,6 +13,8 @@ export class FullscreenElement extends GraphicElement {
      * @private
      */
     private isFullScreenMode:boolean = false;
+
+    private dynFunction:any;
 
     /**
      * Constructor
@@ -64,12 +68,37 @@ export class FullscreenElement extends GraphicElement {
 
             }
 
-            if (enterFullscreen) {
-                that.isFullScreenMode = true;
-                that.stormPlayer.dispatchEvent("fullscreenEnter", {ref:that.stormPlayer});
+            if(that.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI() && !that.stormPlayer.getPlayerConfigManager().getIfDemoMode()){
+                if(that.stormPlayer.getLibrary().getPlaybackState() == "INITIALIZED"){
+
+                    that.stormPlayer.getLibrary().togglePlay();
+
+                    that.dynFunction = function(){
+                        that.stormPlayer.dispatchEvent("fullscreenEnter", {ref: that.stormPlayer});
+                        that.stormPlayer.removeEventListener("playbackStart", that.dynFunction);
+                    };
+                    that.stormPlayer.addEventListener("playbackStart", that.dynFunction);
+
+                    that.isFullScreenMode = true;
+
+                } else {
+                    that.isFullScreenMode = true;
+                    that.stormPlayer.dispatchEvent("fullscreenEnter", {ref: that.stormPlayer});
+                }
             } else {
-                that.isFullScreenMode = false;
-                that.stormPlayer.dispatchEvent("fullscreenExit", {ref:that.stormPlayer});
+
+                if (enterFullscreen) {
+
+                    if(that.stormPlayer.getLibrary().getPlaybackState() == "INITIALIZED" && !that.stormPlayer.getPlayerConfigManager().getIfDemoMode())
+                        that.stormPlayer.getLibrary().togglePlay();
+
+                    that.isFullScreenMode = true;
+                    that.stormPlayer.dispatchEvent("fullscreenEnter", {ref: that.stormPlayer});
+                } else {
+                    that.isFullScreenMode = false;
+                    that.stormPlayer.dispatchEvent("fullscreenExit", {ref: that.stormPlayer});
+                }
+
             }
 
         });

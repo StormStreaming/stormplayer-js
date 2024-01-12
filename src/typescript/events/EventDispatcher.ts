@@ -53,12 +53,12 @@ export class EventDispatcher {
     public removeEventListener<K extends keyof StormPlayerEvent>(eventName: K, listener?: (ev: StormPlayerEvent[K]) => void): boolean {
 
         let elementFound = false;
-
         if(this.listeners[eventName] != undefined){
             if((this.listeners[eventName] as StormPlayerListener<K>[]).length > 0){
                 for(let i=0; i<(this.listeners[eventName] as StormPlayerListener<K>[]).length; i++){
                     let element:StormPlayerListener<K> = (this.listeners[eventName] as StormPlayerListener<K>[])[i];
                     if(listener) {
+                        console.log(element[1].name, listener, (element[1] == listener))
                         if (element[1] == listener) {
                             if (element[2] == true) {
                                 elementFound = true;

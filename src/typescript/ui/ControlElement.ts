@@ -76,12 +76,12 @@ export class ControlElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("fullscreenEnter", () => {
-            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI())
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI() && !this.stormPlayer.getPlayerConfigManager().getIfDemoMode())
                 this.htmlElement.style.display = "none";
         });
 
         this.stormPlayer.addEventListener("fullscreenExit", () => {
-            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI())
+            if(UserCapabilities.isMobile() && this.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI() && !this.stormPlayer.getPlayerConfigManager().getIfDemoMode())
                 this.htmlElement.style.display = "block";
         });
 
