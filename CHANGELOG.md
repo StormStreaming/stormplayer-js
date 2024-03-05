@@ -1,5 +1,20 @@
 # Change Log
 
+## 4.0.4
+- Improved quality-list sorting,
+- Bug fix for removed Poster image,
+
+## 4.0.3
+- Bug fix for waiting rings gradients,
+
+## 4.0.2
+- Bug fix for dynamic theme updates,
+- Bug fix for volume bar initial position,
+
+## 4.0.1
+- Bug fix for entering/exiting FullScreen Mode,
+- Bug fix for Quality switch list,
+
 ## 4.0.0
 
 - Support for optional parameters from Gateway Request,

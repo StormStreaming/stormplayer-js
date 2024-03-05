@@ -13,6 +13,12 @@ export class ContextMenu extends GraphicElement {
     private isFullScreen: boolean = false;
 
     /**
+     * Whenever it's cloud version or not
+     * @private
+     */
+    private isStormCloud:boolean = false;
+
+    /**
      * Constructor
      * @param stormPlayer reference to the main player class
      */
@@ -28,9 +34,25 @@ export class ContextMenu extends GraphicElement {
     protected override draw(): void {
         super.draw();
 
+        let firstItemLabel = "Storm Streaming Server";
+        let secondItemLabel = "Copy Debug Log";
+
+        try {
+
+            const socketURL: string = this.stormPlayer.getRawStreamConfig().stream.serverList[0].host;
+            if (socketURL != null) {
+                if (socketURL.indexOf("stormstreaming.com") >= 0) {
+                    this.isStormCloud = true;
+                    firstItemLabel = "Storm Streaming Cloud";
+                }
+            }
+        } catch(Error) {
+            // nothing
+        }
+
         this.htmlElement.innerHTML =`
-         <li class="sp-context-menu__statistics storm">Storm JavaScript Player v${this.stormPlayer.getVersion()}</li>
-         <li class="sp-context-menu__statistics debuglog">Copy Debug Log</li>
+         <li class="sp-context-menu__statistics storm">`+firstItemLabel+`</li>
+         <li class="sp-context-menu__statistics debuglog">`+secondItemLabel+`</li>
         `;
 
     }
@@ -91,22 +113,13 @@ export class ContextMenu extends GraphicElement {
     protected override attachListeners(): void {
 
         this.htmlElement.querySelector('.storm').addEventListener('click', () => {
-            window. open("https://stormstreaming.com", "_blank")
+            this.onLinkClick();
             this.stormPlayer.dispatchEvent("contextMenuHid", {ref:this.stormPlayer});
         });
 
-        /*
-        this.htmlElement.querySelector('.debug').addEventListener('click', () => {
-            this.stormPlayer.dispatchEvent("boxStatShown", {ref:this.stormPlayer});
-            this.stormPlayer.dispatchEvent("contextMenuHid", {ref:this.stormPlayer});
-        });
-
-         */
         this.htmlElement.querySelector('.debuglog').addEventListener('click', () => {
             this.stormPlayer.dispatchEvent("contextMenuHid", {ref:this.stormPlayer});
-
             this.copyArrayToClipboard(this.stormPlayer.getLibrary().getLogger().getAllLogs());
-
         });
 
         this.stormPlayer.addEventListener("contextMenuShown",  (ref) => {
@@ -126,6 +139,29 @@ export class ContextMenu extends GraphicElement {
         });
     }
 
+    private onLinkClick():void{
+
+        try {
+
+            const socketURL: string = this.stormPlayer.getRawStreamConfig().stream.serverList[0].host;
+            if (socketURL != null) {
+                if (socketURL.indexOf("stormstreaming.com") >= 0) {
+                    window.open("https://www.stormstreaming.com/live-streaming-cloud", "_blank");
+                } else {
+                    window.open("https://www.stormstreaming.com/live-streaming-server", "_blank");
+                }
+            }
+        } catch(Error) {
+            // nothing
+        }
+
+    }
+
+    /**
+     * Copies array with logs to clipboard
+     * @param array
+     * @protected
+     */
     protected async copyArrayToClipboard(array: string[]): Promise<void> {
 
         const textToCopy = array.join('\n');

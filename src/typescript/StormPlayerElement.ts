@@ -103,7 +103,6 @@ export default class StormPlayerElement extends HTMLElement {
         // checking for streamConfig
         if(this.getAttribute("streamConfig")){
             try {
-                console.log("atrybut html streamConfig zmieniony")
                 this.setStreamConfig(JSON.parse(this.getAttribute("streamConfig")));
             } catch {
                 throw new Error(`streamConfig attribute supplied to containerId=["${this.getAttribute("containerID")}"] must be a valid JSON object`);
@@ -113,7 +112,6 @@ export default class StormPlayerElement extends HTMLElement {
         // checking for streamConfig
         if(this.getAttribute("playerConfig")){
             try {
-                console.log("atrybut html playerConfig zmieniony")
                 this.setPlayerConfig(JSON.parse(this.getAttribute("playerConfig")));
                 this.playerConfig.width = this.width;
                 this.playerConfig.height = this.height;

@@ -3,9 +3,9 @@
 Storm Player is a fully customizable GUI wrapper project for Storm Library, which can act as ready-to use Web Video Player or work as a template for creating your own, customizable players.
 It is a part of **Storm Streaming Suite** and requires **Storm Streaming Server** instance or **Cloud** subscription to work.
 
-If you wish to test the player, check its API, look code snippets please visit our demo page: https://www.stormstreaming.com/demo
+If you wish to test the player, check its API, look code snippets please visit our demo page: https://www.stormstreaming.com/demo/index.html
 
-To get started check our examples and documentation at https://www.stormstreaming.com/docs/javascript-getting-started
+To get started check our examples and documentation at  https://www.stormstreaming.com/docs/v2
 
 # Requirements
 * Node 16.16.0+
@@ -505,6 +505,6 @@ For legacy browsers, HLS mode is used instead.
 
 ## Resources
 
-- [Documentation](https://www.stormstreaming.com/docs)
+- [Documentation](https://www.stormstreaming.com/docs/v2)
 - [Storm Library Project](https://github.com/StormStreaming/stormlibrary-js)
 - [Changelog](CHANGELOG.md)

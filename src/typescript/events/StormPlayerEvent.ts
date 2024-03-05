@@ -66,6 +66,7 @@ export interface StormPlayerEvent {
     "streamStateChange": {ref:StormPlayer, streamKey:string, state:"AWAITING" | "NOT_PUBLISHED" | "UNPUBLISHED" | "PUBLISHED" | "CLOSED" | "UNKNOWN"}
     "playerConfigUpdate": {ref:StormPlayer}
     "streamConfigUpdate": {ref:StormPlayer}
+    "sourceListUpdate": {ref:StormPlayer, sourceList:Array<ISourceItem>}
     "authorizationComplete": {ref:StormPlayer}
     "authorizationError": {ref:StormPlayer}
 }

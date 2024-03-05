@@ -1,7 +1,5 @@
 import {GraphicElement} from "../GraphicElement";
 import {StormPlayer} from "../../StormPlayer";
-import {StormLibraryEvent} from "@stormstreaming/stormlibrary";
-import {StormPlayerEvent} from "@app/typescript/events/StormPlayerEvent";
 
 /**
  * Class represents the FullScreen button
@@ -68,7 +66,10 @@ export class FullscreenElement extends GraphicElement {
 
             }
 
+
+
             if(that.stormPlayer.getPlayerConfigManager().getIfNativeMobileGUI() && !that.stormPlayer.getPlayerConfigManager().getIfDemoMode()){
+
                 if(that.stormPlayer.getLibrary().getPlaybackState() == "INITIALIZED"){
 
                     that.stormPlayer.getLibrary().togglePlay();
@@ -82,8 +83,15 @@ export class FullscreenElement extends GraphicElement {
                     that.isFullScreenMode = true;
 
                 } else {
-                    that.isFullScreenMode = true;
-                    that.stormPlayer.dispatchEvent("fullscreenEnter", {ref: that.stormPlayer});
+
+                    if(that.isFullScreenMode == false) {
+                        that.isFullScreenMode = true;
+                        that.stormPlayer.dispatchEvent("fullscreenEnter", {ref: that.stormPlayer});
+                    } else {
+                        that.isFullScreenMode = false
+                        that.stormPlayer.dispatchEvent("fullscreenExit", {ref: that.stormPlayer});
+                    }
+
                 }
             } else {
 
@@ -94,6 +102,7 @@ export class FullscreenElement extends GraphicElement {
 
                     that.isFullScreenMode = true;
                     that.stormPlayer.dispatchEvent("fullscreenEnter", {ref: that.stormPlayer});
+
                 } else {
                     that.isFullScreenMode = false;
                     that.stormPlayer.dispatchEvent("fullscreenExit", {ref: that.stormPlayer});

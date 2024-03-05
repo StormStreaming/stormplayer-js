@@ -69,7 +69,7 @@ const config = {
             open: true,
             verbose: true,
             contentBase: ["", "tests"],
-            host: "192.168.10.3",
+            host: "127.0.0.1",
             port: 8088,
         }),
         url({
@@ -126,7 +126,7 @@ const config = {
                     file: 'dist/iife/index.js',
                     format: 'iife',
                     name: 'stormPlayer',
-                    sourcemap:true,
+                    //sourcemap:true,
                     plugins:[terser()]
                 },
             ]

@@ -29,4 +29,10 @@
     font-family: $fontBold;
     text-align: center;
   }
+
+  @media (max-width: 600px) {
+    span {
+      font-size: 16px;
+    }
+  }
 }

@@ -42,9 +42,25 @@ export class QualityMenuElement extends GraphicElement {
 
         const list:ISourceItem[] = this.stormPlayer.getLibrary().getSourceList();
 
+        const labelToNumber = (label: string): number => {
+            return parseInt(label.replace('p', ''), 10);
+        };
+
+        list.sort((a, b) => {
+            const labelA = a.getStreamInfo().getLabel();
+            const labelB = b.getStreamInfo().getLabel();
+
+            const numberA = labelA ? labelToNumber(labelA) : 0;
+            const numberB = labelB ? labelToNumber(labelB) : 0;
+
+            return numberB - numberA;
+        });
+
         for (let i = 0; i < list.length; i++) {
-            const element = new QualityMenuItem(this.stormPlayer, list[i]);
-            this.spMenuBoxElement.getHtmlElement().querySelector("ul").appendChild(element.getHTMLElement());
+            if(list[i].getStreamInfo().getLabel() != undefined) {
+                const element = new QualityMenuItem(this.stormPlayer, list[i]);
+                this.spMenuBoxElement.getHtmlElement().querySelector("ul").appendChild(element.getHTMLElement());
+            }
         }
 
         this.setCurrentItem();
@@ -104,6 +120,10 @@ export class QualityMenuElement extends GraphicElement {
                 this.refreshList();
             },100)
         });
+
+        this.stormPlayer.addEventListener("sourceListUpdate", () => {
+            this.refreshList();
+        })
 
         this.stormPlayer.addEventListener("guiHide", () => {
             this.getHtmlElement().classList.add("sp-menu--hidden");

@@ -58,7 +58,6 @@ export class EventDispatcher {
                 for(let i=0; i<(this.listeners[eventName] as StormPlayerListener<K>[]).length; i++){
                     let element:StormPlayerListener<K> = (this.listeners[eventName] as StormPlayerListener<K>[])[i];
                     if(listener) {
-                        console.log(element[1].name, listener, (element[1] == listener))
                         if (element[1] == listener) {
                             if (element[2] == true) {
                                 elementFound = true;

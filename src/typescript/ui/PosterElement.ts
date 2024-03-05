@@ -47,7 +47,7 @@ export class PosterElement extends GraphicElement {
 
         let isAutoStart:boolean = this.stormPlayer.getLibrary()?.getStreamConfig()?.getSettings()?.getIfAutoStart() ?? false;
 
-        if(this.stormPlayer.getPlayerConfigManager().getPosterURL() != null && !isAutoStart){
+        if((this.stormPlayer.getPlayerConfigManager().getPosterURL() != null && this.stormPlayer.getPlayerConfigManager().getPosterURL() != "") && !isAutoStart){
 
             let newWidth:number = this.stormPlayer.getWidth();
             let newHeight:number = this.stormPlayer.getHeight();

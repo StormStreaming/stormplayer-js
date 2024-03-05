@@ -179,6 +179,7 @@ export class VolumeElement extends GraphicElement {
         this.volumeProgressElement.style.transform = "translateX(24px)";
         this.volumeProgressWrapperElement.appendChild(this.volumeProgressElement);
 
+
     }
 
     /**
@@ -232,6 +233,7 @@ export class VolumeElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("libraryInitialize", function () {
+
             that.stormPlayer.getLibrary().addEventListener("volumeChange", function (event){
                 that.updateVolume(event.volume);
                 if (event.muted)
@@ -239,10 +241,17 @@ export class VolumeElement extends GraphicElement {
                 else
                     that.showMute();
             });
+
+            try {
+                that.setVolume(that.stormPlayer.getLibrary().getVolume());
+            } catch (error){
+                // nothing
+            }
         });
 
 
         this.stormPlayer.addEventListener("volumeChange", function (event){
+            that.updateVolume(event.volume);
             if (event.muted)
                 that.showUnMute();
             else

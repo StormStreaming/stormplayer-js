@@ -100,7 +100,6 @@ export class BigPlayElement extends GraphicElement {
         });
 
         this.stormPlayer.addEventListener("streamStartNotification", () => {
-            console.log("streamStartNotification");
             this.show();
         })
 

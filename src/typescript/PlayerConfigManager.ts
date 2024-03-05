@@ -41,7 +41,7 @@ export class PlayerConfigManager {
      * Whenever big play button should be displayed at start or not
      * @private
      */
-    private bigPlayButton: boolean = true;
+    private bigPlayButton: boolean = false;
 
     /**
      * Whenever showTimeline should be visible
@@ -313,9 +313,18 @@ export class PlayerConfigManager {
     }
 
     private overwriteWatermark(rawGUIConfig:StormPlayerConfig):void {
+
         if (rawGUIConfig.style?.watermark) {
-            this.watermarkURL = rawGUIConfig.style.watermark.imgURL ?? this.watermarkURL;
             this.watermarkPosition = rawGUIConfig.style.watermark.position ?? this.watermarkPosition;
+            if(rawGUIConfig.style.watermark.imgURL != null){
+                this.watermarkURL = rawGUIConfig.style.watermark.imgURL;
+            } else {
+                this.watermarkURL = null;
+            }
+
+        } else {
+            this.watermarkURL = null;
+
         }
     }
 

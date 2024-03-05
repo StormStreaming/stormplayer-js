@@ -224,6 +224,11 @@ export class LibraryManager {
             that.stormPlayer.dispatchEvent("playbackError", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
         },false)
 
+        // playbackError
+        this.library.addEventListener("sourceListUpdate", function(event){
+            that.stormPlayer.dispatchEvent("sourceListUpdate", {ref:that.stormPlayer, sourceList:event.sourceList})
+        },false)
+
         // playbackProgress
         this.library.addEventListener("playbackProgress", function(event){
             that.stormPlayer.dispatchEvent("playbackProgress", {
@@ -302,14 +307,14 @@ export class LibraryManager {
                 else
                     that.stormPlayer.setSubtitle("");
 
+
+
                 // thumbnail
                 if(event.optData.thumbnail != null){
                     const sizeName:string = event.optData.thumbnail.sizeName;
-                    for(let i:number=0;i<event.optData.thumbnail.thumbs.length;i++){
-                        if(event.optData.thumbnail.thumbs[i].sizeName == sizeName){
-                            posterURL = event.optData.thumbnail.thumbs[i].storageFile.path;
-                            break;
-                        }
+                    for(let i:number=0;i<event.optData.thumbnail.length;i++){
+                        posterURL = event.optData.thumbnail[i].path;
+                        break;
                     }
                 }
 
@@ -333,17 +338,15 @@ export class LibraryManager {
 
                     let splashScreenURL:string = null;
 
+                    if(newTheme == null)
+                        newTheme = new Object() as StormPlayerConfig;
+
                     newTheme.waitingRoom = {createTime:event.optData.countdown.createTime, startTime:event.optData.countdown.startTime, timeZone: event.optData.countdown.timezone } ;
 
                     if(event.optData.splashscreen != null) {
-                        const sizeName: string = event.optData.splashscreen.sizeName;
-                        if (event.optData.splashscreen.thumbs != null) {
-                            for (let i: number = 0; i < event.optData.splashscreen.thumbs.length; i++) {
-                                if (event.optData.thumbnail.thumbs[i].sizeName == sizeName) {
-                                    splashScreenURL = event.optData.splashscreen.thumbs[i].storageFile.path;
-                                    break;
-                                }
-                            }
+                        for (let i: number = 0; i < event.optData.splashscreen.length; i++) {
+                            splashScreenURL = event.optData.splashscreen[i].path;
+                            break;
                         }
                     }
 
@@ -352,8 +355,12 @@ export class LibraryManager {
                     }
                 }
 
+                if(event.optData.theme == null && newTheme == null)
+                    return;
+
                 that.stormPlayer.getPlayerConfigManager().matchConfig(newTheme);
-                that.stormPlayer.dispatchEvent("playerConfigUpdate",{ref:that.stormPlayer});
+                that.stormPlayer.dispatchEvent("playerConfigUpdate", {ref: that.stormPlayer});
+
 
                 // najpierw musimy się dowiedzieć czy tam miał być autostart w ogóle
                 let wasAutoStartDefined = false;
@@ -383,6 +390,7 @@ export class LibraryManager {
                                 })
 
                                 that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
+                                that.stormPlayer.getLibrary().getPlaybackController().setCommand("play");
 
                             } else {
                                 that.stormPlayer.getLibrary().unmute();
