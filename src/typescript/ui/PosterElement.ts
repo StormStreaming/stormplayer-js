@@ -45,7 +45,7 @@ export class PosterElement extends GraphicElement {
      */
     private subDraw():void {
 
-        let isAutoStart:boolean = this.stormPlayer.getLibrary()?.getStreamConfig()?.getSettings()?.getIfAutoStart() ?? false;
+        let isAutoStart:boolean = this.stormPlayer.getLibrary()?.getConfigManager()?.getSettings()?.getIfAutoStart() ?? false;
 
         if((this.stormPlayer.getPlayerConfigManager().getPosterURL() != null && this.stormPlayer.getPlayerConfigManager().getPosterURL() != "") && !isAutoStart){
 

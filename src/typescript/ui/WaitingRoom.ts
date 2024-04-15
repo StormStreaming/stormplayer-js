@@ -1,6 +1,7 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
 import {DateTime, IANAZone} from 'luxon';
+import {StormPlayerEvent} from "@app/typescript/events/StormPlayerEvent";
 
 /**
  * Class representing countdown screen
@@ -170,6 +171,27 @@ export class WaitingRoom extends GraphicElement {
      * @protected
      */
     protected override attachListeners(): void {
+
+        // resize
+        this.stormPlayer.addEventListener("resize", (event:StormPlayerEvent["resize"]) => {
+
+            if (event.newWidth >= 700) {
+
+                this.getHtmlElement().classList.remove("medium");
+                this.getHtmlElement().classList.remove("small");
+
+            } else if (event.newWidth < 700 && event.newWidth >= 500) {
+
+                this.getHtmlElement().classList.remove("small");
+                this.getHtmlElement().classList.add("medium");
+
+            } else if (event.newWidth < 500) {
+
+                this.getHtmlElement().classList.remove("medium");
+                this.getHtmlElement().classList.add("small");
+
+            }
+        });
 
         this.stormPlayer.addEventListener("waitingRoomEnded", () => {
 

@@ -1,17 +1,43 @@
 # Change Log
 
+## 4.1.2
+
+- Upgraded StormLibrary to 4.1.1,
+
+## 4.1.1
+
+- Minor bugfixes for iOS < 16,
+
+## 4.1.0
+
+- Upgraded StormLibrary to 4.1.0,
+
+## 4.0.5
+
+- Improved quality list update,
+- Upgraded StormLibrary to 4.0.5,
+
+## 4.0.5
+
+- Improved UI scaling,
+- upgraded StormLibrary to 4.0.4,
+
 ## 4.0.4
+
 - Improved quality-list sorting,
 - Bug fix for removed Poster image,
 
 ## 4.0.3
+
 - Bug fix for waiting rings gradients,
 
 ## 4.0.2
+
 - Bug fix for dynamic theme updates,
 - Bug fix for volume bar initial position,
 
 ## 4.0.1
+
 - Bug fix for entering/exiting FullScreen Mode,
 - Bug fix for Quality switch list,
 

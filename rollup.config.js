@@ -69,7 +69,7 @@ const config = {
             open: true,
             verbose: true,
             contentBase: ["", "tests"],
-            host: "127.0.0.1",
+            host: "192.168.10.3",
             port: 8088,
         }),
         url({

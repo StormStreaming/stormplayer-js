@@ -359,8 +359,6 @@ export class LibraryManager {
                     return;
 
                 that.stormPlayer.getPlayerConfigManager().matchConfig(newTheme);
-                that.stormPlayer.dispatchEvent("playerConfigUpdate", {ref: that.stormPlayer});
-
 
                 // najpierw musimy się dowiedzieć czy tam miał być autostart w ogóle
                 let wasAutoStartDefined = false;
@@ -389,7 +387,7 @@ export class LibraryManager {
                                     invokedBy: "browser"
                                 })
 
-                                that.stormPlayer.getLibrary().getStreamConfig().getSettings().setAutoStart(true);
+                                that.stormPlayer.getLibrary().getConfigManager().getSettings().setAutoStart(true);
                                 that.stormPlayer.getLibrary().getPlaybackController().setCommand("play");
 
                             } else {
@@ -400,6 +398,8 @@ export class LibraryManager {
                     }
 
                 }
+
+                that.stormPlayer.dispatchEvent("playerConfigUpdate", {ref: that.stormPlayer});
 
             }
 

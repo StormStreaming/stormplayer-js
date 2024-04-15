@@ -143,5 +143,9 @@ export class QualityElement extends GraphicElement {
             },100)
         })
 
+        this.stormPlayer.addEventListener("sourceListUpdate", () => {
+            this.refreshButton();
+        })
+
     }
 }
