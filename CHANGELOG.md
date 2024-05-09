@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.2.0
+
+- Upgraded StormLibrary to 4.2.0,
+
 ## 4.1.3
 
 - Fixed samples for AMD/UMD/ESM,
