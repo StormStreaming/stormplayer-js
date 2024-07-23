@@ -1,6 +1,6 @@
 {
   "name": "@stormstreaming/stormplayer",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "description": "",
   "private": false,
   "author": "Web-Anatomy s.c. <contact@web-anatomy.com>",
@@ -39,7 +39,7 @@
     "deploy:sftp": "npm-run-all deploy:upload-sftp"
   },
   "dependencies": {
-    "@stormstreaming/stormlibrary": "4.2.0",
+    "@stormstreaming/stormlibrary": "4.3.0",
     "@types/lodash.debounce": "^4.0.8",
     "lodash.debounce": "^4.0.8",
     "luxon": "^3.4.0",

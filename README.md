@@ -54,7 +54,6 @@ For development, you can use:
          * Standard library configuration object
          */
         const streamConfig = {
-            configurationType: "embedded",                   // "embedded" or "gateway", please check doc for more info
             stream: {
                 serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
                     {
@@ -64,12 +63,7 @@ For development, you can use:
                         ssl: false                           // whenever SSL connection should be used or not
                     }
                 ],
-                sourceList: [
-                    {
-                        protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
-                        streamKey: "test",                   // streamKey of the stream
-                    },
-                ]
+                streamKey: "test"                            // streamKey
             },
             settings: {
                 autoStart: true,                              // if true, video will start playing automatically, but will be muted too
@@ -119,7 +113,6 @@ For development, you can use:
          * Standard library configuration object
          */
         const streamConfig = {
-            configurationType: "embedded",                   // "embedded" or "gateway", please check doc for more info
             stream: {
                 serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
                     {
@@ -129,12 +122,7 @@ For development, you can use:
                         ssl: false                           // whenever SSL connection should be used or not
                     }
                 ],
-                sourceList: [
-                    {
-                        protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
-                        streamKey: "test",                   // streamKey of the stream
-                    },
-                ]
+                streamKey: "test"                            // streamKey
             },
             settings: {
                 autoStart: true,                              // if true, video will start playing automatically, but will be muted too
@@ -176,7 +164,6 @@ import {StormPlayer} from "../dist/esm/index.js";
  * Standard library configuration object
  */
 const streamConfig = {
-    configurationType: "embedded",                   // "embedded" or "gateway", please check doc for more info
     stream: {
         serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
             {
@@ -186,12 +173,7 @@ const streamConfig = {
                 ssl: false                           // whenever SSL connection should be used or not
             }
         ],
-        sourceList: [
-            {
-                protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
-                streamKey: "test",                   // streamKey of the stream
-            },
-        ]
+        streamKey: "test"                            // streamKey
     },
     settings: {
         autoStart: true,                              // if true, video will start playing automatically, but will be muted too
@@ -238,7 +220,6 @@ const storm = new StormPlayer(playerConfig, libraryConfig);
          * Standard library configuration object
          */
         const streamConfig = {
-            configurationType: "embedded",                   // "embedded" or "gateway", please check doc for more info
             stream: {
                 serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
                     {
@@ -248,12 +229,7 @@ const storm = new StormPlayer(playerConfig, libraryConfig);
                         ssl: false                           // whenever SSL connection should be used or not
                     }
                 ],
-                sourceList: [
-                    {
-                        protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
-                        streamKey: "test",                   // streamKey of the stream
-                    },
-                ]
+                streamKey: "test"                            // streamKey
             },
             settings: {
                 autoStart: true,                              // if true, video will start playing automatically, but will be muted too

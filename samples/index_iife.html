@@ -12,7 +12,6 @@
      * Standard library configuration object
      */
     const streamConfig = {
-        configurationType: "embedded",                   // "embedded" or "gateway", please check doc for more info
         stream: {
             serverList: [                                // list of streaming server, 2nd, 3rd etc. will be used as backup
                 {
@@ -22,12 +21,7 @@
                     ssl: false                           // whenever SSL connection should be used or not
                 }
             ],
-            sourceList: [
-                {
-                    protocol: "storm",                   // either "storm" (stream was published to the server), or "rtmp". RTMP (external source)
-                    streamKey: "test",                   // streamKey of the stream
-                },
-            ]
+            streamKey: "test"                            // streamKey
         },
         settings: {
             autoStart: true,                              // if true, video will start playing automatically, but will be muted too
