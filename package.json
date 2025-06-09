@@ -39,7 +39,7 @@
     "deploy:sftp": "npm-run-all deploy:upload-sftp"
   },
   "dependencies": {
-    "@stormstreaming/stormlibrary": "4.3.0",
+    "@stormstreaming/stormlibrary": "5.0.0-rc.4",
     "@types/lodash.debounce": "^4.0.8",
     "lodash.debounce": "^4.0.8",
     "luxon": "^3.4.0",

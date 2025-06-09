@@ -1,7 +1,7 @@
 import {GraphicElement} from "../GraphicElement";
 import {StormPlayer} from "../../StormPlayer";
 import {QualityMenuElement} from "./QualityMenuElement";
-import {ISourceItem} from "@stormstreaming/stormlibrary";
+import {QualityItem} from "@stormstreaming/stormlibrary";
 
 /**
  * Class represents quality switch button
@@ -32,7 +32,7 @@ export class QualityElement extends GraphicElement {
 
             let label = "Quality";
             try {
-                label = this.stormPlayer.getRawStreamConfig().stream.sourceList.at(0).streamInfo.label;
+                label = this.stormPlayer.getLibrary().getQualityItemList().at(0).label;
             } catch(e){
                 // nobody's care
             }
@@ -57,8 +57,8 @@ export class QualityElement extends GraphicElement {
                 return;
             }
 
-            const sourceList = library.getSourceList();
-            let firstSource: ISourceItem = null
+            const sourceList = library.getQualityItemList();
+            let firstSource: QualityItem = null
             if (sourceList.length <= 1) {
                 this.hide();
                 return;
@@ -68,7 +68,7 @@ export class QualityElement extends GraphicElement {
 
             const currentSourceItem = library.getCurrentSourceItem();
             const streamInfo = currentSourceItem?.getStreamInfo();
-            const label = streamInfo?.getLabel() ?? firstSource.getStreamInfo().getLabel();
+            const label = streamInfo?.getLabel() ?? firstSource.label;
 
             this.qualityButtonElement.innerHTML = `<span>${label}</span>`;
             this.show();
@@ -119,7 +119,7 @@ export class QualityElement extends GraphicElement {
 
         this.stormPlayer.addEventListener("libraryInitialize", function () {
 
-            that.stormPlayer.getLibrary().addEventListener("playerCoreReady", function(){
+            that.stormPlayer.getLibrary().addEventListener("playerReady", function(){
                 that.refreshButton();
             });
 
@@ -137,7 +137,7 @@ export class QualityElement extends GraphicElement {
 
         });
 
-        this.stormPlayer.addEventListener("sourceChange", function(event){
+        this.stormPlayer.addEventListener("qualityChange", function(event){
             setTimeout(function(){
                 that.refreshButton();
             },100)

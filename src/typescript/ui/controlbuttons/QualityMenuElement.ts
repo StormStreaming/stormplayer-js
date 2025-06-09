@@ -1,6 +1,6 @@
 import { GraphicElement } from "../GraphicElement";
 import { StormPlayer } from "../../StormPlayer";
-import {ISourceItem} from "@stormstreaming/stormlibrary";
+import {ISourceItem, QualityItem} from "@stormstreaming/stormlibrary";
 import {QualityMenuItem} from "@app/typescript/ui/controlbuttons/QualityMenuItem";
 
 /**
@@ -40,15 +40,16 @@ export class QualityMenuElement extends GraphicElement {
 
         this.spMenuBoxElement.getHtmlElement().querySelector("ul").innerHTML = "";
 
-        const list:ISourceItem[] = this.stormPlayer.getLibrary().getSourceList();
+        const list:QualityItem[] = this.stormPlayer.getLibrary().getQualityItemList();
 
         const labelToNumber = (label: string): number => {
             return parseInt(label.replace('p', ''), 10);
         };
 
         list.sort((a, b) => {
-            const labelA = a.getStreamInfo().getLabel();
-            const labelB = b.getStreamInfo().getLabel();
+
+            const labelA = a.label;
+            const labelB = b.label;
 
             const numberA = labelA ? labelToNumber(labelA) : 0;
             const numberB = labelB ? labelToNumber(labelB) : 0;
@@ -57,7 +58,7 @@ export class QualityMenuElement extends GraphicElement {
         });
 
         for (let i = 0; i < list.length; i++) {
-            if(list[i].getStreamInfo().getLabel() != undefined) {
+            if(list[i].label != undefined) {
                 const element = new QualityMenuItem(this.stormPlayer, list[i]);
                 this.spMenuBoxElement.getHtmlElement().querySelector("ul").appendChild(element.getHTMLElement());
             }
@@ -93,7 +94,7 @@ export class QualityMenuElement extends GraphicElement {
             if(this.stormPlayer.getLibrary().isInitialized())
                 this.refreshList();
 
-            this.stormPlayer.getLibrary().addEventListener("playerCoreReady", () => {
+            this.stormPlayer.getLibrary().addEventListener("playerReady", () => {
                 this.refreshList();
             });
 
@@ -102,11 +103,11 @@ export class QualityMenuElement extends GraphicElement {
             });
 
             this.stormPlayer.getLibrary().addEventListener("playbackInitiate", () => {
-                this.setCurrentItem();
+                this.refreshList();
             });
 
             this.stormPlayer.getLibrary().addEventListener("playbackStart", () => {
-                this.setCurrentItem();
+                this.refreshList();
             });
 
         });
@@ -115,7 +116,7 @@ export class QualityMenuElement extends GraphicElement {
             this.getHtmlElement().classList.toggle("sp-menu--hidden");
         });
 
-        this.stormPlayer.addEventListener("sourceChange", () => {
+        this.stormPlayer.addEventListener("qualityChange", () => {
             setTimeout(() => {
                 this.refreshList();
             },100)

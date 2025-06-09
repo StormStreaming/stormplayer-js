@@ -35,7 +35,8 @@ export class ContextMenu extends GraphicElement {
         super.draw();
 
         let firstItemLabel = "Storm Streaming Server";
-        let secondItemLabel = "Copy Debug Log";
+        let secondItemLabel = "Copy Player Log";
+        let thirdItemLabel = "Statistics";
 
         try {
 
@@ -53,6 +54,7 @@ export class ContextMenu extends GraphicElement {
         this.htmlElement.innerHTML =`
          <li class="sp-context-menu__statistics storm">`+firstItemLabel+`</li>
          <li class="sp-context-menu__statistics debuglog">`+secondItemLabel+`</li>
+         <li class="sp-context-menu__statistics statistics">`+thirdItemLabel+`</li>
         `;
 
     }
@@ -120,6 +122,11 @@ export class ContextMenu extends GraphicElement {
         this.htmlElement.querySelector('.debuglog').addEventListener('click', () => {
             this.stormPlayer.dispatchEvent("contextMenuHid", {ref:this.stormPlayer});
             this.copyArrayToClipboard(this.stormPlayer.getLibrary().getLogger().getAllLogs());
+        });
+
+        this.htmlElement.querySelector('.statistics').addEventListener('click', () => {
+            this.stormPlayer.dispatchEvent("contextMenuHid", {ref:this.stormPlayer});
+            this.stormPlayer.dispatchEvent("boxStatShown", {ref:this.stormPlayer});
         });
 
         this.stormPlayer.addEventListener("contextMenuShown",  (ref) => {

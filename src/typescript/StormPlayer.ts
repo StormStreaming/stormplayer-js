@@ -16,7 +16,7 @@ export class StormPlayer extends EventDispatcher {
      * Version
      * @private
      */
-    private static VERSION:string = "4.0.0";
+    private static VERSION:string = "5.0.0";
 
     /**
      * Static variable for assigning IDs to the player

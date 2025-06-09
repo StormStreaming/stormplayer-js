@@ -137,8 +137,8 @@ export class LibraryManager {
         this.stormPlayer.dispatchEvent("libraryCreate",{ref:this.stormPlayer, library:this.library});
 
         // libraryReady
-        this.library.addEventListener("playerCoreReady", function(event){
-            that.stormPlayer.dispatchEvent("playerCoreReady", {ref:that.stormPlayer})
+        this.library.addEventListener("playerReady", function(event){
+            that.stormPlayer.dispatchEvent("playerReady", {ref:that.stormPlayer})
         },false)
 
         // libraryConnected
@@ -183,12 +183,12 @@ export class LibraryManager {
 
         // streamBuffering
         this.library.addEventListener("bufferingStart", function(event){
-            that.stormPlayer.dispatchEvent("bufferingStart", {ref:that.stormPlayer, mode:event.mode})
+            that.stormPlayer.dispatchEvent("bufferingStart", {ref:that.stormPlayer})
         },false)
 
         // streamBuffering
         this.library.addEventListener("bufferingComplete", function(event){
-            that.stormPlayer.dispatchEvent("bufferingComplete", {ref:that.stormPlayer, mode:event.mode})
+            that.stormPlayer.dispatchEvent("bufferingComplete", {ref:that.stormPlayer})
         },false)
 
         this.library.addEventListener("authorizationComplete", function(event){
@@ -201,17 +201,17 @@ export class LibraryManager {
 
         // playbackStarted
         this.library.addEventListener("playbackStart", function(event){
-            that.stormPlayer.dispatchEvent("playbackStart", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+            that.stormPlayer.dispatchEvent("playbackStart", {ref:that.stormPlayer, streamKey:event.streamKey})
         },false)
 
         // playbackPaused
         this.library.addEventListener("playbackPause", function(event){
-            that.stormPlayer.dispatchEvent("playbackPause", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+            that.stormPlayer.dispatchEvent("playbackPause", {ref:that.stormPlayer, streamKey:event.streamKey})
         },false)
 
         // playbackStopped
         this.library.addEventListener("playbackStop", function(event){
-            that.stormPlayer.dispatchEvent("playbackStop", {ref:that.stormPlayer, mode:event.mode, streamKey:event.streamKey})
+            that.stormPlayer.dispatchEvent("playbackStop", {ref:that.stormPlayer, streamKey:event.streamKey})
         },false)
 
         // streamEnd
@@ -253,13 +253,13 @@ export class LibraryManager {
         },false)
 
         // metadataReceived
-        this.library.addEventListener("metadataReceived", function(event){
-            that.stormPlayer.dispatchEvent("metadataReceived", {ref:that.stormPlayer, metadata:event.metadata})
+        this.library.addEventListener("streamMetadataUpdate", function(event){
+            that.stormPlayer.dispatchEvent("streamMetadataUpdate", {ref:that.stormPlayer, metadata:event.metadata})
         },false)
 
         // volumeChanged
-        this.library.addEventListener("volumeChange", function(event){
-            that.stormPlayer.dispatchEvent("volumeChange", {ref:that.stormPlayer, mode:event.mode, volume:event.volume, muted:event.muted, invokedBy:event.invokedBy})
+        this.library.addEventListener("volumeChange", (event) => {
+            this.stormPlayer.dispatchEvent("volumeChange", {ref:that.stormPlayer, volume:event.volume, muted:event.muted, invokedBy:event.invokedBy})
         },false)
 
         // videoElementCreated
@@ -288,122 +288,122 @@ export class LibraryManager {
             that.stormPlayer.dispatchEvent("streamStateChange", {ref:that.stormPlayer, streamKey:event.streamKey, state:event.state})
         },false)
 
-        this.library.addEventListener("optionalStreamData", function (event){
-
-            if(event.optData != null){
-
-                let newTheme:StormPlayerConfig = null;
-                let posterURL:string = "";
-
-                // title
-                if(event.optData.title != null)
-                    that.stormPlayer.setTitle(event.optData.title);
-                else
-                    that.stormPlayer.setTitle("");
-
-                // subtitle
-                if(event.optData.subtitle != null)
-                    that.stormPlayer.setSubtitle(event.optData.subtitle);
-                else
-                    that.stormPlayer.setSubtitle("");
-
-
-
-                // thumbnail
-                if(event.optData.thumbnail != null){
-                    const sizeName:string = event.optData.thumbnail.sizeName;
-                    for(let i:number=0;i<event.optData.thumbnail.length;i++){
-                        posterURL = event.optData.thumbnail[i].path;
-                        break;
-                    }
-                }
-
-                // theme (styles, languages, interface)
-                if(event.optData.theme != null){
-                    if(event.optData.theme != null){
-
-                        switch(typeof event.optData.theme){
-                            case "string":
-                                newTheme = JSON.parse(event.optData.theme) as StormPlayerConfig;
-                                break;
-                            case "object":
-                                newTheme = event.optData.theme as StormPlayerConfig;
-                                break;
-                        }
-                        newTheme.posterURL = posterURL;
-                    }
-                }
-
-                if(event.optData.countdown != null){
-
-                    let splashScreenURL:string = null;
-
-                    if(newTheme == null)
-                        newTheme = new Object() as StormPlayerConfig;
-
-                    newTheme.waitingRoom = {createTime:event.optData.countdown.createTime, startTime:event.optData.countdown.startTime, timeZone: event.optData.countdown.timezone } ;
-
-                    if(event.optData.splashscreen != null) {
-                        for (let i: number = 0; i < event.optData.splashscreen.length; i++) {
-                            splashScreenURL = event.optData.splashscreen[i].path;
-                            break;
-                        }
-                    }
-
-                    if(splashScreenURL != null){
-                        newTheme.waitingRoom.posterURL = splashScreenURL;
-                    }
-                }
-
-                if(event.optData.theme == null && newTheme == null)
-                    return;
-
-                that.stormPlayer.getPlayerConfigManager().matchConfig(newTheme);
-
-                // najpierw musimy się dowiedzieć czy tam miał być autostart w ogóle
-                let wasAutoStartDefined = false;
-                let initialAutoStartValue = false;
-
-                if(that.stormPlayer.getRawStreamConfig()?.settings?.autoStart != undefined){
-                    wasAutoStartDefined = true;
-                    initialAutoStartValue = that.stormPlayer.getRawStreamConfig().settings.autoStart;
-                }
-
-                if(!wasAutoStartDefined){
-
-                    if(newTheme.settings != null){
-                        if(newTheme.settings.autoStart != null){
-
-                            if(newTheme.settings.autoStart == true){
-
-                                if(!that.stormPlayer.getLibrary().getIfUnmuted())
-                                    that.stormPlayer.getLibrary().mute();
-
-                                that.stormPlayer.dispatchEvent("volumeChange", {
-                                    ref: that.stormPlayer,
-                                    mode: "",
-                                    volume: that.stormPlayer.getLibrary().getVolume(),
-                                    muted: that.stormPlayer.getLibrary().isMute(),
-                                    invokedBy: "browser"
-                                })
-
-                                that.stormPlayer.getLibrary().getConfigManager().getSettings().setAutoStart(true);
-                                that.stormPlayer.getLibrary().getPlaybackController().setCommand("play");
-
-                            } else {
-                                that.stormPlayer.getLibrary().unmute();
-                            }
-
-                        }
-                    }
-
-                }
-
-                that.stormPlayer.dispatchEvent("playerConfigUpdate", {ref: that.stormPlayer});
-
-            }
-
-        });
+        // this.library.addEventListener("optionalStreamData", function (event){
+        //
+        //     if(event.optData != null){
+        //
+        //         let newTheme:StormPlayerConfig = null;
+        //         let posterURL:string = "";
+        //
+        //         // title
+        //         if(event.optData.title != null)
+        //             that.stormPlayer.setTitle(event.optData.title);
+        //         else
+        //             that.stormPlayer.setTitle("");
+        //
+        //         // subtitle
+        //         if(event.optData.subtitle != null)
+        //             that.stormPlayer.setSubtitle(event.optData.subtitle);
+        //         else
+        //             that.stormPlayer.setSubtitle("");
+        //
+        //
+        //
+        //         // thumbnail
+        //         if(event.optData.thumbnail != null){
+        //             const sizeName:string = event.optData.thumbnail.sizeName;
+        //             for(let i:number=0;i<event.optData.thumbnail.length;i++){
+        //                 posterURL = event.optData.thumbnail[i].path;
+        //                 break;
+        //             }
+        //         }
+        //
+        //         // theme (styles, languages, interface)
+        //         if(event.optData.theme != null){
+        //             if(event.optData.theme != null){
+        //
+        //                 switch(typeof event.optData.theme){
+        //                     case "string":
+        //                         newTheme = JSON.parse(event.optData.theme) as StormPlayerConfig;
+        //                         break;
+        //                     case "object":
+        //                         newTheme = event.optData.theme as StormPlayerConfig;
+        //                         break;
+        //                 }
+        //                 newTheme.posterURL = posterURL;
+        //             }
+        //         }
+        //
+        //         if(event.optData.countdown != null){
+        //
+        //             let splashScreenURL:string = null;
+        //
+        //             if(newTheme == null)
+        //                 newTheme = new Object() as StormPlayerConfig;
+        //
+        //             newTheme.waitingRoom = {createTime:event.optData.countdown.createTime, startTime:event.optData.countdown.startTime, timeZone: event.optData.countdown.timezone } ;
+        //
+        //             if(event.optData.splashscreen != null) {
+        //                 for (let i: number = 0; i < event.optData.splashscreen.length; i++) {
+        //                     splashScreenURL = event.optData.splashscreen[i].path;
+        //                     break;
+        //                 }
+        //             }
+        //
+        //             if(splashScreenURL != null){
+        //                 newTheme.waitingRoom.posterURL = splashScreenURL;
+        //             }
+        //         }
+        //
+        //         if(event.optData.theme == null && newTheme == null)
+        //             return;
+        //
+        //         that.stormPlayer.getPlayerConfigManager().matchConfig(newTheme);
+        //
+        //         // najpierw musimy się dowiedzieć czy tam miał być autostart w ogóle
+        //         let wasAutoStartDefined = false;
+        //         let initialAutoStartValue = false;
+        //
+        //         if(that.stormPlayer.getRawStreamConfig()?.settings?.autoStart != undefined){
+        //             wasAutoStartDefined = true;
+        //             initialAutoStartValue = that.stormPlayer.getRawStreamConfig().settings.autoStart;
+        //         }
+        //
+        //         if(!wasAutoStartDefined){
+        //
+        //             if(newTheme.settings != null){
+        //                 if(newTheme.settings.autoStart != null){
+        //
+        //                     if(newTheme.settings.autoStart == true){
+        //
+        //                         if(!that.stormPlayer.getLibrary().getIfUnmuted())
+        //                             that.stormPlayer.getLibrary().mute();
+        //
+        //                         that.stormPlayer.dispatchEvent("volumeChange", {
+        //                             ref: that.stormPlayer,
+        //                             mode: "",
+        //                             volume: that.stormPlayer.getLibrary().getVolume(),
+        //                             muted: that.stormPlayer.getLibrary().isMute(),
+        //                             invokedBy: "browser"
+        //                         })
+        //
+        //                         that.stormPlayer.getLibrary().getConfigManager().getSettings().setAutoStart(true);
+        //                         that.stormPlayer.getLibrary().getPlaybackController().setCommand("play");
+        //
+        //                     } else {
+        //                         that.stormPlayer.getLibrary().unmute();
+        //                     }
+        //
+        //                 }
+        //             }
+        //
+        //         }
+        //
+        //         that.stormPlayer.dispatchEvent("playerConfigUpdate", {ref: that.stormPlayer});
+        //
+        //     }
+        //
+        // });
 
         this.library.addEventListener("fullScreenExit", () => {
             this.stormPlayer.dispatchEvent("fullscreenExit",{ref:this.stormPlayer});
@@ -429,9 +429,9 @@ export class LibraryManager {
            that.initializeLibrary();
         });
 
-        this.stormPlayer.addEventListener("videoElementCreate", function(event){
-            document.querySelector("#" + that.stormPlayer.getInstanceName()+"_video" + " video").classList.add("sp-video");
-        })
+        // this.stormPlayer.addEventListener("videoElementCreate", function(event){
+        //     document.querySelector("#" + that.stormPlayer.getInstanceName()+"_video" + " video").classList.add("sp-video");
+        // })
 
 
         // library is now ready to register events
@@ -470,15 +470,15 @@ export class LibraryManager {
             });
 
             // when video quality is changed
-            that.stormPlayer.addEventListener("sourceChange", function (event) {
+            that.stormPlayer.addEventListener("qualityChange", function (event) {
                 if(that.stormPlayer.getRawPlayerConfig().demoMode != true)
-                    that.getLibrary().playSource(event.newSource);
+                    that.getLibrary().playQualityItem(event.qualityId);
             });
 
             // when user clicks on progress bar or uses thumb to seek
-            that.stormPlayer.addEventListener("seekSet", function (event) {
-                that.getLibrary().seek(event.time);
-            });
+            // that.stormPlayer.addEventListener("seekSet", function (event) {
+            //     that.getLibrary().seek(event.time);
+            // });
 
             // when user enters full-screen mode
             that.stormPlayer.addEventListener("fullscreenEnter", function () {
