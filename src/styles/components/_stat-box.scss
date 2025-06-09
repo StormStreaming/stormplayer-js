@@ -15,10 +15,55 @@
 
   &__close-btn {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 20px;
+    right: 20px;
     line-height: 12px;
     cursor: pointer;
+
+    svg {
+      overflow-clip-margin: content-box;
+      overflow: hidden;
+      transform-origin: 0px 0px;
+      width: 24px;
+      height: 24px;
+      > g {
+        transform-origin: 0px 0px;
+        stroke: none;
+        stroke-width: 1;
+        fill: #fff;
+        fill-rule: evenodd;
+
+        > g {
+          transform: translate(-1570%, -190%);
+
+          > g {
+            transform: translate(1333%, 179%);
+
+            > g {
+              transform: translate(244.021%, 18.0208%) rotate(-315deg) translate(-244.021%, -18.0208%) translate(235.521%, 9.52081%);
+
+              rect:first-of-type {
+                transform-origin: 0px 0px;
+                x: 0;
+                y: 7.5;
+                width: 17px;
+                height: 2px;
+                rx: 1;
+              }
+
+              rect:last-of-type {
+                transform: translate(8.5%, 8.5%) rotate(-270deg) translate(-8.5%, -8.5%);
+                x: 0;
+                y: 7.5;
+                width: 17px;
+                height: 2px;
+                rx: 1;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   &__title {

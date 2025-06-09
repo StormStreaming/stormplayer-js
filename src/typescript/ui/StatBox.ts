@@ -1,12 +1,18 @@
 import {GraphicElement} from "./GraphicElement";
 import {StormPlayer} from "../StormPlayer";
 import {BandwidthGraph} from "@stormstreaming/stormlibrary/dist/types/graph/BandwidthGraph";
+import {BufferGraph} from "@stormstreaming/stormlibrary/dist/types/graph/BufferGraph";
+import {BufferStabilityGraph} from "@stormstreaming/stormlibrary/dist/types/graph/BufferStabilityGraph";
 
 /**
  * Class representing stat box
  */
 export class StatBox extends GraphicElement {
+    private isOpen: boolean = false;
     private interval: NodeJS.Timeout | null = null;
+    private stormPlayerBwGraph: BandwidthGraph = null;
+    private stormPlayerBufferGraph: BufferGraph = null;
+    private stormPlayerBufferStabilityGraph: BufferStabilityGraph = null;
 
 
     /**
@@ -15,9 +21,6 @@ export class StatBox extends GraphicElement {
      */
     constructor(stormPlayer: StormPlayer) {
         super(stormPlayer, "sp-stat-box");
-
-        this.interval = null;
-
     }
 
     /**
@@ -29,7 +32,20 @@ export class StatBox extends GraphicElement {
 
         this.htmlElement.classList.add("sp-hidden");
         this.htmlElement.innerHTML =`
-         <span class="sp-stat-box__close-btn">x</span>
+         <span class="sp-stat-box__close-btn">
+             <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="sss_home_cart" transform="translate(-1570.000000, -190.000000)" fill="#FFFFFF">
+                        <g id="produkt" transform="translate(1333.000000, 179.000000)">
+                            <g id="Group-3" transform="translate(244.020815, 18.020815) rotate(-315.000000) translate(-244.020815, -18.020815) translate(235.520815, 9.520815)">
+                                <rect id="Rectangle" x="0" y="7.5" width="17" height="2" rx="1"></rect>
+                                <rect id="Rectangle-Copy-12" transform="translate(8.500000, 8.500000) rotate(-270.000000) translate(-8.500000, -8.500000) " x="0" y="7.5" width="17" height="2" rx="1"></rect>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </span>
          <span class="sp-stat-box__title">Statistics</span>
          <div class="sp-stat-box__stats">
              <div>
@@ -91,7 +107,7 @@ export class StatBox extends GraphicElement {
                  <div>
                     <div>
                         <span>Buffer Graph</span>
-                        <span></span>
+                        <span id="stormPlayer-BufferGraph" style="width:100px;height:20px"></span>
                     </div>
                     <div>
                         <span>Buffer Size</span>
@@ -99,7 +115,7 @@ export class StatBox extends GraphicElement {
                     </div>
                     <div>
                         <span>Buffer Stability Graph</span>
-                        <span></span>
+                        <span id="stormPlayer-BufferStabilityGraph" style="width:100px;height:20px"></span>
                     </div>
                     <div>
                         <span>Buffer Stability Trend</span>
@@ -144,7 +160,14 @@ export class StatBox extends GraphicElement {
 
         let that:StatBox = this;
 
-        let stormPlayerBwGraph:BandwidthGraph = this.stormPlayer.getLibrary().createBandwidthGraph("stormPlayer-bwGraph", 50).start();
+        if(!this.stormPlayerBufferGraph)
+            this.stormPlayerBufferGraph = this.stormPlayer.getLibrary().createBufferGraph("stormPlayer-BufferGraph", 50);
+
+        if(!this.stormPlayerBwGraph)
+            this.stormPlayerBwGraph = this.stormPlayer.getLibrary().createBandwidthGraph("stormPlayer-bwGraph", 50);
+
+        if(!this.stormPlayerBufferStabilityGraph)
+            this.stormPlayerBufferStabilityGraph = this.stormPlayer.getLibrary().createBufferStabilityGraph("stormPlayer-BufferStabilityGraph", 50);
 
         this.interval = setInterval(() => {
             document.getElementById("stormPlayer-playbackRateValue").innerHTML = this.stormPlayer.getLibrary().getPlaybackRate().toString() ?? "Unknown";
@@ -201,17 +224,46 @@ export class StatBox extends GraphicElement {
         let that:StatBox = this;
 
         this.stormPlayer.addEventListener("boxStatShown", function (event) {
+            if (that.isOpen) {
+                return
+            }
             that.update();
             that.showStatBox();
             document.getElementById("stormPlayer-streamKeyValue").innerHTML = that.stormPlayer.getLibrary().getCurrentSourceItem().getStreamKey();
             document.getElementById("stormPlayer-playbackStateValue").innerHTML = that.stormPlayer.getLibrary().getPlaybackState();
             document.getElementById("stormPlayer-volumeValue").innerHTML = that.stormPlayer.getLibrary().getVolume().toString();
             document.getElementById("stormPlayer-mutedValue").innerHTML = that.stormPlayer.getLibrary().isMute().toString();
+
+            if(that.stormPlayerBufferGraph)
+                that.stormPlayerBufferGraph.start();
+
+            if(that.stormPlayerBwGraph)
+                that.stormPlayerBwGraph.start();
+
+            if(that.stormPlayerBufferStabilityGraph)
+                that.stormPlayerBufferStabilityGraph.start();
+
+            that.isOpen = !that.isOpen
         });
 
         this.stormPlayer.addEventListener("boxStatHid", function () {
+            if (!that.isOpen) {
+                return
+            }
+
             that.hideStatBox();
             clearInterval(that.interval);
+
+            if(that.stormPlayerBufferGraph)
+                that.stormPlayerBufferGraph.stop();
+
+            if(that.stormPlayerBwGraph)
+                that.stormPlayerBwGraph.stop();
+
+            if(that.stormPlayerBufferStabilityGraph)
+                that.stormPlayerBufferStabilityGraph.stop();
+
+            that.isOpen = !that.isOpen
         });
 
         this.stormPlayer.addEventListener("volumeChange", function (event) {
