@@ -78,6 +78,13 @@
     flex-wrap: wrap;
     gap: 40px;
 
+    input {
+      text-align: right;
+      font-weight: 700;
+      max-width: 100px;
+      cursor: text;
+    }
+
     > div {
       display: flex;
       flex-direction: column;

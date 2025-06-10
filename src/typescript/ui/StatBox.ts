@@ -53,7 +53,7 @@ export class StatBox extends GraphicElement {
                  <div>
                     <div>
                         <span>Stream Key</span>
-                        <span id="stormPlayer-streamKeyValue"></span>
+                        <input id="stormPlayer-streamKeyValue" readonly>
                     </div>
                     <div>
                         <span>Playback Status</span>
@@ -156,7 +156,39 @@ export class StatBox extends GraphicElement {
         `;
     }
 
-    public update():void {
+    private formatSecondsWithMilliseconds(milliseconds: number):string {
+
+        const hours = Math.floor(milliseconds / 3600000);
+        milliseconds %= 3600000;
+        const minutes = Math.floor(milliseconds / 60000);
+        milliseconds %= 60000;
+        const seconds = Math.floor(milliseconds / 1000);
+        const milisecondsLeft = milliseconds % 1000;
+
+        const formattedHours = hours < 10 ? '0' + hours : hours;
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+        const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
+        const formattedMilliseconds = milisecondsLeft.toString().padStart(3, '0');
+
+        return `${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
+    }
+
+    private formatUnixTime(unixTime: number):string {
+        const date = new Date(unixTime);
+
+        const pad = (num: number) => num.toString().padStart(2, '0');
+
+        const day = pad(date.getDate());
+        const month = pad(date.getMonth() + 1);
+        const year = date.getFullYear();
+        const hours = pad(date.getHours());
+        const minutes = pad(date.getMinutes());
+        const seconds = pad(date.getSeconds());
+
+        return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
+    }
+
+    private update():void {
 
         let that:StatBox = this;
 
@@ -178,11 +210,11 @@ export class StatBox extends GraphicElement {
 
             document.getElementById("stormPlayer-maxBandwidthValue").innerHTML = ((this.stormPlayer.getLibrary().getBandwidthMeter().maxBandwidth ?? 0) / 1000).toFixed(2) + " kbps";
 
-            document.getElementById("stormPlayer-bwStabilityTrend").innerHTML = (this.stormPlayer.getLibrary().getBandwidthAnalyser().currentTrend ?? "unknown") + " (" + (this.stormPlayer.getLibrary().getBandwidthAnalyser().trendDuration ?? 0).toFixed(3) + " s)";
+            document.getElementById("stormPlayer-bwStabilityTrend").innerHTML = (this.stormPlayer.getLibrary().getBandwidthAnalyser().currentTrend ?? "Unknown") + " (" + (this.stormPlayer.getLibrary().getBandwidthAnalyser().trendDuration ?? 0).toFixed(3) + " s)";
 
             document.getElementById("stormPlayer-bufferSizeValue").innerHTML = (this.stormPlayer.getLibrary().getBufferAnalyser().bufferSize ?? 0).toFixed(2) + " s";
 
-            document.getElementById("stormPlayer-bufferStabilityTrend").innerHTML = this.stormPlayer.getLibrary().getBufferAnalyser().stability ?? "unknown";
+            document.getElementById("stormPlayer-bufferStabilityTrend").innerHTML = this.stormPlayer.getLibrary().getBufferAnalyser().stability ?? "Unknown";
 
             document.getElementById("stormPlayer-bufferStabilityDev").innerHTML = (this.stormPlayer.getLibrary().getBufferAnalyser().bufferDeviation ?? 0).toFixed(3);
         }, 100)
@@ -229,7 +261,7 @@ export class StatBox extends GraphicElement {
             }
             that.update();
             that.showStatBox();
-            document.getElementById("stormPlayer-streamKeyValue").innerHTML = that.stormPlayer.getLibrary().getCurrentSourceItem().getStreamKey();
+            (document.getElementById("stormPlayer-streamKeyValue") as HTMLInputElement).value = that.stormPlayer.getLibrary().getCurrentSourceItem().getStreamKey();
             document.getElementById("stormPlayer-playbackStateValue").innerHTML = that.stormPlayer.getLibrary().getPlaybackState();
             document.getElementById("stormPlayer-volumeValue").innerHTML = that.stormPlayer.getLibrary().getVolume().toString();
             document.getElementById("stormPlayer-mutedValue").innerHTML = that.stormPlayer.getLibrary().isMute().toString();
@@ -273,10 +305,10 @@ export class StatBox extends GraphicElement {
         })
 
         this.stormPlayer.addEventListener("playbackProgress", function (event) {
-            document.getElementById("stormPlayer-playbackStartTimeValue").innerHTML = event.playbackStartTime.toString();
-            document.getElementById("stormPlayer-playbackDurationValue").innerHTML = event.playbackDuration.toString();
-            document.getElementById("stormPlayer-streamDurationValue").innerHTML = event.streamDuration.toString();
-            document.getElementById("stormPlayer-streamStartTimeValue").innerHTML = event.streamStartTime.toString();
+            document.getElementById("stormPlayer-playbackStartTimeValue").innerHTML = that.formatUnixTime(event.playbackStartTime);
+            document.getElementById("stormPlayer-playbackDurationValue").innerHTML = that.formatSecondsWithMilliseconds(event.playbackDuration);
+            document.getElementById("stormPlayer-streamDurationValue").innerHTML = that.formatSecondsWithMilliseconds(event.streamDuration);
+            document.getElementById("stormPlayer-streamStartTimeValue").innerHTML = that.formatUnixTime(event.streamStartTime);
         })
 
         this.stormPlayer.addEventListener("streamStateChange", function (event) {
@@ -284,7 +316,7 @@ export class StatBox extends GraphicElement {
         })
 
         this.stormPlayer.addEventListener("playbackStateChange", function (event) {
-            document.getElementById("stormPlayer-streamKeyValue").innerHTML = event.streamKey;
+            (document.getElementById("stormPlayer-streamKeyValue") as HTMLInputElement).value = event.streamKey;
             document.getElementById("stormPlayer-playbackStateValue").innerHTML = event.state;
         })
     }
