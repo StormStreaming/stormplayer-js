@@ -32,7 +32,7 @@ export class CuePointElement extends GraphicElement {
 
         this.htmlElement.setAttribute("data-title", this.title);
         this.htmlElement.addEventListener("mousedown", function (e) {
-          stormPlayer.getLibrary().seek(time);
+          //stormPlayer.getLibrary().seek(time);
         });
 
         this.hide();

@@ -68,12 +68,12 @@ export class ErrorElement extends GraphicElement {
         this.stormPlayer.addEventListener("libraryCreate", () => {
 
             this.stormPlayer.getLibrary().addEventListener("serverDisconnect", () => {
-                if(!this.stormPlayer.getLibrary().getConfigManager().getSettings().getIfRestartOnError())
+                if(!this.stormPlayer.getLibrary().getConfigManager().getSettingsData().getIfRestartOnError())
                     this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getPlayerDisconnectedText());
             });
 
             this.stormPlayer.getLibrary().addEventListener("serverConnectionError", () => {
-                if(!this.stormPlayer.getLibrary().getConfigManager().getSettings().getIfRestartOnError())
+                if(!this.stormPlayer.getLibrary().getConfigManager().getSettingsData().getIfRestartOnError())
                     this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getServersFailedText());
             });
 
@@ -131,7 +131,7 @@ export class ErrorElement extends GraphicElement {
                         that.waitingRoom = new WaitingRoom(that.stormPlayer);
                         that.stormPlayer.getMainElement().spContainer.getHtmlElement().appendChild(this.waitingRoom.getHtmlElement());
 
-                    } else if(!this.stormPlayer.getLibrary().getConfigManager().getSettings().getIfAutoStart()){
+                    } else if(!this.stormPlayer.getLibrary().getConfigManager().getSettingsData().autoStart){
 
                         // console.log nic...
 
@@ -192,12 +192,15 @@ export class ErrorElement extends GraphicElement {
 
             });
 
+            /*
             this.stormPlayer.addEventListener("playClick",() => {
                 if(this.stormPlayer.getLibrary().getPlaybackState() == "awaiting"){
                     this.showErrorMessage(this.stormPlayer.getPlayerConfigManager().getAwaitingText());
                     this.stormPlayer.getLibrary().getConfigManager().getSettings().setAutoStart(true);
                 }
             })
+
+             */
 
             this.stormPlayer.addEventListener("streamConfigUpdate", () => {
                 this.hide();

@@ -69,8 +69,8 @@ const config = {
             open: true,
             verbose: true,
             contentBase: ["", "tests"],
-            host: "192.168.0.2",
-            port: 8088,
+            host: "127.0.0.1",
+            port: 8089,
         }),
         url({
             include: ["**/*.woff2"],

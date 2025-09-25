@@ -1,5 +1,9 @@
 # Change Log
 
+## 5.0.0
+
+- Upgraded StormLibrary to 5.0.0,
+
 ## 4.3.0
 
 - Upgraded StormLibrary to 4.3.0,

@@ -231,45 +231,33 @@ export class MainElement extends GraphicElement {
         },100));
 
         this.stormPlayer.addEventListener("authorizationComplete", ()=>{
-            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
-               this.spContainer.show();
-               this.loaderElement.hide();
-            }
+           this.spContainer.show();
+           this.loaderElement.hide();
         })
 
         this.stormPlayer.addEventListener("authorizationError", ()=>{
-            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
-                this.spContainer.show();
-                this.loaderElement.hide();
-            }
+            this.spContainer.show();
+            this.loaderElement.hide();
         })
 
         this.stormPlayer.addEventListener("serverConnectionError", ()=>{
-            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
-                this.spContainer.show();
-                this.loaderElement.hide();
-            }
+            this.spContainer.show();
+            this.loaderElement.hide();
         })
 
         this.stormPlayer.addEventListener("streamNotFound", ()=>{
-            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
-                this.spContainer.show();
-                this.loaderElement.hide();
-            }
+            this.spContainer.show();
+            this.loaderElement.hide();
         })
 
         this.stormPlayer.addEventListener("streamStateChange", ()=>{
-            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
-                this.spContainer.show();
-                this.loaderElement.hide();
-            }
+            this.spContainer.show();
+            this.loaderElement.hide();
         })
 
         this.stormPlayer.addEventListener("streamStop", ()=>{
-            if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
-                this.spContainer.show();
-                this.loaderElement.hide();
-            }
+            this.spContainer.show();
+            this.loaderElement.hide();
         })
 
     }
@@ -530,11 +518,9 @@ export class MainElement extends GraphicElement {
 
         this.loaderElement = new LoaderElement(this.stormPlayer);
 
-        if (this.stormPlayer.getRawStreamConfig().configurationType == "gateway"){
-            this.htmlElement.appendChild(this.loaderElement.getHtmlElement());
-            this.loaderElement.show();
-            this.spContainer.hide();
-        }
+        this.htmlElement.appendChild(this.loaderElement.getHtmlElement());
+        this.loaderElement.show();
+        this.spContainer.hide();
 
         this.contextMenu = new ContextMenu(this.stormPlayer);
         this.spContainer.getHtmlElement().appendChild(this.contextMenu.getHtmlElement());

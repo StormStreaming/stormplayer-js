@@ -79,10 +79,6 @@ export class VolumeElement extends GraphicElement {
      */
     public setVolume(percent: any): void {
 
-        if (this.stormPlayer.getLibraryManager().getConfig().settings.audio &&
-            this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume && percent > this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume)
-          percent = this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume;
-
         let px = (percent * 70) / 100;
         this.volumeProgressElement.style.transform = `translateX(${px}px)`;
 
@@ -99,9 +95,6 @@ export class VolumeElement extends GraphicElement {
      * @private
      */
     private updateVolume(percent:number):void {
-
-        if (this.stormPlayer.getLibraryManager().getConfig().settings.audio && this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume && percent > this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume)
-            percent = this.stormPlayer.getLibraryManager().getConfig().settings.audio.maxVolume;
 
         let px = (percent * 70) / 100;
         this.volumeProgressElement.style.transform = `translateX(${px}px)`;

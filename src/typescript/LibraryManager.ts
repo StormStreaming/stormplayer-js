@@ -409,6 +409,62 @@ export class LibraryManager {
             this.stormPlayer.dispatchEvent("fullscreenExit",{ref:this.stormPlayer});
         })
 
+        this.library.addEventListener("serverConnectionRestart", function(event){
+            that.stormPlayer.dispatchEvent("serverConnectionRestart", {ref:that.stormPlayer, isSilent:event.isSilent})
+        }, false)
+
+        this.library.addEventListener("playbackRequest", function(event){
+            that.stormPlayer.dispatchEvent("playbackRequest", {ref:that.stormPlayer, streamKey:event.streamKey})
+        }, false)
+
+        this.library.addEventListener("playbackForcePause", function(event){
+            that.stormPlayer.dispatchEvent("playbackForcePause", {ref:that.stormPlayer})
+        }, false)
+
+        this.library.addEventListener("playbackForceMute", function(event){
+            that.stormPlayer.dispatchEvent("playbackForceMute", {ref:that.stormPlayer})
+        }, false)
+
+        this.library.addEventListener("subscriptionStart", function(event){
+            that.stormPlayer.dispatchEvent("subscriptionStart", {ref:that.stormPlayer, streamKey:event.streamKey})
+        }, false)
+
+        this.library.addEventListener("subscriptionComplete", function(event){
+            that.stormPlayer.dispatchEvent("subscriptionComplete", {ref:that.stormPlayer, streamKey:event.streamKey, sourceList:event.sourceList})
+        }, false)
+
+        this.library.addEventListener("subscriptionFailed", function(event){
+            that.stormPlayer.dispatchEvent("subscriptionFailed", {ref:that.stormPlayer, streamKey:event.streamKey})
+        }, false)
+
+        this.library.addEventListener("playbackStateChange", function(event){
+            that.stormPlayer.dispatchEvent("playbackStateChange", {ref:that.stormPlayer, streamKey:event.streamKey, state:event.state})
+        }, false)
+
+        this.library.addEventListener("qualityListUpdate", function(event){
+            that.stormPlayer.dispatchEvent("qualityListUpdate", {ref:that.stormPlayer, qualityList:event.qualityList})
+        }, false)
+
+        this.library.addEventListener("containerChange", function(event){
+            that.stormPlayer.dispatchEvent("containerChange", {ref:that.stormPlayer, container:event.container})
+        }, false)
+
+        this.library.addEventListener("resizeUpdate", function(event){
+            that.stormPlayer.dispatchEvent("resizeUpdate", {ref:that.stormPlayer, width:event.width, height:event.height})
+        }, false)
+
+        this.library.addEventListener("sourceDowngrade", function(event){
+            that.stormPlayer.dispatchEvent("sourceDowngrade", {ref:that.stormPlayer, bandwidthCap:event.bandwidthCap})
+        }, false)
+
+        this.library.addEventListener("videoUnmuted", function(event){
+            that.stormPlayer.dispatchEvent("videoUnmuted", {ref:that.stormPlayer})
+        }, false)
+
+        this.library.addEventListener("fullScreenEnter", function(event){
+            that.stormPlayer.dispatchEvent("fullScreenEnter", {ref:that.stormPlayer})
+        }, false)
+
         this.library.initialize();
         this.stormPlayer.dispatchEvent("libraryInitialize",{ref:this.stormPlayer, library:this.library});
 
